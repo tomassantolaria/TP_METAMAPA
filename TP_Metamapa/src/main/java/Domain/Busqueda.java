@@ -1,4 +1,5 @@
 package Domain;
+import Domain.Colecciones.Coleccion;
 import lombok.Getter;
 
 @Getter

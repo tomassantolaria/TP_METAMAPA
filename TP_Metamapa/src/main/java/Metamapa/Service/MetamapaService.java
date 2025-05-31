@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.time.LocalDate;
 import java.util.List;
 import Metamapa.Controller.CriterioDTO;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Filter;
+
 
 public class MetamapaService {
 
@@ -21,9 +22,10 @@ public class MetamapaService {
         this.metamapaRepository = metamapaRepository;
     }
 
-    public List<HechoDTO> filtrarHechos(@RequestBody CriterioDTO criterioDTO) {
+    public List<HechoDTO> filtrarHechos(@RequestBody CriterioDTO criterioDTO, Long id) {
+        Coleccion coleccion = coleccionService.obtenerOCriarExcepcion(id);
         Busqueda criterios_busqueda = this.crearBusqueda(criterioDTO);
-        // mandar a organizador y hacer busqueda
+        Organizador organizador = new Organizador();
     }
 
     private Busqueda crearBusqueda(CriterioDTO criterios) {

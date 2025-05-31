@@ -6,4 +6,5 @@ public class FiltroCategoria implements Filtro{
         Categoria categoria = criterios.getCategoria();
         return categoria == null || unHecho.getCategoria() == categoria;
     }
+    public FiltroCategoria(){}
 }
