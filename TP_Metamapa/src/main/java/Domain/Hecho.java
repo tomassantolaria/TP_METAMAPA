@@ -57,4 +57,8 @@ public class Hecho{
         visible = false;
     }
 
+    public ContenidoMultimedia obtenerContenidoMultimedia(){
+        return contenido.getContenidoMultimedia();
+    }
+
 }

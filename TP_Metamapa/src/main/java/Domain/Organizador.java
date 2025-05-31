@@ -27,7 +27,7 @@ public class Organizador {
         filtros.add(filtroTitulo);
         FiltroCategoria filtroCategoria = new FiltroCategoria();
         filtros.add(filtroCategoria);
-        FiltroContenidoMultimedia filtroContenidoMultimedia = new FiltroContenidoMUltimedia();
+        FiltroContenidoMultimedia filtroContenidoMultimedia = new FiltroContenidoMultimedia();
         filtros.add(filtroContenidoMultimedia);
         return filtros;
     }
