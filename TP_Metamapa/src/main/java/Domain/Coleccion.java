@@ -1,0 +1,30 @@
+package Domain;
+import java.util.List;
+
+public class Coleccion {
+    private String titulo;
+    private String descripcion;
+    private CriterioDePertenencia criterio_pertenencia;
+    private List<Hecho> hechos;
+    private int idFuente;
+
+    public void eliminarHecho(Hecho unHecho) {
+        if (hechos.contains(unHecho)) {
+            hechos.remove(unHecho);
+        } else {
+            throw new HechoNoPerteneceException("El hecho no pertenece a la colección");
+        }
+    }
+
+    public void agregarHecho(Hecho unHecho) {
+        if (hechos.contains(unHecho)) {
+            throw new HechoYaExisteException("El hecho ya pertenece a la colección");
+        } else {
+            hechos.add(unHecho);
+        }
+    }
+}
+
+
+
+

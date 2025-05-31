@@ -1,0 +1,9 @@
+package Domain;
+
+public class FiltroCategoria implements Filtro{
+    @Override
+    public boolean cumple(Hecho unHecho, Criterios criterios){
+        Categoria categoria = criterios.getCategoria();
+        return categoria == null || unHecho.getCategoria() == categoria;
+    }
+}
