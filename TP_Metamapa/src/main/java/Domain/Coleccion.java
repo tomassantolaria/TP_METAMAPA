@@ -1,6 +1,10 @@
 package Domain;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Coleccion {
     private String titulo;
     private String descripcion;

@@ -1,5 +1,6 @@
 package Metamapa.Service;
 
+import Dinamica.Controller.HechoDTO;
 import Domain.*;
 import Metamapa.Repository.MetamapaRepository;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,12 +17,13 @@ public class MetamapaService {
     private final MetamapaRepository metamapaRepository;
 
     public MetamapaService(MetamapaRepository metamapaRepository) {
+
         this.metamapaRepository = metamapaRepository;
     }
 
-    public List<Hecho> filtrarHechos(@RequestBody CriterioDTO criterioDTO) {
+    public List<HechoDTO> filtrarHechos(@RequestBody CriterioDTO criterioDTO) {
         Busqueda criterios_busqueda = this.crearBusqueda(criterioDTO);
-        // mandar a organizador y hacer busquedas
+        // mandar a organizador y hacer busqueda
     }
 
     private Busqueda crearBusqueda(CriterioDTO criterios) {
@@ -30,7 +32,7 @@ public class MetamapaService {
         busqueda.setDescripcion(criterios.getDescripcion());
         Categoria categoria = new Categoria(criterios.getCategoria());
         busqueda.setCategoria(categoria);
-        ContenidoMultimedia contenido_multimedia = criterios.getContenido_multimedia();
+        ContenidoMultimedia contenido_multimedia = new ContenidoMultimedia(criterios.getContenido_multimedia());
         Contenido contenido = new Contenido(criterios.getContenido_texto(),contenido_multimedia);
         busqueda.setContenido(contenido);
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");

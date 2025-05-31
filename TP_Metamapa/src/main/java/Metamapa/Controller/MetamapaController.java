@@ -26,11 +26,10 @@ public class MetamapaController {
     @RequestMapping("/coleccion/filtrar")
     public List<HechoDTO> coleccion (@RequestBody CriterioDTO criterios) {
         List<HechoDTO> resultados = metamapaService.filtrarHechos(criterios);
-        return ResponseEntity.ok(resultados);
+        return resultados;
     }
 
     @PostMapping("/hechos")
-    public ResponseEntity<String> cargarHecho(@RequestBody String hechoDTO) {
-        return 0;
+    public ResponseEntity<String> cargarHecho(@RequestBody String hechoDTO) {}
     }
 }
