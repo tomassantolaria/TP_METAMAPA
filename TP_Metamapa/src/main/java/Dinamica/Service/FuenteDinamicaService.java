@@ -1,10 +1,14 @@
 package Dinamica.Service;
 
+import Dinamica.Repository.FuenteDinamicaRepository;
 import Domain.*;
-import Dinamica.Controller.HechoContribuyenteDTO;
+import Domain.Hecho;
+import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+@Service
 public class FuenteDinamicaService {
 
     private final CategoriaRepository categoriaRepository;
@@ -13,29 +17,38 @@ public class FuenteDinamicaService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    //Yo creo que la logica de revisar si un hecho ya existe se tiene que hacer aca porque esto es lo que va a interactuar con el repository
-    public void crearHechoDTO(HechoContribuyenteDTO dto) {
+    private final FuenteDinamicaRepository fuenteDinamicaRepository;
+
+    public FuenteDinamicaService(FuenteDinamicaRepository fuenteDinamicaRepository) {
+        this.fuenteDinamicaRepository = fuenteDinamicaRepository;
+    }
+
+    public void crearHecho(HechoDTO dto) {
         // Obtener o crear la categoría
         Categoria categoria = categoriaRepository.obtenerOCrearPorNombre(dto.getCategoria());
         ContenidoMultimedia contenido_multimedia = new ContenidoMultimedia(dto.getContenido_multimedia());
         Contenido contenido = new Contenido(dto.getContenido(),contenido_multimedia);
         Ubicacion ubicacion = new Ubicacion(dto.getLugar(),dto.getLatitud(),dto.getLongitud());
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fecha =  LocalDate.parse(dto.getFecha(), formato);
 
-        HechoContribuyente hechoContribuyente = HechoContribuyente.getInstance(
+        boolean anonimo = Boolean.parseBoolean(dto.getAnonimo());
+        LocalDate hoy = LocalDate.now();
+
+        Hecho hecho = Hecho.getInstance(
                 dto.getTitulo(),
                 dto.getDescripcion(),
                 contenido,
                 categoria,
-                dto.getFecha(),
+                fecha,
                 ubicacion,
-                new Date(),
+                hoy,
                 OrigenCarga.FUENTE_DINAMICA,
-                true, // visible por defecto
-                dto.getTitulo(), //Tiran error por el getInstance
-                dto.getApellido(),
-                dto.getFecha_Nacimiento(),
-                dto.getAnonimo()
+                false, // visible por defecto
+                dto.getUsuario(),
+                anonimo
         );
+        fuenteDinamicaRepository.guardarHecho(hecho);
     }
-    public
+
 }

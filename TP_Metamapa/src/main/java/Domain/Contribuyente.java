@@ -1,10 +1,14 @@
 package Domain;
-import java.util.Date;
+import lombok.Setter;
 
+import java.time.LocalDate;
+
+@Setter
 public class Contribuyente {
+    public String usuario;
     public String nombre;
     public String apellido;
-    public Date fecha_nacimiento;
+    public LocalDate fecha_nacimiento;
 
     public void solicitarEliminacionDeHecho(Hecho unHecho){
 

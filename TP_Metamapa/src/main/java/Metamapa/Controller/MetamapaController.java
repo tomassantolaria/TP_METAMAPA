@@ -3,7 +3,8 @@ package Metamapa.Controller;
 import Metamapa.Service.MetamapaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import Dinamica.Controller.HechoContribuyenteDTO;
+import Domain.HechoDTO;
+import Domain.ContribuyenteDTO;
 
 import java.util.List;
 
@@ -20,14 +21,20 @@ public class MetamapaController {
     }
 
     @RequestMapping("coleccion/{id}/filtrar")
-    public List<HechoContribuyenteDTO> coleccionFiltrada(@PathVariable Long id, @RequestBody CriterioDTO criterios) {
+    public List<HechoDTO> coleccionFiltrada(@PathVariable Long id, @RequestBody CriterioDTO criterios) {
         return metamapaService.filtrarHechos(criterios, id);
     }
 
     @PostMapping("/hechos")
-    public ResponseEntity<String> cargarHecho(@RequestBody String hechoDTO) {}
+    public ResponseEntity<String> cargarHecho(@RequestBody HechoDTO hechoDTO){
+        metamapaService.cargarHecho(hechoDTO);
+        return ResponseEntity.ok("Hechos creado correctamente");
     }
 
 
-
+    @PostMapping("/registrarse")
+    public ResponseEntity<String> registrarse(@RequestBody ContribuyenteDTO contribuyente){
+        metamapaService.registrar(contribuyente);
+        return ResponseEntity.ok("Registro registrado exitosamente");
+    }
 }

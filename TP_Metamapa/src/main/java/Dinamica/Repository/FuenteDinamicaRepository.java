@@ -17,4 +17,6 @@ public class FuenteDinamicaRepository {
     public List<Hecho> obtenerTodos() {
         return hechos;
     }
+
+
 }

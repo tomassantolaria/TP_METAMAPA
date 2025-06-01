@@ -1,5 +1,6 @@
 package Dinamica.Controller;
 
+import Domain.HechoDTO;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class FuenteDinamicaController {
         }
 
         @PostMapping("/hechos")
-        public ResponseEntity<String> crearHecho(@RequestBody HechoContribuyenteDTO hechoContribuyenteDTO) {
+        public ResponseEntity<String> crearHecho(@RequestBody HechoDTO hechoContribuyenteDTO) {
             fuenteDinamicaService.crearHechoDTO(hechoContribuyenteDTO);
             return ResponseEntity.ok("Hecho creado exitosamente.");
         }
