@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class Hecho{
-    private static final Map<String, Hecho> hechosConTitulos = new HashMap<> ();
+    public static final Map<String, Hecho> hechosConTitulos = new HashMap<> ();
     public String titulo;
     public String descripcion;
     public Contenido contenido;
@@ -34,14 +34,13 @@ public class Hecho{
         this.visible = estaVisible;
     }
 
-    public static Hecho getInstance(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, Date unaFechaOcurrencia, Ubicacion unaUbicacion, Date unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible){
+    public static Hecho getInstance(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria,
+                                    Date unaFechaOcurrencia, Ubicacion unaUbicacion, Date unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible){
+
         Hecho hechoConEseTitulo = hechosConTitulos.get(unTitulo);
-        if (hechoConEseTitulo == null)
-        {
+        if (hechoConEseTitulo == null) {
             hechoConEseTitulo = new Hecho (unTitulo,unaDescripcion,unContenido,unaCategoria,unaFechaOcurrencia,unaUbicacion,unaFechaCarga, unOrigen, estaVisible);
-        }
-        else
-        {
+        }else{
             hechoConEseTitulo.sobreescribirse(unaDescripcion, unContenido, unaCategoria, unaFechaOcurrencia, unaUbicacion, unaFechaCarga, unOrigen, estaVisible);
         }
         return hechoConEseTitulo;

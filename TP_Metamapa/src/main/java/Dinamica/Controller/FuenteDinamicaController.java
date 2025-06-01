@@ -20,8 +20,8 @@ public class FuenteDinamicaController {
         }
 
         @PostMapping("/hechos")
-        public ResponseEntity<String> crearHecho(@RequestBody HechoDTO hechoDTO) {
-            fuenteDinamicaService.crearHechoDesdeDTO(hechoDTO);
+        public ResponseEntity<String> crearHecho(@RequestBody HechoContribuyenteDTO hechoContribuyenteDTO) {
+            fuenteDinamicaService.crearHechoDTO(hechoContribuyenteDTO);
             return ResponseEntity.ok("Hecho creado exitosamente.");
         }
 
