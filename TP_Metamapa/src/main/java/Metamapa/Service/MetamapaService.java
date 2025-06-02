@@ -24,13 +24,11 @@ public class MetamapaService {
 
         this.metamapaRepository = metamapaRepository;
     }
-
     public List<HechoDTO> filtrarHechos(@RequestBody CriterioDTO criterioDTO, Long id) {
         Coleccion coleccion = coleccionService.obtenerOCriarExcepcion(id);
         Busqueda criterios_busqueda = this.crearBusqueda(criterioDTO);
         Organizador organizador = new Organizador();
     }
-
     private Busqueda crearBusqueda(CriterioDTO criterios) {
         Busqueda busqueda = new Busqueda();
         busqueda.setTitulo(criterios.getTitulo());

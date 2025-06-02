@@ -1,4 +1,4 @@
 package Modelos.Entidades;
 
-public class Hechos {
+public class Estado {
 }
