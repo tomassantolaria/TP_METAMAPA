@@ -25,11 +25,12 @@ public class FuenteDinamicaService {
         Categoria categoria = categoriaRepository.obtenerOCrearPorNombre(dto.getCategoria());
         ContenidoMultimedia contenido_multimedia = new ContenidoMultimedia(dto.getContenido_multimedia());
         Contenido contenido = new Contenido(dto.getContenido(),contenido_multimedia);
-        Ubicacion ubicacion = new Ubicacion(dto.getLugar(),dto.getLatitud(),dto.getLongitud());
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Ubicacion ubicacion = new Ubicacion(dto.getLugar(), null, null);
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/mm/yyyy");
         LocalDate fecha =  LocalDate.parse(dto.getFecha(), formato);
+        Contribuyente contribuyente = //new Contribuyente() - Pensar lógica de esta parte. Un contribuyente cuando cree un hecho que va a agregar de su informacion en el formulario
         boolean anonimo = Boolean.parseBoolean(dto.getAnonimo());
-        LocalDate hoy = LocalDate.now();
+        LocalDate fecha_carga = LocalDate.now();
 
         Hecho hecho = Hecho.getInstance(
                 dto.getTitulo(),
@@ -38,9 +39,9 @@ public class FuenteDinamicaService {
                 categoria,
                 fecha,
                 ubicacion,
-                hoy,
+                fecha_carga,
                 OrigenCarga.FUENTE_DINAMICA,
-                false, // visible por defecto
+                false,
                 dto.getUsuario(),
                 anonimo
         );

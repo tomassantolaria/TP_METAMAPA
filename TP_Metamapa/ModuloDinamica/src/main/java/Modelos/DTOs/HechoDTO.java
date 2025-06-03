@@ -15,10 +15,7 @@ public class HechoDTO {
     public String categoria;
     public String fecha;
     public String lugar;
-    public String latitud;
-    public String longitud;
     public String visible;
     public String usuario;
-    //lista de etiquetas
     public String anonimo;
 }
