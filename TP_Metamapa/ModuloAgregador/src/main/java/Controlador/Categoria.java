@@ -1,5 +1,4 @@
-package Domain;
-
+package Controlador;
 import lombok.Getter;
 
 @Getter
@@ -9,3 +8,4 @@ public class Categoria{
         this.nombre = nombre;
     }
 }
+

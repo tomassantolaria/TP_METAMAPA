@@ -1,12 +1,16 @@
-package Modelos.Entidades;
+package Controlador;
+
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import java.util.Map;
+import java.util.List;
 
 import java.util.HashMap;
 import java.time.LocalDate;
-import java.util.List;
+
+
 @Getter
 @Setter
 public class Hecho{
@@ -20,13 +24,12 @@ public class Hecho{
     public LocalDate fecha_carga;
     public OrigenCarga origen_carga; //enum
     public boolean visible = false;
-    public Contribuyente contribuyente;
+    public String usuario;
     public boolean anonimo = false;
-    public List<Etiqueta> etiquetas;
+    //public List<Etiqueta> etiquetas;
 
     protected Hecho(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                    Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo,
-                    List<Etiqueta> etiquetas ){
+                    Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, String usuario, Boolean anonimo){ //Lista etiquetas
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
         this.contenido = unContenido;
@@ -36,39 +39,32 @@ public class Hecho{
         this.fecha_carga = unaFechaCarga;
         this.origen_carga = unOrigen;
         this.visible = estaVisible;
-        this.contribuyente = contribuyente;
+        this.usuario = usuario;
         this.anonimo = anonimo;
-        this.etiquetas = etiquetas;
+        //this.etiquetas = etiquetas;
     }
-
 
     public static Hecho getInstance(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria,
                                     LocalDate unaFechaOcurrencia, Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible,
-                                    Contribuyente contribuyente, Boolean anonimo, List<Etiqueta> etiquetas){
+                                    String usuario, Boolean anonimo){
 
         Hecho hechoConEseTitulo = hechosConTitulos.get(unTitulo);
         if (hechoConEseTitulo == null) {
-            hechoConEseTitulo = new Hecho (unTitulo,unaDescripcion,unContenido,unaCategoria,unaFechaOcurrencia,unaUbicacion,unaFechaCarga,
-                                            unOrigen, estaVisible, contribuyente, anonimo, etiquetas);
+            hechoConEseTitulo = new Hecho (unTitulo,unaDescripcion,unContenido,unaCategoria,unaFechaOcurrencia,unaUbicacion,unaFechaCarga, unOrigen, estaVisible, usuario, anonimo);
             hechosConTitulos.put(unTitulo, hechoConEseTitulo);
         }else{
-            hechoConEseTitulo.sobreescribirse(unaDescripcion, unContenido, unaCategoria, unaFechaOcurrencia,
-                    unaUbicacion, unaFechaCarga, unOrigen, estaVisible, contribuyente, anonimo, etiquetas);
+            hechoConEseTitulo.sobreescribirse(unaDescripcion, unContenido, unaCategoria, unaFechaOcurrencia, unaUbicacion, unaFechaCarga, unOrigen, estaVisible, usuario, anonimo);
         }
         return hechoConEseTitulo;
     }
     //para crear se hace el getInstance(...)
-
     public void sobreescribirse(String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                                Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo,
-                                List<Etiqueta> etiquetas){
+                                Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, String usuario, Boolean anonimo){
 
     }
-
     public void admitirSOlicitudDeEliminacion(Solicitud unaSolicitud){
 
     }
-
     public void eliminarse(){
         visible = false;
     }
@@ -76,5 +72,12 @@ public class Hecho{
     public ContenidoMultimedia obtenerContenidoMultimedia(){
         return contenido.getContenidoMultimedia();
     }
+    public void publicarConDatosPersonales(){
 
+    }
+    public void someterseARevision(){
+        if(usuario != null ){
 
+        }
+    }
+}

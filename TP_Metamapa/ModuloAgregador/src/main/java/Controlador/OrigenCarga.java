@@ -1,4 +1,4 @@
-package Domain;
+package Controlador;
 
 public enum OrigenCarga {
     FUENTE_DINAMICA,

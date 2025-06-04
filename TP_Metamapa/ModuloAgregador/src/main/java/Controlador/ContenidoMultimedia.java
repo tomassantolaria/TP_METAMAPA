@@ -1,4 +1,4 @@
-package Domain;
+package Controlador;
 
 public class ContenidoMultimedia {
     private String url;
@@ -7,3 +7,4 @@ public class ContenidoMultimedia {
         this.url = url;
     }
 }
+

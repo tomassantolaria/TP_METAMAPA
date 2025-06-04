@@ -27,6 +27,7 @@
         <module>ModuloDinamica</module>
         <module>ModuloEstatica</module>
         <module>ModuloProxy</module>
+        <module>ModuloAgregador</module>
     </modules>
 
     <dependencyManagement>

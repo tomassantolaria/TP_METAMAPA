@@ -1,4 +1,5 @@
-package Domain;
+package Controlador;
+
 import java.time.LocalDate;
 
 public class Solicitud {

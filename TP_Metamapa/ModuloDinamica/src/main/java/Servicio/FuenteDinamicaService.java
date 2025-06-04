@@ -8,6 +8,7 @@ import Repositorio.*;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 @Service
 public class FuenteDinamicaService {
@@ -20,7 +21,7 @@ public class FuenteDinamicaService {
         this.fuenteDinamicaRepository = fuenteDinamicaRepository;
     }
 
-    public void crearHecho(HechoDTO dto) {
+    public void crearHecho(HechoDTOInput dto) {
         // Obtener o crear la categoría
         Categoria categoria = categoriaRepository.obtenerOCrearPorNombre(dto.getCategoria());
         ContenidoMultimedia contenido_multimedia = new ContenidoMultimedia(dto.getContenido_multimedia());
@@ -28,7 +29,6 @@ public class FuenteDinamicaService {
         Ubicacion ubicacion = new Ubicacion(dto.getLugar(), null, null);
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/mm/yyyy");
         LocalDate fecha =  LocalDate.parse(dto.getFecha(), formato);
-        Contribuyente contribuyente = //new Contribuyente() - Pensar lógica de esta parte. Un contribuyente cuando cree un hecho que va a agregar de su informacion en el formulario
         boolean anonimo = Boolean.parseBoolean(dto.getAnonimo());
         LocalDate fecha_carga = LocalDate.now();
 
@@ -43,7 +43,8 @@ public class FuenteDinamicaService {
                 OrigenCarga.FUENTE_DINAMICA,
                 false,
                 dto.getUsuario(),
-                anonimo
+                anonimo,
+                new ArrayList<>()
         );
         fuenteDinamicaRepository.guardarHecho(hecho);
     }

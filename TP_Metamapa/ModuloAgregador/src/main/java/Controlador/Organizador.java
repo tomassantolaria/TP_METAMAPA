@@ -1,9 +1,9 @@
-package Domain;
+package Controlador;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import Domain.Colecciones.Coleccion;
 
 public class Organizador {
     //private List<Filtro> filtros;
@@ -34,3 +34,4 @@ public class Organizador {
         return filtros;
     }
 }
+
