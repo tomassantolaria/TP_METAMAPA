@@ -1,33 +1,36 @@
-package Metamapa.Service;
+package Servicio;
 
-import Domain.HechoDTO;
-import Domain.*;
-import Metamapa.Repository.MetamapaRepository;
+import com.TP_Metamapa.*;
+import Controlador.CriterioDTO;
+import Repositorio.AgregadorRepositorio;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-
-import java.util.List;
-import Metamapa.Controller.CriterioDTO;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-
+import Controlador.*;
 @Service
-public class MetamapaService {
+public class AgregadorServicio {
 
-    private final MetamapaRepository metamapaRepository;
+    private final AgregadorRepositorio agregadorRepositorio;
 
-    public MetamapaService(MetamapaRepository metamapaRepository) {
+    public AgregadorServicio(AgregadorRepositorio agregadorRepositorio) {
 
-        this.metamapaRepository = metamapaRepository;
+        this.agregadorRepositorio = agregadorRepositorio;
     }
     public List<HechoDTO> filtrarHechos(@RequestBody CriterioDTO criterioDTO, Long id) {
         Coleccion coleccion = coleccionService.obtenerOCriarExcepcion(id);
         Busqueda criterios_busqueda = this.crearBusqueda(criterioDTO);
-        Organizador organizador = new Organizador();
+        Organizador organizador = Organizador(coleccion, criterios_busqueda);
+        List<Hecho> hechos_filtrados = new ArrayList<>();
+        hechos_filtrados= organizador.filtrar();
+        List<HechoDTO> hechoDTOs = new ArrayList<>();
+        hechoDTOs = this.transformarADTOLista(hechos_filtrados);
+        return hechoDTOs;
     }
     private Busqueda crearBusqueda(CriterioDTO criterios) {
         Busqueda busqueda = new Busqueda();
@@ -62,7 +65,31 @@ public class MetamapaService {
         contribuyente.setFecha_nacimiento(fecha);
         return contribuyente;
     }
-    public void cargarHecho(HechoDTO hechoDTO){
 
+    public List<HechoDTOOutput> transformarADTOLista(List<Hecho> hechos) {
+        List<HechoDTOOutput> hechosDTO = new ArrayList<>();
+        hechosDTO = hechos.stream()
+                .map(this::transformarHechoADTO)
+                .collect(Collectors.toList());
     }
+
+    public HechoDTOOutput transformarHechoADTO(Hecho hecho){
+        HechoDTOOutput hechoDTO = new HechoDTOOutput();
+        hechoDTO.setTitulo(hecho.getTitulo());
+        hechoDTO.setDescripcion(hecho.getDescripcion());
+        Categoria categoria = hecho.getCategoria();
+        hechoDTO.setCategoria(categoria.getNombre());
+        Contenido contenido = hecho.getContenido();
+        hechoDTO.setContenido(contenido.getTexto());
+        hechoDTO.setContenido_multimedia(hechoDTO.getContenido_multimedia());
+        LocalDate fecha = hecho.getFecha();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaString = fecha.format(formatter);
+        hechoDTO.setFecha(fechaString);
+        Ubicacion ubicacion = hecho.getUbicacion();
+        hechoDTO.setLugar(ubicacion.getNombre());
+        return hechoDTO;
+    }
+
+
 }

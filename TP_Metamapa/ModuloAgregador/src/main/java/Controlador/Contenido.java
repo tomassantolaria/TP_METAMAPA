@@ -1,4 +1,5 @@
-package Domain;
+package Controlador;
+
 
 public class Contenido {
     private String texto;

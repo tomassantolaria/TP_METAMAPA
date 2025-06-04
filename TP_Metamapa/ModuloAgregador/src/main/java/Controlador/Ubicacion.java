@@ -1,5 +1,10 @@
-package Domain;
+package Controlador;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Ubicacion {
     private String nombre;
     private String latitud;

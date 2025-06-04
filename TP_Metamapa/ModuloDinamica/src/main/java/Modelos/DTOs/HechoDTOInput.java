@@ -2,12 +2,11 @@ package Modelos.DTOs;
 
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Date;
 
 @Getter
 @Setter
 //PATRON DTO
-public class HechoDTO {
+public class HechoDTOInput {
     public String titulo;
     public String descripcion;
     public String contenido;
@@ -15,7 +14,6 @@ public class HechoDTO {
     public String categoria;
     public String fecha;
     public String lugar;
-    public String visible;
     public String usuario;
     public String anonimo;
 }
