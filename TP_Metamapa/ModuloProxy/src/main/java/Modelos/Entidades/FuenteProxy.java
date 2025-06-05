@@ -3,24 +3,23 @@ package Modelos.Entidades;
 
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class FuenteDemo
+public class FuenteProxy
 {
-    private static FuenteDemo instancia;
-    private List<Hecho> hechoslista;
+    private static FuenteProxy instancia;
     private LocalDateTime fechaUltimaActualizacion;
+    private List<String> urls;
 
-    private FuenteDemo() {}
+    private FuenteProxy() {}
 
-    public static synchronized FuenteDemo getInstancia() {
+    public static synchronized FuenteProxy getInstancia() {
         if (instancia == null) {
-            instancia = new FuenteDemo();
+            instancia = new FuenteProxy();
         }
         return instancia;
 
