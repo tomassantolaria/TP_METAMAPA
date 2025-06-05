@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FuenteDemoScheduler {
-    private final IHechoService fuenteDemoService;
+    private final IHechoService hechoService;
 
-    public FuenteDemoScheduler(IHechoService fuenteDemoService) {
-        this.fuenteDemoService = fuenteDemoService;
+    public FuenteDemoScheduler(IHechoService hechoService) {
+        this.hechoService = hechoService;
     }
 
 
     @Scheduled(fixedRate = 3600000) // cada 1HS
             public void actualizarHechos() {
-            fuenteDemoService.actualizarHechos();
+            hechoService.actualizarHechos();
             }
 
 }
