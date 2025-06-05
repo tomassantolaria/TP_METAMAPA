@@ -1,7 +1,7 @@
 package Scheduler;
 
 
-import Servicios.IFuenteDemoService;
+import Servicios.IHechoService;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FuenteDemoScheduler {
-    private final IFuenteDemoService fuenteDemoService;
+    private final IHechoService fuenteDemoService;
 
-    public FuenteDemoScheduler(IFuenteDemoService fuenteDemoService) {
+    public FuenteDemoScheduler(IHechoService fuenteDemoService) {
         this.fuenteDemoService = fuenteDemoService;
     }
 

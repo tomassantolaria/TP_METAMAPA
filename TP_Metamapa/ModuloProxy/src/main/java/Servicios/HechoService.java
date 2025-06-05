@@ -1,10 +1,6 @@
 package Servicios;
 
-import Modelos.Entidades.FuenteDemo;
 import Modelos.Entidades.Hecho;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import Servicios.Conexion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +9,14 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class FuenteDemoService implements IFuenteDemoService{
+public class HechoService implements IHechoService {
 
     @Override
-    public List<Hecho> obtenerHechos(String url) {
-        List<Hecho> hechosObtenidos = new ArrayList<>();
-//        LocalDateTime fechaConsulta = (this.fechaUltimaActualizacion != null)
-//                ? this.fechaUltimaActualizacion
-//                : LocalDateTime.now().minusHours(1);
+    public List<Hecho> obtenerHechosDeFuenteDemo(String url) {
+            /* List<Hecho> hechosObtenidos = new ArrayList<>();
+            LocalDateTime fechaConsulta = (this.fechaUltimaActualizacion != null)
+                    ? this.fechaUltimaActualizacion
+            : LocalDateTime.now().minusHours(1);
 
         Map<String, Object> respuestaConexion = Conexion.siguienteHecho(url, fechaUltimaActualizacion);
 
@@ -36,21 +32,25 @@ public class FuenteDemoService implements IFuenteDemoService{
 //            Hecho hechonuevo = (Hecho) respuestaConexion.get("Hecho"); //!!!!!!!!!!!!!
 //            hechosObtenidos.add(hechonuevo);
 //            this.fechaUltimaActualizacion = hecho.getFecha();
-//        }
+//        }*/
+        return List.of(); // Retornar una lista vacía por defecto
     }
 
     
 
     @Override
     public void actualizarHechos() {
-        // Creamos una nueva lista para evitar ConcurrentModificationException
+      /*  // Creamos una nueva lista para evitar ConcurrentModificationException
         List<String> urls = new ArrayList<>(hechosDiccionario.keySet());
         for (String url : urls) {
             obtenerHechos(url);
-        }
+        }*/
     }
 
+    @Override
+    public void crearHecho(Hecho hecho) {
 
+    }
 
 
 }
@@ -112,4 +112,3 @@ public class FuenteDemoService implements IFuenteDemoService{
 //    }
 
 
-}
