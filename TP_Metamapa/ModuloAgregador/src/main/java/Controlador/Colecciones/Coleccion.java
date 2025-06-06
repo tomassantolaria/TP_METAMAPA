@@ -1,10 +1,9 @@
-package Controlador;
+package Controlador.Colecciones;
 
-package Domain.Colecciones;
 import java.util.List;
 
-import Domain.CriterioDePertenencia;
-import Domain.Hecho;
+import Controlador.CriterioDePertenencia;
+import Controlador.Hecho;
 import Domain.HechoNoPerteneceException;
 import Domain.HechoYaExisteException;
 import lombok.Getter;
@@ -24,7 +23,7 @@ public class Coleccion {
         if (hechos.contains(unHecho)) {
             hechos.remove(unHecho);
         } else {
-            throw new HechoNoPerteneceException("El hecho no pertenece a la colección");
+            throw new Controlador.Colecciones.HechoNoPerteneceException("El hecho no pertenece a la colección");
         }
     }
 
