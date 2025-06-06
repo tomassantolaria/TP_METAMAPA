@@ -1,5 +1,11 @@
 package Controlador;
 
+import Controlador.Colecciones.Coleccion;
+import Controlador.Filtros.Filtro;
+import Controlador.Filtros.FiltroCategoria;
+import Controlador.Filtros.FiltroContenidoMultimedia;
+import Controlador.Filtros.FiltroTitulo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +26,8 @@ public class Organizador {
         hechos = coleccion.getHechos();
         List<Filtro> filtros = new ArrayList<>();
         filtros = this.crearFiltros();
-        return hechos.stream().filter(h -> filtros.stream().allMatch(f->f.cumple(h, criterios))).collect(Collectors.toList());
+        List<Filtro> finalFiltros = filtros;
+        return hechos.stream().filter(h -> finalFiltros.stream().allMatch(f->f.cumple(h, criterios))).collect(Collectors.toList());
     }
 
     public List<Filtro> crearFiltros(){

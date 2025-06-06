@@ -1,6 +1,6 @@
 package Servicio;
 
-import com.TP_Metamapa.*;
+import Controlador.Colecciones.Coleccion;
 import Controlador.CriterioDTO;
 import Repositorio.AgregadorRepositorio;
 import org.springframework.stereotype.Service;
@@ -11,24 +11,28 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import Controlador.Colecciones.*;
 import Controlador.*;
+
 @Service
 public class AgregadorServicio {
 
     private final AgregadorRepositorio agregadorRepositorio;
-
-    public AgregadorServicio(AgregadorRepositorio agregadorRepositorio) {
+    private final ColeccionServicio coleccionServicio;
+    public AgregadorServicio(AgregadorRepositorio agregadorRepositorio, ColeccionServicio coleccionServicio) {
 
         this.agregadorRepositorio = agregadorRepositorio;
+        this.coleccionServicio = coleccionServicio;
     }
-    public List<HechoDTO> filtrarHechos(@RequestBody CriterioDTO criterioDTO, Long id) {
-        Coleccion coleccion = coleccionService.obtenerOCriarExcepcion(id);
+
+    public List<HechoDTOOutput> filtrarHechos(@RequestBody CriterioDTO criterioDTO, Long id) {
+
+        Coleccion coleccion = coleccionServicio.obtenerOCriarExcepcion(id);
         Busqueda criterios_busqueda = this.crearBusqueda(criterioDTO);
-        Organizador organizador = Organizador(coleccion, criterios_busqueda);
+        Organizador organizador = new Organizador(coleccion, criterios_busqueda);
         List<Hecho> hechos_filtrados = new ArrayList<>();
         hechos_filtrados= organizador.filtrar();
-        List<HechoDTO> hechoDTOs = new ArrayList<>();
+        List<HechoDTOOutput> hechoDTOs = new ArrayList<>();
         hechoDTOs = this.transformarADTOLista(hechos_filtrados);
         return hechoDTOs;
     }
@@ -50,11 +54,11 @@ public class AgregadorServicio {
         busqueda.setOrigen_carga(busqueda.getOrigen_carga());
         return busqueda;
     }
-    public void registrar(@RequestBody ContribuyenteDTO contribuyente){
+    public void registrar(@RequestBody ContribuyenteDTOInput contribuyente){
         Contribuyente contribuyente_listo = this.crearContribuyente(contribuyente);
-        metamapaRepository.agregarContribuyente(contribuyente_listo);
+        agregadorRepositorio.agregarContribuyente(contribuyente_listo);
     }
-    public Contribuyente crearContribuyente(ContribuyenteDTO contribuyenteDTO){
+    public Contribuyente crearContribuyente(ContribuyenteDTOInput contribuyenteDTO){
         Contribuyente contribuyente = new Contribuyente();
         contribuyente.setUsuario( contribuyenteDTO.getUsuario());
         contribuyente.setNombre(contribuyenteDTO.getNombre());
@@ -71,6 +75,7 @@ public class AgregadorServicio {
         hechosDTO = hechos.stream()
                 .map(this::transformarHechoADTO)
                 .collect(Collectors.toList());
+        return hechosDTO;
     }
 
     public HechoDTOOutput transformarHechoADTO(Hecho hecho){
@@ -90,6 +95,10 @@ public class AgregadorServicio {
         hechoDTO.setLugar(ubicacion.getNombre());
         return hechoDTO;
     }
-
+    public List<HechoDTOOutput> mostrarTodosLosHechos(Long id){
+        List<HechoDTOOutput> hechoDTO = new ArrayList<>();
+        hechoDTO = this.transformarADTOLista(agregadorRepositorio.getHechos(id));
+        return hechoDTO;
+    }
 
 }
