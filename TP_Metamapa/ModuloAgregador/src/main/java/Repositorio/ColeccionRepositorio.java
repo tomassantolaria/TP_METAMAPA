@@ -1,6 +1,5 @@
-package Controlador.Colecciones;
+package Repositorio;
 
-import Controlador.Categoria;
 import Controlador.Colecciones.Coleccion;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +15,7 @@ public class ColeccionRepositorio{
         return new ArrayList<>(colecciones.values());
     }
 
-    public Coleccion obtenerPorId(Long id){
+    public Coleccion obtenerPorId(String id){
         return colecciones.get(id);
     }
 

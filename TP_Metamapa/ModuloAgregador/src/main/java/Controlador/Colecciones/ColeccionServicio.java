@@ -1,5 +1,6 @@
 package Controlador.Colecciones;
 
+import Repositorio.ColeccionRepositorio;
 import org.springframework.stereotype.Service;
 
 @Service
