@@ -1,10 +1,12 @@
 package Controlador;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Setter
+@Getter
 public class Contribuyente {
     public String usuario;
     public String nombre;

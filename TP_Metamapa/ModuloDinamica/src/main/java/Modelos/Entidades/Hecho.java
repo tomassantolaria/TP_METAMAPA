@@ -62,19 +62,11 @@ public class Hecho{
     public void sobreescribirse(String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo,
                                 List<Etiqueta> etiquetas){
-
     }
 
-    public void admitirSOlicitudDeEliminacion(Solicitud unaSolicitud){
-
-    }
+    //public void admitirSolicitudDeEliminacion(Solicitud unaSolicitud){;}
 
     public void eliminarse(){
         visible = false;
     }
-
-    public ContenidoMultimedia obtenerContenidoMultimedia(){
-        return contenido.getContenidoMultimedia();
-    }
-
 

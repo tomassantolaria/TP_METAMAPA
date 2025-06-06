@@ -1,4 +1,7 @@
 package Controlador;
 
-public class Estado {
+public enum Estado {
+    Pendiente,
+    Aceptado,
+    Rechazado
 }
