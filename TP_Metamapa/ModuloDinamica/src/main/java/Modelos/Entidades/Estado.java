@@ -1,4 +1,5 @@
 package Modelos.Entidades;
 
-public class Estado {
+public enum Estado {
+    PENDIENTE, ACEPTADA, RECHAZADA
 }
