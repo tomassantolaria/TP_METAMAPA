@@ -7,7 +7,7 @@ import Modelos.Entidades.*;
 
 
 @Repository
-public class FuenteDinamicaRepository {
+public class HechoRepository {
     private final List<Hecho> hechos = new ArrayList<>();
 
     public void guardarHecho(Hecho hecho) {
