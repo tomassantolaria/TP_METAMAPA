@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 //PATRON DTO
-public class HechoDTOInput {
+public class HechoDTO {
     public String titulo;
     public String descripcion;
     public String contenido;

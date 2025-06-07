@@ -24,7 +24,7 @@ public class Hecho{
     public boolean anonimo = false;
     public List<Etiqueta> etiquetas;
 
-    protected Hecho(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    public Hecho(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                     Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo,
                     List<Etiqueta> etiquetas ){
         this.titulo = unTitulo;
