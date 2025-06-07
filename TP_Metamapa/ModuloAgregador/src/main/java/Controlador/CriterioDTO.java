@@ -1,4 +1,4 @@
-package Metamapa.Controller;
+package Controlador;
 
 
 import lombok.Getter;

@@ -15,7 +15,9 @@ public class Organizador {
         this.criterios = criterios;
     }
 
-    public List<Hecho> filtrar(List<Hecho> hechos) {
+    public List<Hecho> filtrar() {
+        List<Hecho> hechos = new ArrayList<>();
+        hechos = coleccion.getHechos();
         List<Filtro> filtros = new ArrayList<>();
         filtros = this.crearFiltros();
         return hechos.stream().filter(h -> filtros.stream().allMatch(f->f.cumple(h, criterios))).collect(Collectors.toList());

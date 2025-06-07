@@ -3,10 +3,10 @@ package Modelos.Entidades;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class Etiqueta {
-    String etiqueta;
+    public String etiqueta;
 
     public Etiqueta(String etiqueta){
         this.etiqueta = etiqueta;

@@ -1,7 +1,9 @@
 package Modelos.Entidades;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.Map;
+
 import java.util.HashMap;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,7 +15,7 @@ public class Hecho{
     public String descripcion;
     public Contenido contenido;
     public Categoria categoria;
-    public LocalDate fecha_ocurrencia;
+    public LocalDate fecha;
     public Ubicacion ubicacion;
     public LocalDate fecha_carga;
     public OrigenCarga origen_carga; //enum
@@ -22,13 +24,14 @@ public class Hecho{
     public boolean anonimo = false;
     public List<Etiqueta> etiquetas;
 
-    public Hecho(String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
+    protected Hecho(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+                    Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo,
+                    List<Etiqueta> etiquetas ){
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
         this.contenido = unContenido;
         this.categoria = unaCategoria;
-        this.fecha_ocurrencia = unaFechaOcurrencia;
+        this.fecha = unaFechaOcurrencia;
         this.ubicacion = unaUbicacion;
         this.fecha_carga = unaFechaCarga;
         this.origen_carga = unOrigen;
@@ -38,45 +41,32 @@ public class Hecho{
         this.etiquetas = etiquetas;
     }
 
+
     public static Hecho getInstance(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria,
                                     LocalDate unaFechaOcurrencia, Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible,
-                                    Contribuyente contribuyente, Boolean anonimo){
+                                    Contribuyente contribuyente, Boolean anonimo, List<Etiqueta> etiquetas){
 
         Hecho hechoConEseTitulo = hechosConTitulos.get(unTitulo);
         if (hechoConEseTitulo == null) {
-            hechoConEseTitulo = new Hecho (unTitulo,unaDescripcion,unContenido,unaCategoria,unaFechaOcurrencia,unaUbicacion,unaFechaCarga, unOrigen, estaVisible, contribuyente, anonimo);
+            hechoConEseTitulo = new Hecho (unTitulo,unaDescripcion,unContenido,unaCategoria,unaFechaOcurrencia,unaUbicacion,unaFechaCarga,
+                                            unOrigen, estaVisible, contribuyente, anonimo, etiquetas);
             hechosConTitulos.put(unTitulo, hechoConEseTitulo);
         }else{
-            hechoConEseTitulo.sobreescribirse(unaDescripcion, unContenido, unaCategoria, unaFechaOcurrencia, unaUbicacion, unaFechaCarga, unOrigen, estaVisible, contribuyente, anonimo);
+            hechoConEseTitulo.sobreescribirse(unaDescripcion, unContenido, unaCategoria, unaFechaOcurrencia,
+                    unaUbicacion, unaFechaCarga, unOrigen, estaVisible, contribuyente, anonimo, etiquetas);
         }
         return hechoConEseTitulo;
     }
     //para crear se hace el getInstance(...)
 
     public void sobreescribirse(String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                                Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){
-
+                                Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo,
+                                List<Etiqueta> etiquetas){
     }
 
-    public void admitirSOlicitudDeEliminacion(Solicitud unaSolicitud){
-
-    }
+    //public void admitirSolicitudDeEliminacion(Solicitud unaSolicitud){;}
 
     public void eliminarse(){
         visible = false;
     }
 
-    public ContenidoMultimedia obtenerContenidoMultimedia(){
-        return contenido.getContenidoMultimedia();
-    }
-
-    public void publicarConDatosPersonales(){
-
-    }
-
-    public void someterseARevision(){}
-
-    public void agregarEtiqueta(Etiqueta etiqueta){
-        etiquetas.add(etiqueta);
-    }
-}
