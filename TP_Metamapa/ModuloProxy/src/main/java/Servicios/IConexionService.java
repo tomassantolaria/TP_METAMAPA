@@ -5,6 +5,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 
-public interface Iconexion {
+public interface IConexionService {
     Map<String, Object> siguienteHecho(URL url, LocalDateTime fechaUltimaConsulta);
 }
