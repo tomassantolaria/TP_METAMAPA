@@ -21,4 +21,9 @@ public class ColeccionRepositorio{
 
     public void agregar(Coleccion coleccion){colecciones.put(coleccion.getId(),coleccion);}
 
+    public void eliminarHecho(String id) {
+        for (Coleccion coleccion : colecciones.values()) {
+            coleccion.getHechos().removeIf(hecho -> hecho.getId().equals(id));
+        }
+    }
 }

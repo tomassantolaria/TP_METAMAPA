@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Hecho{
+    public String id;
     public String titulo;
     public String descripcion;
     public Contenido contenido;
@@ -22,8 +23,9 @@ public class Hecho{
     public boolean anonimo = false;
     //public List<Etiqueta> etiquetas;
 
-    protected Hecho(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    protected Hecho(String id, String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                     Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, String usuario, Boolean anonimo){ //Lista etiquetas
+        this.id = id;
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
         this.contenido = unContenido;

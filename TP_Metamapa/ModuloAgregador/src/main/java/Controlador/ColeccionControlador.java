@@ -1,6 +1,8 @@
 package Controlador;
 
 import Servicio.ColeccionServicio;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -17,4 +19,9 @@ public class ColeccionControlador {
     public void crearColeccion(@RequestBody ColeccionDTO coleccionDTO) {
         coleccionServicio.crearColeccion(coleccionDTO);
     }
+    @DeleteMapping("/hechos/{id}")
+    public void eliminarHecho(@PathVariable String id) {
+        coleccionServicio.eliminarHecho(id);
+    }
+
 }

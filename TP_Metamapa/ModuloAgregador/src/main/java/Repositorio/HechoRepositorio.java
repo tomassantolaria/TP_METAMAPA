@@ -13,4 +13,6 @@ public class HechoRepositorio {
         return new ArrayList<>(hechos.values());
     }
 
+    public void eliminarHecho(String id) { this.hechos.remove(id); }
+
 }

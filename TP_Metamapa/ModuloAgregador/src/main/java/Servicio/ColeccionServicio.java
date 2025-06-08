@@ -4,6 +4,7 @@ import Controlador.Modelos.DTOs.ColeccionDTO;
 import Controlador.Modelos.Entidades.*;
 import Controlador.Modelos.Entidades.Coleccion;
 import Repositorio.ColeccionRepositorio;
+import Repositorio.HechoRepositorio;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,9 +17,11 @@ import java.util.UUID;
 public class ColeccionServicio {
 
     private final ColeccionRepositorio coleccionRepositorio;
+    private final HechoRepositorio hechoRepositorio;
 
-    public ColeccionServicio(ColeccionRepositorio coleccionRepositorio) {
+    public ColeccionServicio(ColeccionRepositorio coleccionRepositorio, HechoRepositorio hechoRepositorio) {
         this.coleccionRepositorio = coleccionRepositorio;
+        this.hechoRepositorio = hechoRepositorio;
     }
 
     public Coleccion obtenerOCriarExcepcion(String id) {
@@ -46,6 +49,11 @@ public class ColeccionServicio {
         List<Hecho> hechos = new ArrayList<>();
         Coleccion coleccion = new Coleccion(id, coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio,hechos);
         coleccionRepositorio.agregar(coleccion);
+    }
+
+    public void eliminarHecho(String id) {
+        coleccionRepositorio.eliminarHecho(id);
+        hechoRepositorio.eliminarHecho(id);
     }
 }
 
