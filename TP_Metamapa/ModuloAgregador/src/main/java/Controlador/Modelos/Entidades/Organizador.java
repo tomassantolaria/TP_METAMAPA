@@ -1,6 +1,5 @@
-package Controlador;
+package Controlador.Modelos.Entidades;
 
-import Controlador.Colecciones.Coleccion;
 import Controlador.Filtros.Filtro;
 import Controlador.Filtros.FiltroCategoria;
 import Controlador.Filtros.FiltroContenidoMultimedia;
@@ -14,16 +13,14 @@ import java.util.stream.Collectors;
 public class Organizador {
     //private List<Filtro> filtros;
     private Criterios criterios;
-    private Coleccion coleccion;
+    private List<Hecho> hechos;
 
-    public Organizador(Coleccion coleccion, Criterios criterios){
-        this.coleccion = coleccion;
+    public Organizador(List<Hecho> hechos, Criterios criterios){
+        this.hechos = hechos;
         this.criterios = criterios;
     }
 
     public List<Hecho> filtrar() {
-        List<Hecho> hechos = new ArrayList<>();
-        hechos = coleccion.getHechos();
         List<Filtro> filtros = new ArrayList<>();
         filtros = this.crearFiltros();
         List<Filtro> finalFiltros = filtros;

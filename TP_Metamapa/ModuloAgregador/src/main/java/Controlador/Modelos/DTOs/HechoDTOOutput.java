@@ -1,20 +1,19 @@
-package Controlador;
-
+package Controlador.Modelos.DTOs;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-
-public class CriterioDTO {
+@Setter
+//PATRON DTO
+public class HechoDTOOutput{
     public String titulo;
     public String descripcion;
-    public String contenido_texto;
+    public String contenido;
     public String contenido_multimedia;
     public String categoria;
     public String fecha;
     public String lugar;
-    public String latitud;
-    public String longitud;
-    public String fecha_carga;
-    public String origen_carga;
+    public String usuario;
+    public String anonimo;
 }

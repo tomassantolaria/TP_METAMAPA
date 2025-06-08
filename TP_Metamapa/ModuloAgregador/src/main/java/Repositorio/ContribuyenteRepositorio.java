@@ -1,7 +1,6 @@
 package Repositorio;
 
-import Controlador.Colecciones.Coleccion;
-import Controlador.Contribuyente;
+import Controlador.Modelos.Entidades.Contribuyente;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

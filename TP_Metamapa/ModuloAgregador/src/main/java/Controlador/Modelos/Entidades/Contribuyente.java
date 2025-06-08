@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.Modelos.Entidades;
 
 import lombok.Getter;
 import lombok.Setter;

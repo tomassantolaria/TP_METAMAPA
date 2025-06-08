@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.Modelos.Entidades;
 
 public enum OrigenCarga {
     FUENTE_DINAMICA,

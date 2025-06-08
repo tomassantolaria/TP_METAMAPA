@@ -1,7 +1,7 @@
 package Controlador.Filtros;
 
-import Controlador.Hecho;
-import Controlador.Criterios;
+import Controlador.Modelos.Entidades.Hecho;
+import Controlador.Modelos.Entidades.Criterios;
 
 public class FiltroTitulo implements Filtro{
     @Override

@@ -10,10 +10,10 @@ import java.time.LocalDate;
 public class Solicitud {
     LocalDate fecha_creacion; //date
     String motivo;
-    Integer idHecho; //Supongo que lo mejor sería que la solicitud ingrese el id del hecho y no el hecho entero. Consultar
+    String idHecho; //Supongo que lo mejor sería que la solicitud ingrese el id del hecho y no el hecho entero. Consultar
     Estado estado;
 
-    public Solicitud(LocalDate fecha_creacion, String motivo, int idHecho, Estado estado){
+    public Solicitud(LocalDate fecha_creacion, String motivo, String idHecho, Estado estado){
         this.fecha_creacion = fecha_creacion;
         this.motivo = motivo;
         this.idHecho = idHecho;

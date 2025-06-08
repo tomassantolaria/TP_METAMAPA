@@ -1,17 +1,14 @@
-package Modelos.Entidades;
+package Controlador.Modelos.Entidades;
+
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Map;
-
-import java.util.HashMap;
 import java.time.LocalDate;
-import java.util.List;
+
+
 @Getter
 @Setter
-
-public class Hecho {
-    public String id;
+public class Hecho{
     public String titulo;
     public String descripcion;
     public Contenido contenido;
@@ -21,14 +18,12 @@ public class Hecho {
     public LocalDate fecha_carga;
     public OrigenCarga origen_carga; //enum
     public boolean visible = false;
-    public Contribuyente contribuyente;
+    public String usuario;
     public boolean anonimo = false;
-    public List<Etiqueta> etiquetas;
+    //public List<Etiqueta> etiquetas;
 
-    public Hecho(String id, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo,
-                 List<Etiqueta> etiquetas) {
-        this.id = id;
+    protected Hecho(String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+                    Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, String usuario, Boolean anonimo){ //Lista etiquetas
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
         this.contenido = unContenido;
@@ -38,15 +33,16 @@ public class Hecho {
         this.fecha_carga = unaFechaCarga;
         this.origen_carga = unOrigen;
         this.visible = estaVisible;
-        this.contribuyente = contribuyente;
+        this.usuario = usuario;
         this.anonimo = anonimo;
-        this.etiquetas = etiquetas;
+        //this.etiquetas = etiquetas;
     }
+
+    public void admitirSOlicitudDeEliminacion(Solicitud unaSolicitud){
+
+    }
+    public void eliminarse(){
+        visible = false;}
+
+    public void someterseARevision(){}
 }
-
-    //public void admitirSolicitudDeEliminacion(Solicitud unaSolicitud){;}
-
-    /*public void eliminarse(){
-        this. = false;
-    }*/
-

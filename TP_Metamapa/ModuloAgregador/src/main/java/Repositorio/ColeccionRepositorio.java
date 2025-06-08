@@ -1,6 +1,6 @@
 package Repositorio;
 
-import Controlador.Colecciones.Coleccion;
+import Controlador.Modelos.Entidades.Coleccion;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -18,5 +18,7 @@ public class ColeccionRepositorio{
     public Coleccion obtenerPorId(String id){
         return colecciones.get(id);
     }
+
+    public void agregar(Coleccion coleccion){colecciones.put(coleccion.getId(),coleccion);}
 
 }
