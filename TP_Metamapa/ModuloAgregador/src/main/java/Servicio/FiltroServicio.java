@@ -5,6 +5,7 @@ import Controlador.Modelos.DTOs.CriterioDTO;
 import Controlador.Modelos.DTOs.HechoDTOOutput;
 import Controlador.Modelos.Entidades.*;
 import Repositorio.HechoRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -17,13 +18,9 @@ import java.util.stream.Collectors;
 @Service
 public class FiltroServicio {
 
-
-    private final ColeccionServicio coleccionServicio;
-    private final HechoRepositorio hechoRepositorio;
-    public FiltroServicio(ColeccionServicio coleccionServicio, HechoRepositorio hechoRepositorio) {
-        this.coleccionServicio = coleccionServicio;
-        this.hechoRepositorio = hechoRepositorio;
-    }
+    @Autowired
+    private ColeccionServicio coleccionServicio;
+    private HechoRepositorio hechoRepositorio;
 
     public List<HechoDTOOutput> filtrarHechosDe(String id, @RequestBody CriterioDTO criterioDTO) {
         Coleccion coleccion = coleccionServicio.obtenerOCriarExcepcion(id);

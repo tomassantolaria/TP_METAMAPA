@@ -1,18 +1,17 @@
 package Controlador;
 
 import Controlador.Modelos.DTOs.ContribuyenteDTOInput;
-import Servicio.FiltroServicio;
 import Servicio.RegistroServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class RegistroControlador {
-
-    private final RegistroServicio registroServicio;
-    public RegistroControlador(RegistroServicio registroServicio) {
-        this.registroServicio = registroServicio;
-    }
+    @Autowired
+    private RegistroServicio registroServicio;
 
     @PostMapping("/registrarse")
     public ResponseEntity<String> registrarse(@RequestBody ContribuyenteDTOInput contribuyente){

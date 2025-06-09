@@ -5,6 +5,7 @@ import Controlador.Modelos.Entidades.*;
 import Controlador.Modelos.Entidades.Coleccion;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,13 +17,10 @@ import java.util.UUID;
 @Service
 public class ColeccionServicio {
 
-    private final ColeccionRepositorio coleccionRepositorio;
-    private final HechoRepositorio hechoRepositorio;
+    @Autowired
+    private ColeccionRepositorio coleccionRepositorio;
+    private HechoRepositorio hechoRepositorio;
 
-    public ColeccionServicio(ColeccionRepositorio coleccionRepositorio, HechoRepositorio hechoRepositorio) {
-        this.coleccionRepositorio = coleccionRepositorio;
-        this.hechoRepositorio = hechoRepositorio;
-    }
 
     public Coleccion obtenerOCriarExcepcion(String id) {
         try {

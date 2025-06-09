@@ -3,6 +3,7 @@ package Controlador;
 import Controlador.Modelos.DTOs.CriterioDTO;
 import Controlador.Modelos.DTOs.HechoDTOOutput;
 import Servicio.FiltroServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import Controlador.Modelos.DTOs.ContribuyenteDTOInput;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,8 @@ import java.util.List;
 
 public class FiltroControlador {
 
-    private final FiltroServicio filtroServicio;
-
-    public FiltroControlador(FiltroServicio filtroServicio) {
-        this.filtroServicio = filtroServicio;
-    }
+    @Autowired
+    private FiltroServicio filtroServicio;
 
     @RequestMapping("coleccion/{id}/filtros")
     public List<HechoDTOOutput> coleccionFiltrada(@PathVariable String id, @RequestBody CriterioDTO criterios) {

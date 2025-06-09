@@ -3,16 +3,18 @@ package Servicio;
 import Controlador.Modelos.DTOs.ContribuyenteDTOInput;
 import Controlador.Modelos.Entidades.Contribuyente;
 import Repositorio.ContribuyenteRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+@RestController
 public class RegistroServicio {
-    private final ContribuyenteRepositorio contribuyenteRepositorio;
 
-    public RegistroServicio(ContribuyenteRepositorio contribuyenteRepositorio) {
-        this.contribuyenteRepositorio = contribuyenteRepositorio;}
+    @Autowired
+    private ContribuyenteRepositorio contribuyenteRepositorio;
 
     public void registrar(@RequestBody ContribuyenteDTOInput contribuyente){
         Contribuyente contribuyente_listo = this.crearContribuyente(contribuyente);
