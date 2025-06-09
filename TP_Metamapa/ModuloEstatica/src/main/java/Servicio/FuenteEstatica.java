@@ -18,35 +18,41 @@ import java.io.File;
 
 @Service
 public class FuenteEstatica {
-    private List<String> paths = new ArrayList<>();
 
-//    @Value("${ruta.csv.folder}")
-//    private String rutaCarpeta;
-//
-//    File carpeta = new File(rutaCarpeta);
-//
-//        if (carpeta.exists() && carpeta.isDirectory()) {
-//        for (File archivo : carpeta.listFiles()) {
-//            if (archivo.isFile()) { // solo archivos, no subdirectorios
-//                paths.add(archivo.getAbsolutePath());
-//            }
-//        }
-//        } else {
-//            System.out.println("La carpeta no existe o no es un directorio");
-//        }
-//AGREGAR LA LISTA DE PATHS
+    private File carpeta = new File("ArchivosCSV");
+
+    public List<String> getPaths() {
+            List<String> paths = new ArrayList<>();
+            if(carpeta.exists() && carpeta.isDirectory()) {
+                if(carpeta.listFiles() != null) {
+                    for (File archivo : carpeta.listFiles()) {
+                        if (archivo.isFile()) { // solo archivos, no subdirectorios
+                            paths.add(archivo.getAbsolutePath());
+                        }
+                    }
+                }
+
+            } else{
+                System.out.println("La carpeta no existe o no es un directorio");
+            }
+            return paths;
+        }
+
+
 
     public List<HechoDTO> getHechos () {
         List<HechoDTO> hechosDTO = new ArrayList<>();
-
-        for (String path : paths) {
-            try {
-                HechosCSV hechosCSV = getHechoCSV(path);
-                for (HechoCSV hecho : hechosCSV.getHechos()) {
-                    hechosDTO.add(convertToDTO(hecho));
+        List<String> paths = getPaths();
+        if (paths != null) {
+            for (String path : paths) {
+                try {
+                    HechosCSV hechosCSV = getHechoCSV(path);
+                    for (HechoCSV hecho : hechosCSV.getHechos()) {
+                        hechosDTO.add(convertToDTO(hecho));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace(); // Manejo básico de errores
                 }
-            } catch (Exception e) {
-                e.printStackTrace(); // Manejo básico de errores
             }
         }
         return hechosDTO;
@@ -71,7 +77,6 @@ public class FuenteEstatica {
                         LocalDate.parse(campos[5], formatter), // Fecha del hecho
                         Double.parseDouble(campos[3]), // Latitud
                         Double.parseDouble(campos[4])// Longitud
-
                 );
 
                 hechos.addHecho(hecho);

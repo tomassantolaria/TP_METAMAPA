@@ -1,11 +1,12 @@
 package Controlador;
-
 import Modelos.HechoDTO;
 import Modelos.HechoCSV;
 import Servicio.FuenteEstatica;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/fuenteEstatica")
@@ -17,8 +18,13 @@ public class EstaticaController {
     }
 
     @GetMapping("/hechos")
-    public Object devolverHechos() {
-        return fuenteEstatica.getHechos();
+    public ResponseEntity<?> devolverHechos() {
+        List<HechoDTO> hechos = new ArrayList<>();
+        hechos = fuenteEstatica.getHechos();
+        if (hechos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No hay hechos disponibles");
+        }
+        return ResponseEntity.ok(hechos);
     }
 
 }
@@ -29,15 +35,3 @@ public class EstaticaController {
 
 
 
-//public class FuenteDinamicaController {
-//
-
-//
-//    @PostMapping("/hechos")
-//    public ResponseEntity<String> crearHecho(@RequestBody HechoDTOInput hechoDTO) {
-//        fuenteDinamicaService.crearHecho(hechoDTO);
-//        return ResponseEntity.ok("Hecho creado exitosamente.");
-//    }
-//
-//
-//}
