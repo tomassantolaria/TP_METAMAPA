@@ -68,5 +68,5 @@ public class Hecho{
 
     public void eliminarse(){
         visible = false;
-    }
+    }}
 
