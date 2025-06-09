@@ -1,13 +1,15 @@
 package Modelos.DTOs;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Data
 //PATRON DTO
 public class HechoDTO {
-    public String titulo;
+    private String titulo;
     public String descripcion;
     public String contenido;
     public String contenido_multimedia;
