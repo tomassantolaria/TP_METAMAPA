@@ -1,13 +1,10 @@
-package utn.dsi.ModuloProxy;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ModuloDinamicaApplicationTests {
+public class ModuloDinamicaApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void contextLoads() {
+    }
 }
