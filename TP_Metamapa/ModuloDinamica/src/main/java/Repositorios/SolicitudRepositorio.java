@@ -1,4 +1,4 @@
-package Repositorio;
+package Repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import Modelos.Entidades.Solicitud;
 
 
 @Repository
-public class SolicitudRepository {
+public class SolicitudRepositorio {
     private List<Solicitud> solicitudes;
-    public SolicitudRepository(){
+    public SolicitudRepositorio(){
         this.solicitudes = new ArrayList<>();
     }
 

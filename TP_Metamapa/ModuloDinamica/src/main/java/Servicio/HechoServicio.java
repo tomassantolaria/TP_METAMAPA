@@ -1,9 +1,9 @@
 package Servicio;
 
-import Repositorio.HechoRepository;
+import Repositorios.CategoriaRepositorio;
+import Repositorios.HechoRepositorio;
 import Modelos.Entidades.*;
 import Modelos.DTOs.*;
-import Repositorio.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class HechoService {
+public class HechoServicio {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
-    private HechoRepository hechoRepository;
+    private CategoriaRepositorio categoriaRepositorio;
+    private HechoRepositorio hechoRepositorio;
 
     public void crearHecho(HechoDTO dto) {
         String idHecho = UUID.randomUUID().toString(); //https://www.baeldung.com/java-uuid
-        Categoria categoria = categoriaRepository.crearCategoria(dto.getCategoria());
+        Categoria categoria = categoriaRepositorio.crearCategoria(dto.getCategoria());
         ContenidoMultimedia contenido_multimedia = new ContenidoMultimedia(dto.getContenido_multimedia());
         Contenido contenido = new Contenido(dto.getContenido(),contenido_multimedia);
         Ubicacion ubicacion = new Ubicacion(dto.getLugar(), null, null);
@@ -35,7 +35,7 @@ public class HechoService {
 
         Hecho hecho = new Hecho(idHecho, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion, fecha_carga, OrigenCarga.FUENTE_DINAMICA,
                 true, contribuyente, anonimo, etiquetas);
-        hechoRepository.guardarHecho(hecho);
+        hechoRepositorio.guardarHecho(hecho);
     }
 
 }

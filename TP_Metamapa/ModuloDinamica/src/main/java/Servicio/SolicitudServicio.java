@@ -4,8 +4,8 @@ import Modelos.DTOs.SolicitudDTOInput;
 import Modelos.DTOs.SolicitudDTOOutput;
 import Modelos.Entidades.Estado;
 import Modelos.Entidades.Hecho;
-import Repositorio.HechoRepository;
-import Repositorio.SolicitudRepository;
+import Repositorios.HechoRepositorio;
+import Repositorios.SolicitudRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ import java.util.List;
 
 
 @Service
-public class SolicitudService implements DetectorDeSpam{
+public class SolicitudServicio implements DetectorDeSpam{
 
     @Autowired
-    SolicitudRepository solicitudRepository;
-    HechoRepository hechoRepository;
+    SolicitudRepositorio solicitudRepositorio;
+    HechoRepositorio hechoRepositorio;
 
     public void crearSolicitud(SolicitudDTOInput solicituddto){
         String idSolicitud = java.util.UUID.randomUUID().toString();
@@ -29,13 +29,13 @@ public class SolicitudService implements DetectorDeSpam{
         String idHecho = solicituddto.getIdHecho();
         if(!esSpam(motivo)){
             Solicitud solicitud = new Solicitud(idSolicitud, fechaSolicitud, motivo, idHecho, Estado.PENDIENTE);
-            solicitudRepository.guardarSolicitud(solicitud);
+            solicitudRepositorio.guardarSolicitud(solicitud);
         }
         else throw new SolicitudInvalidaException("Solicitud rechazada por spam");
     }
 
     public List<SolicitudDTOOutput> solicitudesPendientes(){
-        List<Solicitud> solicitudes = solicitudRepository.obtenerSolicitudesPendientes();
+        List<Solicitud> solicitudes = solicitudRepositorio.obtenerSolicitudesPendientes();
         return solicitudes.stream().map(this::pasarADTO).toList();
     }
     private SolicitudDTOOutput pasarADTO(Solicitud solicitud){
@@ -44,15 +44,15 @@ public class SolicitudService implements DetectorDeSpam{
 
 
     public void actualizarEstadoSolicitud(String idSolicitud, Estado nuevoEstado){
-        Solicitud solicitud = solicitudRepository.buscarSolicitudPorId(idSolicitud);
+        Solicitud solicitud = solicitudRepositorio.buscarSolicitudPorId(idSolicitud);
         solicitud.setEstado(nuevoEstado);
         if(nuevoEstado == Estado.ACEPTADA){
-            Hecho hecho = hechoRepository.buscarHechoPorId(solicitud.getIdHecho());
+            Hecho hecho = hechoRepositorio.buscarHechoPorId(solicitud.getIdHecho());
             hecho.modificarVisibilidad();
-            hechoRepository.guardarHecho(hecho);
+            hechoRepositorio.guardarHecho(hecho);
             //Acá le debería avisar al agregador
         }
-        solicitudRepository.guardarSolicitud(solicitud);
+        solicitudRepositorio.guardarSolicitud(solicitud);
     }
 
 

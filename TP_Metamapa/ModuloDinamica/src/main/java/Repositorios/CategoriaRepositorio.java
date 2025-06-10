@@ -1,12 +1,12 @@
-package Repositorio;
+package Repositorios;
 
 import java.util.*;
 import Modelos.Entidades.*;
 
-public class CategoriaRepository {
+public class CategoriaRepositorio {
     private List<Categoria> categorias;
 
-    public CategoriaRepository(){
+    public CategoriaRepositorio(){
         this.categorias = new ArrayList<>();
     }
 

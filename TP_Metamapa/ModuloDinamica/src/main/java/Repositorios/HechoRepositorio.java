@@ -1,4 +1,4 @@
-package Repositorio;
+package Repositorios;
 
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
@@ -7,10 +7,10 @@ import Modelos.Entidades.*;
 
 
 @Repository
-public class HechoRepository {
+public class HechoRepositorio {
     private List<Hecho> hechos;
 
-    public HechoRepository(){
+    public HechoRepositorio(){
         this.hechos = new ArrayList<>();
     }
 
