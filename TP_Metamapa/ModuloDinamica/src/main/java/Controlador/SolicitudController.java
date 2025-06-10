@@ -1,26 +1,25 @@
 package Controlador;
 
-import Servicio.SolicitudInvalidaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Servicio.SolicitudService;
-import Modelos.DTOs.SolicitudDTO;
-
+import Modelos.DTOs.SolicitudDTOInput;
+import Modelos.DTOs.SolicitudDTOOutput;
 import java.util.List;
+import Modelos.DTOs.EstadoDTO;
+import Servicio.SolicitudInvalidaException;
 
 @RestController
+@RequestMapping("/solicitudes")
 public class SolicitudController {
 
     @Autowired
     private SolicitudService solicitudService;
 
-    @PostMapping("/solicitudes")
-    public ResponseEntity<String> crearSolicitud(@RequestBody SolicitudDTO solicitud){
+    @PostMapping()
+    public ResponseEntity<String> crearSolicitud(@RequestBody SolicitudDTOInput solicitud){
         try{
             solicitudService.crearSolicitud(solicitud);
             return ResponseEntity.ok("Se ha creado la solicitud.");
@@ -29,10 +28,16 @@ public class SolicitudController {
         }
     }
 
-    @GetMapping("/solicitudes/estado?pendiente")
-    public ResponseEntity<List<SolicitudDTO>> obtenerSolicitudesPendientes(){
-        List<SolicitudDTO> solicitudes = solicitudService.solicitudesPendientes();
-        return ResponseEntity.ok(solicitudes);
+    @GetMapping("/estado?pendiente")
+    public List<SolicitudDTOOutput> obtenerSolicitudesPendientes(){
+        return solicitudService.solicitudesPendientes();
     }
+
+    @PutMapping("/{id}")
+    public void actualizarEstado(@PathVariable String idSolicitud, @RequestBody EstadoDTO estadoDTO){
+        solicitudService.actualizarEstadoSolicitud(idSolicitud, estadoDTO.getEstado());
+    }
+
+
 
 }

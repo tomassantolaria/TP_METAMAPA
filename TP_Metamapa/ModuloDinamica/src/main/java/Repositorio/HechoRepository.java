@@ -8,15 +8,20 @@ import Modelos.Entidades.*;
 
 @Repository
 public class HechoRepository {
-    private final List<Hecho> hechos = new ArrayList<>();
+    private List<Hecho> hechos;
+
+    public HechoRepository(){
+        this.hechos = new ArrayList<>();
+    }
 
     public void guardarHecho(Hecho hecho) {
         hechos.add(hecho);
     }
 
-    public List<Hecho> obtenerTodos() {
-        return hechos;
+    public Hecho buscarHechoPorId(String id){
+        return this.hechos.stream()
+                .filter(h->h.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
-
-
 }

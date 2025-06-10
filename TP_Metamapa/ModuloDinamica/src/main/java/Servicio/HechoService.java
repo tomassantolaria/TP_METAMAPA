@@ -17,24 +17,24 @@ import java.util.UUID;
 public class HechoService {
 
     @Autowired
-    CategoriaRepository categoriaRepository;
-    HechoRepository hechoRepository;
+    private CategoriaRepository categoriaRepository;
+    private HechoRepository hechoRepository;
 
     public void crearHecho(HechoDTO dto) {
         String idHecho = UUID.randomUUID().toString(); //https://www.baeldung.com/java-uuid
-        Categoria categoria = categoriaRepository.obtenerOCrearPorNombre(dto.getCategoria());
+        Categoria categoria = categoriaRepository.crearCategoria(dto.getCategoria());
         ContenidoMultimedia contenido_multimedia = new ContenidoMultimedia(dto.getContenido_multimedia());
         Contenido contenido = new Contenido(dto.getContenido(),contenido_multimedia);
         Ubicacion ubicacion = new Ubicacion(dto.getLugar(), null, null);
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/mm/yyyy");
         LocalDate fechaOcurrencia =  LocalDate.parse(dto.getFecha(), formato);
-        Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), null, null, null);  //Decision de diseño.
+        Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), null, null, null); //Decision de diseño.
         boolean anonimo = Boolean.parseBoolean(dto.getAnonimo());
         LocalDate fecha_carga = LocalDate.now();
         List<Etiqueta> etiquetas = new ArrayList<>();
 
         Hecho hecho = new Hecho(idHecho, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion, fecha_carga, OrigenCarga.FUENTE_DINAMICA,
-                false, contribuyente, anonimo, etiquetas);
+                true, contribuyente, anonimo, etiquetas);
         hechoRepository.guardarHecho(hecho);
     }
 

@@ -4,18 +4,14 @@ import java.util.*;
 import Modelos.Entidades.*;
 
 public class CategoriaRepository {
-    private final Map<String, Categoria> categorias = new HashMap<>();
+    private List<Categoria> categorias;
 
-    public CategoriaRepository() {
+    public CategoriaRepository(){
+        this.categorias = new ArrayList<>();
     }
 
-    public void agregarCategoria(Categoria categoria) {
-        categorias.put(categoria.getNombre().toUpperCase(), categoria);
-    }
-
-    public Categoria obtenerOCrearPorNombre(String nombre) {
-        String clave = nombre.toUpperCase();
-        Categoria categoria = categorias.get(clave);
+    public Categoria crearCategoria(String nombre) {
+        Categoria categoria = this.obtenerCategoria(nombre);
         if (categoria == null) {
             categoria = new Categoria(nombre);
             agregarCategoria(categoria);
@@ -23,7 +19,14 @@ public class CategoriaRepository {
         return categoria;
     }
 
-    public List<Categoria> getTodas() {
-        return new ArrayList<>(categorias.values());
+    public Categoria obtenerCategoria(String nombre){
+        return this.categorias.stream()
+                .filter(c->c.getNombre().equals(nombre))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void agregarCategoria(Categoria categoria) {
+        categorias.add(categoria);
     }
 }
