@@ -1,6 +1,7 @@
 package Servicios.impl;
 
 import Modelos.DTOs.HechoDTO;
+import Modelos.DTOs.SolicitudDTO;
 import Servicios.IFuenteMetaMapaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
                                         String fecha_acontecimiento_desde,
                                         String fecha_acontecimiento_hasta,
                                         String ubicacion) {
-        UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs de manera segura y flexible
+        UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs
                 .fromPath("http://localhost/hechos")
                 .queryParam("categoria", categoria)
                 .queryParam("fecha_reporte_desde", fecha_reporte_desde)
@@ -38,7 +39,10 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
 
         ResponseEntity<HechoDTO[]> response = restTemplate.getForEntity(url.toUriString(), HechoDTO[].class);
         // Se realiza una solicitud GET a la URL construida y se espera una respuesta que contenga un array de HechoDTO
-        return Arrays.asList(response.getBody()); // La respuesta se convierte en una lista de HechoDTO
+        if (response.getBody() != null) {
+            return Arrays.asList(response.getBody());
+        }
+        return List.of();// La respuesta se convierte en una lista de HechoDTO
     }
 
 
@@ -65,8 +69,24 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
         ResponseEntity<HechoDTO[]> response = restTemplate.getForEntity(
                 url.toUriString(), HechoDTO[].class);
 
-        return Arrays.asList(response.getBody());
+        if (response.getBody() != null) {
+            return Arrays.asList(response.getBody());
+        }
+        return List.of();
     }
+
+    public void crearSolicitud(SolicitudDTO solicitud) throws Exception {
+        UriComponentsBuilder url = UriComponentsBuilder
+                .fromPath("http://localhost/solicitudes"); // Localhost deberia remplazarse por la instancia de MetaMapa
+
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                url.toUriString(), solicitud, String.class);
+
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            throw new Exception("Error al crear la solicitud: " + response.getBody());
+        }
+    }
+
 }
 
 

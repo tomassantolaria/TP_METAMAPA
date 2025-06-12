@@ -2,6 +2,8 @@ package Servicios;
 
 
 import Modelos.DTOs.HechoDTO;
+import Modelos.DTOs.SolicitudDTO;
+
 import java.util.List;
 
 public interface IFuenteMetaMapaService {
@@ -19,4 +21,5 @@ public interface IFuenteMetaMapaService {
                                                     String fecha_acontecimiento_desde,
                                                     String fecha_acontecimiento_hasta,
                                                     String ubicacion);
+    void crearSolicitud(SolicitudDTO solicitud) throws Exception;
 }

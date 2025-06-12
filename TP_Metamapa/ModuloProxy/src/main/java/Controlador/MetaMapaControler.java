@@ -1,6 +1,8 @@
 package Controlador;
 
+import Modelos.DTOs.SolicitudDTO;
 import Servicios.impl.FuenteMetaMapaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,6 +47,16 @@ public class MetaMapaControler {
                 fecha_acontecimiento_desde,
                 fecha_acontecimiento_hasta,
                 ubicacion);
+    }
+
+    @PostMapping("/solicitudes")
+    public ResponseEntity<String> recibirSolicitud(@RequestBody SolicitudDTO solicitud) {
+        try {
+            metaMapaServicio.crearSolicitud(solicitud);
+            return ResponseEntity.ok("Solicitud creada exitosamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error al crear la solicitud: " + e.getMessage());
+        }
     }
 
 }
