@@ -1,9 +1,12 @@
 package Controlador;
 
+import Modelos.DTOs.HechoDTO;
 import Modelos.DTOs.SolicitudDTO;
 import Servicios.impl.FuenteMetaMapaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/metamapa")
@@ -16,7 +19,7 @@ public class MetaMapaControler {
     }
 
     @GetMapping("/hechos")
-    public Object obtenerHechos(
+    public List<HechoDTO> obtenerHechos(
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) String fecha_reporte_desde,
             @RequestParam(required = false) String fecha_reporte_hasta,
@@ -32,7 +35,7 @@ public class MetaMapaControler {
     }
 
     @GetMapping("/colecciones/{idColeccion}/hechos")
-    public Object obtenerHechosPorColeccion(
+    public List<HechoDTO> obtenerHechosPorColeccion(
             @PathVariable String idColeccion,
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) String fecha_reporte_desde,
