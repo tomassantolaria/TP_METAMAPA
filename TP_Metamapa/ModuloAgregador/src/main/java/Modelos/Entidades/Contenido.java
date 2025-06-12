@@ -1,6 +1,11 @@
 package Modelos.Entidades;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Contenido {
     private String texto;
     private String contenido_multimedia;

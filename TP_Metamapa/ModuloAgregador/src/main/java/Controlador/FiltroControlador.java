@@ -15,7 +15,7 @@ import java.util.List;
 public class FiltroControlador {
 
     @Autowired
-    FiltradorServicio OrganizadorServicio;
+    FiltradorServicio FiltradorServicio;
     HechoRepositorio hechosRepositorio;
     ColeccionRepositorio coleccionRepositorio;
 
@@ -31,7 +31,7 @@ public class FiltroControlador {
             , @RequestParam (required = false) String titulo
             , @RequestParam (required = false) String ubicacion)
     {
-        return OrganizadorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
+        return FiltradorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
     }
 
     @RequestMapping("hechos/filtros")
@@ -47,7 +47,7 @@ public class FiltroControlador {
             , @RequestParam (required = false) String ubicacion)
     {
 
-            return OrganizadorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
+            return FiltradorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
 
     }
 

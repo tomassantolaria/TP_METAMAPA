@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 public class FiltradorServicio {
 
     @Autowired
-    ColeccionServicio coleccionServicio;
-    HechoRepositorio hechoRepositorio;
     FiltroCategoria filtroPorCategoria;
     FiltroFechaDesde filtroPorFechaDesde;
     FiltroContenidoMultimedia filtroContenidoMultimedia;

@@ -62,7 +62,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/main/java/Modelos",
@@ -190,7 +190,7 @@
       <workItem from="1749498999634" duration="1717000" />
       <workItem from="1749693860442" duration="4009000" />
       <workItem from="1749748116476" duration="5795000" />
-      <workItem from="1749761534369" duration="881000" />
+      <workItem from="1749761534369" duration="1221000" />
     </task>
     <task id="LOCAL-00001" summary="creacion de modulos">
       <option name="closed" value="true" />
@@ -280,7 +280,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749762236992</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Entrega 2.1">
+      <option name="closed" value="true" />
+      <created>1749762541506</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749762541506</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
