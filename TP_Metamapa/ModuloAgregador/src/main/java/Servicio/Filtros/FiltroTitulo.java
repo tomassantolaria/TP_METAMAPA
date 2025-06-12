@@ -1,7 +1,6 @@
 package Servicio.Filtros;
 
 import Modelos.Entidades.Hecho;
-import Modelos.Entidades.Criterios;
 
 import org.springframework.stereotype.Service;
 

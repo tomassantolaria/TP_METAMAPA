@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Getter
-public class Busqueda extends Criterios {
+public class Busqueda extends CriteriosDePertenencia {
 
 
     String coleccionId;

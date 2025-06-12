@@ -12,10 +12,10 @@ public class Coleccion {
     private String id;
     private String titulo;
     private String descripcion;
-    private CriterioDePertenencia criterio_pertenencia;
+    private CriteriosDePertenencia criterio_pertenencia;
     private List<Hecho> hechos;
 
-    public Coleccion(String id, String titulo, String descripcion, CriterioDePertenencia criterio_pertenencia, List<Hecho> hechos) {
+    public Coleccion(String id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;

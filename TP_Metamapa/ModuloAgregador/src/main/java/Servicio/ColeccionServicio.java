@@ -44,7 +44,7 @@ public class ColeccionServicio {
         DateTimeFormatter formatterCarga = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fechaCarga = LocalDate.parse(fechaString, formatter);
         OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio_pertenencia().getOrigen_carga());
-        CriterioDePertenencia criterio = new CriterioDePertenencia(coleccionDTO.getTitulo(),coleccionDTO.getDescripcion(), contenido, categoria, fecha,ubicacion,fechaCarga, origen,coleccionDTO.getIdFuente());
+        CriteriosDePertenencia criterio = new CriteriosDePertenencia(coleccionDTO.getTitulo(),coleccionDTO.getDescripcion(), contenido, categoria, fecha,ubicacion,fechaCarga, origen);
         List<Hecho> hechos = new ArrayList<>();
         Coleccion coleccion = new Coleccion(id, coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio,hechos);
         coleccionRepositorio.agregar(coleccion);

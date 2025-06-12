@@ -3,7 +3,7 @@ package Controlador;
 import Modelos.DTOs.HechoDTOOutput;
 import Modelos.Repositorio.ColeccionRepositorio;
 import Modelos.Repositorio.HechoRepositorio;
-import Servicio.OrganizadorServicio;
+import Servicio.FiltradorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public class FiltroControlador {
 
     @Autowired
-    OrganizadorServicio OrganizadorServicio;
+    FiltradorServicio OrganizadorServicio;
     HechoRepositorio hechosRepositorio;
     ColeccionRepositorio coleccionRepositorio;
 

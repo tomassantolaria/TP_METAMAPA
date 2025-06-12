@@ -1,7 +1,5 @@
 package Servicio.Filtros;
 
-import Modelos.Entidades.ContenidoMultimedia;
-import Modelos.Entidades.Criterios;
 import Modelos.Entidades.Hecho;
 
 import org.springframework.stereotype.Service;
