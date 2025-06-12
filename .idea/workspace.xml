@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="Coreccion" />
+    <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="Entrega 2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Busqueda.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/ContenidoMultimedia.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Solicitud.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/ColeccionServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/ColeccionServicio.java" afterDir="false" />
+    </list>
     <list id="36ad2888-5812-4d4c-9c21-cfe2555d3586" name="Changes by arce_mili" comment="" />
     <list id="757559d0-4efc-42ae-a1c4-3a64da5fd63e" name="Changes by mili" comment="" />
+    <list id="c5d956ac-31c7-4b1b-8cb1-2e191171efcb" name="Changes by Tomas Santolaria" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Exception" />
         <option value="Class" />
       </list>
     </option>
@@ -54,28 +63,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "go.import.settings.migrated": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/main/java/Modelos",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/main/java/Modelos&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\TP_METADATA\TP_Metamapa\ModuloProxy\src\main\java\Modelos" />
@@ -187,6 +197,7 @@
       <workItem from="1749498999634" duration="1717000" />
       <workItem from="1749693860442" duration="4009000" />
       <workItem from="1749748116476" duration="5795000" />
+      <workItem from="1749761534369" duration="493000" />
     </task>
     <task id="LOCAL-00001" summary="creacion de modulos">
       <option name="closed" value="true" />
@@ -260,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749753324269</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Entrega 2">
+      <option name="closed" value="true" />
+      <created>1749760756426</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749760756426</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,7 +336,8 @@
     <MESSAGE value="proxy terminado" />
     <MESSAGE value="Filtros y organizador unico" />
     <MESSAGE value="Coreccion" />
-    <option name="LAST_COMMIT_MESSAGE" value="Coreccion" />
+    <MESSAGE value="Entrega 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Entrega 2" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

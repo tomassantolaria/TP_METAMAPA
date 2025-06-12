@@ -40,9 +40,7 @@ public class Hecho{
         //this.etiquetas = etiquetas;
     }
 
-    public void admitirSOlicitudDeEliminacion(Solicitud unaSolicitud){
 
-    }
     public void eliminarse(){
         visible = false;}
 

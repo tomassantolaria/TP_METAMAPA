@@ -23,26 +23,17 @@ public class ColeccionServicio {
         this.hechoRepositorio = hechoRepositorio;
     }
 
-    public Coleccion obtenerOCriarExcepcion(String id) {
-        try {
-            return coleccionRepositorio.obtenerPorId(id);
-        } catch (Exception e) {
-            throw new RuntimeException("Colección no encontrada");
-        }
-    }
 
     public void crearColeccion(ColeccionDTO coleccionDTO) {
         String id = UUID.randomUUID().toString();
         Categoria categoria = new Categoria(coleccionDTO.getCriterio_pertenencia().getCategoria());
-        ContenidoMultimedia contenidoMultimedia = new ContenidoMultimedia(coleccionDTO.getCriterio_pertenencia().getContenido_multimedia());
-        Contenido contenido = new Contenido(coleccionDTO.getCriterio_pertenencia().contenido_texto, contenidoMultimedia);
+        Contenido contenido = new Contenido(coleccionDTO.getCriterio_pertenencia().getContenido_texto(), coleccionDTO.getCriterio_pertenencia().getContenido_multimedia());
         String fechaString = coleccionDTO.getCriterio_pertenencia().getFecha();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate fecha = LocalDate.parse(fechaString, formatter);
         Ubicacion ubicacion = new Ubicacion(coleccionDTO.getCriterio_pertenencia().getLugar(),coleccionDTO.getCriterio_pertenencia().getLatitud(),coleccionDTO.getCriterio_pertenencia().getLongitud());
         String fechaCargaString = coleccionDTO.getCriterio_pertenencia().getFecha_carga();
-        DateTimeFormatter formatterCarga = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate fechaCarga = LocalDate.parse(fechaString, formatter);
+        LocalDate fechaCarga = LocalDate.parse(fechaCargaString, formatter);
         OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio_pertenencia().getOrigen_carga());
         CriteriosDePertenencia criterio = new CriteriosDePertenencia(coleccionDTO.getTitulo(),coleccionDTO.getDescripcion(), contenido, categoria, fecha,ubicacion,fechaCarga, origen);
         List<Hecho> hechos = new ArrayList<>();
