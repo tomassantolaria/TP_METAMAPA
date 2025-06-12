@@ -11,22 +11,20 @@ import Modelos.Entidades.Solicitud;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//Modelé acá lo de ver si es spam o no, asi ya le cambio el estado
+
 @Service
 public class SolicitudService implements DetectorDeSpam{
 
     public void crearSolicitud(SolicitudDTO solicituddto){
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaSolicitud =  LocalDate.parse(solicituddto.getFecha_creacion(), formato);
         String motivo = solicituddto.getMotivo();
-        Integer idHecho = Integer.parseInt(solicituddto.getIdHecho());
-        Solicitud solicitud = new Solicitud(fechaSolicitud, motivo, idHecho, Estado.PENDIENTE);
-
-        if(esSpam(solicitud.getMotivo())){
-            solicitud.setEstado(Estado.RECHAZADA);
+        String idHecho = solicituddto.getIdHecho();
+        if(motivo.length() < 500){
+            Solicitud solicitud = new Solicitud(fechaSolicitud, motivo, idHecho, Estado.PENDIENTE);
+            SolicitudRepository.guardarSolicitud(solicitud);
         }
-        SolicitudRepository.guardarSolicitud(solicitud);
-
+        else throw new IllegalArgumentException("Solicitud rechazada por spam");
     }
 
     @Override
