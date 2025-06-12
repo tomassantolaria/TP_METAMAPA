@@ -1,27 +1,44 @@
 package Servicio;
-import Modelos.HechoCSV;
-import Modelos.HechoDTO;
-
-import java.lang.reflect.Array;
+import Modelos.Entidades.HechoCSV;
+import Modelos.DTOS.HechoDTO;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import Modelos.HechosCSV;
+import Modelos.Entidades.HechosCSV;
 import org.springframework.stereotype.Service;
-import lombok.Value;
-import java.util.Arrays;
+
 import java.io.File;
 
-
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
 @Service
 public class FuenteEstatica {
 
     private File carpeta = new File("ArchivosCSV");
+    private Importador importador = new ImportadorCSV();
 
-    public List<String> getPaths() {
+    public Importador getImportador() {
+        return importador;
+    }
+
+    public File getCarpeta() {
+        return carpeta;
+    }
+
+    public void setCarpeta(File carpeta) {
+        this.carpeta = carpeta;
+    }
+
+    public void setImportador(Importador importador) {
+        this.importador = importador;
+    }
+
+    private List<String> getPaths() {
             List<String> paths = new ArrayList<>();
             if(carpeta.exists() && carpeta.isDirectory()) {
                 if(carpeta.listFiles() != null) {
@@ -36,7 +53,7 @@ public class FuenteEstatica {
                 System.out.println("La carpeta no existe o no es un directorio");
             }
             return paths;
-        }
+    }
 
 
 
@@ -46,9 +63,9 @@ public class FuenteEstatica {
         if (paths != null) {
             for (String path : paths) {
                 try {
-                    HechosCSV hechosCSV = getHechoCSV(path);
-                    for (HechoCSV hecho : hechosCSV.getHechos()) {
-                        hechosDTO.add(convertToDTO(hecho));
+                    if (path.endsWith(".csv")) {
+                        setImportador(new ImportadorCSV());
+                        hechosDTO = importador.getHechoFromFile(path);
                     }
                 } catch (Exception e) {
                     e.printStackTrace(); // Manejo básico de errores
@@ -57,36 +74,5 @@ public class FuenteEstatica {
         }
         return hechosDTO;
     }
-    public HechoDTO convertToDTO(HechoCSV hechoCSV) {
-        return new HechoDTO(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), hechoCSV.getCategoria(), hechoCSV.getLatitud(),  hechoCSV.getLongitud(), hechoCSV.getFechaAcontecimiento());
-    }
-
-    public HechosCSV getHechoCSV (String ruta) throws Exception {
-
-            HechosCSV hechos = new HechosCSV();
-            BufferedReader br = new BufferedReader(new FileReader(ruta));
-            String linea;
-            br.readLine(); // Saltar encabezado
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            while ((linea = br.readLine()) != null) {
-                String[] campos = linea.split(",");
-                HechoCSV hecho = HechoCSV.getInstance(
-                        campos[0], // Título
-                        campos[1], // Descripción
-                        campos[2], // Categoría
-                        LocalDate.parse(campos[5], formatter), // Fecha del hecho
-                        Double.parseDouble(campos[3]), // Latitud
-                        Double.parseDouble(campos[4])// Longitud
-                );
-
-                hechos.addHecho(hecho);
-            }
-
-            br.close();
-
-            return hechos;
-    }
 }
-
-
 

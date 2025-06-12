@@ -1,6 +1,5 @@
 package Controlador;
-import Modelos.HechoDTO;
-import Modelos.HechoCSV;
+import Modelos.DTOS.HechoDTO;
 import Servicio.FuenteEstatica;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
