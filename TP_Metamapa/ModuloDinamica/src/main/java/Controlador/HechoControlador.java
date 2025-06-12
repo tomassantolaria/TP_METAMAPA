@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 
 @RestController
-@RequestMapping("/hecho")
+@RequestMapping("/dinamica/hecho")
 public class HechoControlador {
 
     @Autowired
