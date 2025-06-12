@@ -13,6 +13,7 @@ import Modelos.Entidades.Solicitud;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -23,7 +24,7 @@ public class SolicitudServicio implements DetectorDeSpam{
     HechoRepositorio hechoRepositorio;
 
     public void crearSolicitud(SolicitudDTOInput solicituddto){
-        String idSolicitud = java.util.UUID.randomUUID().toString();
+        String idSolicitud = UUID.randomUUID().toString();
         LocalDate fechaSolicitud =  LocalDate.now();
         String motivo = solicituddto.getMotivo();
         String idHecho = solicituddto.getIdHecho();

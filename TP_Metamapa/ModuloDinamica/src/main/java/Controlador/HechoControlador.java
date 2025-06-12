@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 
 @RestController
-@RequestMapping("/fuenteDinamica")
+@RequestMapping("/hecho")
 public class HechoControlador {
 
     @Autowired
     HechoServicio hechoServicio;
 
-    @PostMapping("/hecho")
+    @PostMapping()
     public ResponseEntity<String> crearHecho(@RequestBody HechoDTO hechoDTO) {
         hechoServicio.crearHecho(hechoDTO);
         return ResponseEntity.ok("Hecho creado exitosamente.");

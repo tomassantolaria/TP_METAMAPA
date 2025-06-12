@@ -23,8 +23,7 @@ public class HechoServicio {
     public void crearHecho(HechoDTO dto) {
         String idHecho = UUID.randomUUID().toString(); //https://www.baeldung.com/java-uuid
         Categoria categoria = categoriaRepositorio.crearCategoria(dto.getCategoria());
-        ContenidoMultimedia contenido_multimedia = new ContenidoMultimedia(dto.getContenido_multimedia());
-        Contenido contenido = new Contenido(dto.getContenido(),contenido_multimedia);
+        Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
         Ubicacion ubicacion = new Ubicacion(dto.getLugar(), null, null);
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/mm/yyyy");
         LocalDate fechaOcurrencia =  LocalDate.parse(dto.getFecha(), formato);
