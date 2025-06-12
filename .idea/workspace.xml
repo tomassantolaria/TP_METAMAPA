@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="Coreccion" />
+    <list id="36ad2888-5812-4d4c-9c21-cfe2555d3586" name="Changes by arce_mili" comment="" />
+    <list id="757559d0-4efc-42ae-a1c4-3a64da5fd63e" name="Changes by mili" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="MiliRama" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/tomassantolaria/TP_METADATA.git&quot;,
+    &quot;accountId&quot;: &quot;46e82ccc-969a-4c36-b33a-fc7c2bad246b&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Servicios/FuenteMetaMapaService.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2xuz9L8SEx3It3mZTt1c6zbwehK" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "go.import.settings.migrated": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/main/java/Modelos",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloProxy\src\main\java\Modelos" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloDinamica\src\main\java\Modelos" />
+      <recent name="C:\TP_METADATA\TP_Metamapa" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloProxy" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloDinamica\src\main\java\Servicios" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloDinamica\src\main\java\Modelos\Repository" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloProxy\src\main\java" />
+      <recent name="C:\TP_METADATA\TP_Metamapa" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Modelos" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.Metamapa">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="TP_METADATA" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="TP_METADATA" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="TP_METADATA" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="TP_METADATA" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Metamapa" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="TP_Metamapa" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Metamapa.Metamapa" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModuloProxyApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloEstatica" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="utn.dsi.ModuloProxy.ModuloProxyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModuloProxyApplication (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloProxy" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="utn.dsi.ModuloProxy.ModuloProxyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModuloProxyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloDinamica" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="utn.dsi.ModuloProxy.ModuloProxyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="" />
+      <created>1748802595180</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748802595180</updated>
+      <workItem from="1748802596469" duration="379000" />
+      <workItem from="1748802993028" duration="11082000" />
+      <workItem from="1748898298834" duration="4975000" />
+      <workItem from="1748977153120" duration="2118000" />
+      <workItem from="1748979300998" duration="183000" />
+      <workItem from="1748979529397" duration="10000" />
+      <workItem from="1748979591590" duration="1167000" />
+      <workItem from="1748980788696" duration="4950000" />
+      <workItem from="1749130657655" duration="4399000" />
+      <workItem from="1749147051961" duration="6356000" />
+      <workItem from="1749214914174" duration="7000" />
+      <workItem from="1749402526331" duration="16146000" />
+      <workItem from="1749498999634" duration="1717000" />
+      <workItem from="1749693860442" duration="4009000" />
+      <workItem from="1749748116476" duration="5795000" />
+    </task>
+    <task id="LOCAL-00001" summary="creacion de modulos">
+      <option name="closed" value="true" />
+      <created>1748814361562</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748814361562</updated>
+    </task>
+    <task id="LOCAL-00002" summary="agregacion fuenteDEMO">
+      <option name="closed" value="true" />
+      <created>1748985913703</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748985913703</updated>
+    </task>
+    <task id="LOCAL-00003" summary="cambios fuente proxy">
+      <option name="closed" value="true" />
+      <created>1749135098692</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1749135098692</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cambios fuente proxy">
+      <option name="closed" value="true" />
+      <created>1749155488118</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1749155488118</updated>
+    </task>
+    <task id="LOCAL-00005" summary="actualizaciones">
+      <option name="closed" value="true" />
+      <created>1749419508666</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1749419508666</updated>
+    </task>
+    <task id="LOCAL-00006" summary="proxy terminado">
+      <option name="closed" value="true" />
+      <created>1749695901792</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1749695901792</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Filtros y organizador unico">
+      <option name="closed" value="true" />
+      <created>1749752976707</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1749752976707</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Coreccion">
+      <option name="closed" value="true" />
+      <created>1749753151174</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1749753151174</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Coreccion">
+      <option name="closed" value="true" />
+      <created>1749753324269</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749753324269</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="RamaMili" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="creacion de modulos" />
+    <MESSAGE value="agregacion fuenteDEMO" />
+    <MESSAGE value="cambios fuente proxy" />
+    <MESSAGE value="actualizaciones" />
+    <MESSAGE value="proxy terminado" />
+    <MESSAGE value="Filtros y organizador unico" />
+    <MESSAGE value="Coreccion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Coreccion" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>

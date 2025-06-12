@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="ModuloAgregador" target="17" />
+      <module name="ModuloDinamica" target="17" />
+      <module name="ModuloEstatica" target="17" />
+      <module name="ModuloProxy" target="17" />
+      <module name="TP_Metamapa" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
