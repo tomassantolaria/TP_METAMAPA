@@ -18,9 +18,20 @@ import lombok.Setter;
 @Setter
 @Service
 public class FuenteEstatica {
-
+    private static FuenteEstatica instance;
     private File carpeta = new File("ArchivosCSV");
     private Importador importador = new ImportadorCSV();
+
+    private FuenteEstatica(File carpeta) {
+        this.carpeta = carpeta;
+    }
+
+    public static FuenteEstatica getInstance(File carpeta) {
+        if (instance == null) {
+            instance = new FuenteEstatica(carpeta);
+        }
+        return instance;
+    }
 
     public Importador getImportador() {
         return importador;
