@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
-      <module name="ModuloAgregador" target="17" />
-      <module name="ModuloDinamica" target="17" />
-      <module name="ModuloEstatica" target="17" />
-      <module name="ModuloProxy" target="17" />
-      <module name="TP_Metamapa" target="1.5" />
-    </bytecodeTargetLevel>
+    <annotationProcessing>
+      <profile name="Annotation profile for TP_Metamapa" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="ModuloAgregador" />
+        <module name="ModuloEstatica" />
+        <module name="ModuloDinamica" />
+      </profile>
+      <profile name="Annotation profile for ModuloProxy" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="ModuloProxy" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ModuloAgregador" options="-parameters" />
+      <module name="ModuloDinamica" options="-parameters" />
+      <module name="ModuloEstatica" options="-parameters" />
+      <module name="ModuloProxy" options="-parameters" />
+      <module name="TP_Metamapa" options="" />
+    </option>
   </component>
 </project>
