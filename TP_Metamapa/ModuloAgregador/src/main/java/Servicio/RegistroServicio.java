@@ -1,8 +1,8 @@
 package Servicio;
 
-import Controlador.Modelos.DTOs.ContribuyenteDTOInput;
-import Controlador.Modelos.Entidades.Contribuyente;
-import Repositorio.ContribuyenteRepositorio;
+import Modelos.DTOs.ContribuyenteDTOInput;
+import Modelos.Entidades.Contribuyente;
+import Modelos.Repositorio.ContribuyenteRepositorio;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;

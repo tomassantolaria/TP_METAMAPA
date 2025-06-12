@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import Controlador.Modelos.DTOs.ColeccionDTO;
+import Modelos.DTOs.ColeccionDTO;
 
 public class ColeccionControlador {
     private final ColeccionServicio coleccionServicio;

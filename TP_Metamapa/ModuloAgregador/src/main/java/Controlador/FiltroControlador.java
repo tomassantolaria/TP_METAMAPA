@@ -1,42 +1,54 @@
 package Controlador;
 
-import Controlador.Modelos.DTOs.CriterioDTO;
-import Controlador.Modelos.DTOs.HechoDTOOutput;
-import Servicio.FiltroServicio;
-import org.springframework.http.ResponseEntity;
-import Controlador.Modelos.DTOs.ContribuyenteDTOInput;
+import Modelos.DTOs.HechoDTOOutput;
+import Modelos.Repositorio.ColeccionRepositorio;
+import Modelos.Repositorio.HechoRepositorio;
+import Servicio.OrganizadorServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/Metamapa")
+@RequestMapping("/Agregador")
 
 public class FiltroControlador {
 
-    private final FiltroServicio filtroServicio;
-
-    public FiltroControlador(FiltroServicio filtroServicio) {
-        this.filtroServicio = filtroServicio;
-    }
+    @Autowired
+    OrganizadorServicio OrganizadorServicio;
+    HechoRepositorio hechosRepositorio;
+    ColeccionRepositorio coleccionRepositorio;
 
     @RequestMapping("coleccion/{id}/filtros")
-    public List<HechoDTOOutput> coleccionFiltrada(@PathVariable String id, @RequestBody CriterioDTO criterios) {
-        if(criterios == null)
-            return filtroServicio.mostrarTodosLosHechosDe(id);
-        else
-        return filtroServicio.filtrarHechosDe(id, criterios);
+    public List<HechoDTOOutput> coleccionFiltrada(@PathVariable String id
+            , @RequestParam (required = false) String categoria
+            , @RequestParam (required = false) String contenidoMultimedia
+            , @RequestParam (required = false) String fechaCargaDesde
+            , @RequestParam (required = false) String fechaCargaHasta
+            , @RequestParam (required = false) String fechaHechoDesde
+            , @RequestParam (required = false) String fechaHechoHasta
+            , @RequestParam (required = false) String origen
+            , @RequestParam (required = false) String titulo
+            , @RequestParam (required = false) String ubicacion)
+    {
+        return OrganizadorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
     }
 
     @RequestMapping("hechos/filtros")
-    public List<HechoDTOOutput> hechosFiltrados(@RequestBody CriterioDTO criterios) {
-        if(criterios == null)
-            return filtroServicio.mostrarTodosLosHechos();
-        else
-            return filtroServicio.filtrar(criterios);
-    }
+    public List<HechoDTOOutput> hechosFiltrados(
+            @RequestParam (required = false) String categoria
+            , @RequestParam (required = false) String contenidoMultimedia
+            , @RequestParam (required = false) String fechaCargaDesde
+            , @RequestParam (required = false) String fechaCargaHasta
+            , @RequestParam (required = false) String fechaHechoDesde
+            , @RequestParam (required = false) String fechaHechoHasta
+            , @RequestParam (required = false) String origen
+            , @RequestParam (required = false) String titulo
+            , @RequestParam (required = false) String ubicacion)
+    {
 
+            return OrganizadorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
+
+    }
 
 }

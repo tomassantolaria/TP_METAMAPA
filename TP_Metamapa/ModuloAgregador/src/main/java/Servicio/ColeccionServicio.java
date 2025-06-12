@@ -1,10 +1,9 @@
 package Servicio;
 
-import Controlador.Modelos.DTOs.ColeccionDTO;
-import Controlador.Modelos.Entidades.*;
-import Controlador.Modelos.Entidades.Coleccion;
-import Repositorio.ColeccionRepositorio;
-import Repositorio.HechoRepositorio;
+import Modelos.DTOs.ColeccionDTO;
+import Modelos.Entidades.*;
+import Modelos.Repositorio.ColeccionRepositorio;
+import Modelos.Repositorio.HechoRepositorio;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

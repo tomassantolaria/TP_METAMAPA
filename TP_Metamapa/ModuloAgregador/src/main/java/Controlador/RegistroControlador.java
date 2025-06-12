@@ -1,7 +1,6 @@
 package Controlador;
 
-import Controlador.Modelos.DTOs.ContribuyenteDTOInput;
-import Servicio.FiltroServicio;
+import Modelos.DTOs.ContribuyenteDTOInput;
 import Servicio.RegistroServicio;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
