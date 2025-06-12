@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ContribuyenteDTO {
-    public String usuario;
-    public String nombre;
-    public String apellido;
-    public String fecha_nacimiento;
+    private String usuario;
+    private String nombre;
+    private String apellido;
+    private String fecha_nacimiento;
 }

@@ -10,7 +10,7 @@ import Modelos.Entidades.Solicitud;
 
 
 @Repository
-public class SolicitudRepositorio {
+public class SolicitudRepositorio{
     private List<Solicitud> solicitudes;
     public SolicitudRepositorio(){
         this.solicitudes = new ArrayList<>();

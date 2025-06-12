@@ -7,7 +7,7 @@ import Modelos.Entidades.*;
 
 
 @Repository
-public class HechoRepositorio {
+public class HechoRepositorio{
     private List<Hecho> hechos;
 
     public HechoRepositorio(){

@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 //Esta es la solicitud de eliminación que recibo de un usuario
 public class SolicitudDTOInput {
-    String motivo;
-    String idHecho;
+    private String motivo;
+    private String idHecho;
 
     public SolicitudDTOInput(String motivo, String idHecho) {
         this.motivo = motivo;

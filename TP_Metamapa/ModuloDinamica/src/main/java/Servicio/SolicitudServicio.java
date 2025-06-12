@@ -17,7 +17,7 @@ import java.util.UUID;
 
 
 @Service
-public class SolicitudServicio implements DetectorDeSpam{
+public class SolicitudServicio implements DetectorDeSpam {
 
     @Autowired
     SolicitudRepositorio solicitudRepositorio;
