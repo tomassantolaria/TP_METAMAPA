@@ -7,8 +7,12 @@ import lombok.Setter;
 @Setter
 public class Ubicacion {
     private String nombre;
-    private String latitud;
-    private String longitud;
+    private Double latitud;
+    private Double longitud;
 
-    public Ubicacion(String nombre, String latitud, String longitud) {}
+    public Ubicacion(String nombre, Double latitud, Double longitud) {
+        this.nombre = nombre;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
 }

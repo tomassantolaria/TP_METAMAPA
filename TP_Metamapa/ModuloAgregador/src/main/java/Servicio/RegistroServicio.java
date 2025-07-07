@@ -23,10 +23,7 @@ public class RegistroServicio {
         contribuyente.setUsuario( contribuyenteDTO.getUsuario());
         contribuyente.setNombre(contribuyenteDTO.getNombre());
         contribuyente.setApellido(contribuyenteDTO.getApellido());
-        String fechaString = contribuyenteDTO.getFecha_nacimiento();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fecha = LocalDate.parse(fechaString, formatter);
-        contribuyente.setFecha_nacimiento(fecha);
+        contribuyente.setFecha_nacimiento(contribuyenteDTO.getFecha_nacimiento());
         return contribuyente;
     }
 

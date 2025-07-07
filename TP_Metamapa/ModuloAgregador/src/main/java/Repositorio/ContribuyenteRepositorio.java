@@ -16,7 +16,7 @@ public class ContribuyenteRepositorio {
         return new ArrayList<>(contribuyentes.values());
     }
 
-    public Contribuyente obtenerPorId(String usuario) {
+    public static Contribuyente obtenerPorId(String usuario) {
         return contribuyentes.get(usuario);
     }
 

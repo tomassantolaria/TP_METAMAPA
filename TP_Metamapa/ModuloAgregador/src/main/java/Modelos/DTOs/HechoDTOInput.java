@@ -1,23 +1,21 @@
 package Modelos.DTOs;
 
 
-import Modelos.Entidades.Categoria;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Getter
-
-public class CriterioDTO {
+@Setter
+public class HechoDTOInput {
     public String titulo;
     public String descripcion;
-    public String contenido_texto;
-    public String contenido_multimedia;
+    public String contenido;
+    public String contenidoMultimedia;
     public String categoria;
     public LocalDate fecha;
     public String lugar;
     public Double latitud;
     public Double longitud;
-    public LocalDate fecha_carga;
-    public String origen_carga;
 }

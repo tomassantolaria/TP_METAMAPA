@@ -1,6 +1,7 @@
 package Modelos.Entidades;
 
 import java.util.List;
+import java.util.UUID;
 
 
 import lombok.Getter;
@@ -15,7 +16,7 @@ public class Coleccion {
     private CriteriosDePertenencia criterio_pertenencia;
     private List<Hecho> hechos;
 
-    public Coleccion(String id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
+    public Coleccion(UUID id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;

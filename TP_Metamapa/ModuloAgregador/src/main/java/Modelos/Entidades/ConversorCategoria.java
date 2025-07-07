@@ -1,10 +1,11 @@
 package Modelos.Entidades;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
+import org.springframework.stereotype.Service;
 
-
-public class ConversorCategoria extends StdConverter<String, Categoria> {
-    public Categoria convert(String nombre) {
+@Service
+public class ConversorCategoria {
+    public static Categoria convert(String nombre) {
         return Categoria.getInstance(nombre);
     }
 }

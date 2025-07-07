@@ -20,7 +20,7 @@ public class Hecho{
     public OrigenCarga origen_carga; //enum
     public boolean visible = false;
     public String usuario;
-    public boolean anonimo = false;
+    public boolean anonimo = true;
     //public List<Etiqueta> etiquetas;
 
     protected Hecho(String id, String unTitulo , String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,

@@ -1,15 +1,13 @@
 package Modelos.DTOs;
 
-import Modelos.Entidades.OrigenCarga;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
-
+import lombok.Getter;
+import lombok.Setter;
 @Getter
 @Setter
-//PATRON DTO
-public class HechoDTOOutput{
+
+public class HechoDTOInput {
     public String titulo;
     public String descripcion;
     public String contenido;

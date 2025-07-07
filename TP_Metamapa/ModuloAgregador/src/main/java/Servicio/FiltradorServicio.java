@@ -2,6 +2,7 @@ package Servicio;
 
 import Modelos.Entidades.*;
 import Modelos.DTOs.HechoDTOOutput;
+import Repositorio.ContribuyenteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Servicio.Filtros.*;
@@ -58,12 +59,17 @@ public class FiltradorServicio {
         Contenido contenido = hecho.getContenido();
         hechoDTO.setContenido(contenido.getTexto());
         hechoDTO.setContenido_multimedia(hechoDTO.getContenido_multimedia());
-        LocalDate fecha = hecho.getFecha();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaString = fecha.format(formatter);
-        hechoDTO.setFecha(fechaString);
-        Ubicacion ubicacion = hecho.getUbicacion();
-        hechoDTO.setLugar(ubicacion.getNombre());
+        hechoDTO.setFecha(hecho.getFecha());
+        hechoDTO.setLugar(hecho.getUbicacion().getNombre());
+        hechoDTO.setLatitud(hecho.getUbicacion().getLatitud());
+        hechoDTO.setLongitud(hecho.getUbicacion().getLongitud());
+        if (hecho.isAnonimo()) {
+            hechoDTO.setUsuario(hecho.getUsuario());
+            hechoDTO.setNombre(ContribuyenteRepositorio.obtenerPorId(hecho.getUsuario()).getNombre());
+            hechoDTO.setApellido(ContribuyenteRepositorio.obtenerPorId(hecho.getUsuario()).getApellido());
+            hechoDTO.setFecha_nacimiento(ContribuyenteRepositorio.obtenerPorId(hecho.getUsuario()).getFecha_nacimiento());
+        }
+        hechoDTO.setOrgien_carga(hecho.getOrigen_carga());
         return hechoDTO;
     }
 
