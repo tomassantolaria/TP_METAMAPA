@@ -1,7 +1,7 @@
 package Servicios;
 
-import Modelos.Repositorios.CategoriaRepositorio;
-import Modelos.Repositorios.HechoRepositorio;
+import Repositorios.CategoriaRepositorio;
+import Repositorios.HechoRepositorio;
 import Modelos.Entidades.*;
 import Modelos.DTOs.*;
 

@@ -1,4 +1,4 @@
-package Modelos.Repositorio;
+package Repositorio;
 import org.springframework.stereotype.Repository;
 import Modelos.Entidades.Hecho;
 

@@ -2,7 +2,6 @@ package Servicio;
 
 import Modelos.Entidades.*;
 import Modelos.DTOs.HechoDTOOutput;
-import Modelos.Repositorio.HechoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Servicio.Filtros.*;

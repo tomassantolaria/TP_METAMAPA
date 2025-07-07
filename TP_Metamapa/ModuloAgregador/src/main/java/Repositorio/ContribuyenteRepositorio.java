@@ -1,4 +1,4 @@
-package Modelos.Repositorio;
+package Repositorio;
 
 import Modelos.Entidades.Contribuyente;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package Modelos.Repositorios;
+package Repositorios;
 import Modelos.Entidades.Hecho;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;

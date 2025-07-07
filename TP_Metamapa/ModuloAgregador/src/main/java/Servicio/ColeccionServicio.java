@@ -2,8 +2,8 @@ package Servicio;
 
 import Modelos.DTOs.ColeccionDTO;
 import Modelos.Entidades.*;
-import Modelos.Repositorio.ColeccionRepositorio;
-import Modelos.Repositorio.HechoRepositorio;
+import Repositorio.ColeccionRepositorio;
+import Repositorio.HechoRepositorio;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,12 +25,9 @@ public class ColeccionServicio {
 
 
     public void crearColeccion(ColeccionDTO coleccionDTO) {
-        String id = UUID.randomUUID().toString();
-        Categoria categoria = new Categoria(coleccionDTO.getCriterio_pertenencia().getCategoria());
-        Contenido contenido = new Contenido(coleccionDTO.getCriterio_pertenencia().getContenido_texto(), coleccionDTO.getCriterio_pertenencia().getContenido_multimedia());
-        String fechaString = coleccionDTO.getCriterio_pertenencia().getFecha();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate fecha = LocalDate.parse(fechaString, formatter);
+        Categoria categoria = ConversorCategoria.convert(coleccionDTO.getCriterio_pertenencia().getCategoria());
+        Contenido contenido = ConversorContenido.convert(coleccionDTO.getCriterio_pertenencia().getContenido_texto(), coleccionDTO.getCriterio_pertenencia().getContenido_multimedia());
+        LocalDate fecha = coleccionDTO.getCriterio_pertenencia().getFecha();
         Ubicacion ubicacion = new Ubicacion(coleccionDTO.getCriterio_pertenencia().getLugar(),coleccionDTO.getCriterio_pertenencia().getLatitud(),coleccionDTO.getCriterio_pertenencia().getLongitud());
         String fechaCargaString = coleccionDTO.getCriterio_pertenencia().getFecha_carga();
         LocalDate fechaCarga = LocalDate.parse(fechaCargaString, formatter);

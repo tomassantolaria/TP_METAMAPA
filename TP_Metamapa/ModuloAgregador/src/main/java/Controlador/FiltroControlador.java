@@ -1,8 +1,8 @@
 package Controlador;
 
 import Modelos.DTOs.HechoDTOOutput;
-import Modelos.Repositorio.ColeccionRepositorio;
-import Modelos.Repositorio.HechoRepositorio;
+import Repositorio.ColeccionRepositorio;
+import Repositorio.HechoRepositorio;
 import Servicio.FiltradorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

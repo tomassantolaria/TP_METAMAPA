@@ -4,8 +4,8 @@ import Modelos.DTOs.SolicitudDTOInput;
 import Modelos.DTOs.SolicitudDTOOutput;
 import Modelos.Entidades.Estado;
 import Modelos.Entidades.Hecho;
-import Modelos.Repositorios.HechoRepositorio;
-import Modelos.Repositorios.SolicitudRepositorio;
+import Repositorios.HechoRepositorio;
+import Repositorios.SolicitudRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

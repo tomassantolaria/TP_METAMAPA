@@ -16,5 +16,9 @@ public class ConexionService implements IConexionService {
         Map<String, Object> hechos = new HashMap<>();
         // Implementar la lógica para obtener el siguiente hecho desde la URL
         return hechos;
+
+        // api mock
+        // pipedream
+
     }
 }

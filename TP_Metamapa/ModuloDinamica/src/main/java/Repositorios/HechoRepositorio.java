@@ -1,4 +1,4 @@
-package Modelos.Repositorios;
+package Repositorios;
 
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;

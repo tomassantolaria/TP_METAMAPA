@@ -1,7 +1,9 @@
-package Modelos.Repositorios;
+package Repositorio;
 
-import java.util.*;
-import Modelos.Entidades.*;
+import Modelos.Entidades.Categoria;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CategoriaRepositorio {
     private List<Categoria> categorias;

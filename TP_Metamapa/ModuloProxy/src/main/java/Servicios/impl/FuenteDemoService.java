@@ -1,7 +1,7 @@
 package Servicios.impl;
 
 import Modelos.Entidades.Hecho;
-import Modelos.Repositorios.FuenteDemo_Hechos;
+import Repositorios.FuenteDemo_Hechos;
 import Servicios.IConexionService;
 import Servicios.IFuenteDemoService;
 import org.springframework.stereotype.Service;
