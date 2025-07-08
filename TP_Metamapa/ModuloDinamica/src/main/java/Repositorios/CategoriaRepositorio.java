@@ -10,18 +10,18 @@ public class CategoriaRepositorio {
         this.categorias = new ArrayList<>();
     }
 
-    public Categoria crearCategoria(String nombre) {
-        Categoria categoria = this.obtenerCategoria(nombre);
+    public Categoria crearCategoria(Categoria categoria) {
+        Categoria categoriaNueva = this.obtenerCategoria(categoria);
         if (categoria == null) {
-            categoria = new Categoria(nombre);
+            categoria = new Categoria(categoriaNueva.getNombre());
             agregarCategoria(categoria);
         }
         return categoria;
     }
 
-    public Categoria obtenerCategoria(String nombre){
+    public Categoria obtenerCategoria(Categoria categoria){
         return this.categorias.stream()
-                .filter(c->c.getNombre().equals(nombre))
+                .filter(c->c.getNombre().equals(categoria.getNombre()))
                 .findFirst()
                 .orElse(null);
     }

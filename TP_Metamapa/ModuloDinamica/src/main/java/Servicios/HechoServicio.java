@@ -21,14 +21,13 @@ public class HechoServicio {
     private HechoRepositorio hechoRepositorio;
 
     public void crearHecho(HechoDTO dto) {
-        String idHecho = UUID.randomUUID().toString(); //https://www.baeldung.com/java-uuid
+        UUID idHecho = UUID.randomUUID(); //https://www.baeldung.com/java-uuid
         Categoria categoria = categoriaRepositorio.crearCategoria(dto.getCategoria());
-        Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
+        Contenido contenido = new Contenido(dto.getContenido().getTexto(), dto.getContenido().getContenido_multimedia());
         Ubicacion ubicacion = new Ubicacion(dto.getLugar(), null, null);
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/mm/yyyy");
-        LocalDate fechaOcurrencia =  LocalDate.parse(dto.getFecha(), formato);
+        LocalDate fechaOcurrencia =  dto.getFecha();
         Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), null, null, null); //Decision de diseño.
-        boolean anonimo = Boolean.parseBoolean(dto.getAnonimo());
+        boolean anonimo = dto.getAnonimo();
         LocalDate fecha_carga = LocalDate.now();
         List<Etiqueta> etiquetas = new ArrayList<>();
 

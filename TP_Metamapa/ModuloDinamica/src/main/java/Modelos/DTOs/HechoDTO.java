@@ -20,5 +20,5 @@ public class HechoDTO {
     private LocalDate fecha;
     private String lugar;
     private String usuario;
-    private String anonimo;
+    private Boolean anonimo;
 }

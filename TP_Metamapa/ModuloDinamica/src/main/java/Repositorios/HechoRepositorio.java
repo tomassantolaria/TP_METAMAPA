@@ -3,6 +3,8 @@ package Repositorios;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import Modelos.Entidades.*;
 
 
@@ -18,7 +20,7 @@ public class HechoRepositorio{
         hechos.add(hecho);
     }
 
-    public Hecho buscarHechoPorId(String id){
+    public Hecho buscarHechoPorId(UUID id){
         return this.hechos.stream()
                 .filter(h->h.getId().equals(id))
                 .findFirst()

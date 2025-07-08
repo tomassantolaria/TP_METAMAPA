@@ -5,20 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="Entrega 2.1">
-      <change afterPath="$PROJECT_DIR$/.idea/TP_METAMAPA.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Repositorio/HechosRepositorio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/DTOS/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/DTOS/HechoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/Entidades/HechoCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/Entidades/HechoCSV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/FuenteEstatica.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/FuenteEstatica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/Importador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/Importador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/ImportadorCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/ImportadorCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/DTOs/ContribuyenteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/DTOs/ContribuyenteDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/DTOs/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/DTOs/HechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/DTOs/SolicitudDTOInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/DTOs/SolicitudDTOInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/DTOs/SolicitudDTOOutput.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/DTOs/SolicitudDTOOutput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Contenido.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Contenido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Solicitud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Repositorios/CategoriaRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Repositorios/CategoriaRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/SolicitudServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/SolicitudServicio.java" afterDir="false" />
     </list>
     <list id="36ad2888-5812-4d4c-9c21-cfe2555d3586" name="Changes by arce_mili" comment="" />
     <list id="757559d0-4efc-42ae-a1c4-3a64da5fd63e" name="Changes by mili" comment="" />
@@ -48,12 +46,12 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/tomassantolaria/TP_METAMAPA.git",
-    "accountId": "1b4ea983-6117-48cc-a842-e6237cb921df"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/tomassantolaria/TP_METAMAPA.git&quot;,
+    &quot;accountId&quot;: &quot;1b4ea983-6117-48cc-a842-e6237cb921df&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Servicios/FuenteMetaMapaService.java" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -71,30 +69,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "entrega3",
-    "go.import.settings.migrated": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/mili/Documents/DISEÑO/TP_METAMAPA",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;entrega3&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mili/Documents/DISEÑO/TP_METAMAPA&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\TP_METADATA\TP_Metamapa\ModuloProxy\src\main\java\Modelos" />
@@ -112,7 +110,7 @@
       <recent name="Modelos" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Metamapa">
+  <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="TP_METADATA" />
       <working_directory value="$PROJECT_DIR$" />

@@ -9,5 +9,5 @@ public class ContribuyenteDTO {
     private String usuario;
     private String nombre;
     private String apellido;
-    private Localdate fecha_nacimiento;
+    private LocalDate fecha_nacimiento;
 }

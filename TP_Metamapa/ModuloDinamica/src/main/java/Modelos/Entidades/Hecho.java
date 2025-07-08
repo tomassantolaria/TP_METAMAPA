@@ -3,11 +3,13 @@ import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
+
 @Getter
 @Setter
 
 public class Hecho {
-    public String id;
+    public UUID id;
     public String titulo;
     public String descripcion;
     public Contenido contenido;
@@ -21,7 +23,7 @@ public class Hecho {
     public boolean anonimo;
     public List<Etiqueta> etiquetas;
 
-    public Hecho(String id, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    public Hecho(UUID id, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                  Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean visible, Contribuyente contribuyente, Boolean anonimo,
                  List<Etiqueta> etiquetas) {
         this.id = id;

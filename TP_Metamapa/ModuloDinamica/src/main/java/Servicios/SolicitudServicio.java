@@ -27,7 +27,7 @@ public class SolicitudServicio implements DetectorDeSpam {
         String idSolicitud = UUID.randomUUID().toString();
         LocalDate fechaSolicitud =  LocalDate.now();
         String motivo = solicituddto.getMotivo();
-        String idHecho = solicituddto.getIdHecho();
+        UUID idHecho = solicituddto.getIdHecho();
         if(!esSpam(motivo)){
             Solicitud solicitud = new Solicitud(idSolicitud, fechaSolicitud, motivo, idHecho, Estado.PENDIENTE);
             solicitudRepositorio.guardarSolicitud(solicitud);
@@ -40,7 +40,7 @@ public class SolicitudServicio implements DetectorDeSpam {
         return solicitudes.stream().map(this::pasarADTO).toList();
     }
     private SolicitudDTOOutput pasarADTO(Solicitud solicitud){
-        return new SolicitudDTOOutput(solicitud.getIdSolcitud(), solicitud.getMotivo(), solicitud.getIdHecho(), solicitud.getFecha_creacion().toString());
+        return new SolicitudDTOOutput(solicitud.getIdSolcitud(), solicitud.getMotivo(), solicitud.getIdHecho(), solicitud.getFecha_creacion());
     }
 
 
