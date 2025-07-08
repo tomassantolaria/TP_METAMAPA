@@ -7,6 +7,6 @@ public interface Consenso {
     public Boolean tieneConsenso(Hecho hecho);
 
     public default Integer cantidadFuentesConHecho(Hecho hecho) {
-        return repositorio.cantidadFuentesConHecho(hecho.titulo);
+        return repositorio.cantidadFuentesConHecho(hecho);
     }
 }
