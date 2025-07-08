@@ -19,7 +19,10 @@ public class FuenteDemo_Hechos {
     }
 
     public List<Hecho> obtenerHechos(){
-        return hechos;
+        List<Hecho> hechosEntregados = hechos;
+        // Limpiar la lista para que no se repitan los hechos en la siguiente consulta
+        hechos.clear();
+        return hechosEntregados;
     }
 
 }

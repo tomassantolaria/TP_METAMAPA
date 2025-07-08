@@ -17,15 +17,12 @@ public class Hecho {
     public LocalDate fecha;
     public Ubicacion ubicacion;
     public LocalDate fecha_carga;
-    public OrigenCarga origen_carga; //enum
-    public boolean visible;
     public Contribuyente contribuyente;
-    public boolean anonimo;
-    public List<Etiqueta> etiquetas;
+    public Boolean anonimo;
+    public Boolean visible;
 
     public Hecho(UUID id, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean visible, Contribuyente contribuyente, Boolean anonimo,
-                 List<Etiqueta> etiquetas) {
+                 Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, boolean visible) {
         this.id = id;
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
@@ -33,12 +30,9 @@ public class Hecho {
         this.categoria = unaCategoria;
         this.fecha = unaFechaOcurrencia;
         this.ubicacion = unaUbicacion;
-        this.fecha_carga = unaFechaCarga;
-        this.origen_carga = unOrigen;
         this.visible = visible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;
-        this.etiquetas = etiquetas;
     }
 
     public void modificarVisibilidad(){

@@ -1,12 +1,14 @@
 package Servicios.impl;
 
 import Modelos.Entidades.Hecho;
+import Modelos.DTOs.HechoDTO;
 import Repositorios.FuenteDemo_Hechos;
 import Servicios.IConexionService;
 import Servicios.IFuenteDemoService;
 import org.springframework.stereotype.Service;
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +36,9 @@ public class FuenteDemoService implements IFuenteDemoService {
     } // Constructor de la clase
 
     @Override
-    public List<Hecho> obtenerHecho() {
-        return fuenteDemoHechos.obtenerHechos();
+    public List<HechoDTO> obtenerHecho() {
+        List<Hecho> hechos = fuenteDemoHechos.obtenerHechos();
+        return convertirADTO(hechos);
     } //agregar en controller para que alguien lo use
 
     @Override
@@ -56,8 +59,38 @@ public class FuenteDemoService implements IFuenteDemoService {
                 (String) data.get("descripcion"),
                 (String) data.get("contenido"),
                 (String) data.get("contenidoMultimedia"),
-                (String) data.get("fecha"),
-                (String) data.get("lugar")
+                (String) data.get("categoria"),
+                (LocalDate) data.get("fecha"),
+                (String) data.get("lugar"),
+                (Double) data.get("latitud"),
+                (Double) data.get("longitud")
         );
+    }
+
+    private List<HechoDTO> convertirADTO(List<Hecho> hechos) {
+        List<HechoDTO> hechosDTO = new ArrayList<>();
+        for (Hecho hecho : hechos) {
+            HechoDTO dto = new HechoDTO(
+                    hecho.getTitulo(),
+                    hecho.getDescripcion(),
+                    hecho.getContenido(),
+                    hecho.getContenidoMultimedia(),
+                    hecho.getCategoria(),
+                    hecho.getFecha(),
+                    null,
+                    hecho.getLugar(),
+                    hecho.getLatitud(),
+                    hecho.getLongitud(),
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+            hechosDTO.add(dto);
+        }
+        return hechosDTO;
     }
 }

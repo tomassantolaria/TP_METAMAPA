@@ -1,5 +1,6 @@
 package Modelos.DTOs;
 
+
 import Modelos.Entidades.OrigenCarga;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 //PATRON DTO
-public class HechoDTOOutput{
+public class HechoDTO {
     public String titulo;
     public String descripcion;
     public String contenido;
@@ -24,4 +25,7 @@ public class HechoDTOOutput{
     public String nombre;
     public String apellido;
     public LocalDate fecha_nacimiento;
+    public Boolean anonimo;
+    public Boolean visible;
+    public Integer origen_carga;
 }

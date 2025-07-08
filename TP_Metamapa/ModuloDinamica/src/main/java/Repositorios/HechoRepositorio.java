@@ -26,4 +26,7 @@ public class HechoRepositorio{
                 .findFirst()
                 .orElse(null);
     }
+    public List<Hecho> obtenerTodosLosHechos() {
+        return new ArrayList<>(hechos);
+    }
 }

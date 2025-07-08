@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/fuenteEstatica")
+@RequestMapping("fuenteEstatica")
 public class EstaticaController {
     private final FuenteEstatica fuenteEstatica;
 

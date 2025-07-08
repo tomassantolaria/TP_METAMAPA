@@ -2,6 +2,7 @@ package Modelos.Entidades;
 
 import java.util.List;
 import java.util.UUID;
+import Servicio.Consenso.*;
 
 
 import lombok.Getter;
@@ -10,11 +11,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Coleccion {
-    private String id;
+    private UUID id;
     private String titulo;
     private String descripcion;
     private CriteriosDePertenencia criterio_pertenencia;
     private List<Hecho> hechos;
+    private List<Hecho> hechosconsensuados;
+    private Consenso consenso;
 
     public Coleccion(UUID id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
         this.id = id;

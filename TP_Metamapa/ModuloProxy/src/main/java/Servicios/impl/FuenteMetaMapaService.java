@@ -1,9 +1,11 @@
 package Servicios.impl;
 
-import Modelos.DTOs.HechoDTO;
 import Modelos.DTOs.SolicitudDTO;
+import Modelos.DTOs.HechoDTO;
 import Servicios.IFuenteMetaMapaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
@@ -28,7 +30,7 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
                                         String fecha_acontecimiento_hasta,
                                         String ubicacion) {
         UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs
-                .fromPath("http://localhost/hechos")
+                .fromPath("http://agregador/hechos")
                 .queryParam("categoria", categoria)
                 .queryParam("fecha_reporte_desde", fecha_reporte_desde)
                 .queryParam("fecha_reporte_hasta", fecha_reporte_hasta)
@@ -37,12 +39,15 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
                 .queryParam("ubicacion", ubicacion); //Localhost deberia remplazarse por la instancia de MetaMapa
 
 
-        ResponseEntity<HechoDTO[]> response = restTemplate.getForEntity(url.toUriString(), HechoDTO[].class);
-        // Se realiza una solicitud GET a la URL construida y se espera una respuesta que contenga un array de HechoDTO
-        if (response.getBody() != null) {
-            return Arrays.asList(response.getBody());
-        }
-        return List.of();// La respuesta se convierte en una lista de HechoDTO
+        ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
+                url.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {}
+        );
+
+
+        return response.getBody();
     }
 
 
@@ -56,7 +61,7 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
                                                     String fecha_acontecimiento_hasta,
                                                     String ubicacion) {
         UriComponentsBuilder url = UriComponentsBuilder
-                .fromPath("http://localhost/colecciones/" + idColeccion + "/hechos")
+                .fromPath("http://agregador/colecciones/" + idColeccion + "/hechos")
                 .queryParam("categoria", categoria)
                 .queryParam("fecha_reporte_desde", fecha_reporte_desde)
                 .queryParam("fecha_reporte_hasta", fecha_reporte_hasta)
@@ -66,13 +71,16 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
 
 
 
-        ResponseEntity<HechoDTO[]> response = restTemplate.getForEntity(
-                url.toUriString(), HechoDTO[].class);
+        ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
+                url.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+        );
 
-        if (response.getBody() != null) {
-            return Arrays.asList(response.getBody());
-        }
-        return List.of();
+
+        return response.getBody();
     }
 
     public void crearSolicitud(SolicitudDTO solicitud) throws Exception {

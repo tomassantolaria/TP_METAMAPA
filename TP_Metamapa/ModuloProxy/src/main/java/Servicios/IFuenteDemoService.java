@@ -1,10 +1,10 @@
 package Servicios;
-import Modelos.Entidades.Hecho;
+import Modelos.DTOs.HechoDTO;
 import java.util.List;
 
 
 public interface IFuenteDemoService {
 
-    List<Hecho> obtenerHecho();
+    List<HechoDTO> obtenerHecho();
     void actualizarHechos();
 }

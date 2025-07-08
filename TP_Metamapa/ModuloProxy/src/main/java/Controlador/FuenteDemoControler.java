@@ -1,13 +1,13 @@
 package Controlador;
 
-import Modelos.Entidades.Hecho;
+import Modelos.DTOs.HechoDTO;
 import Servicios.impl.FuenteDemoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/demo")
+@RequestMapping("demo")
 public class FuenteDemoControler{
 
     private final FuenteDemoService fuenteDemoService;
@@ -18,7 +18,7 @@ public class FuenteDemoControler{
 
     //PARA OBTENER LOS HECHOS DE LA FUENTE DEMO
     @GetMapping("/hechos")
-    public List<Hecho> obtenerHecho(){
+    public List<HechoDTO> obtenerHecho(){
         return fuenteDemoService.obtenerHecho();
     }
 }

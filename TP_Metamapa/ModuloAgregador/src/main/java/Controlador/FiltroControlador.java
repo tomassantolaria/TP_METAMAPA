@@ -1,6 +1,6 @@
 package Controlador;
 
-import Modelos.DTOs.HechoDTOOutput;
+import Modelos.DTOs.HechoDTO;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
 import Servicio.FiltradorServicio;
@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/Agregador")
+@RequestMapping("/agregador/")
 
 public class FiltroControlador {
 
@@ -19,8 +19,8 @@ public class FiltroControlador {
     HechoRepositorio hechosRepositorio;
     ColeccionRepositorio coleccionRepositorio;
 
-    @RequestMapping("coleccion/{id}/filtros")
-    public List<HechoDTOOutput> coleccionFiltrada(@PathVariable String id
+    @RequestMapping("colecciones/{id}/hechos")
+    public List<HechoDTO> coleccionFiltrada(@PathVariable String id
             , @RequestParam (required = false) String categoria
             , @RequestParam (required = false) String contenidoMultimedia
             , @RequestParam (required = false) String fechaCargaDesde
@@ -34,8 +34,8 @@ public class FiltroControlador {
         return FiltradorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
     }
 
-    @RequestMapping("hechos/filtros")
-    public List<HechoDTOOutput> hechosFiltrados(
+    @RequestMapping("hechos")
+    public List<HechoDTO> hechosFiltrados(
             @RequestParam (required = false) String categoria
             , @RequestParam (required = false) String contenidoMultimedia
             , @RequestParam (required = false) String fechaCargaDesde
