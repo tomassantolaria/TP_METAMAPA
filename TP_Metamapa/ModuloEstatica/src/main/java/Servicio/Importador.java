@@ -1,9 +1,9 @@
 package Servicio;
 
-import Modelos.DTOS.HechoDTO;
+import Modelos.Entidades.Hecho;
 
 import java.util.List;
 
 public interface Importador {
-    List<HechoDTO> getHechoFromFile (String ruta) throws Exception;
+    List<Hecho> getHechoFromFile (String ruta) throws Exception;
 }

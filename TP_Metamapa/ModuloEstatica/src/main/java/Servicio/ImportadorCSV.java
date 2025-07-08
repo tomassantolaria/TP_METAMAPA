@@ -1,8 +1,7 @@
 package Servicio;
 
 import Modelos.DTOS.HechoDTO;
-import Modelos.Entidades.HechoCSV;
-import Modelos.Entidades.HechosCSV;
+import Modelos.Entidades.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.time.LocalDate;
@@ -13,9 +12,9 @@ import java.util.List;
 public class ImportadorCSV implements Importador{
 
     @Override
-    public List<HechoDTO> getHechoFromFile(String ruta) throws Exception{
+    public List<Hecho> getHechoFromFile(String ruta) throws Exception{
         HechosCSV hechos = new HechosCSV();
-        List<HechoDTO> hechosDTO = new ArrayList<>();
+        List<Hecho> hechosRepo= new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(ruta));
         String linea;
         br.readLine(); // Saltar encabezado
@@ -36,12 +35,12 @@ public class ImportadorCSV implements Importador{
 
         br.close();
         for (HechoCSV hecho : hechos.getHechos()) {
-            hechosDTO.add(convertToDTO(hecho));
+            hechosRepo.add(convertToHecho(hecho));
         }
-        return hechosDTO;
+        return hechosRepo;
     }
 
-    public HechoDTO convertToDTO(HechoCSV hechoCSV) {
-        return new HechoDTO(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), hechoCSV.getCategoria(), hechoCSV.getLatitud(),  hechoCSV.getLongitud(), hechoCSV.getFechaAcontecimiento());
+    public Hecho convertToHecho(HechoCSV hechoCSV) {
+        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(),  hechoCSV.getLongitud());
     }
 }

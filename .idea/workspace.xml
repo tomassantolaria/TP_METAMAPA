@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="Entrega 2.1" />
+    <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="Entrega 2.1">
+      <change afterPath="$PROJECT_DIR$/.idea/TP_METAMAPA.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Repositorio/HechosRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/DTOS/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/DTOS/HechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/Entidades/HechoCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/Entidades/HechoCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/FuenteEstatica.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/FuenteEstatica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/Importador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/Importador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/ImportadorCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Servicio/ImportadorCSV.java" afterDir="false" />
+    </list>
     <list id="36ad2888-5812-4d4c-9c21-cfe2555d3586" name="Changes by arce_mili" comment="" />
     <list id="757559d0-4efc-42ae-a1c4-3a64da5fd63e" name="Changes by mili" comment="" />
     <list id="c5d956ac-31c7-4b1b-8cb1-2e191171efcb" name="Changes by Tomas Santolaria" comment="" />
@@ -25,7 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="MiliRama" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,12 +48,12 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/tomassantolaria/TP_METADATA.git&quot;,
-    &quot;accountId&quot;: &quot;46e82ccc-969a-4c36-b33a-fc7c2bad246b&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/tomassantolaria/TP_METAMAPA.git",
+    "accountId": "1b4ea983-6117-48cc-a842-e6237cb921df"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Servicios/FuenteMetaMapaService.java" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -62,10 +77,11 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "main",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "entrega3",
     "go.import.settings.migrated": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/TP_METADATA/TP_Metamapa/ModuloProxy/src/main/java/Modelos",
+    "last_opened_file_path": "/home/mili/Documents/DISEÑO/TP_METAMAPA",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -160,8 +176,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
       </set>
     </attachedChunks>
   </component>
@@ -191,6 +207,7 @@
       <workItem from="1749693860442" duration="4009000" />
       <workItem from="1749748116476" duration="5795000" />
       <workItem from="1749761534369" duration="1221000" />
+      <workItem from="1751934914802" duration="7967000" />
     </task>
     <task id="LOCAL-00001" summary="creacion de modulos">
       <option name="closed" value="true" />

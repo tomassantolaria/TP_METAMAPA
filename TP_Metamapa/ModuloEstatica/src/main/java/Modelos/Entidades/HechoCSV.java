@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-//PATRON DTO
+
 public class HechoCSV {
     public static final Map<String, HechoCSV> hechosConTitulos = new HashMap<>();
 
@@ -51,5 +51,6 @@ public class HechoCSV {
     //public void admitirSolicitudDeEliminacion(Solicitud unaSolicitud){;}
 
 }
+
 
 

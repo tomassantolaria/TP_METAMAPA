@@ -1,4 +1,5 @@
 package Servicio;
+import Modelos.Entidades.Hecho;
 import Modelos.Entidades.HechoCSV;
 import Modelos.DTOS.HechoDTO;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import Modelos.Entidades.HechosCSV;
+import Repositorio.HechosRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -18,6 +21,9 @@ import lombok.Setter;
 @Setter
 @Service
 public class FuenteEstatica {
+
+    private HechosRepositorio repositorio;
+
     private static FuenteEstatica instance;
     private File carpeta = new File("ArchivosCSV");
     private Importador importador = new ImportadorCSV();
@@ -32,23 +38,6 @@ public class FuenteEstatica {
         }
         return instance;
     }
-
-    public Importador getImportador() {
-        return importador;
-    }
-
-    public File getCarpeta() {
-        return carpeta;
-    }
-
-    public void setCarpeta(File carpeta) {
-        this.carpeta = carpeta;
-    }
-
-    public void setImportador(Importador importador) {
-        this.importador = importador;
-    }
-
     private List<String> getPaths() {
             List<String> paths = new ArrayList<>();
             if(carpeta.exists() && carpeta.isDirectory()) {
@@ -66,24 +55,36 @@ public class FuenteEstatica {
             return paths;
     }
 
-
-
-    public List<HechoDTO> getHechos () {
-        List<HechoDTO> hechosDTO = new ArrayList<>();
+    public void cargarHechos() {
         List<String> paths = getPaths();
         if (paths != null) {
             for (String path : paths) {
                 try {
                     if (path.endsWith(".csv")) {
                         setImportador(new ImportadorCSV());
-                        hechosDTO = importador.getHechoFromFile(path);
+                        for(Hecho hecho : importador.getHechoFromFile(path) ) {
+                            repositorio.addHecho(hecho);
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace(); // Manejo básico de errores
                 }
             }
         }
+    } // guarda a los hechos de los archivos en el repositorio
+
+
+    public List<HechoDTO> getHechos () {
+        List<HechoDTO> hechosDTO = new ArrayList<>();
+        List<Hecho> hechos = repositorio.allHecho();
+        for (Hecho hecho : hechos ) {
+            hechosDTO.add(convertToDTO(hecho));
+        }
         return hechosDTO;
+    }
+
+    public HechoDTO convertToDTO(Hecho hecho) {
+        return new HechoDTO(hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getFechaAcontecimiento(), hecho.getLatitud(),  hecho.getLongitud());
     }
 }
 
