@@ -1,7 +1,7 @@
 package Modelos.Entidades;
 
 public enum Estado {
-    Pendiente,
-    Aceptado,
-    Rechazado
+    PENDIENTE,
+    ACEPTADA,
+    RECHAZADA
 }

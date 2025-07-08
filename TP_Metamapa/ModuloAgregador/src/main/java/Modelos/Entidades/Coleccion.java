@@ -16,8 +16,8 @@ public class Coleccion {
     private String descripcion;
     private CriteriosDePertenencia criterio_pertenencia;
     private List<Hecho> hechos;
-    private List<Hecho> hechosconsensuados;
     private Consenso consenso;
+    private List<Hecho> hechosconsensuados ;
 
     public Coleccion(UUID id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
         this.id = id;
@@ -25,6 +25,8 @@ public class Coleccion {
         this.descripcion = descripcion;
         this.criterio_pertenencia = criterio_pertenencia;
         this.hechos = hechos;
+        this.consenso = null;
+        this.hechosconsensuados = hechos;
     }
 
 
@@ -43,6 +45,8 @@ public class Coleccion {
             hechos.add(unHecho);
         }
     }
+
+
 }
 
 

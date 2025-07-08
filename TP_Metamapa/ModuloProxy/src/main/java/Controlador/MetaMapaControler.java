@@ -7,9 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/metamapa")
+@RequestMapping("metamapa")
 public class MetaMapaControler {
 
     private final FuenteMetaMapaService metaMapaServicio;
@@ -36,7 +37,7 @@ public class MetaMapaControler {
 
     @GetMapping("/colecciones/{idColeccion}/hechos")
     public List<HechoDTO> obtenerHechosPorColeccion(
-            @PathVariable String idColeccion,
+            @PathVariable UUID idColeccion,
             @RequestParam(required = false) String categoria,
             @RequestParam(required = false) String fecha_reporte_desde,
             @RequestParam(required = false) String fecha_reporte_hasta,

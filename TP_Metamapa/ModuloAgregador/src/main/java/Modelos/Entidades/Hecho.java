@@ -20,7 +20,7 @@ public class Hecho{
     public Ubicacion ubicacion;
     public LocalDate fecha_carga;
     public OrigenCarga origen_carga; //enum
-    public boolean visible = false;
+    public boolean visible = true;
     public String usuario;
     public boolean anonimo = true;
     //public List<Etiqueta> etiquetas;

@@ -41,34 +41,18 @@ public class FiltradorServicio {
     }
 
     public List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {
-        List<HechoDTO> hechosDTO = new ArrayList<>();
+        List<HechoDTO> hechosDTO;
         hechosDTO = hechos.stream()
-                .map(this::transformarHechoADTO)
+                .map(this::transformarAHechoDTO)
                 .collect(Collectors.toList());
         return hechosDTO;
     }
 
-    public HechoDTO transformarHechoADTO(Hecho hecho){
-        HechoDTO hechoDTO = new HechoDTO();
-        hechoDTO.setTitulo(hecho.getTitulo());
-        hechoDTO.setDescripcion(hecho.getDescripcion());
-        Categoria categoria = hecho.getCategoria();
-        hechoDTO.setCategoria(categoria.getNombre());
-        Contenido contenido = hecho.getContenido();
-        hechoDTO.setContenido(contenido.getTexto());
-        hechoDTO.setContenido_multimedia(hechoDTO.getContenido_multimedia());
-        hechoDTO.setFechaAcontecimiento(hecho.getFecha());
-        hechoDTO.setFechaCarga(hecho.getFecha_carga());
-        hechoDTO.setLugar(hecho.getUbicacion().getNombre());
-        hechoDTO.setLatitud(hecho.getUbicacion().getLatitud());
-        hechoDTO.setLongitud(hecho.getUbicacion().getLongitud());
+    public HechoDTO transformarAHechoDTO (Hecho hecho){
+        HechoDTO hechoDTO = new HechoDTO(hecho.getTitulo(),hecho.getDescripcion(), hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),hecho.getCategoria().getNombre(), hecho.getFecha(), hecho.getFecha_carga(), hecho.getUbicacion().getNombre(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(), hecho.getUsuario(), null, null, null, null, null, hecho.getOrigen_carga().name());
         if (hecho.isAnonimo()) {
-            hechoDTO.setUsuario(hecho.getUsuario());
-            hechoDTO.setNombre(ContribuyenteRepositorio.obtenerPorId(hecho.getUsuario()).getNombre());
-            hechoDTO.setApellido(ContribuyenteRepositorio.obtenerPorId(hecho.getUsuario()).getApellido());
-            hechoDTO.setFecha_nacimiento(ContribuyenteRepositorio.obtenerPorId(hecho.getUsuario()).getFecha_nacimiento());
+            hechoDTO.setUsuario(null);
         }
-        hechoDTO.setOrigen_carga(hecho.getOrigen_carga().ordinal());
         return hechoDTO;
     }
 

@@ -26,7 +26,7 @@ public class HechoDTO {
     public LocalDate fecha_nacimiento = null;
     public Boolean anonimo = null;
     public Boolean visible = null;
-    public Integer origen_carga = null;
+    public String origen_carga = null;
 
 
     public HechoDTO(String titulo, String descripcion, String categoria, LocalDate fechaAcontecimiento, Double latitud, Double longitud) {

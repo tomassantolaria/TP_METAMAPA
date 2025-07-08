@@ -1,7 +1,9 @@
 package Servicio.Consenso;
 
 import Modelos.Entidades.Hecho;
+import org.springframework.stereotype.Component;
 
+@Component("Consenso mayoria simple")
 public class ConsensoMayoriaSimple implements Consenso {
     public Integer cantidadFuentes = 4; //ver
     private static ConsensoMayoriaSimple instancia;
@@ -19,7 +21,7 @@ public class ConsensoMayoriaSimple implements Consenso {
 
     public Boolean tieneConsenso(Hecho hecho) {
 
-        return cantidadFuentesConHecho(hecho) >= cantidadFuentes / 2;
+        return cantidadFuentesConHecho(hecho).size() >= cantidadFuentes / 2;
     }
 
 }

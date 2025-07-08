@@ -2,8 +2,11 @@ package Servicio.Consenso;
 
 import Modelos.Entidades.Hecho;
 import Repositorio.HechoRepositorio;
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
+@Component("Consenso multiples menciones")
 public class ConsensoMultiplesMenciones implements Consenso{
     private static ConsensoMultiplesMenciones instancia;
     private HechoRepositorio repositorio = new HechoRepositorio();

@@ -15,7 +15,11 @@ public class RegistroControlador {
 
     @PostMapping("/registrarse")
     public ResponseEntity<String> registrarse(@RequestBody ContribuyenteDTOInput contribuyente){
-        registroServicio.registrar(contribuyente);
-        return ResponseEntity.ok("Registro registrado exitosamente");
+        try{
+            registroServicio.registrar(contribuyente);
+            return ResponseEntity.status(200).body("Registro registrado exitosamente");
+        } catch (Exception e){
+            return ResponseEntity.status(500).body("Error al registrar contribuyente" + e.getMessage());
+        }
     }
 }

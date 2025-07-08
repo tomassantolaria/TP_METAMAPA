@@ -1,6 +1,8 @@
 package Servicio.Consenso;
 import Modelos.Entidades.Hecho;
+import org.springframework.stereotype.Component;
 
+@Component("Consenso absoluto")
 public class ConsensoAbsoluta implements Consenso {
     private static ConsensoAbsoluta instancia;
 
@@ -15,7 +17,7 @@ public class ConsensoAbsoluta implements Consenso {
     }
 
     public Boolean tieneConsenso(Hecho hecho) {
-        return cantidadFuentesConHecho(hecho) >= 3;
+        return cantidadFuentesConHecho(hecho).size() >= 4;
     }
 
 }

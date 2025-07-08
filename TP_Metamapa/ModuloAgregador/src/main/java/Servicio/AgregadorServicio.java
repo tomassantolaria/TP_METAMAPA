@@ -32,6 +32,8 @@ public class AgregadorServicio {
 
         UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromPath("http://fuenteEstatica/hechos");
 
+        UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromPath("http://metamapa/hechos");
+
         ResponseEntity<List<HechoDTO>> respuestaDinamica = restTemplate.exchange(
                 urlDinamica.toUriString(),
                 HttpMethod.GET,
@@ -58,6 +60,15 @@ public class AgregadorServicio {
                 }
         );
 
+        ResponseEntity<List<HechoDTO>> respuestaMetamapa = restTemplate.exchange(
+                urlMetamapa.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+
+
         List<Hecho> hechos = new ArrayList<>();
 
 
@@ -77,6 +88,12 @@ public class AgregadorServicio {
             List<HechoDTO> hechosEstatica = respuestaEstatica.getBody();
             List<Hecho> hechosEstaticaTransformados = transaformarAHecho(hechosEstatica, OrigenCarga.FUENTE_ESTATICA, 3);
             hechos.addAll(hechosEstaticaTransformados);
+        }
+
+        if (!respuestaMetamapa.getBody().isEmpty()) {
+            List<HechoDTO> hechosMetamapa = respuestaMetamapa.getBody();
+            List<Hecho> hechosMetamapaTransformados = transaformarAHecho(hechosMetamapa, OrigenCarga.FUENTE_PROXY, 4);
+            hechos.addAll(hechosMetamapaTransformados);
         }
 
         this.guardarHechos(hechos);

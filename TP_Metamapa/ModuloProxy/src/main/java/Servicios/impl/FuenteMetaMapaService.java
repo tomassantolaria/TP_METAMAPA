@@ -9,7 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
-import java.util.Arrays;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
 
 
 
-    public List<HechoDTO> obtenerHechosPorColeccion(String idColeccion,
+    public List<HechoDTO> obtenerHechosPorColeccion(UUID idColeccion,
                                                     String categoria,
                                                     String fecha_reporte_desde,
                                                     String fecha_reporte_hasta,
@@ -85,7 +85,7 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
 
     public void crearSolicitud(SolicitudDTO solicitud) throws Exception {
         UriComponentsBuilder url = UriComponentsBuilder
-                .fromPath("http://localhost/solicitudes"); // Localhost deberia remplazarse por la instancia de MetaMapa
+                .fromPath("http://solicitudes");
 
         ResponseEntity<String> response = restTemplate.postForEntity(
                 url.toUriString(), solicitud, String.class);

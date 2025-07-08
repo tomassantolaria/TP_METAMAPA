@@ -5,6 +5,7 @@ import Modelos.DTOs.SolicitudDTO;
 import Modelos.DTOs.HechoDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IFuenteMetaMapaService {
 
@@ -14,12 +15,12 @@ public interface IFuenteMetaMapaService {
                                         String fecha_acontecimiento_desde,
                                         String fecha_acontecimiento_hasta,
                                         String ubicacion);
-    List<HechoDTO> obtenerHechosPorColeccion(String idColeccion,
-                                                    String categoria,
-                                                    String fecha_reporte_desde,
-                                                    String fecha_reporte_hasta,
-                                                    String fecha_acontecimiento_desde,
-                                                    String fecha_acontecimiento_hasta,
-                                                    String ubicacion);
+    List<HechoDTO> obtenerHechosPorColeccion(UUID idColeccion,
+                                             String categoria,
+                                             String fecha_reporte_desde,
+                                             String fecha_reporte_hasta,
+                                             String fecha_acontecimiento_desde,
+                                             String fecha_acontecimiento_hasta,
+                                             String ubicacion);
     void crearSolicitud(SolicitudDTO solicitud) throws Exception;
 }
