@@ -37,4 +37,19 @@ public class ColeccionRepositorio{
     public void eliminarColeccion(UUID id) {
         colecciones.remove(id);
     }
+
+    public void eliminarHechosFuente(UUID id, String fuente) {
+        Coleccion coleccion = colecciones.get(id);
+        if (coleccion == null) {
+            throw new IllegalArgumentException("No existe esa coleccion");
+        }
+        if (coleccion.getHechos() == null || coleccion.getHechos().isEmpty() ) {
+            throw new IllegalArgumentException("Coleccion vacia");
+        }
+        for (Hecho hecho : coleccion.getHechos()){
+            if(hecho.getOrigen_carga().name().equals(fuente)) {
+                coleccion.eliminarHecho(hecho);
+            }
+        }
+    }
 }

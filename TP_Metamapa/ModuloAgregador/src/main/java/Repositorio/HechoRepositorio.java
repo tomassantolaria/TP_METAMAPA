@@ -48,6 +48,7 @@ public class HechoRepositorio {
         return fuentes;
     }
 
-//    public List<Hecho> hechosConFuente ()
-// .valueOf
+    public List<Hecho> hechosConFuente (String fuente) {
+        return hechos.values().stream().filter(hecho -> hecho.getOrigen_carga().name().equals(fuente) && hecho.isVisible()).toList();
+    }
 }

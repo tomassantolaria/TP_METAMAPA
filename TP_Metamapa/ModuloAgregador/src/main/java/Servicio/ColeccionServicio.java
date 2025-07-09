@@ -84,10 +84,20 @@ public class ColeccionServicio {
     }
 
     public void agregarFuente(UUID id, String fuente) {
-        
+        Coleccion  coleccion = coleccionRepositorio.obtenerPorId(id);
+        List<Hecho> hechoFuente = hechoRepositorio.hechosConFuente(fuente);
+        if (coleccion == null) {
+            throw new IllegalArgumentException("Coleccion no encontrada:");
+        }
+        if (hechoFuente.isEmpty()) {
+            throw new IllegalArgumentException("No hay hechos de esa fuente");
+        }
+        for (Hecho hecho: hechoFuente) {
+            coleccion.agregarHecho(hecho);
+        }
     }
     public void eliminarFuente(UUID id, String fuente) {
-
+        coleccionRepositorio.eliminarHechosFuente(id, fuente);
     }
 
 

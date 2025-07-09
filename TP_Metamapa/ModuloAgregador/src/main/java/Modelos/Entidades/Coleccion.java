@@ -40,7 +40,7 @@ public class Coleccion {
 
     public void agregarHecho(Hecho unHecho) {
         if (hechos.contains(unHecho)) {
-            throw new HechoYaExisteException();
+            throw new HechoYaExisteException(); //deberia tirar error?
         } else {
             hechos.add(unHecho);
         }
