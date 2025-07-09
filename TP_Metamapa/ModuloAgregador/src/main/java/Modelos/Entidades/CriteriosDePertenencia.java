@@ -11,21 +11,27 @@ import lombok.Setter;
 public class CriteriosDePertenencia {
     String titulo;
     String descripcion;
-    Contenido contenido;
+    String contenido;
+    Boolean multimedia;
     Categoria categoria;
-    LocalDate fecha;
+    LocalDate fecha_carga_desde;
+    LocalDate fecha_carga_hasta;
     Ubicacion ubicacion;
-    LocalDate fecha_carga;
+    LocalDate fecha_acontecimiento_desde;
+    LocalDate fecha_acontecimiento_hasta;
     OrigenCarga origen_carga;
 
-    public CriteriosDePertenencia(String titulo, String descripcion, Contenido contenido, Categoria categoria, LocalDate fecha, Ubicacion ubicacion, LocalDate fecha_carga, OrigenCarga origen_carga) {
+    public CriteriosDePertenencia(String titulo, String descripcion, String contenido, Boolean multimedia, Categoria categoria, LocalDate fecha_carga_desde, LocalDate fecha_carga_hasta, Ubicacion ubicacion, LocalDate fecha_acontecimiento_desde, LocalDate fecha_acontecimiento_hasta, OrigenCarga origen_carga) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contenido = contenido;
+        this.multimedia = multimedia;
         this.categoria = categoria;
-        this.fecha = fecha;
+        this.fecha_carga_desde = fecha_carga_desde;
+        this.fecha_carga_hasta = fecha_carga_hasta;
         this.ubicacion = ubicacion;
-        this.fecha_carga = fecha_carga;
+        this.fecha_acontecimiento_desde = fecha_acontecimiento_desde;
+        this.fecha_acontecimiento_hasta = fecha_acontecimiento_hasta;
         this.origen_carga = origen_carga;
     }
 }

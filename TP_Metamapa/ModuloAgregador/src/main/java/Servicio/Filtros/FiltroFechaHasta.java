@@ -1,5 +1,6 @@
 package Servicio.Filtros;
 
+import Modelos.Entidades.CriteriosDePertenencia;
 import Modelos.Entidades.Hecho;
 
 import java.time.LocalDate;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class FiltroFechaHasta implements Filtro {
     @Override
-    public boolean cumple(Hecho unHecho, String fechaHasta){
+    public boolean cumple(Hecho unHecho, CriteriosDePertenencia criterio){
 
-        return fechaHasta == null || unHecho.getFecha_carga().isBefore(LocalDate.parse(fechaHasta)) || unHecho.getFecha().isBefore(LocalDate.parse(fechaHasta));
+        return criterio.getFecha_carga_hasta() == null || unHecho.getFecha_carga().isBefore(criterio.getFecha_carga_hasta()) || unHecho.getFecha().isBefore(criterio.getFecha_carga_hasta());
     }
 }

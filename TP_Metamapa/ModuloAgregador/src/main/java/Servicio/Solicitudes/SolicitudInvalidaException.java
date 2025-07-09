@@ -1,4 +1,4 @@
-package Servicio;
+package Servicio.Solicitudes;
 
 public class SolicitudInvalidaException extends RuntimeException {
     public SolicitudInvalidaException(String message) {

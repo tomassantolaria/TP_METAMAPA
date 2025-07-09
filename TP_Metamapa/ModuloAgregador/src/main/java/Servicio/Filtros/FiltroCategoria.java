@@ -1,14 +1,15 @@
 package Servicio.Filtros;
 
+import Modelos.Entidades.CriteriosDePertenencia;
 import Modelos.Entidades.Hecho;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FiltroCategoria implements Filtro{
     @Override
-    public boolean cumple(Hecho unHecho, String categoria) {
+    public boolean cumple(Hecho unHecho, CriteriosDePertenencia criterio) {
 
-        return categoria == null || unHecho.getCategoria().getNombre().equalsIgnoreCase(categoria);
+        return criterio.getCategoria() == null || unHecho.getCategoria().getNombre().equalsIgnoreCase(criterio.getCategoria().getNombre());
     }
     public FiltroCategoria(){}
 }

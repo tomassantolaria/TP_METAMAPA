@@ -83,7 +83,7 @@ public class FuenteEstatica {
         return hechosDTO;
     }
 
-    public HechoDTO convertToDTO(Hecho hecho) {
+    private HechoDTO convertToDTO(Hecho hecho) {
         return new HechoDTO(hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getFechaAcontecimiento(), hecho.getLatitud(),  hecho.getLongitud());
     }
 }

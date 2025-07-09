@@ -1,6 +1,6 @@
-package Modelos.Entidades;
+package Servicio.Conversores;
 
-import com.fasterxml.jackson.databind.util.StdConverter;
+import Modelos.Entidades.Categoria;
 import org.springframework.stereotype.Service;
 
 @Service

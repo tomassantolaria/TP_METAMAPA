@@ -10,13 +10,13 @@ public class ContribuyenteRepositorio {
     //Optional<Coleccion> obtenerPorId(Long id);
     private final Map<String, Contribuyente> contribuyentes = new HashMap<>();
 
-// Constructor con algunas precargadas opcionalmente
+    // Constructor con algunas precargadas opcionalmente
 
     public ArrayList<Contribuyente> getTodos() {
         return new ArrayList<>(contribuyentes.values());
     }
 
-    public static Contribuyente obtenerPorId(String usuario) {
+    public Contribuyente obtenerPorId(String usuario) {
         return contribuyentes.get(usuario);
     }
 

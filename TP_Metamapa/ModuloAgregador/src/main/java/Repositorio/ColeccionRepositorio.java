@@ -16,8 +16,8 @@ public class ColeccionRepositorio{
         return new ArrayList<>(colecciones.values());
     }
 
-    public void actualizarColeccionConsesuado(List<Hecho> hechosAtcualizados , UUID id) {
-        colecciones.get(id).setHechosconsensuados(hechosAtcualizados);
+    public void actualizarColeccionConsesuado(List<Hecho> hechosActualizados , UUID id) {
+        colecciones.get(id).setHechosConsensuados(hechosActualizados);
     }
     public Coleccion obtenerPorId(UUID id){
         return colecciones.get(id);

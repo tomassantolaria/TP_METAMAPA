@@ -1,10 +1,12 @@
-package Controlador;
+package Controlador.ApisAdministrativas;
 
+import Modelos.DTOs.ColeccionDTO;
+import Modelos.DTOs.CriterioDTO;
+import Modelos.Entidades.CriteriosDePertenencia;
 import Servicio.ColeccionServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import Modelos.DTOs.ColeccionDTO;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -15,9 +17,9 @@ public class ColeccionControlador {
     private ColeccionServicio coleccionServicio;
 
     @PostMapping("/colecciones/crear")
-    public ResponseEntity<String> crearColeccion(@RequestBody ColeccionDTO coleccionDTO) {
+    public ResponseEntity<String> crearColeccion(@RequestBody CriterioDTO criterio) {
         try {
-            coleccionServicio.crearColeccion(coleccionDTO);
+            coleccionServicio.crearColeccion(criterio);
             return ResponseEntity.status(200).body("Coleccion creada exitosamente");
         } catch (Exception e){
             return ResponseEntity.status(500).body("Error al crear la coleccion" + e.getMessage());
@@ -72,4 +74,8 @@ public class ColeccionControlador {
             return ResponseEntity.status(500).body("Error al eliminar la coleccion " + id + ":" + e.getMessage());
         }
     }
+
+    ///  modificar criterio de pertenencia
+
+
 }

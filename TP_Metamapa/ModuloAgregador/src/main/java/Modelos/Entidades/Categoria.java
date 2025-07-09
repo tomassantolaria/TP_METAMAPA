@@ -11,8 +11,6 @@ public class Categoria{
         this.nombre = nombre;
     }
 
-    public static Categoria getInstance(String nombre){
-        return CategoriaRepositorio.crearCategoria(nombre);
-    }
+    public static Categoria getInstance(String nombre) {return CategoriaRepositorio.crearCategoria(nombre);}
 }
 

@@ -1,4 +1,5 @@
-package Modelos.Entidades;
+package Servicio.Conversores;
+import Modelos.Entidades.Ubicacion;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.ApisPublicas;
 
 import Modelos.DTOs.HechoDTO;
 import Repositorio.ColeccionRepositorio;
@@ -6,8 +6,13 @@ import Repositorio.HechoRepositorio;
 import Servicio.ConsensoServicio;
 import Servicio.FiltradorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import java.util.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -33,6 +38,7 @@ public class FiltroControlador {
             , @RequestParam (required = false) String titulo
             , @RequestParam (required = false) String ubicacion)
     {
+        // criterio de pertenencia
         return FiltradorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
     }
 
@@ -52,6 +58,7 @@ public class FiltroControlador {
             return FiltradorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
 
     }
+
     @RequestMapping("colecciones/{id}/curada")
     public List<HechoDTO> hechosConsensuados (@PathVariable UUID id){
         return consensoServicio.hechosConConsenso(id);
@@ -61,7 +68,6 @@ public class FiltroControlador {
     public List<HechoDTO> hechosIrrestrictos(@PathVariable UUID id){
         return consensoServicio.hechosIrrestrictos(id);
     }
-
 
 
 }

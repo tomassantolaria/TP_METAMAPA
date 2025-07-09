@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@Data
 //PATRON DTO
 public class HechoDTO {
     public String titulo;

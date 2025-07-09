@@ -1,19 +1,21 @@
 package Repositorio;
 
 import Modelos.Entidades.Categoria;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class CategoriaRepositorio {
-    private List<Categoria> categorias;
+    private static List<Categoria> categorias;
 
     public CategoriaRepositorio(){
-        this.categorias = new ArrayList<>();
+        categorias = new ArrayList<>();
     }
 
-    public Categoria crearCategoria(String nombre) {
-        Categoria categoria = this.obtenerCategoria(nombre);
+    public static Categoria crearCategoria(String nombre) {
+        Categoria categoria = obtenerCategoria(nombre);
         if (categoria == null) {
             categoria = new Categoria(nombre);
             agregarCategoria(categoria);
@@ -21,14 +23,14 @@ public class CategoriaRepositorio {
         return categoria;
     }
 
-    public Categoria obtenerCategoria(String nombre){
-        return this.categorias.stream()
+    public static Categoria obtenerCategoria(String nombre){
+        return categorias.stream()
                 .filter(c->c.getNombre().equals(nombre))
                 .findFirst()
                 .orElse(null);
     }
 
-    public void agregarCategoria(Categoria categoria) {
+    public static void agregarCategoria(Categoria categoria) {
         categorias.add(categoria);
     }
 }

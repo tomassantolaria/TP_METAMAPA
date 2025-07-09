@@ -1,4 +1,4 @@
-package Controlador;
+package Controlador.ApisPublicas;
 
 import Modelos.DTOs.ContribuyenteDTOInput;
 import Servicio.RegistroServicio;

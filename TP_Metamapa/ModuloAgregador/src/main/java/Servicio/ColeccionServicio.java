@@ -4,13 +4,14 @@ import Modelos.DTOs.ColeccionDTO;
 import Modelos.Entidades.*;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
+import Servicio.Conversores.ConversorCategoria;
+import Servicio.Conversores.ConversorContenido;
+import Servicio.Conversores.ConversorUbicacion;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import Servicio.Consenso.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
@@ -27,20 +28,20 @@ public class ColeccionServicio {
         this.hechoRepositorio = hechoRepositorio;
     }
 
-
-    public void crearColeccion(ColeccionDTO coleccionDTO) {
+/*
+    public void crearColeccion(CriterioDTO criterio) {
         Categoria categoria = ConversorCategoria.convert(coleccionDTO.getCriterio_pertenencia().getCategoria());
         Contenido contenido = ConversorContenido.convert(coleccionDTO.getCriterio_pertenencia().getContenido_texto(), coleccionDTO.getCriterio_pertenencia().getContenido_multimedia());
         LocalDate fecha = coleccionDTO.getCriterio_pertenencia().getFecha();
         Ubicacion ubicacion = ConversorUbicacion.convert(coleccionDTO.getCriterio_pertenencia().getLugar(),coleccionDTO.getCriterio_pertenencia().getLatitud(),coleccionDTO.getCriterio_pertenencia().getLongitud());
         LocalDate fechaCarga = coleccionDTO.getCriterio_pertenencia().getFecha_carga();
         OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio_pertenencia().getOrigen_carga());
-        CriteriosDePertenencia criterio = new CriteriosDePertenencia(coleccionDTO.getTitulo(),coleccionDTO.getDescripcion(), contenido, categoria, fecha,ubicacion,fechaCarga, origen);
+        //CriteriosDePertenencia criterio = new CriteriosDePertenencia(coleccionDTO.getTitulo(),coleccionDTO.getDescripcion(), contenido.getTexto(), contenido.getContenido_multimedia() != null, categoria, fecha,ubicacion,fechaCarga, origen);
         List<Hecho> hechos = new ArrayList<>();
         Coleccion coleccion = new Coleccion(UUID.randomUUID(), coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio,hechos);
         coleccionRepositorio.agregar(coleccion);
     }
-
+*/
     public void eliminarColeccion(UUID id) {
         coleccionRepositorio.eliminarColeccion(id);
     }

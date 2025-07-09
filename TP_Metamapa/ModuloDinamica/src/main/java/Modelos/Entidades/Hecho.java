@@ -16,7 +16,6 @@ public class Hecho {
     public Categoria categoria;
     public LocalDate fecha;
     public Ubicacion ubicacion;
-    public LocalDate fecha_carga;
     public Contribuyente contribuyente;
     public Boolean anonimo;
     public Boolean visible;

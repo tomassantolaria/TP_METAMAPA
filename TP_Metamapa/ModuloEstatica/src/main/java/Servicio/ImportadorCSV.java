@@ -40,7 +40,7 @@ public class ImportadorCSV implements Importador{
         return hechosRepo;
     }
 
-    public Hecho convertToHecho(HechoCSV hechoCSV) {
+    private Hecho convertToHecho(HechoCSV hechoCSV) {
         return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(),  hechoCSV.getLongitud());
     }
 }

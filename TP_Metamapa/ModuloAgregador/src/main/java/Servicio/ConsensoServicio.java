@@ -9,7 +9,7 @@ public class ConsensoServicio {
 
 
     public List<HechoDTO> hechosConConsenso (UUID id) {
-        List<Hecho> hechos = coleccionRepositorio.obtenerPorId(id).getHechosconsensuados();
+        List<Hecho> hechos = coleccionRepositorio.obtenerPorId(id).getHechosConsensuados();
         List<HechoDTO> hechoDTOS = new ArrayList<>();
         for (Hecho hecho : hechos) {
             hechoDTOS.add(transformarAHechoDTO(hecho));
