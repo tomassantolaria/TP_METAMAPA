@@ -2,9 +2,13 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TP_Metamapa/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/TP_Metamapa/src/main/resources" charset="UTF-8" />
   </component>

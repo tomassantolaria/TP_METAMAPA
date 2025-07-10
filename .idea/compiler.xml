@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="ModuloAgregador" />
         <module name="ModuloEstatica" />
@@ -19,10 +20,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ModuloAgregador" options="-parameters" />
-      <module name="ModuloDinamica" options="-parameters" />
-      <module name="ModuloEstatica" options="-parameters" />
-      <module name="ModuloProxy" options="-parameters" />
+      <module name="ModuloAgregador" options="" />
+      <module name="ModuloDinamica" options="" />
+      <module name="ModuloEstatica" options="" />
+      <module name="ModuloProxy" options="" />
       <module name="TP_Metamapa" options="" />
     </option>
   </component>
