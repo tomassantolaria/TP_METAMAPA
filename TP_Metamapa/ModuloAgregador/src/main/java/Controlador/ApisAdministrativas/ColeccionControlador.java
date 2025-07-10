@@ -17,9 +17,9 @@ public class ColeccionControlador {
     private ColeccionServicio coleccionServicio;
 
     @PostMapping("/colecciones/crear")
-    public ResponseEntity<String> crearColeccion(@RequestBody CriterioDTO criterio) {
+    public ResponseEntity<String> crearColeccion(@RequestBody ColeccionDTO coleccionDTO) {
         try {
-            coleccionServicio.crearColeccion(criterio);
+            coleccionServicio.crearColeccion(coleccionDTO);
             return ResponseEntity.status(200).body("Coleccion creada exitosamente");
         } catch (Exception e){
             return ResponseEntity.status(500).body("Error al crear la coleccion" + e.getMessage());
@@ -46,7 +46,7 @@ public class ColeccionControlador {
     }
 
     @PostMapping ("/colecciones/{id}/agregarFuente/{fuente}")
-    public ResponseEntity<String> agregarFuente(@PathVariable UUID id, @PathVariable String fuente) {
+    public ResponseEntity<String> agregarFuente(@PathVariable UUID id, @PathVariable UUID fuente) {
         try{
             coleccionServicio.agregarFuente(id, fuente);
             return ResponseEntity.status(200).body("Hechos de la fuente " + fuente + " agregado exitosamente");
@@ -56,7 +56,7 @@ public class ColeccionControlador {
     }
 
     @DeleteMapping ("/colecciones/{id}/eliminarFuente/{fuente}")
-    public ResponseEntity<String> eliminarFuente(@PathVariable UUID id, @PathVariable String fuente) {
+    public ResponseEntity<String> eliminarFuente(@PathVariable UUID id, @PathVariable UUID fuente) {
         try{
             coleccionServicio.eliminarFuente(id, fuente);
             return ResponseEntity.status(200).body("Hechos de la fuente " + fuente + " eliminada exitosamente");

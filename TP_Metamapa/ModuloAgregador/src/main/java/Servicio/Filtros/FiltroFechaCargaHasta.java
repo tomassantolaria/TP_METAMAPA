@@ -6,10 +6,10 @@ import Modelos.Entidades.Hecho;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FiltroUbicacion implements Filtro{
+public class FiltroFechaCargaHasta implements Filtro {
     @Override
     public boolean cumple(Hecho unHecho, CriteriosDePertenencia criterio){
 
-        return criterio.getLugar() == null || unHecho.getUbicacion().getNombre().equalsIgnoreCase(criterio.getLugar());
+        return criterio.getFecha_carga_hasta() == null || unHecho.getFecha_carga().isBefore(criterio.getFecha_carga_hasta());
     }
 }

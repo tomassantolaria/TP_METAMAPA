@@ -11,13 +11,12 @@ import java.time.LocalDate;
 public class CriterioDTO {
     public String titulo;
     public String descripcion;
-    public String contenido_texto;
-    public String contenido_multimedia;
+    public Boolean contenido_multimedia;
     public String categoria;
-    public LocalDate fecha;
+    public LocalDate fecha_carga_desde;
+    public LocalDate fecha_carga_hasta;
     public String lugar;
-    public Double latitud;
-    public Double longitud;
-    public LocalDate fecha_carga;
+    public LocalDate fecha_acontecimiento_desde;
+    public LocalDate fecha_acontecimiento_hasta;
     public String origen_carga;
 }

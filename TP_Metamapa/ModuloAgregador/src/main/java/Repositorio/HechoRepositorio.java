@@ -27,7 +27,7 @@ public class HechoRepositorio {
         return this.hechos.get(id);
     }
 
-    public Boolean cantidadFuentesConTitulo (String titulo, Set <Integer> fuentes) {
+    public Boolean cantidadFuentesConTitulo (String titulo, Set <UUID> fuentes) {
 
         for (Hecho hecho : hechos.values()) {
             if(hecho.titulo.equals(titulo) && !fuentes.contains(hecho.idFuente)) {
@@ -37,9 +37,9 @@ public class HechoRepositorio {
         return true;
     }
 
-    public  Set <Integer> cantidadFuentesConHecho (Hecho hecho) {
+    public  Set <UUID> cantidadFuentesConHecho (Hecho hecho) {
 
-        Set <Integer> fuentes = new HashSet<>();
+        Set <UUID> fuentes = new HashSet<>();
         for (Hecho hecho1 : hechos.values()) {
             if(hecho1.esIgualA(hecho)) {
                 fuentes.add(hecho.getIdFuente());
@@ -48,7 +48,7 @@ public class HechoRepositorio {
         return fuentes;
     }
 
-    public List<Hecho> hechosConFuente (String fuente) {
-        return hechos.values().stream().filter(hecho -> hecho.getOrigen_carga().name().equals(fuente) && hecho.isVisible()).toList();
+    public List<Hecho> hechosConFuente (UUID fuente) {
+        return hechos.values().stream().filter(hecho -> hecho.getIdFuente().equals(fuente) && hecho.isVisible()).toList();
     }
 }

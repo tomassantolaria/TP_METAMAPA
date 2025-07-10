@@ -1,6 +1,7 @@
 package Servicio;
 
 import Modelos.DTOs.ColeccionDTO;
+import Modelos.DTOs.CriterioDTO;
 import Modelos.Entidades.*;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
@@ -22,26 +23,30 @@ public class ColeccionServicio {
     private Map<String, Consenso> consensosMap;
     private final ColeccionRepositorio coleccionRepositorio;
     private final HechoRepositorio hechoRepositorio;
+    private AgregadorServicio agregadorServicio;
 
     public ColeccionServicio(ColeccionRepositorio coleccionRepositorio, HechoRepositorio hechoRepositorio) {
         this.coleccionRepositorio = coleccionRepositorio;
         this.hechoRepositorio = hechoRepositorio;
     }
 
-/*
-    public void crearColeccion(CriterioDTO criterio) {
-        Categoria categoria = ConversorCategoria.convert(coleccionDTO.getCriterio_pertenencia().getCategoria());
-        Contenido contenido = ConversorContenido.convert(coleccionDTO.getCriterio_pertenencia().getContenido_texto(), coleccionDTO.getCriterio_pertenencia().getContenido_multimedia());
-        LocalDate fecha = coleccionDTO.getCriterio_pertenencia().getFecha();
-        Ubicacion ubicacion = ConversorUbicacion.convert(coleccionDTO.getCriterio_pertenencia().getLugar(),coleccionDTO.getCriterio_pertenencia().getLatitud(),coleccionDTO.getCriterio_pertenencia().getLongitud());
-        LocalDate fechaCarga = coleccionDTO.getCriterio_pertenencia().getFecha_carga();
-        OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio_pertenencia().getOrigen_carga());
-        //CriteriosDePertenencia criterio = new CriteriosDePertenencia(coleccionDTO.getTitulo(),coleccionDTO.getDescripcion(), contenido.getTexto(), contenido.getContenido_multimedia() != null, categoria, fecha,ubicacion,fechaCarga, origen);
+
+    public void crearColeccion(ColeccionDTO coleccionDTO) {
+        Categoria categoria = ConversorCategoria.convert(coleccionDTO.getCriterio().getCategoria());
+        Boolean multimedia = coleccionDTO.getCriterio().getContenido_multimedia();
+        LocalDate fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
+        LocalDate fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
+        String lugar = coleccionDTO.getCriterio().getLugar();
+        LocalDate fecha_acontecimiento_desde = coleccionDTO.getCriterio().getFecha_acontecimiento_desde();
+        LocalDate fecha_acontecimiento_hasta = coleccionDTO.getCriterio().getFecha_acontecimiento_hasta();
+        OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio().getOrigen_carga());
+        CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, lugar, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
         List<Hecho> hechos = new ArrayList<>();
-        Coleccion coleccion = new Coleccion(UUID.randomUUID(), coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio,hechos);
+        Coleccion coleccion = new Coleccion(UUID.randomUUID(), coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia,hechos);
         coleccionRepositorio.agregar(coleccion);
+        agregadorServicio.agregarHechosAColeccion(hechoRepositorio.getHechos(), coleccion);
     }
-*/
+
     public void eliminarColeccion(UUID id) {
         coleccionRepositorio.eliminarColeccion(id);
     }
@@ -84,7 +89,7 @@ public class ColeccionServicio {
 
     }
 
-    public void agregarFuente(UUID id, String fuente) {
+    public void agregarFuente(UUID id, UUID fuente) {
         Coleccion  coleccion = coleccionRepositorio.obtenerPorId(id);
         List<Hecho> hechoFuente = hechoRepositorio.hechosConFuente(fuente);
         if (coleccion == null) {
@@ -97,7 +102,7 @@ public class ColeccionServicio {
             coleccion.agregarHecho(hecho);
         }
     }
-    public void eliminarFuente(UUID id, String fuente) {
+    public void eliminarFuente(UUID id, UUID fuente) {
         coleccionRepositorio.eliminarHechosFuente(id, fuente);
     }
 

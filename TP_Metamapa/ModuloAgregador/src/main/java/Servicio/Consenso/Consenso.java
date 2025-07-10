@@ -6,7 +6,7 @@ public interface Consenso {
     public HechoRepositorio repositorio = new HechoRepositorio();
     public Boolean tieneConsenso(Hecho hecho);
 
-    public default Set <Integer> cantidadFuentesConHecho(Hecho hecho) {
+    public default Set <UUID> cantidadFuentesConHecho(Hecho hecho) {
         return repositorio.cantidadFuentesConHecho(hecho);
     }
 }

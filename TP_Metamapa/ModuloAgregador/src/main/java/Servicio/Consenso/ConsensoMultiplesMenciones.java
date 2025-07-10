@@ -22,7 +22,7 @@ public class ConsensoMultiplesMenciones implements Consenso{
     }
 
     public Boolean tieneConsenso(Hecho hecho) {
-        Set <Integer> fuentes = repositorio.cantidadFuentesConHecho(hecho);
+        Set <UUID> fuentes = repositorio.cantidadFuentesConHecho(hecho);
         return  fuentes.size() >=2 &&  repositorio.cantidadFuentesConTitulo(hecho.getTitulo(), fuentes);
     }
 

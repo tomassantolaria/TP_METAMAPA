@@ -2,13 +2,14 @@ package Servicio;
 
 import Modelos.Entidades.*;
 import Modelos.DTOs.HechoDTO;
-import Repositorio.ContribuyenteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Servicio.Filtros.*;
 
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,27 +18,40 @@ public class FiltradorServicio {
 
     @Autowired
     FiltroCategoria filtroPorCategoria;
-    FiltroFechaDesde filtroPorFechaDesde;
+    FiltroFechaCargaDesde filtroPorFechaCargaDesde;
+    FiltroFechaCargaHasta filtroPorFechaCargaHasta;
     FiltroContenidoMultimedia filtroContenidoMultimedia;
     FiltroTitulo filtroPorTitulo;
     FiltroUbicacion filtroPorUbicacion;
     FiltroOrigenCarga filtroPorOrigenCarga;
-    FiltroFechaHasta filtroPorFechaHasta;
+    FiltroFechaAcontecimientoDesde filtroPorFechaAcontecimientoDesde;
+    FiltroFechaAcontecimientoHasta filtroPorFechaAcontecimientoHasta;
 
 
-    public List<HechoDTO> filtrarHechos(List<Hecho> hechos, String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String origen, String titulo, String ubicacion) {
-        List<Hecho> hechos_filtrados = hechos.stream()
-                .filter(h -> filtroPorCategoria.cumple(h, categoria))
-                .filter(h -> filtroContenidoMultimedia.cumple(h, contenidoMultimedia))
-                .filter(h -> filtroPorFechaDesde.cumple(h, fechaHechoDesde))
-                .filter(h -> filtroPorFechaHasta.cumple(h, fechaHechoHasta))
-                .filter(h -> filtroPorTitulo.cumple(h, titulo))
-                .filter(h -> filtroPorUbicacion.cumple(h, ubicacion))
-                .filter(h -> filtroPorOrigenCarga.cumple(h, origen))
-                .filter(h -> filtroPorFechaDesde.cumple(h, fechaCargaDesde))
-                .filter(h -> filtroPorFechaHasta.cumple(h, fechaCargaHasta))
-                .collect(Collectors.toList());
+
+    public List<HechoDTO> filtrarHechos(List<Hecho> hechos, String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String titulo, String ubicacion, String origenCarga) {
+        OrigenCarga origen = OrigenCarga.valueOf(origenCarga);
+        CriteriosDePertenencia criterios = new CriteriosDePertenencia(titulo, Boolean.parseBoolean(contenidoMultimedia), Categoria.getInstance(categoria), LocalDate.parse(fechaCargaDesde), LocalDate.parse(fechaCargaHasta), ubicacion, LocalDate.parse(fechaHechoDesde), LocalDate.parse(fechaHechoHasta), origen);
+        List<Hecho> hechos_filtrados = this.hechosCumplenCriterios(hechos, criterios);
         return this.transformarADTOLista(hechos_filtrados);
+    }
+
+    public List<Hecho> hechosCumplenCriterios(List<Hecho> hechos, CriteriosDePertenencia criterios) {
+        List<Hecho> hechos_filtrados = hechos.stream()
+                .filter(h -> filtroPorCategoria.cumple(h, criterios))
+                .filter(h -> filtroContenidoMultimedia.cumple(h, criterios))
+                .filter(h -> filtroPorFechaCargaDesde.cumple(h, criterios))
+                .filter(h -> filtroPorFechaCargaHasta.cumple(h, criterios))
+                .filter(h -> filtroPorTitulo.cumple(h, criterios))
+                .filter(h -> filtroPorUbicacion.cumple(h, criterios))
+                .filter(h -> filtroPorOrigenCarga.cumple(h, criterios))
+                .filter(h -> filtroPorFechaCargaDesde.cumple(h, criterios))
+                .filter(h -> filtroPorFechaCargaHasta.cumple(h, criterios))
+                .filter(h -> filtroPorFechaAcontecimientoDesde.cumple(h, criterios))
+                .filter(h -> filtroPorFechaAcontecimientoHasta.cumple(h, criterios))
+                .collect(Collectors.toList());
+
+        return hechos_filtrados;
     }
 
     public List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {

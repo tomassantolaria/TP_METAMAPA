@@ -38,7 +38,7 @@ public class ColeccionRepositorio{
         colecciones.remove(id);
     }
 
-    public void eliminarHechosFuente(UUID id, String fuente) {
+    public void eliminarHechosFuente(UUID id, UUID fuente) {
         Coleccion coleccion = colecciones.get(id);
         if (coleccion == null) {
             throw new IllegalArgumentException("No existe esa coleccion");
@@ -47,7 +47,7 @@ public class ColeccionRepositorio{
             throw new IllegalArgumentException("Coleccion vacia");
         }
         for (Hecho hecho : coleccion.getHechos()){
-            if(hecho.getOrigen_carga().name().equals(fuente)) {
+            if(hecho.getIdFuente().equals(fuente)) {
                 coleccion.eliminarHecho(hecho);
             }
         }

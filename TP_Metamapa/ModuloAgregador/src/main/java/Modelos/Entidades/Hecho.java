@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public class Hecho{
     public UUID id;
-    public Integer idFuente;
+    public UUID idFuente;
     public String titulo;
     public String descripcion;
     public Contenido contenido;
@@ -25,7 +25,7 @@ public class Hecho{
     public boolean anonimo = true;
     //public List<Etiqueta> etiquetas;
 
-    public Hecho(UUID id, Integer idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    public Hecho(UUID id, UUID idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                  Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, String usuario, Boolean anonimo){ //Lista etiquetas
         this.id = id;
         this.idFuente = idFuente;

@@ -3,6 +3,7 @@ package Servicio;
 
 import Modelos.DTOs.HechoDTO;
 import Modelos.Entidades.*;
+import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -23,6 +24,8 @@ public class AgregadorServicio {
     @Autowired
     private RestTemplate restTemplate;
     private  HechoRepositorio hechoRepositorio;
+    private ColeccionRepositorio coleccionRepositorio;
+    FiltradorServicio FiltradorServicio;
 
     public void actualizarHechos() {
 
@@ -74,32 +77,32 @@ public class AgregadorServicio {
 
         if (!respuestaDemo.getBody().isEmpty()) {
             List<HechoDTO> hechosDemo = respuestaDemo.getBody();
-            List<Hecho> hechosDemoTransformados = transaformarAHecho(hechosDemo, OrigenCarga.FUENTE_PROXY, 1);
+            List<Hecho> hechosDemoTransformados = transaformarAHecho(hechosDemo, OrigenCarga.FUENTE_PROXY, UUID.randomUUID());
             hechos.addAll(hechosDemoTransformados);
         }
 
         if (!respuestaDinamica.getBody().isEmpty()) {
             List<HechoDTO> hechosDinamica = respuestaDinamica.getBody();
-            List<Hecho> hechosDinamicaTransformados = transaformarAHecho(hechosDinamica, OrigenCarga.FUENTE_DINAMICA, 2);
+            List<Hecho> hechosDinamicaTransformados = transaformarAHecho(hechosDinamica, OrigenCarga.FUENTE_DINAMICA, UUID.randomUUID());
             hechos.addAll(hechosDinamicaTransformados);
         }
 
         if (!respuestaEstatica.getBody().isEmpty()) {
             List<HechoDTO> hechosEstatica = respuestaEstatica.getBody();
-            List<Hecho> hechosEstaticaTransformados = transaformarAHecho(hechosEstatica, OrigenCarga.FUENTE_ESTATICA, 3);
+            List<Hecho> hechosEstaticaTransformados = transaformarAHecho(hechosEstatica, OrigenCarga.FUENTE_ESTATICA, UUID.randomUUID());
             hechos.addAll(hechosEstaticaTransformados);
         }
 
         if (!respuestaMetamapa.getBody().isEmpty()) {
             List<HechoDTO> hechosMetamapa = respuestaMetamapa.getBody();
-            List<Hecho> hechosMetamapaTransformados = transaformarAHecho(hechosMetamapa, OrigenCarga.FUENTE_PROXY, 4);
+            List<Hecho> hechosMetamapaTransformados = transaformarAHecho(hechosMetamapa, OrigenCarga.FUENTE_PROXY, UUID.randomUUID());
             hechos.addAll(hechosMetamapaTransformados);
         }
-
+        actualizarColecciones(hechos);
         this.guardarHechos(hechos);
     }
 
-    public List<Hecho> transaformarAHecho(List<HechoDTO> hechosDTO, OrigenCarga origenCarga, Integer idFuente) {
+    public List<Hecho> transaformarAHecho(List<HechoDTO> hechosDTO, OrigenCarga origenCarga, UUID idFuente) {
         return hechosDTO.stream()
                 .map(hechoDTO -> {
                     Categoria categoria = Categoria.getInstance(hechoDTO.getCategoria());
@@ -118,5 +121,15 @@ public class AgregadorServicio {
             hechoRepositorio.agregarHecho(hecho);
             // a chequear como meterlo en colecciones
         }
+    }
+
+    public void actualizarColecciones(List<Hecho> hechos) {
+       for (Coleccion coleccion : coleccionRepositorio.getTodas()){
+           agregarHechosAColeccion(hechos, coleccion);
+       }
+    }
+    public void agregarHechosAColeccion(List<Hecho> hechos, Coleccion coleccion) {
+        List<Hecho> hechosFiltrados = FiltradorServicio.hechosCumplenCriterios(hechos, coleccion.getCriterio_pertenencia());
+        coleccion.agregarHechos(hechosFiltrados);
     }
 }

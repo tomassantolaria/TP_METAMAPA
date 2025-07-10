@@ -39,11 +39,15 @@ public class Coleccion {
     }
 
     public void agregarHecho(Hecho unHecho) {
-        if (hechos.contains(unHecho)) {
-            throw new HechoYaExisteException(); //deberia tirar error?
-        } else {
+        if (! hechos.contains(unHecho)) {
             hechos.add(unHecho);
         }
+    }
+
+    public void agregarHechos(List<Hecho> hechosNuevos) {
+       for (Hecho hecho : hechos) {
+           agregarHecho(hecho);
+       }
     }
 
 

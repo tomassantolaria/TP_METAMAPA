@@ -39,7 +39,7 @@ public class FiltroControlador {
             , @RequestParam (required = false) String ubicacion)
     {
         // criterio de pertenencia
-        return FiltradorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
+        return FiltradorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, titulo, ubicacion, origen);
     }
 
     @RequestMapping("hechos")
@@ -55,7 +55,7 @@ public class FiltroControlador {
             , @RequestParam (required = false) String ubicacion)
     {
 
-            return FiltradorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origen, titulo, ubicacion);
+            return FiltradorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, titulo, ubicacion, origen);
 
     }
 

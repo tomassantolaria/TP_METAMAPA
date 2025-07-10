@@ -24,7 +24,7 @@ public class SolicitudServicio implements DetectorDeSpam {
     HechoRepositorio hechoRepositorio;
 
     public void crearSolicitud(SolicitudDTOInput solicituddto){
-        String idSolicitud = UUID.randomUUID().toString();
+        UUID idSolicitud = UUID.randomUUID();
         LocalDate fechaSolicitud =  LocalDate.now();
         String motivo = solicituddto.getMotivo();
         UUID idHecho = solicituddto.getIdHecho();
@@ -40,7 +40,7 @@ public class SolicitudServicio implements DetectorDeSpam {
         return solicitudes.stream().map(this::pasarADTO).toList();
     }
     private SolicitudDTOOutput pasarADTO(Solicitud solicitud){
-        return new SolicitudDTOOutput(solicitud.getIdSolcitud(), solicitud.getMotivo(), solicitud.getIdHecho(), solicitud.getFecha_creacion());
+        return new SolicitudDTOOutput(solicitud.getIdSolcitud().toString(), solicitud.getMotivo(), solicitud.getIdHecho(), solicitud.getFecha_creacion());
     }
 
 
