@@ -119,7 +119,7 @@ public class AgregadorServicio {
     public void guardarHechos(List<Hecho> hechos) {
         for (Hecho hecho : hechos) {
             hechoRepositorio.agregarHecho(hecho);
-            // a chequear como meterlo en colecciones
+            actualizarColecciones(hechos);
         }
     }
 

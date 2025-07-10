@@ -38,7 +38,6 @@ public class FiltroControlador {
             , @RequestParam (required = false) String titulo
             , @RequestParam (required = false) String ubicacion)
     {
-        // criterio de pertenencia
         return FiltradorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, titulo, ubicacion, origen);
     }
 
@@ -54,9 +53,7 @@ public class FiltroControlador {
             , @RequestParam (required = false) String titulo
             , @RequestParam (required = false) String ubicacion)
     {
-
             return FiltradorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, titulo, ubicacion, origen);
-
     }
 
     @RequestMapping("colecciones/{id}/curada")
