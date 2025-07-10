@@ -3,11 +3,12 @@ package Servicio;
 import Modelos.DTOs.ContribuyenteDTOInput;
 import Modelos.Entidades.Contribuyente;
 import Repositorio.ContribuyenteRepositorio;
+
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+@Service
 public class RegistroServicio {
     private final ContribuyenteRepositorio contribuyenteRepositorio;
 

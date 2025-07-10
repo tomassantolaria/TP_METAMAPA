@@ -1,23 +1,21 @@
 package Servicio.Consenso;
 import Modelos.Entidades.Hecho;
+import Repositorio.HechoRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
 @Component("Consenso absoluto")
-public class ConsensoAbsoluta implements Consenso {
-    private static ConsensoAbsoluta instancia;
+public class ConsensoAbsoluta extends Consenso {
 
-    private ConsensoAbsoluta() {
+    public ConsensoAbsoluta(HechoRepositorio repositorio) {
+        super(repositorio);
     }
 
-    public static ConsensoAbsoluta getInstance() {
-        if (instancia == null) {
-            instancia = new ConsensoAbsoluta();
-        }
-        return instancia;
-    }
-
+    @Override
     public Boolean tieneConsenso(Hecho hecho) {
         return cantidadFuentesConHecho(hecho).size() >= 4;
     }
-
 }
+

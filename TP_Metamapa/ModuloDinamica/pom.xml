@@ -13,7 +13,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>utn.dsi</groupId>
 	<artifactId>ModuloDinamica</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ModuloDinamica</name>

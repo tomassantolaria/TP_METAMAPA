@@ -9,7 +9,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
-import java.util.UUID;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -24,18 +23,24 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
 
 
     public List<HechoDTO> obtenerHechos(String categoria,
+                                        String ContenidoMultimedia,
                                         String fecha_reporte_desde,
                                         String fecha_reporte_hasta,
                                         String fecha_acontecimiento_desde,
                                         String fecha_acontecimiento_hasta,
+                                        String origen,
+                                        String titulo,
                                         String ubicacion) {
         UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs
                 .fromPath("http://agregador/hechos")
                 .queryParam("categoria", categoria)
+                .queryParam("contenido_multimedia", ContenidoMultimedia)
                 .queryParam("fecha_reporte_desde", fecha_reporte_desde)
                 .queryParam("fecha_reporte_hasta", fecha_reporte_hasta)
                 .queryParam("fecha_acontecimiento_desde", fecha_acontecimiento_desde)
                 .queryParam("fecha_acontecimiento_hasta", fecha_acontecimiento_hasta)
+                .queryParam("origen", origen)
+                .queryParam("titulo", titulo)
                 .queryParam("ubicacion", ubicacion); //Localhost deberia remplazarse por la instancia de MetaMapa
 
 
@@ -53,20 +58,26 @@ public class FuenteMetaMapaService implements IFuenteMetaMapaService {
 
 
 
-    public List<HechoDTO> obtenerHechosPorColeccion(UUID idColeccion,
+    public List<HechoDTO> obtenerHechosPorColeccion(String idColeccion,
                                                     String categoria,
+                                                    String ContenidoMultimedia,
                                                     String fecha_reporte_desde,
                                                     String fecha_reporte_hasta,
                                                     String fecha_acontecimiento_desde,
                                                     String fecha_acontecimiento_hasta,
+                                                    String origen,
+                                                    String titulo,
                                                     String ubicacion) {
         UriComponentsBuilder url = UriComponentsBuilder
                 .fromPath("http://agregador/colecciones/" + idColeccion + "/hechos")
                 .queryParam("categoria", categoria)
+                .queryParam("contenido_multimedia", ContenidoMultimedia)
                 .queryParam("fecha_reporte_desde", fecha_reporte_desde)
                 .queryParam("fecha_reporte_hasta", fecha_reporte_hasta)
                 .queryParam("fecha_acontecimiento_desde", fecha_acontecimiento_desde)
                 .queryParam("fecha_acontecimiento_hasta", fecha_acontecimiento_hasta)
+                .queryParam("origen", origen)
+                .queryParam("titulo", titulo)
                 .queryParam("ubicacion", ubicacion);
 
 

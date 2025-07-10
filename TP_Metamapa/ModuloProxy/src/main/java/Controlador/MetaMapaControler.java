@@ -7,10 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
-@RequestMapping("metamapa")
+@RequestMapping("/metamapa")
 public class MetaMapaControler {
 
     private final FuenteMetaMapaService metaMapaServicio;
@@ -22,34 +21,44 @@ public class MetaMapaControler {
     @GetMapping("/hechos")
     public List<HechoDTO> obtenerHechos(
             @RequestParam(required = false) String categoria,
+            @RequestParam (required = false) String ContenidoMultimedia,
             @RequestParam(required = false) String fecha_reporte_desde,
             @RequestParam(required = false) String fecha_reporte_hasta,
             @RequestParam(required = false) String fecha_acontecimiento_desde,
             @RequestParam(required = false) String fecha_acontecimiento_hasta,
+            @RequestParam (required = false) String origen,
+            @RequestParam(required = false) String titulo,
             @RequestParam(required = false) String ubicacion) {
-        return metaMapaServicio.obtenerHechos(categoria,
+        return metaMapaServicio.obtenerHechos(categoria, ContenidoMultimedia,
                 fecha_reporte_desde,
                 fecha_reporte_hasta,
                 fecha_acontecimiento_desde,
                 fecha_acontecimiento_hasta,
+                origen,
+                titulo,
                 ubicacion);
     }
 
     @GetMapping("/colecciones/{idColeccion}/hechos")
     public List<HechoDTO> obtenerHechosPorColeccion(
-            @PathVariable UUID idColeccion,
+            @PathVariable String idColeccion,
             @RequestParam(required = false) String categoria,
+            @RequestParam (required = false) String ContenidoMultimedia,
             @RequestParam(required = false) String fecha_reporte_desde,
             @RequestParam(required = false) String fecha_reporte_hasta,
             @RequestParam(required = false) String fecha_acontecimiento_desde,
             @RequestParam(required = false) String fecha_acontecimiento_hasta,
+            @RequestParam (required = false) String origen,
+            @RequestParam(required = false) String titulo,
             @RequestParam(required = false) String ubicacion) {
         return metaMapaServicio.obtenerHechosPorColeccion(idColeccion,
-                categoria,
+                categoria, ContenidoMultimedia,
                 fecha_reporte_desde,
                 fecha_reporte_hasta,
                 fecha_acontecimiento_desde,
                 fecha_acontecimiento_hasta,
+                origen,
+                titulo,
                 ubicacion);
     }
 

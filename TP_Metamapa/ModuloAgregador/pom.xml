@@ -13,7 +13,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>utn.dsi</groupId>
     <artifactId>ModuloAgregador</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ModuloAgregador</name>

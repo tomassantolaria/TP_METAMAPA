@@ -47,7 +47,7 @@ public class Hecho{
     public void eliminarse(){
         visible = false;}
 
-    public void someterseARevision(){}
+    //public void someterseARevision(){}
 
     public Boolean esIgualA(Hecho otroHecho) {
         return this.titulo.equals(otroHecho.titulo) &&

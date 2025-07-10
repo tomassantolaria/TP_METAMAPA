@@ -38,6 +38,4 @@ public class Hecho {
         visible = false;
     }
 
-    //A modelar más adelante
-    public void someterseAEtiquetado(Etiqueta etiqueta){}
 }

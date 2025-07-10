@@ -2,11 +2,18 @@ package Servicio.Consenso;
 import Modelos.Entidades.Hecho;
 import Repositorio.HechoRepositorio;
 import java.util.*;
-public interface Consenso {
-    public HechoRepositorio repositorio = new HechoRepositorio();
-    public Boolean tieneConsenso(Hecho hecho);
 
-    public default Set <UUID> cantidadFuentesConHecho(Hecho hecho) {
+public abstract class Consenso {
+
+    public final HechoRepositorio repositorio;
+
+    protected Consenso(HechoRepositorio repositorio) {
+        this.repositorio = repositorio;
+    }
+
+    public abstract Boolean tieneConsenso(Hecho hecho);
+
+    public Set <UUID> cantidadFuentesConHecho(Hecho hecho) {
         return repositorio.cantidadFuentesConHecho(hecho);
     }
 }

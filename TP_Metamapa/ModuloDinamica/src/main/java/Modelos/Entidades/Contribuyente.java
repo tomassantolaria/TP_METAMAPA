@@ -19,7 +19,4 @@ public class Contribuyente {
         this.apellido = apellido;
         this.fecha_nacimiento = fecha_nacimiento;
     }
-
-    public void solicitarEliminacionDeHecho(Hecho unHecho){
-    }
 }

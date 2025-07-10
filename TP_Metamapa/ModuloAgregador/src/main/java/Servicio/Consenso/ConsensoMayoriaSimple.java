@@ -1,22 +1,18 @@
 package Servicio.Consenso;
 
 import Modelos.Entidades.Hecho;
+import Repositorio.HechoRepositorio;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
 @Component("Consenso mayoria simple")
-public class ConsensoMayoriaSimple implements Consenso {
+public class ConsensoMayoriaSimple extends Consenso {
+
     public Integer cantidadFuentes = 4; //ver
-    private static ConsensoMayoriaSimple instancia;
 
-    private ConsensoMayoriaSimple() {
-
-    }
-
-    public static ConsensoMayoriaSimple getInstance() {
-        if (instancia == null) {
-            instancia = new ConsensoMayoriaSimple();
-        }
-        return instancia;
+    private ConsensoMayoriaSimple(HechoRepositorio repositorio) {
+        super(repositorio);
     }
 
     public Boolean tieneConsenso(Hecho hecho) {
