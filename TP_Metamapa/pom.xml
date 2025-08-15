@@ -26,6 +26,8 @@
         <module>ModuloEstatica</module>
         <module>ModuloProxy</module>
         <module>ModuloAgregador</module>
+        <module>ModuloPublico</module>
+        <module>ModuloAVD</module>
     </modules>
 
 
