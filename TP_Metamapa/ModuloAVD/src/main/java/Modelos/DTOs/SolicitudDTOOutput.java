@@ -1,11 +1,12 @@
 package Modelos.DTOs;
 
 import lombok.Getter;
-
+import lombok.Setter;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
+@Setter
 //Esta es la solicitud que le vamos a mostrar al administrador cuando pida solicitudes pendientes
 public class SolicitudDTOOutput {
     private String idSolicitud;

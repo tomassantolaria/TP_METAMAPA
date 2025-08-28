@@ -12,10 +12,12 @@
         </processorPath>
         <module name="ModuloAgregador" />
         <module name="ModuloEstatica" />
+        <module name="ModuloFiltrador" />
+        <module name="ModuloNormalizador" />
+        <module name="ModuloProxy" />
         <module name="ModuloPublico" />
         <module name="ModuloAVD" />
         <module name="ModuloDinamica" />
-        <module name="ModuloProxy" />
       </profile>
     </annotationProcessing>
   </component>

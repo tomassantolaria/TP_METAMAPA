@@ -20,9 +20,9 @@ public class Hecho{
     public Ubicacion ubicacion;
     public LocalDate fecha_carga;
     public OrigenCarga origen_carga; //enum
-    public boolean visible = true;
+    public boolean visible;
     public String usuario;
-    public boolean anonimo = true;
+    public boolean anonimo ;
     //public List<Etiqueta> etiquetas;
 
     public Hecho(UUID id, UUID idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
@@ -44,8 +44,8 @@ public class Hecho{
     }
 
 
-    public void eliminarse(){
-        visible = false;}
+    //public void eliminarse(){
+    //visible = false;}
 
     //public void someterseARevision(){}
 

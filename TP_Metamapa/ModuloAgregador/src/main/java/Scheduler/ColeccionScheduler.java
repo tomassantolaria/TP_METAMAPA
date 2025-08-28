@@ -1,7 +1,7 @@
 package Scheduler;
 
 
-import Servicio.AgregadorServicio;
+
 import Servicio.ColeccionServicio;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

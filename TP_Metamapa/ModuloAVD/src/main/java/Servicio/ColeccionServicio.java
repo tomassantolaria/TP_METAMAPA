@@ -1,13 +1,10 @@
 package Servicio;
 
 import Modelos.DTOs.ColeccionDTO;
-import Modelos.DTOs.CriterioDTO;
 import Modelos.Entidades.*;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
 import Servicio.Conversores.ConversorCategoria;
-import Servicio.Conversores.ConversorContenido;
-import Servicio.Conversores.ConversorUbicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Servicio.Consenso.*;
@@ -23,7 +20,6 @@ public class ColeccionServicio {
     private Map<String, Consenso> consensosMap;
     private final ColeccionRepositorio coleccionRepositorio;
     private final HechoRepositorio hechoRepositorio;
-    private AgregadorServicio agregadorServicio;
 
     public ColeccionServicio(ColeccionRepositorio coleccionRepositorio, HechoRepositorio hechoRepositorio) {
         this.coleccionRepositorio = coleccionRepositorio;
@@ -44,7 +40,7 @@ public class ColeccionServicio {
         List<Hecho> hechos = new ArrayList<>();
         Coleccion coleccion = new Coleccion(UUID.randomUUID(), coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia,hechos);
         coleccionRepositorio.agregar(coleccion);
-        agregadorServicio.agregarHechosAColeccion(hechoRepositorio.getHechos(), coleccion);
+      // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
     }
 
     public void eliminarColeccion(UUID id) {
@@ -72,22 +68,6 @@ public class ColeccionServicio {
         return estrategia;
     }
 
-    public void actalizarHechosConsensuados() {
-       for (Coleccion coleccion : coleccionRepositorio.getTodas()) {
-            coleccionRepositorio.actualizarColeccionConsesuado(actualizarHechosConsensuados(coleccion), coleccion.getId() );
-       }
-    }
-
-    public List<Hecho> actualizarHechosConsensuados(Coleccion coleccion) {
-        if (coleccion.getConsenso() != null ) {
-           List<Hecho> hechosconsensuados = coleccion.getHechos().stream().filter(hecho -> coleccion.getConsenso().tieneConsenso(hecho)).toList();
-            return hechosconsensuados;
-        }
-
-            List<Hecho> hechosconsensuados = coleccion.getHechos();
-            return hechosconsensuados;
-
-    }
 
     public void agregarFuente(UUID id, UUID fuente) {
         Coleccion  coleccion = coleccionRepositorio.obtenerPorId(id);

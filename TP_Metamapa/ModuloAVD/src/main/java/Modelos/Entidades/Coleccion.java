@@ -44,13 +44,6 @@ public class Coleccion {
         }
     }
 
-    public void agregarHechos(List<Hecho> hechosNuevos) {
-       for (Hecho hecho : hechos) {
-           agregarHecho(hecho);
-       }
-    }
-
-
 }
 
 

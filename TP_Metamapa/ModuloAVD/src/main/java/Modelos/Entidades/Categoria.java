@@ -1,6 +1,6 @@
 package Modelos.Entidades;
 import Repositorio.CategoriaRepositorio;
-import jakarta.persistence.Entity;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

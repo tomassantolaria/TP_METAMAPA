@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Repository
 public class SolicitudRepositorio {
-    private List<Solicitud> solicitudes;
+    private final List<Solicitud> solicitudes;
     public SolicitudRepositorio(){
         this.solicitudes = new ArrayList<>();
     }
@@ -26,8 +27,7 @@ public class SolicitudRepositorio {
     }
     public Solicitud buscarSolicitudPorId(String id){
         return this.solicitudes.stream()
-                .filter(s->s.getIdSolcitud().equals(id))
-                .findFirst()
-                .orElse(null);
+                .filter(s->s.getIdSolcitud().equals(UUID.fromString(id))
+                ).findFirst().orElseThrow(()-> new RuntimeException("No se encontro la solicitud"));
     }
 }

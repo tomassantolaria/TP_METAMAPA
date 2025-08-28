@@ -29,28 +29,6 @@ public class Coleccion {
         this.hechosConsensuados = hechos;
     }
 
-
-    public void eliminarHecho(Hecho unHecho) throws HechoNoPerteneceException {
-        if (hechos.contains(unHecho)) {
-            hechos.remove(unHecho);
-        } else {
-            throw new HechoNoPerteneceException();
-        }
-    }
-
-    public void agregarHecho(Hecho unHecho) {
-        if (! hechos.contains(unHecho)) {
-            hechos.add(unHecho);
-        }
-    }
-
-    public void agregarHechos(List<Hecho> hechosNuevos) {
-       for (Hecho hecho : hechos) {
-           agregarHecho(hecho);
-       }
-    }
-
-
 }
 
 

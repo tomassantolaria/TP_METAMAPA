@@ -45,7 +45,8 @@ public class Hecho{
 
 
     public void eliminarse(){
-        visible = false;}
+        visible = false;
+    }
 
     //public void someterseARevision(){}
 

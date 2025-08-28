@@ -1,57 +1,36 @@
 package Servicio;
 
+import Modelos.DTOs.CriteriosDTO;
+import Modelos.DTOs.FiltrarRequestDTO;
 import Modelos.Entidades.*;
 import Modelos.DTOs.HechoDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import Servicio.Filtros.*;
-
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class FiltradorServicio {
 
-    @Autowired
-    FiltroCategoria filtroPorCategoria;
-    FiltroFechaCargaDesde filtroPorFechaCargaDesde;
-    FiltroFechaCargaHasta filtroPorFechaCargaHasta;
-    FiltroContenidoMultimedia filtroContenidoMultimedia;
-    FiltroTitulo filtroPorTitulo;
-    FiltroUbicacion filtroPorUbicacion;
-    FiltroOrigenCarga filtroPorOrigenCarga;
-    FiltroFechaAcontecimientoDesde filtroPorFechaAcontecimientoDesde;
-    FiltroFechaAcontecimientoHasta filtroPorFechaAcontecimientoHasta;
-
-
 
     public List<HechoDTO> filtrarHechos(List<Hecho> hechos, String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String titulo, String ubicacion, String origenCarga) {
-        OrigenCarga origen = OrigenCarga.valueOf(origenCarga);
-        CriteriosDePertenencia criterios = new CriteriosDePertenencia(titulo, Boolean.parseBoolean(contenidoMultimedia), Categoria.getInstance(categoria), LocalDate.parse(fechaCargaDesde), LocalDate.parse(fechaCargaHasta), ubicacion, LocalDate.parse(fechaHechoDesde), LocalDate.parse(fechaHechoHasta), origen);
-        List<Hecho> hechos_filtrados = this.hechosCumplenCriterios(hechos, criterios);
-        return this.transformarADTOLista(hechos_filtrados);
-    }
+        List<HechoDTO> hechoDTOS = transformarADTOLista(hechos);
+        CriteriosDTO criteriosDTO = new CriteriosDTO(categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCarga, titulo, ubicacion);
+        RestTemplate restTemplate = new RestTemplate();
 
-    public List<Hecho> hechosCumplenCriterios(List<Hecho> hechos, CriteriosDePertenencia criterios) {
-        List<Hecho> hechos_filtrados = hechos.stream()
-                .filter(h -> filtroPorCategoria.cumple(h, criterios))
-                .filter(h -> filtroContenidoMultimedia.cumple(h, criterios))
-                .filter(h -> filtroPorFechaCargaDesde.cumple(h, criterios))
-                .filter(h -> filtroPorFechaCargaHasta.cumple(h, criterios))
-                .filter(h -> filtroPorTitulo.cumple(h, criterios))
-                .filter(h -> filtroPorUbicacion.cumple(h, criterios))
-                .filter(h -> filtroPorOrigenCarga.cumple(h, criterios))
-                .filter(h -> filtroPorFechaCargaDesde.cumple(h, criterios))
-                .filter(h -> filtroPorFechaCargaHasta.cumple(h, criterios))
-                .filter(h -> filtroPorFechaAcontecimientoDesde.cumple(h, criterios))
-                .filter(h -> filtroPorFechaAcontecimientoHasta.cumple(h, criterios))
-                .collect(Collectors.toList());
+        FiltrarRequestDTO request = new FiltrarRequestDTO(criteriosDTO, hechoDTOS);
 
-        return hechos_filtrados;
+        ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
+                "http://localhost:8080/filtrar", // URL de tu API
+                HttpMethod.POST,
+                new HttpEntity<>(request),
+                new ParameterizedTypeReference<>() {}
+        );
+        return response.getBody();
     }
 
     public List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {

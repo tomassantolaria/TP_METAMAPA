@@ -16,9 +16,6 @@ public class ColeccionRepositorio{
         return new ArrayList<>(colecciones.values());
     }
 
-    public void actualizarColeccionConsesuado(List<Hecho> hechosActualizados , UUID id) {
-        colecciones.get(id).setHechosConsensuados(hechosActualizados);
-    }
     public Coleccion obtenerPorId(UUID id){
         return colecciones.get(id);
     }
@@ -30,6 +27,9 @@ public class ColeccionRepositorio{
             coleccion.getHechos().removeIf(hecho -> hecho.getId().equals(id));
         }
     }
+
+
+
     public void modificarConsenso(UUID id, Consenso conseso) {
         colecciones.get(id).setConsenso(conseso);
     }

@@ -13,7 +13,5 @@ public class Contribuyente {
     public String apellido;
     public LocalDate fecha_nacimiento;
 
-    public void solicitarEliminacionDeHecho(Hecho unHecho){
 
-    }
 }

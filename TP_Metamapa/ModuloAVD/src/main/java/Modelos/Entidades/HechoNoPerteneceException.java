@@ -6,7 +6,4 @@ public class HechoNoPerteneceException extends RuntimeException {
         super("El hecho no pertenece a la colección.");
     }
 
-    public HechoNoPerteneceException(String message) {
-        super(message);
-    }
 }

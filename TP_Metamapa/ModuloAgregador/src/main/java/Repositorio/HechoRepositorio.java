@@ -8,23 +8,11 @@ import java.util.*;
 public class HechoRepositorio {
     private final Map<UUID, Hecho> hechos = new HashMap<>();
 
-    // Constructor con algunas precargadas opcionalmente
-    public ArrayList<Hecho> getHechos() {
-        return new ArrayList<>(hechos.values());
-    }
-
-    public void eliminarHecho(UUID id) { this.hechos.get(id).setVisible(false); }
-        //this.hechos.remove(id); }
-
     public void agregarHecho(Hecho hecho) {
         if (hecho != null && !hechos.containsKey(hecho.getId())) {
             hechos.put(hecho.getId(), hecho);
             hecho.setVisible(true);
         }
-    }
-
-    public Hecho buscarHechoPorId(UUID id) {
-        return this.hechos.get(id);
     }
 
     public Boolean cantidadFuentesConTitulo (String titulo, Set <UUID> fuentes) {
@@ -48,7 +36,4 @@ public class HechoRepositorio {
         return fuentes;
     }
 
-    public List<Hecho> hechosConFuente (UUID fuente) {
-        return hechos.values().stream().filter(hecho -> hecho.getIdFuente().equals(fuente) && hecho.isVisible()).toList();
-    }
 }
