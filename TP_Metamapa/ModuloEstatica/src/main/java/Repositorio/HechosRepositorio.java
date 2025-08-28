@@ -14,8 +14,22 @@ public class HechosRepositorio {
         hechos.add(hecho);
     }
 
+    public void addAllHechos(List<Hecho> hechosNuevos) {
+        hechos.addAll(hechosNuevos);
+    }
+
     public ArrayList<Hecho> allHecho() {
         return hechos;
     }
 
+    public List<Hecho> allHechosNoEnviados() {
+        List<Hecho> hechosNoEnviados = new ArrayList<>();
+        for (Hecho hecho : allHecho()) {
+            if(!hecho.getProcesado()) {
+                hecho.setProcesado(true);
+                hechosNoEnviados.add(hecho);
+            }
+        }
+        return hechosNoEnviados;
+    }
 }

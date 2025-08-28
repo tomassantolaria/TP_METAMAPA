@@ -1,16 +1,16 @@
 package Servicio;
 
-import Modelos.DTOS.HechoDTO;
 import Modelos.Entidades.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImportadorCSV implements Importador{
-
+public class ImportadorFileServerLocal implements Importador{
+    private File carpeta = new File("ArchivosCSV");
     @Override
     public List<Hecho> getHechoFromFile(String ruta) throws Exception{
         HechosCSV hechos = new HechosCSV();
@@ -24,6 +24,7 @@ public class ImportadorCSV implements Importador{
             HechoCSV hecho = HechoCSV.getInstance(
                     campos[0], // Título
                     campos[1], // Descripción
+                    ruta, // fuente
                     campos[2], // Categoría
                     LocalDate.parse(campos[5], formatter), // Fecha del hecho
                     Double.parseDouble(campos[3]), // Latitud
@@ -39,8 +40,24 @@ public class ImportadorCSV implements Importador{
         }
         return hechosRepo;
     }
+    @Override
+    public List<String> getFiles() throws Exception {
+        List<String> paths = new ArrayList<>();
+            if(carpeta.exists() && carpeta.isDirectory()) {
+                if(carpeta.listFiles() != null) {
+                    for (File archivo : carpeta.listFiles()) {
+                        if (archivo.isFile()) { // solo archivos, no subdirectorios
+                            paths.add(archivo.getAbsolutePath());
+                        }
+                    }
+                }
+            } else {
+                System.out.println("La carpeta no existe o no es un directorio");
+            }
+            return paths;
+    }
 
     private Hecho convertToHecho(HechoCSV hechoCSV) {
-        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(),  hechoCSV.getLongitud());
+        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), hechoCSV.getFuente(), hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(),  hechoCSV.getLongitud(), false);
     }
 }

@@ -1,16 +1,9 @@
 package Servicio;
 import Modelos.Entidades.Hecho;
-import Modelos.Entidades.HechoCSV;
 import Modelos.DTOS.HechoDTO;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
-import Modelos.Entidades.HechosCSV;
 import Repositorio.HechosRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -23,60 +16,41 @@ import lombok.Setter;
 public class FuenteEstatica {
 
     private HechosRepositorio repositorio;
-
+    private List<String> filesProcesados;
     private static FuenteEstatica instance;
-    private File carpeta = new File("ArchivosCSV");
-    private Importador importador = new ImportadorCSV();
+//    private File carpeta = new File("ArchivosCSV");
+    private Importador importador = new ImportadorFileServerLocal();
 
-    private FuenteEstatica(File carpeta) {
-        this.carpeta = carpeta;
+    private FuenteEstatica() {
     }
 
-    public static FuenteEstatica getInstance(File carpeta) {
+    public static FuenteEstatica getInstance() {
         if (instance == null) {
-            instance = new FuenteEstatica(carpeta);
+            instance = new FuenteEstatica();
         }
         return instance;
     }
-    private List<String> getPaths() {
-            List<String> paths = new ArrayList<>();
-            if(carpeta.exists() && carpeta.isDirectory()) {
-                if(carpeta.listFiles() != null) {
-                    for (File archivo : carpeta.listFiles()) {
-                        if (archivo.isFile()) { // solo archivos, no subdirectorios
-                            paths.add(archivo.getAbsolutePath());
-                        }
-                    }
-                }
-
-            } else{
-                System.out.println("La carpeta no existe o no es un directorio");
-            }
-            return paths;
-    }
 
     public void cargarHechos() {
-        List<String> paths = getPaths();
-        if (paths != null) {
+        try {
+            List<String> paths = importador.getFiles();
+            List<Hecho> hechosRepo;
+            paths = paths.stream().filter(path -> !filesProcesados.contains(path)).toList();
             for (String path : paths) {
-                try {
-                    if (path.endsWith(".csv")) {
-                        setImportador(new ImportadorCSV());
-                        for(Hecho hecho : importador.getHechoFromFile(path) ) {
-                            repositorio.addHecho(hecho);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace(); // Manejo básico de errores
-                }
+                hechosRepo = importador.getHechoFromFile(path);
+                repositorio.addAllHechos(hechosRepo);
             }
+            filesProcesados.addAll(paths);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     } // guarda a los hechos de los archivos en el repositorio
 
 
     public List<HechoDTO> getHechos () {
         List<HechoDTO> hechosDTO = new ArrayList<>();
-        List<Hecho> hechos = repositorio.allHecho();
+        List<Hecho> hechos = repositorio.allHechosNoEnviados();
         for (Hecho hecho : hechos ) {
             hechosDTO.add(convertToDTO(hecho));
         }

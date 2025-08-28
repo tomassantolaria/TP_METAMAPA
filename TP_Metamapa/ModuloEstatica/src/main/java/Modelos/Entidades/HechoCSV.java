@@ -15,38 +15,47 @@ public class HechoCSV {
 
     private String titulo;
     private String descripcion;
+    private String fuente; // path
     private String categoria;
     private Double latitud;
     private Double longitud;
     private LocalDate fechaAcontecimiento;
 
 
-    protected HechoCSV(String unTitulo, String unaDescripcion, String unaCategoria, LocalDate unaFechaAcontecimiento,
+    protected HechoCSV(String unTitulo, String unaDescripcion, String fuente, String unaCategoria, LocalDate unaFechaAcontecimiento,
                        Double latitud, Double longitud) {
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
+        this.fuente = fuente;
         this.categoria = unaCategoria;
         this.fechaAcontecimiento = unaFechaAcontecimiento;
         this.latitud = latitud;
         this.longitud = longitud;
     }
 
-    public static HechoCSV getInstance(String unTitulo, String unaDescripcion, String unaCategoria, LocalDate unaFechaAcontecimiento,
+    public static HechoCSV getInstance(String unTitulo, String unaDescripcion, String fuente, String unaCategoria, LocalDate unaFechaAcontecimiento,
                                        Double latitud, Double longitud) {
 
         HechoCSV hechoConEseTitulo = hechosConTitulos.get(unTitulo);
-        if (hechoConEseTitulo == null) {
-            hechoConEseTitulo = new HechoCSV(unTitulo, unaDescripcion, unaCategoria, unaFechaAcontecimiento, latitud, longitud);
+        if (hechoConEseTitulo == null || (hechoConEseTitulo.getTitulo() != null && hechoConEseTitulo.getFuente().equals(fuente))) {
+            hechoConEseTitulo = new HechoCSV(unTitulo, unaDescripcion, fuente, unaCategoria, unaFechaAcontecimiento, latitud, longitud);
             hechosConTitulos.put(unTitulo, hechoConEseTitulo);
         } else {
-            hechoConEseTitulo.sobreescribirse(unTitulo, unaDescripcion, unaCategoria, unaFechaAcontecimiento, latitud, longitud);
+            hechoConEseTitulo.sobreescribirse(unTitulo, unaDescripcion, fuente, unaCategoria, unaFechaAcontecimiento, latitud, longitud);
         }
         return hechoConEseTitulo;
     }
     //para crear se hace el getInstance(...)
 
-    public void sobreescribirse(String unTitulo, String unaDescripcion, String unaCategoria, LocalDate unaFechaAcontecimiento,
+    public void sobreescribirse(String unTitulo, String unaDescripcion, String fuente, String unaCategoria, LocalDate unaFechaAcontecimiento,
                                 Double latitud, Double longitud) {
+        this.titulo = unTitulo;
+        this.descripcion = unaDescripcion;
+        this.fuente = fuente;
+        this.categoria = unaCategoria;
+        this.fechaAcontecimiento = unaFechaAcontecimiento;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
     //public void admitirSolicitudDeEliminacion(Solicitud unaSolicitud){;}
 
