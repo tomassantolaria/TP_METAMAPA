@@ -32,4 +32,8 @@ public class HechosRepositorio {
         }
         return hechosNoEnviados;
     }
+    public Boolean noExisteHecho(HechoCSV hecho, Long id) {
+        // TODO : hacer que busque un hecho que sea igual, si existe en la base de datos, entonces false)
+        return true;
+    }
 }

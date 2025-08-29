@@ -1,12 +1,8 @@
 package Modelos.Entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
 
@@ -14,26 +10,48 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-//@Entity
-//@Table(name = "hechos")
+@Entity
+@Table(name = "Hechos")
 public class Hecho{
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id; //Cambiar a long
-    public Long idFuente; // Cambiar a long
-    public String titulo;
-    public String descripcion;
-    public Contenido contenido;
-    public Categoria categoria;
-    public LocalDate fecha;
-    public Ubicacion ubicacion;
-    public LocalDate fecha_carga;
-    public OrigenCarga origen_carga; //enum
-    public boolean visible ;
-    public Contribuyente contribuyente; // no deberia ir contribuyente?
-    public boolean anonimo;
-    //public List<Etiqueta> etiquetas;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; //Cambiar a long
+
+    private Long idFuente; // Cambiar a long
+    private String titulo;
+    private String descripcion;
+
+    @OneToOne
+    @JoinColumn(name = "contenido_id")
+    private Contenido contenido;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    private LocalDate fecha;
+
+    @ManyToOne
+    @JoinColumn(name = "ubicacion_id")
+    private Ubicacion ubicacion;
+
+    private LocalDate fecha_carga;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "origen_carga")
+    private OrigenCarga origen_carga; //enum
+
+    private boolean visible ;
+
+    @ManyToOne
+    @JoinColumn(name = "contribuyente_usuario")
+    private Contribuyente contribuyente;
+
+    private boolean anonimo;
+
+
+    public Hecho() {}
 
     public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                  Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas

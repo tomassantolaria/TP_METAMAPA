@@ -13,7 +13,7 @@ public abstract class Consenso {
 
     public abstract Boolean tieneConsenso(Hecho hecho);
 
-    public Set <UUID> cantidadFuentesConHecho(Hecho hecho) {
+    public Set <Long> cantidadFuentesConHecho(Hecho hecho) {
         return repositorio.cantidadFuentesConHecho(hecho);
     }
 }

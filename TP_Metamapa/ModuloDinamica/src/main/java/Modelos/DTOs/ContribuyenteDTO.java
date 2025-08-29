@@ -1,15 +1,13 @@
 package Modelos.DTOs;
-
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
+
 @Getter
 @Setter
-
 public class ContribuyenteDTO {
-    private String usuario;
-    private String nombre;
-    private String apellido;
-    private LocalDate fecha_nacimiento;
+    public String usuario;
+    public String nombre;
+    public String apellido;
+    public LocalDate fecha_nacimiento;
 }

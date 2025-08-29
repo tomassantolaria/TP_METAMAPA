@@ -20,4 +20,8 @@ public class ColeccionRepositorio{
         colecciones.get(id).setHechosConsensuados(hechosActualizados);
     }
 
+    public Coleccion getColeccion(Long id) {
+        return colecciones.get(id);
+    }
+
 }

@@ -4,7 +4,6 @@ import Modelos.DTOs.ColeccionDTO;
 import Modelos.Entidades.*;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
-import Servicio.Conversores.ConversorCategoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -35,7 +34,7 @@ public class ColeccionServicio {
 
 
     public void crearColeccion(ColeccionDTO coleccionDTO) {
-        Categoria categoria = ConversorCategoria.convert(coleccionDTO.getCriterio().getCategoria());
+        Categoria categoria =  new Categoria(coleccionDTO.getCriterio().getCategoria());
         Boolean multimedia = coleccionDTO.getCriterio().getContenido_multimedia();
         LocalDate fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
         LocalDate fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
@@ -45,14 +44,14 @@ public class ColeccionServicio {
         OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio().getOrigen_carga());
         CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, lugar, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
         List<Hecho> hechos = new ArrayList<>();
-        Coleccion coleccion = new Coleccion(UUID.randomUUID(), coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia,hechos);
+        Coleccion coleccion = new Coleccion(null, coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia,hechos);
         coleccionRepositorio.agregar(coleccion);
-        avisarAgregador(coleccion.getId());
+        this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
 
     }
-    private void avisarAgregador (UUID coleccionId) {
+    private void avisarAgregador (Long coleccionId) {
         UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromPath("http://coleccionCreada/{coleccionId}");
         try {
             ResponseEntity<String> respuestaAgregador = restTemplate.exchange(

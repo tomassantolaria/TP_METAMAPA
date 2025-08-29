@@ -14,14 +14,14 @@ public class Hecho {
 
     private String titulo;
     private String descripcion;
-    private String fuente; // path ???
+    private Long fuente; // ID
     private String categoria;
     private Double latitud;
     private Double longitud;
     private LocalDate fechaAcontecimiento;
     private Boolean procesado;
 
-    public Hecho(String titulo, String descripcion,  String fuente, String categoria, LocalDate fechaAcontecimiento,  Double longitud, Double latitud, Boolean procesado) {
+    public Hecho(String titulo, String descripcion,  Long fuente, String categoria, LocalDate fechaAcontecimiento,  Double longitud, Double latitud, Boolean procesado) {
         this.titulo = titulo;
         this.longitud = longitud;
         this.fuente = fuente;

@@ -17,7 +17,7 @@ public class ConsensoMultiplesMenciones extends Consenso{
     }
 
     public Boolean tieneConsenso(Hecho hecho) {
-        Set <UUID> fuentes = repositorio.cantidadFuentesConHecho(hecho);
+        Set <Long> fuentes = repositorio.cantidadFuentesConHecho(hecho);
         return  fuentes.size() >=2 &&  repositorio.cantidadFuentesConTitulo(hecho.getTitulo(), fuentes);
     }
 

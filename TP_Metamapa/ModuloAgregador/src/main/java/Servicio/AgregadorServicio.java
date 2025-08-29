@@ -134,25 +134,34 @@ public class AgregadorServicio {
     }
 
     public void actualizarColecciones(List<Hecho> hechos) {
+        try {
+            for (Coleccion coleccion : coleccionRepositorio.getTodas()) {
+                actualizarColeccionConHecho(hechos, coleccion);
+            }
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-            List<HechoDTOInput> hechosDTO = this.transformarADTOLista(hechos);
+    public void actualizarColeccionConHecho(List<Hecho> hechos, Coleccion coleccion ) {
+        List<HechoDTOInput> hechosDTO = this.transformarADTOLista(hechos);
+        CriteriosDTO criteriosDTO = this.transformarCriteriosADTO(coleccion.getCriterio_pertenencia());
+        RestTemplate restTemplate = new RestTemplate();
+        FiltrarRequestDTO request = new FiltrarRequestDTO(criteriosDTO, hechosDTO);
+        try {
+            ResponseEntity<List<HechoDTOInput>> response = restTemplate.exchange(
+                    "http://localhost:8080/filtrar", // URL de tu API
+                    HttpMethod.POST,
+                    new HttpEntity<>(request),
+                    new ParameterizedTypeReference<>() {
+                    }
+            );
 
-       for (Coleccion coleccion : coleccionRepositorio.getTodas()){
-
-           CriteriosDTO criteriosDTO = this.transformarCriteriosADTO(coleccion.getCriterio_pertenencia());
-           RestTemplate restTemplate = new RestTemplate();
-           FiltrarRequestDTO request = new FiltrarRequestDTO(criteriosDTO, hechosDTO);
-
-           ResponseEntity<List<HechoDTOInput>> response = restTemplate.exchange(
-                   "http://localhost:8080/filtrar", // URL de tu API
-                   HttpMethod.POST,
-                   new HttpEntity<>(request),
-                   new ParameterizedTypeReference<>() {}
-           );
-
-           List<Hecho> hechosRespuesta = this.transaformarAHecho(response.getBody());
-           agregarHechosAColeccion(hechosRespuesta, coleccion);
-       }
+            List<Hecho> hechosRespuesta = this.transaformarAHecho(response.getBody());
+            agregarHechosAColeccion(hechosRespuesta, coleccion);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<HechoDTOInput> transformarADTOLista(List<Hecho> hechos) {
@@ -202,5 +211,8 @@ public class AgregadorServicio {
 
     public void cargarColeccionConHechos(Long coleccionId) {
 
+        Coleccion coleccion = coleccionRepositorio.getColeccion(coleccionId);
+
+        actualizarColeccionConHecho(hechoRepositorio.allHechos(),coleccion);
     }
 }

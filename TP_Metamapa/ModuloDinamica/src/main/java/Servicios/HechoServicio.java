@@ -30,7 +30,7 @@ public class HechoServicio {
         boolean anonimo = dto.getAnonimo();
 
         Hecho hecho = new Hecho(null,null, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
-                                contribuyente, anonimo, true); // VER COMO ASIGNAR UN ID A LAS DISTINTAS FUENTES!!!!!!!!
+                                contribuyente, anonimo, true);
         hechoRepositorio.guardarHecho(hecho);
     }
 

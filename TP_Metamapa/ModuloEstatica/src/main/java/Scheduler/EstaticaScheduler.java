@@ -15,6 +15,11 @@ public class EstaticaScheduler {
 
     @Scheduled(cron = "0 0 4 * * ?")
     public void actualizarHechos() {
-        fuenteEstatica.cargarHechos();
+        try {
+            fuenteEstatica.cargarHechos();
+        }
+        catch (Exception e) {
+            throw new Error(e);
+        }
     }
 }

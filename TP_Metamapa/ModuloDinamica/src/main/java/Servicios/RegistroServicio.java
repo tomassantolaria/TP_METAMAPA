@@ -1,25 +1,26 @@
-package Servicio;
+package Servicios;
 
-import Modelos.DTOs.ContribuyenteDTOInput;
+import Modelos.DTOs.ContribuyenteDTO;
 import Modelos.Entidades.Contribuyente;
-import Repositorio.ContribuyenteRepositorio;
-
+import Repositorios.ContribuyenteRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Service
 public class RegistroServicio {
+
     private final ContribuyenteRepositorio contribuyenteRepositorio;
 
     public RegistroServicio(ContribuyenteRepositorio contribuyenteRepositorio) {
         this.contribuyenteRepositorio = contribuyenteRepositorio;}
 
-    public void registrar(@RequestBody ContribuyenteDTOInput contribuyente){
+    public void registrar(@RequestBody ContribuyenteDTO contribuyente){
         Contribuyente contribuyente_listo = this.crearContribuyente(contribuyente);
         contribuyenteRepositorio.agregarContribuyente(contribuyente_listo);
     }
-    public Contribuyente crearContribuyente(ContribuyenteDTOInput contribuyenteDTO){
+    public Contribuyente crearContribuyente(ContribuyenteDTO contribuyenteDTO){
         Contribuyente contribuyente = new Contribuyente();
         contribuyente.setUsuario( contribuyenteDTO.getUsuario());
         contribuyente.setNombre(contribuyenteDTO.getNombre());

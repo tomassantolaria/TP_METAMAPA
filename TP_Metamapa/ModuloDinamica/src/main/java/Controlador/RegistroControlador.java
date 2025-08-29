@@ -1,7 +1,7 @@
 package Controlador;
 
-import Modelos.DTOs.ContribuyenteDTOInput;
-import Servicio.RegistroServicio;
+import Modelos.DTOs.ContribuyenteDTO;
+import Servicios.RegistroServicio;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,7 @@ public class RegistroControlador {
     }
 
     @PostMapping("/registrarse")
-    public ResponseEntity<String> registrarse(@RequestBody ContribuyenteDTOInput contribuyente){
+    public ResponseEntity<String> registrarse(@RequestBody ContribuyenteDTO contribuyente){
         try{
             registroServicio.registrar(contribuyente);
             return ResponseEntity.status(200).body("Registro registrado exitosamente");

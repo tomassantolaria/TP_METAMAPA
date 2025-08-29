@@ -1,6 +1,8 @@
 package Servicio;
 
 import Modelos.Entidades.*;
+import Repositorio.ArchivosRepositorio;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,8 +13,9 @@ import java.util.List;
 
 public class ImportadorFileServerLocal implements Importador{
     private File carpeta = new File("ArchivosCSV");
+    private ArchivosRepositorio archRepo = new ArchivosRepositorio();
     @Override
-    public List<Hecho> getHechoFromFile(String ruta) throws Exception{
+    public List<HechoCSV> getHechoFromFile(String ruta) throws Exception{
         HechosCSV hechos = new HechosCSV();
         List<Hecho> hechosRepo= new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(ruta));
@@ -24,7 +27,6 @@ public class ImportadorFileServerLocal implements Importador{
             HechoCSV hecho = HechoCSV.getInstance(
                     campos[0], // Título
                     campos[1], // Descripción
-                    ruta, // fuente
                     campos[2], // Categoría
                     LocalDate.parse(campos[5], formatter), // Fecha del hecho
                     Double.parseDouble(campos[3]), // Latitud
@@ -35,13 +37,10 @@ public class ImportadorFileServerLocal implements Importador{
         }
 
         br.close();
-        for (HechoCSV hecho : hechos.getHechos()) {
-            hechosRepo.add(convertToHecho(hecho));
-        }
-        return hechosRepo;
+        return hechos.getHechos();
     }
-    @Override
-    public List<String> getFiles() throws Exception {
+     @Override
+    public List<String> getPaths() throws Exception {
         List<String> paths = new ArrayList<>();
             if(carpeta.exists() && carpeta.isDirectory()) {
                 if(carpeta.listFiles() != null) {
@@ -52,7 +51,7 @@ public class ImportadorFileServerLocal implements Importador{
                     }
                 }
             } else {
-                System.out.println("La carpeta no existe o no es un directorio");
+                throw new Exception("No existe la carpeta o esta vacia");
             }
             return paths;
     }
