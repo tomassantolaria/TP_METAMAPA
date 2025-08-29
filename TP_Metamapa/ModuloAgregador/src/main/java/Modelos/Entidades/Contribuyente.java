@@ -13,7 +13,10 @@ public class Contribuyente {
     public String apellido;
     public LocalDate fecha_nacimiento;
 
-    public void solicitarEliminacionDeHecho(Hecho unHecho){
-
+    public Contribuyente(String usuario, String nombre, String apellido, LocalDate fecha_nacimiento) {
+        this.usuario = usuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fecha_nacimiento = fecha_nacimiento;
     }
 }

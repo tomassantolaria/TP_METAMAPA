@@ -11,6 +11,8 @@ import java.time.LocalDate;
 @Setter
 //PATRON DTO
 public class HechoDTO {
+    public Long idHecho = null;
+    public Long idFuente = null; //VER COMO MANEJAR ESTO
     public String titulo;
     public String descripcion;
     public String contenido;

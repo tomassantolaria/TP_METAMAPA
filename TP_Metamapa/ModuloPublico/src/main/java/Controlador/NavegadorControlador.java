@@ -4,7 +4,7 @@ import Modelos.DTOs.HechoDTO;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
 import Servicio.ConsensoServicio;
-import Servicio.FiltradorServicio;
+import Servicio.NavegadorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +18,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("publico/")
 
-public class FiltroControlador {
+public class NavegadorControlador {
 
     @Autowired
-    FiltradorServicio FiltradorServicio;
+    NavegadorServicio navegadorServicio;
     HechoRepositorio hechosRepositorio;
     ColeccionRepositorio coleccionRepositorio;
     ConsensoServicio consensoServicio;
@@ -38,7 +38,7 @@ public class FiltroControlador {
             , @RequestParam (required = false) String titulo
             , @RequestParam (required = false) String ubicacion)
     {
-        return FiltradorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, titulo, ubicacion, origen);
+        return navegadorServicio.filtrarHechos(coleccionRepositorio.obtenerPorId(id).getHechos(), categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, titulo, ubicacion, origen);
     }
 
     @RequestMapping("hechos")
@@ -53,7 +53,7 @@ public class FiltroControlador {
             , @RequestParam (required = false) String titulo
             , @RequestParam (required = false) String ubicacion)
     {
-            return FiltradorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, titulo, ubicacion, origen);
+            return navegadorServicio.filtrarHechos(hechosRepositorio.getHechos(),categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, titulo, ubicacion, origen);
     }
 
     @RequestMapping("colecciones/{id}/curada")

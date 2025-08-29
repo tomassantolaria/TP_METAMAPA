@@ -8,8 +8,8 @@ import lombok.Setter;
 @Setter
 public class FiltrarRequestDTO {
     private CriteriosDTO criterios;
-    private List<HechoDTO> hechos;
-    public FiltrarRequestDTO(CriteriosDTO criterios, List<HechoDTO> hechos) {
+    private List<HechoDTOInput> hechos;
+    public FiltrarRequestDTO(CriteriosDTO criterios, List<HechoDTOInput> hechos) {
         this.criterios = criterios;
         this.hechos = hechos;
     }

@@ -21,16 +21,16 @@ public class HechoServicio {
     private HechoRepositorio hechoRepositorio;
 
     public void crearHecho(HechoDTO dto) {
-        UUID idHecho = UUID.randomUUID(); //https://www.baeldung.com/java-uuid
+
         Categoria categoria = categoriaRepositorio.crearCategoria(dto.getCategoria());
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
         Ubicacion ubicacion = new Ubicacion(dto.getLugar(), dto.getLatitud(), dto.getLongitud());
         LocalDate fechaOcurrencia =  dto.getFechaAcontecimiento();
-        Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), null, null, null); //Decision de diseño.
+        Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFecha_nacimiento()); //Decision de diseño.
         boolean anonimo = dto.getAnonimo();
 
-        Hecho hecho = new Hecho(idHecho, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
-                                contribuyente, anonimo, true);
+        Hecho hecho = new Hecho(null,null, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
+                                contribuyente, anonimo, true); // VER COMO ASIGNAR UN ID A LAS DISTINTAS FUENTES!!!!!!!!
         hechoRepositorio.guardarHecho(hecho);
     }
 
@@ -43,6 +43,8 @@ public class HechoServicio {
         List<HechoDTO> hechosDTO = new ArrayList<>();
         for (Hecho hecho : hechos) {
             HechoDTO dto = new HechoDTO(
+                    null,
+                    hecho.getIdfuente(),
                     hecho.getTitulo(),
                     hecho.getDescripcion(),
                     hecho.getContenido().getTexto(),
@@ -54,9 +56,9 @@ public class HechoServicio {
                     hecho.getUbicacion().getLatitud(),
                     hecho.getUbicacion().getLongitud(),
                     hecho.getContribuyente().getUsuario(),
-                    null,
-                    null,
-                    null,
+                    hecho.getContribuyente().getNombre(),
+                    hecho.getContribuyente().getApellido(),
+                    hecho.getContribuyente().getFecha_nacimiento(),
                     hecho.getAnonimo(),
                     hecho.getVisible(),
                     null

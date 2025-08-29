@@ -2,14 +2,14 @@ package Modelos.Entidades;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
+
 
 @Getter
 @Setter
 
 public class Hecho {
-    public UUID id;
+    public Long idHecho;
+    public Long idfuente;
     public String titulo;
     public String descripcion;
     public Contenido contenido;
@@ -20,9 +20,10 @@ public class Hecho {
     public Boolean anonimo;
     public Boolean visible;
 
-    public Hecho(UUID id, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    public Hecho(Long idHecho, Long idfuente,String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                  Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, boolean visible) {
-        this.id = id;
+        this.idHecho = idHecho;
+        this.idfuente = idfuente;
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
         this.contenido = unContenido;

@@ -6,8 +6,14 @@ import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
 import Servicio.Conversores.ConversorCategoria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import Servicio.Consenso.*;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +26,7 @@ public class ColeccionServicio {
     private Map<String, Consenso> consensosMap;
     private final ColeccionRepositorio coleccionRepositorio;
     private final HechoRepositorio hechoRepositorio;
+    RestTemplate restTemplate;
 
     public ColeccionServicio(ColeccionRepositorio coleccionRepositorio, HechoRepositorio hechoRepositorio) {
         this.coleccionRepositorio = coleccionRepositorio;
@@ -40,7 +47,25 @@ public class ColeccionServicio {
         List<Hecho> hechos = new ArrayList<>();
         Coleccion coleccion = new Coleccion(UUID.randomUUID(), coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia,hechos);
         coleccionRepositorio.agregar(coleccion);
+        avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
+
+
+    }
+    private void avisarAgregador (UUID coleccionId) {
+        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromPath("http://coleccionCreada/{coleccionId}");
+        try {
+            ResponseEntity<String> respuestaAgregador = restTemplate.exchange(
+                    urlAgregador.toUriString(),
+                    HttpMethod.POST,
+                    null,
+                    new ParameterizedTypeReference<>() {
+                    }
+            );
+        } catch (HttpServerErrorException e) {
+            throw new RuntimeException("Error al comunicarse con el servicio Agregador: " + e.getMessage());
+        }
+
     }
 
     public void eliminarColeccion(UUID id) {

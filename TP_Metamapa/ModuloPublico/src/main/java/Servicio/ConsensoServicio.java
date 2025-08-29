@@ -3,7 +3,7 @@ import java.util.*;
 import Modelos.DTOs.*;
 import Modelos.Entidades.*;
 import Repositorio.ColeccionRepositorio;
-import Repositorio.ContribuyenteRepositorio;
+
 public class ConsensoServicio {
     private final ColeccionRepositorio coleccionRepositorio = new ColeccionRepositorio();
 

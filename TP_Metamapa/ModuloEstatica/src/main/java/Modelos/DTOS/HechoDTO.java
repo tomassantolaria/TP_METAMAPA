@@ -9,14 +9,15 @@ import java.time.LocalDate;
 @Setter
 //PATRON DTO
 public class HechoDTO {
-
+    public Long idHecho = null;
+    public Long idFuente = null; //VER COMO MANEJAR ESTO
     public String titulo;
     public String descripcion;
     public String contenido = null;
     public String contenidoMultimedia = null;
     public String categoria;
-    public LocalDate fechaCarga = null;
     public LocalDate fechaAcontecimiento;
+    public LocalDate fechaCarga = null;
     public String lugar = null; // no sabemos el nomrbe del lugar
     public Double latitud;
     public Double longitud;

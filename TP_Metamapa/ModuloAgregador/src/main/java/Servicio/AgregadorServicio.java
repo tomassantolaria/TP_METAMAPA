@@ -3,7 +3,7 @@ package Servicio;
 
 import Modelos.DTOs.CriteriosDTO;
 import Modelos.DTOs.FiltrarRequestDTO;
-import Modelos.DTOs.HechoDTO;
+import Modelos.DTOs.HechoDTOInput;
 import Modelos.Entidades.*;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
@@ -16,10 +16,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import org.springframework.stereotype.Service;
+import java.util.UUID;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class AgregadorServicio {
@@ -31,7 +31,7 @@ public class AgregadorServicio {
 
     public void actualizarHechos() {
 
-        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromPath("http://dinamica/hechos/obtener");
+        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromPath("http://dinamica/hechos/obtener"); // cambiar nombre url
 
         UriComponentsBuilder urlDemo = UriComponentsBuilder.fromPath("http://demo/hechos");
 
@@ -39,7 +39,7 @@ public class AgregadorServicio {
 
         UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromPath("http://metamapa/hechos");
 
-        ResponseEntity<List<HechoDTO>> respuestaDinamica = restTemplate.exchange(
+        ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
                 urlDinamica.toUriString(),
                 HttpMethod.GET,
                 null,
@@ -48,7 +48,7 @@ public class AgregadorServicio {
         );
 
 
-        ResponseEntity<List<HechoDTO>> respuestaDemo = restTemplate.exchange(
+        ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
                 urlDemo.toUriString(),
                 HttpMethod.GET,
                 null,
@@ -57,7 +57,7 @@ public class AgregadorServicio {
         );
 
 
-        ResponseEntity<List<HechoDTO>> respuestaEstatica = restTemplate.exchange(
+        ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
                 urlEstatica.toUriString(),
                 HttpMethod.GET,
                 null,
@@ -65,7 +65,7 @@ public class AgregadorServicio {
                 }
         );
 
-        ResponseEntity<List<HechoDTO>> respuestaMetamapa = restTemplate.exchange(
+        ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
                 urlMetamapa.toUriString(),
                 HttpMethod.GET,
                 null,
@@ -73,54 +73,58 @@ public class AgregadorServicio {
                 }
         );
 
-
-        List<Hecho> hechos = new ArrayList<>();
-        List<HechoDTO> hechosDTOTotales = new ArrayList<>();
+        List<HechoDTOInput> hechosDTOTotales = new ArrayList<>();
+        // Cambiar el HECHOdtoOutput de las distintas fuentes
 
 
         if (!respuestaDemo.getBody().isEmpty()) {
-            List<HechoDTO> hechosDemo = this.setearOrigenCarga(respuestaDemo.getBody(), OrigenCarga.FUENTE_PROXY);
+            List<HechoDTOInput> hechosDemo = this.setearOrigenCarga(respuestaDemo.getBody(), OrigenCarga.FUENTE_PROXY);
             hechosDTOTotales.addAll(hechosDemo) ;
-            List<Hecho> hechosDemoTransformados = transaformarAHecho(hechosDemo, UUID.randomUUID());
-            hechos.addAll(hechosDemoTransformados);
         }
 
         if (!respuestaDinamica.getBody().isEmpty()) {
-            List<HechoDTO> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
+            List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
             hechosDTOTotales.addAll(hechosDinamica);
-            List<Hecho> hechosDinamicaTransformados = transaformarAHecho(hechosDinamica, UUID.randomUUID());
-            hechos.addAll(hechosDinamicaTransformados);
         }
 
         if (!respuestaEstatica.getBody().isEmpty()) {
-            List<HechoDTO> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
+            List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
             hechosDTOTotales.addAll(hechosEstatica) ;
-            List<Hecho> hechosEstaticaTransformados = transaformarAHecho(hechosEstatica, UUID.randomUUID());
-            hechos.addAll(hechosEstaticaTransformados);
         }
 
         if (!respuestaMetamapa.getBody().isEmpty()) {
-            List<HechoDTO> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
+            List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
             hechosDTOTotales.addAll(hechosMetamapa) ;
-            List<Hecho> hechosMetamapaTransformados = transaformarAHecho(hechosMetamapa, UUID.randomUUID());
-            hechos.addAll(hechosMetamapaTransformados);
         }
-        this.guardarHechos(hechos);
-        this.actualizarColecciones(hechosDTOTotales);
+        // antes de transformar a hecho, filtrar los que ya existen en la base de datos con el normalizador
+
+        List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
+        this.guardarHechos(hechos); // los guarda en la BD asignandoles un ID
+        this.actualizarColecciones(hechos);
+
     }
 
-    public List<Hecho> transaformarAHecho(List<HechoDTO> hechosDTO, UUID idFuente) {
-        return hechosDTO.stream()
-                .map(hechoDTO -> {
-                    Categoria categoria = Categoria.getInstance(hechoDTO.getCategoria());
-                    Contenido contenido = new Contenido(hechoDTO.getContenido(), hechoDTO.getContenido_multimedia());
-                    Ubicacion ubicacion = new Ubicacion(hechoDTO.getLugar(), hechoDTO.getLatitud(), hechoDTO.getLongitud());
-
-                    Hecho hecho = new Hecho(UUID.randomUUID(), idFuente, hechoDTO.getTitulo(), hechoDTO.getDescripcion(), contenido, categoria,
-                            hechoDTO.getFechaAcontecimiento(), ubicacion, LocalDate.now(), OrigenCarga.valueOf(hechoDTO.getOrigen_carga().toUpperCase()) , hechoDTO.getVisible(), hechoDTO.getUsuario(), hechoDTO.getAnonimo());
-                    return hecho;
-                })
-                .toList();
+    public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
+        List<Hecho> hechos = new ArrayList<>();
+        for (HechoDTOInput hechoDTO : hechosDTO) {
+            Hecho hecho = new Hecho(
+                    hechoDTO.getIdHecho(),
+                    hechoDTO.getIdFuente(),
+                    hechoDTO.getTitulo(),
+                    hechoDTO.getDescripcion(),
+                    new Contenido(hechoDTO.getContenido(), hechoDTO.getContenido_multimedia()),
+                    new Categoria(hechoDTO.getCategoria()),
+                    hechoDTO.getFechaAcontecimiento(),
+                    new Ubicacion(hechoDTO.getLugar(), hechoDTO.getLatitud(), hechoDTO.getLongitud()),
+                    (hechoDTO.getFechaCarga() != null ? hechoDTO.getFechaCarga() : LocalDate.now()),
+                    OrigenCarga.valueOf(hechoDTO.getOrigen_carga().toUpperCase()),
+                    (hechoDTO.getVisible() != null ? hechoDTO.getVisible() : true),
+                    (hechoDTO.getUsuario() != null ? new Contribuyente(hechoDTO.getUsuario(), hechoDTO.getNombre(), hechoDTO.getApellido(), hechoDTO.getFecha_nacimiento()) : null),
+                    hechoDTO.getAnonimo() // el ? : funciona como un if(?) y else(:)
+            );
+            hechos.add(hecho);
+        }
+        return hechos;
     }
 
     public void guardarHechos(List<Hecho> hechos) {
@@ -129,26 +133,45 @@ public class AgregadorServicio {
         }
     }
 
-    public void actualizarColecciones(List<HechoDTO> hechosDTO) {
+    public void actualizarColecciones(List<Hecho> hechos) {
+
+            List<HechoDTOInput> hechosDTO = this.transformarADTOLista(hechos);
 
        for (Coleccion coleccion : coleccionRepositorio.getTodas()){
+
            CriteriosDTO criteriosDTO = this.transformarCriteriosADTO(coleccion.getCriterio_pertenencia());
-
            RestTemplate restTemplate = new RestTemplate();
-
            FiltrarRequestDTO request = new FiltrarRequestDTO(criteriosDTO, hechosDTO);
 
-           ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
+           ResponseEntity<List<HechoDTOInput>> response = restTemplate.exchange(
                    "http://localhost:8080/filtrar", // URL de tu API
                    HttpMethod.POST,
                    new HttpEntity<>(request),
                    new ParameterizedTypeReference<>() {}
            );
 
-           List<HechoDTO> hechosFiltrados = response.getBody();
-           List<Hecho> hechos = this.transaformarAHecho(hechosFiltrados, UUID.randomUUID());
-           agregarHechosAColeccion(hechos, coleccion);
+           List<Hecho> hechosRespuesta = this.transaformarAHecho(response.getBody());
+           agregarHechosAColeccion(hechosRespuesta, coleccion);
        }
+    }
+
+    public List<HechoDTOInput> transformarADTOLista(List<Hecho> hechos) {
+        List<HechoDTOInput> hechosDTO;
+        hechosDTO = hechos.stream()
+                .map(this::transformarAHechoDTO)
+                .collect(java.util.stream.Collectors.toList());
+        return hechosDTO;
+    }
+    
+    public HechoDTOInput transformarAHechoDTO (Hecho hecho){
+
+        return new HechoDTOInput(hecho.getId(), hecho.getIdFuente(), hecho.getTitulo(),hecho.getDescripcion(),
+                                 hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),
+                                 hecho.getCategoria().getNombre(), hecho.getFecha(),hecho.getFecha_carga(),
+                                 hecho.getUbicacion().getNombre(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(),
+                                 (hecho.getContribuyente() != null ? hecho.getContribuyente().getUsuario() : null), (hecho.getContribuyente() != null ? hecho.getContribuyente().getNombre() : null),
+                                 (hecho.getContribuyente() != null ? hecho.getContribuyente().getApellido() : null), (hecho.getContribuyente() != null ? hecho.getContribuyente().getFecha_nacimiento() : null),
+                                 hecho.isAnonimo(),hecho.isVisible(), hecho.getOrigen_carga().name());
     }
 
     public CriteriosDTO transformarCriteriosADTO(CriteriosDePertenencia criterios) {
@@ -169,11 +192,15 @@ public class AgregadorServicio {
         coleccion.agregarHechos(hechos);
     }
 
-    public List<HechoDTO> setearOrigenCarga(List<HechoDTO> hechosDTO, OrigenCarga origenCarga) {
-        for (HechoDTO hechoDTO : hechosDTO) {
+    public List<HechoDTOInput> setearOrigenCarga(List<HechoDTOInput> hechosDTO, OrigenCarga origenCarga) {
+        for (HechoDTOInput hechoDTO : hechosDTO) {
             hechoDTO.setOrigen_carga(origenCarga.name());
         }
 
         return hechosDTO;
+    }
+
+    public void cargarColeccionConHechos(Long coleccionId) {
+
     }
 }

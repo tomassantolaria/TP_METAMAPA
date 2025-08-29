@@ -13,19 +13,19 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dinamica/hechos")
+@RequestMapping("/dinamica")
 public class HechoControlador {
 
     @Autowired
     HechoServicio hechoServicio;
 
-    @PostMapping()
+    @PostMapping("/hechos")
     public ResponseEntity<String> crearHecho(@RequestBody HechoDTO hechoDTO) {
         hechoServicio.crearHecho(hechoDTO);
         return ResponseEntity.ok("Hecho creado exitosamente.");
     }
 
-    @RequestMapping("/obtener")
+    @RequestMapping("/hechos")
     public List<HechoDTO> obtenerHechos() {
         return hechoServicio.obtenerHechos();
     }
