@@ -107,6 +107,9 @@ public class AgregadorServicio {
     public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
         List<Hecho> hechos = new ArrayList<>();
         for (HechoDTOInput hechoDTO : hechosDTO) {
+            Provincia provincia = new Provincia(hechoDTO.getProvincia());
+            Localidad localidad = new Localidad(hechoDTO.getLocalidad(), provincia);
+            Calle calle = new Calle(hechoDTO.getCalle(), localidad);
             Hecho hecho = new Hecho(
                     hechoDTO.getIdHecho(),
                     hechoDTO.getIdFuente(),
@@ -115,7 +118,7 @@ public class AgregadorServicio {
                     new Contenido(hechoDTO.getContenido(), hechoDTO.getContenido_multimedia()),
                     new Categoria(hechoDTO.getCategoria()),
                     hechoDTO.getFechaAcontecimiento(),
-                    new Ubicacion(hechoDTO.getLugar(), hechoDTO.getLatitud(), hechoDTO.getLongitud()),
+                    new Ubicacion(calle, localidad, provincia, hechoDTO.getLatitud(), hechoDTO.getLongitud()),
                     (hechoDTO.getFechaCarga() != null ? hechoDTO.getFechaCarga() : LocalDate.now()),
                     OrigenCarga.valueOf(hechoDTO.getOrigen_carga().toUpperCase()),
                     (hechoDTO.getVisible() != null ? hechoDTO.getVisible() : true),
@@ -177,7 +180,7 @@ public class AgregadorServicio {
         return new HechoDTOInput(hecho.getId(), hecho.getIdFuente(), hecho.getTitulo(),hecho.getDescripcion(),
                                  hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),
                                  hecho.getCategoria().getNombre(), hecho.getFecha(),hecho.getFecha_carga(),
-                                 hecho.getUbicacion().getNombre(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(),
+                                 hecho.getUbicacion().getCalle().getNombre_calle(),hecho.getUbicacion().getLocalidad().getNombre_localidad(), hecho.getUbicacion().getProvincia().getNombre_provincia(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(),
                                  (hecho.getContribuyente() != null ? hecho.getContribuyente().getUsuario() : null), (hecho.getContribuyente() != null ? hecho.getContribuyente().getNombre() : null),
                                  (hecho.getContribuyente() != null ? hecho.getContribuyente().getApellido() : null), (hecho.getContribuyente() != null ? hecho.getContribuyente().getFecha_nacimiento() : null),
                                  hecho.isAnonimo(),hecho.isVisible(), hecho.getOrigen_carga().name());
@@ -188,13 +191,15 @@ public class AgregadorServicio {
         String multimedia = (criterios.getMultimedia() != null) ? criterios.getMultimedia().toString() : null;
         String fecha_carga_desde = (criterios.getFecha_carga_desde() != null) ? criterios.getFecha_carga_desde().toString() : null;
         String fecha_carga_hasta = (criterios.getFecha_carga_hasta() != null) ? criterios.getFecha_carga_hasta().toString() : null;
-        String lugar = criterios.getLugar();
+        String calle = criterios.getCalle();
+        String localidad = criterios.getLocalidad();
+        String provincia = criterios.getProvincia();
         String fecha_acontecimiento_desde = (criterios.getFecha_acontecimiento_desde() != null) ? criterios.getFecha_acontecimiento_desde().toString() : null;
         String fecha_acontecimiento_hasta = (criterios.getFecha_acontecimiento_hasta() != null) ? criterios.getFecha_acontecimiento_hasta().toString() : null;
         String origen = (criterios.getOrigen_carga() != null) ? criterios.getOrigen_carga().name() : null;
         String titulo = criterios.getTitulo();
 
-        return new CriteriosDTO(categoria, multimedia, fecha_carga_desde, fecha_carga_hasta, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen, titulo, lugar);
+        return new CriteriosDTO(categoria, multimedia, fecha_carga_desde, fecha_carga_hasta, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen, titulo, calle, localidad, provincia);
     }
 
     public void agregarHechosAColeccion(List<Hecho> hechos, Coleccion coleccion) {

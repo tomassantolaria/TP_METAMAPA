@@ -3,6 +3,7 @@ import Modelos.Entidades.Hecho;
 import Modelos.DTOS.HechoDTO;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -87,7 +88,10 @@ public class FuenteEstatica {
     private void guardarHechos(List<HechoCSV> hechosCSV, Long idArchivo) {
         for (HechoCSV hechoCSV : hechosCSV) {
             Hecho hecho = convertToHecho(hechoCSV, idArchivo);
-            repositorio.addHecho(hecho);
+            // AGREGUE VERIFICACION DE FECHA !!!!!
+            if (hecho.getFechaAcontecimiento().isBefore(LocalDate.now()) || hecho.getFechaAcontecimiento().isEqual(LocalDate.now())) {
+                repositorio.addHecho(hecho);
+            }
         }
     }
     private Hecho convertToHecho(HechoCSV hechoCSV, Long path) {

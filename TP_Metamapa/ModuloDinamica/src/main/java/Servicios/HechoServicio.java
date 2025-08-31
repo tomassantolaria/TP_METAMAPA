@@ -8,10 +8,8 @@ import Modelos.DTOs.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class HechoServicio {
@@ -24,14 +22,20 @@ public class HechoServicio {
 
         Categoria categoria = categoriaRepositorio.crearCategoria(dto.getCategoria());
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
-        Ubicacion ubicacion = new Ubicacion(dto.getLugar(), dto.getLatitud(), dto.getLongitud());
+        Provincia provincia = new Provincia(dto.getNombre_provincia());
+        Localidad localidad = new Localidad(dto.getNombre_localidad(), provincia);
+        Calle calle = new Calle(dto.getNombre_calle(), localidad);
+        Ubicacion ubicacion = new Ubicacion(calle, localidad, provincia, dto.getLatitud(), dto.getLongitud());
         LocalDate fechaOcurrencia =  dto.getFechaAcontecimiento();
         Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFecha_nacimiento()); //Decision de diseño.
         boolean anonimo = dto.getAnonimo();
 
         Hecho hecho = new Hecho(null,null, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
                                 contribuyente, anonimo, true);
-        hechoRepositorio.guardarHecho(hecho);
+        // AGREGUE VERIFICACION DE FECHA !!!!!
+        if (hecho.getFecha().isBefore(LocalDate.now()) || hecho.getFecha().isEqual(LocalDate.now())) {
+            hechoRepositorio.guardarHecho(hecho);
+        }
     }
 
     public List<HechoDTO> obtenerHechos() {
@@ -52,7 +56,9 @@ public class HechoServicio {
                     hecho.getCategoria().getNombre(),
                     hecho.getFecha(),
                     null,
-                    hecho.getUbicacion().getNombre(),
+                    hecho.getUbicacion().getCalle().getNombre_calle(),
+                    hecho.getUbicacion().getLocalidad().getNombre_localidad(),
+                    hecho.getUbicacion().getProvincia().getNombre_provincia(),
                     hecho.getUbicacion().getLatitud(),
                     hecho.getUbicacion().getLongitud(),
                     hecho.getContribuyente().getUsuario(),

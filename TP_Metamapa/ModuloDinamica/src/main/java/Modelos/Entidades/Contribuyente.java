@@ -16,8 +16,27 @@ public class Contribuyente {
     public String nombre;
     public String apellido;
     public LocalDate fecha_nacimiento;
-    @ManyToOne
+    @OneToMany
     public List<Hecho> hechosPublicados;
 
 
+    public Contribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
+        this.usuario = usuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fecha_nacimiento = fechaNacimiento;
+    }
+
+    public Contribuyente() {}
+
+    @ManyToOne(optional = false)
+    private Hecho hechos;
+
+    public Hecho getHechos() {
+        return hechos;
+    }
+
+    public void setHechos(Hecho hechos) {
+        this.hechos = hechos;
+    }
 }

@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/ModuloDinamica.iml" filepath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/ModuloDinamica.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TP_Metamapa/ModuloPublico/ModuloPublico.iml" filepath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/ModuloPublico.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TP_METADATA.iml" filepath="$PROJECT_DIR$/.idea/TP_METADATA.iml" />
     </modules>
   </component>
 </project>

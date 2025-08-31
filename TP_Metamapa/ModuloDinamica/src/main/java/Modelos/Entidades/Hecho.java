@@ -26,13 +26,12 @@ public class Hecho {
     @ManyToOne
     @JoinColumn(name = "idUbicacion")
     public Ubicacion ubicacion;
-    @OneToMany
     @JoinColumn(name = "usuario")
     public Contribuyente contribuyente;
     public Boolean anonimo;
     public Boolean visible;
 
-    public Hecho(Long idHecho, Long idfuente,String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    public Hecho(Long idHecho, Long idfuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                  Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, boolean visible) {
         this.idHecho = idHecho;
         this.idfuente = idfuente;
@@ -46,6 +45,8 @@ public class Hecho {
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;
     }
+
+    public Hecho() {}
 
     public void modificarVisibilidad(){
         visible = false;
