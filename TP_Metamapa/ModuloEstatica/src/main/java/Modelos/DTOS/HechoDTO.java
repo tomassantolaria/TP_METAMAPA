@@ -18,7 +18,9 @@ public class HechoDTO {
     public String categoria;
     public LocalDate fechaAcontecimiento;
     public LocalDate fechaCarga = null;
-    public String lugar = null; // no sabemos el nomrbe del lugar
+    public String calle = null;
+    public String localidad = null;
+    public String provincia = null;
     public Double latitud;
     public Double longitud;
     public String usuario = null;
