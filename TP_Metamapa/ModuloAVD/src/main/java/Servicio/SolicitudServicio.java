@@ -25,7 +25,7 @@ public class SolicitudServicio {
         return solicitudes.stream().map(this::pasarADTO).toList();
     }
     private SolicitudDTOOutput pasarADTO(Solicitud solicitud){
-        return new SolicitudDTOOutput(solicitud.getIdSolcitud().toString(), solicitud.getMotivo(), solicitud.getIdHecho(), solicitud.getFecha_creacion());
+        return new SolicitudDTOOutput(solicitud.getIdSolcitud().toString(), solicitud.getMotivo(), solicitud.getHecho().getId(), solicitud.getFecha_creacion());
     }
 
 
@@ -33,7 +33,7 @@ public class SolicitudServicio {
         Solicitud solicitud = solicitudRepositorio.buscarSolicitudPorId(idSolicitud);
         solicitud.setEstado(nuevoEstado);
         if(nuevoEstado == Estado.ACEPTADA){
-            Hecho hecho = hechoRepositorio.buscarHechoPorId(solicitud.getIdHecho());
+            Hecho hecho = hechoRepositorio.findById(solicitud.getHecho().);
             hecho.eliminarse();
         }
         solicitudRepositorio.guardarSolicitud(solicitud);

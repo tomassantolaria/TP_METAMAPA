@@ -1,4 +1,4 @@
-package Modelos.DTOs;
+package Modelos;
 
 import java.util.List;
 

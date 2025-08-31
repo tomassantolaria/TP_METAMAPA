@@ -20,20 +20,20 @@ public class CriteriosDePertenencia {
     Categoria categoria;
     LocalDate fecha_carga_desde;
     LocalDate fecha_carga_hasta;
-    String lugar;
+    Ubicacion ubicacion;
     LocalDate fecha_acontecimiento_desde;
     LocalDate fecha_acontecimiento_hasta;
     @Enumerated(EnumType.STRING)
     @Column(name = "origen_carga")
     OrigenCarga origen_carga;
 
-    public CriteriosDePertenencia(String titulo, Boolean multimedia, Categoria categoria, LocalDate fecha_carga_desde, LocalDate fecha_carga_hasta, String lugar, LocalDate fecha_acontecimiento_desde, LocalDate fecha_acontecimiento_hasta, OrigenCarga origen_carga) {
+    public CriteriosDePertenencia(String titulo, Boolean multimedia, Categoria categoria, LocalDate fecha_carga_desde, LocalDate fecha_carga_hasta, Ubicacion ubicacion, LocalDate fecha_acontecimiento_desde, LocalDate fecha_acontecimiento_hasta, OrigenCarga origen_carga) {
         this.titulo = titulo;
         this.multimedia = multimedia;
         this.categoria = categoria;
         this.fecha_carga_desde = fecha_carga_desde;
         this.fecha_carga_hasta = fecha_carga_hasta;
-        this.lugar = lugar;
+        this.ubicacion = ubicacion;
         this.fecha_acontecimiento_desde = fecha_acontecimiento_desde;
         this.fecha_acontecimiento_hasta = fecha_acontecimiento_hasta;
         this.origen_carga = origen_carga;

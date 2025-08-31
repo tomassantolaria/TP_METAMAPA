@@ -10,7 +10,7 @@ import java.time.LocalDate;
 //PATRON DTO
 public class HechoDTO {
     public Long idHecho = null;
-    public Long idFuente = null; //VER COMO MANEJAR ESTO
+    public Long idFuente ; //VER COMO MANEJAR ESTO
     public String titulo;
     public String descripcion;
     public String contenido = null;
@@ -32,9 +32,10 @@ public class HechoDTO {
     public String origen_carga = null;
 
 
-    public HechoDTO(String titulo, String descripcion, String categoria, LocalDate fechaAcontecimiento, Double latitud, Double longitud) {
+    public HechoDTO(String titulo, String descripcion, Long id_fuente, String categoria, LocalDate fechaAcontecimiento, Double latitud, Double longitud) {
         this.titulo = titulo;
         this.descripcion = descripcion;
+        this.idFuente = id_fuente;
         this.categoria = categoria;
         this.fechaAcontecimiento = fechaAcontecimiento;
         this.latitud = latitud;

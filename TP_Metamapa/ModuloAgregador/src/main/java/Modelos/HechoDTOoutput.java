@@ -1,4 +1,4 @@
-package Modelos.DTOs;
+package Modelos;
 
 import lombok.Getter;
 import lombok.Setter;

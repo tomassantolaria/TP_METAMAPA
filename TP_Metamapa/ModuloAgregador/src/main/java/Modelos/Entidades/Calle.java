@@ -23,11 +23,4 @@ public class Calle {
 
     public Calle() {}
 
-    public void setIdCalle(Long idCalle) {
-        this.idCalle = idCalle;
-    }
-
-    public Long getIdCalle() {
-        return idCalle;
-    }
 }

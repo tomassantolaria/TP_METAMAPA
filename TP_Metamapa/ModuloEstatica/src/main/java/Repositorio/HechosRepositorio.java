@@ -36,4 +36,10 @@ public class HechosRepositorio {
         // TODO : hacer que busque un hecho que sea igual, si existe en la base de datos, entonces false)
         return true;
     }
+
+    public Archivo existePath(String path) {
+        //TODO : hacer consulta de si existe ese path, si es null es que no existe
+        return null;
+    }
+
 }

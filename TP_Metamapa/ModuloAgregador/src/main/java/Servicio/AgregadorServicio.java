@@ -1,9 +1,9 @@
 package Servicio;
 
 
-import Modelos.DTOs.CriteriosDTO;
-import Modelos.DTOs.FiltrarRequestDTO;
-import Modelos.DTOs.HechoDTOInput;
+import Modelos.CriteriosDTO;
+import Modelos.FiltrarRequestDTO;
+import Modelos.HechoDTOInput;
 import Modelos.Entidades.*;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import org.springframework.stereotype.Service;
-import java.util.UUID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -191,9 +190,9 @@ public class AgregadorServicio {
         String multimedia = (criterios.getMultimedia() != null) ? criterios.getMultimedia().toString() : null;
         String fecha_carga_desde = (criterios.getFecha_carga_desde() != null) ? criterios.getFecha_carga_desde().toString() : null;
         String fecha_carga_hasta = (criterios.getFecha_carga_hasta() != null) ? criterios.getFecha_carga_hasta().toString() : null;
-        String calle = criterios.getCalle();
-        String localidad = criterios.getLocalidad();
-        String provincia = criterios.getProvincia();
+        String calle = criterios.getUbicacion().getCalle().getNombre_calle();
+        String localidad = criterios.getUbicacion().getLocalidad().getNombre_localidad();
+        String provincia = criterios.getUbicacion().getProvincia().getNombre_provincia();
         String fecha_acontecimiento_desde = (criterios.getFecha_acontecimiento_desde() != null) ? criterios.getFecha_acontecimiento_desde().toString() : null;
         String fecha_acontecimiento_hasta = (criterios.getFecha_acontecimiento_hasta() != null) ? criterios.getFecha_acontecimiento_hasta().toString() : null;
         String origen = (criterios.getOrigen_carga() != null) ? criterios.getOrigen_carga().name() : null;

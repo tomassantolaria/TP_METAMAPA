@@ -1,7 +1,6 @@
 package Controlador;
 
-import Modelos.DTOs.HechoDTO;
-import Repositorios.HechoRepositorio;
+import Modelos.HechoDTO;
 import Servicios.HechoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,9 +1,9 @@
 package Servicio;
 
-import Modelos.DTOs.CriteriosDTO;
-import Modelos.DTOs.FiltrarRequestDTO;
+import Modelos.CriteriosDTO;
+import Modelos.FiltrarRequestDTO;
 import Modelos.Entidades.*;
-import Modelos.DTOs.HechoDTO;
+import Modelos.HechoDTO;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

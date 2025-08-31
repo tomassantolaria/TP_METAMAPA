@@ -19,7 +19,7 @@ public class Solicitud {
     private String motivo;
     @ManyToOne
     @JoinColumn(name = "id_hecho")
-    private Hecho hecho; //Supongo que lo mejor sería que la solicitud ingrese el id del hecho y no el hecho entero. Consultar
+    private Hecho hecho;
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
     private Estado estado;

@@ -1,7 +1,8 @@
 package Servicio;
 import java.util.*;
-import Modelos.DTOs.*;
+
 import Modelos.Entidades.*;
+import Modelos.HechoDTO;
 import Repositorio.ColeccionRepositorio;
 
 public class ConsensoServicio {

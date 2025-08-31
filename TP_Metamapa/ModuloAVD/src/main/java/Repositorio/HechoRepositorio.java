@@ -1,23 +1,14 @@
 package Repositorio;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import Modelos.Entidades.Hecho;
 
 import java.util.*;
 
 @Repository
-public class HechoRepositorio {
-    private final Map<UUID, Hecho> hechos = new HashMap<>();
+public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
 
-    // Constructor con algunas precargadas opcionalmente
-
-    public void eliminarHecho(UUID id) { this.hechos.get(id).setVisible(false); }
-        //this.hechos.remove(id); }
-
-
-    public Hecho buscarHechoPorId(UUID id) {
-        return this.hechos.get(id);
-    }
-
+    /*
     public Boolean cantidadFuentesConTitulo (String titulo, Set <UUID> fuentes) {
 
         for (Hecho hecho : hechos.values()) {
@@ -42,4 +33,6 @@ public class HechoRepositorio {
     public List<Hecho> hechosConFuente (UUID fuente) {
         return hechos.values().stream().filter(hecho -> hecho.getIdFuente().equals(fuente) && hecho.isVisible()).toList();
     }
+    */
+     */
 }

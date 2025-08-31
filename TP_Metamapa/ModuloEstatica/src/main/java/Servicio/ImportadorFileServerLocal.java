@@ -1,7 +1,6 @@
 package Servicio;
 
 import Modelos.Entidades.*;
-import Repositorio.ArchivosRepositorio;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,7 +12,6 @@ import java.util.List;
 
 public class ImportadorFileServerLocal implements Importador{
     private File carpeta = new File("ArchivosCSV");
-    private ArchivosRepositorio archRepo = new ArchivosRepositorio();
     @Override
     public List<HechoCSV> getHechoFromFile(String ruta) throws Exception{
         HechosCSV hechos = new HechosCSV();
@@ -56,7 +54,4 @@ public class ImportadorFileServerLocal implements Importador{
             return paths;
     }
 
-    private Hecho convertToHecho(HechoCSV hechoCSV) {
-        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), hechoCSV.getFuente(), hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(),  hechoCSV.getLongitud(), false);
-    }
 }

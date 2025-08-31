@@ -2,7 +2,6 @@ package Modelos.DTOs;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.UUID;
 
 @Getter
@@ -10,9 +9,9 @@ import java.util.UUID;
 //Esta es la solicitud de eliminación que recibo de un usuario
 public class SolicitudDTOInput {
     private String motivo;
-    private UUID idHecho;
+    private Long idHecho;
 
-    public SolicitudDTOInput(String motivo, UUID idHecho) {
+    public SolicitudDTOInput(String motivo, Long idHecho) {
         this.motivo = motivo;
         this.idHecho = idHecho;
     }

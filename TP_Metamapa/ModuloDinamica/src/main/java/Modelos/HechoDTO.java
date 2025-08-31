@@ -1,5 +1,7 @@
-package Modelos.DTOs;
+package Modelos;
 
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +9,8 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-
-public class HechoDTOInput {
+//PATRON DTO
+public class HechoDTO {
     public Long idHecho;
     public Long idFuente;
     public String titulo;
@@ -18,9 +20,9 @@ public class HechoDTOInput {
     public String categoria;
     public LocalDate fechaAcontecimiento;
     public LocalDate fechaCarga;
-    public String calle;
-    public String localidad;
-    public String provincia;
+    public String nombre_calle;
+    public String nombre_localidad;
+    public String nombre_provincia;
     public Double latitud;
     public Double longitud;
     public String usuario;
@@ -31,7 +33,7 @@ public class HechoDTOInput {
     public Boolean visible;
     public String origen_carga;
 
-    public HechoDTOInput(Long idHecho, Long idFuente, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDate fechaAcontecimiento, LocalDate fechaCarga, String calle, String localidad, String provincia, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
+    public HechoDTO(Long idHecho, Long idFuente, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDate fechaAcontecimiento, LocalDate fechaCarga, String nombre_calle, String nombre_localidad, String nombre_provincia, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
         this.idHecho = idHecho;
         this.idFuente = idFuente;
         this.titulo = titulo;
@@ -41,9 +43,9 @@ public class HechoDTOInput {
         this.categoria = categoria;
         this.fechaAcontecimiento = fechaAcontecimiento;
         this.fechaCarga = fechaCarga;
-        this.calle = calle;
-        this.localidad = localidad;
-        this.provincia = provincia;
+        this.nombre_calle = nombre_calle;
+        this.nombre_localidad = nombre_localidad;
+        this.nombre_provincia = nombre_provincia;
         this.latitud = latitud;
         this.longitud = longitud;
         this.usuario = usuario;

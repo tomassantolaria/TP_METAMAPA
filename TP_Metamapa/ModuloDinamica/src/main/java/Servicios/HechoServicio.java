@@ -1,9 +1,9 @@
 package Servicios;
 
+import Modelos.HechoDTO;
 import Repositorios.CategoriaRepositorio;
 import Repositorios.HechoRepositorio;
 import Modelos.Entidades.*;
-import Modelos.DTOs.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

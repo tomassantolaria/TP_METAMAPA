@@ -1,8 +1,8 @@
 package Servicios;
 
-import Modelos.DTOs.CriteriosDTO;
+import Modelos.CriteriosDTO;
 
-import Modelos.DTOs.HechoDTO;
+import Modelos.HechoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Servicios.Filtros.*;

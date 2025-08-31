@@ -1,7 +1,7 @@
 package Servicios.Filtros;
 
-import Modelos.DTOs.CriteriosDTO;
-import Modelos.DTOs.HechoDTO;
+import Modelos.CriteriosDTO;
+import Modelos.HechoDTO;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 

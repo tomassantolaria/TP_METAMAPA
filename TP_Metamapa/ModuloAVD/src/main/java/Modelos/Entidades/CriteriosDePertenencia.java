@@ -24,6 +24,8 @@ public class CriteriosDePertenencia {
     private Categoria categoria;
     private LocalDate fecha_carga_desde;
     private LocalDate fecha_carga_hasta;
+    @ManyToOne
+    @JoinColumn(name = "ubicacion_id_ubicacion")
     private Ubicacion ubicacion;
     private LocalDate fecha_acontecimiento_desde;
     private LocalDate fecha_acontecimiento_hasta;

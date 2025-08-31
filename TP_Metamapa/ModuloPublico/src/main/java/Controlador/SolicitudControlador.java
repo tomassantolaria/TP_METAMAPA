@@ -1,6 +1,6 @@
 package Controlador;
 
-import Modelos.DTOs.SolicitudDTOInput;
+import Modelos.SolicitudDTOInput;
 import Servicio.SolicitudServicio;
 import Servicio.Solicitudes.SolicitudInvalidaException;
 import org.springframework.beans.factory.annotation.Autowired;

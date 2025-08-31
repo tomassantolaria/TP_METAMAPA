@@ -1,6 +1,6 @@
 package Controlador;
 
-import Modelos.DTOs.HechoDTO;
+import Modelos.HechoDTO;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
 import Servicio.ConsensoServicio;

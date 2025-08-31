@@ -1,4 +1,4 @@
-package Modelos.DTOs;
+package Modelos;
 
 
 import lombok.Getter;
@@ -15,11 +15,9 @@ public class CriteriosDTO {
     String fechaHechoHasta;
     String origen;
     String titulo;
-    String calle;
-    String localidad;
-    String provincia;
+    String ubicacion;
 
-    public CriteriosDTO(String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String origen, String titulo, String calle, String localidad, String provincia) {
+    public CriteriosDTO(String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String origen, String titulo, String ubicacion) {
         this.categoria = categoria;
         this.contenidoMultimedia = contenidoMultimedia;
         this.fechaCargaDesde = fechaCargaDesde;
@@ -28,8 +26,7 @@ public class CriteriosDTO {
         this.fechaHechoHasta = fechaHechoHasta;
         this.origen = origen;
         this.titulo = titulo;
-        this.calle = calle;
-        this.localidad = localidad;
-        this.provincia = provincia;
+        this.ubicacion = ubicacion;
+
     }
 }

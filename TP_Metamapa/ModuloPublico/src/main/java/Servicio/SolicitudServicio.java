@@ -1,6 +1,6 @@
 package Servicio;
 
-import Modelos.DTOs.SolicitudDTOInput;
+import Modelos.SolicitudDTOInput;
 import Modelos.Entidades.Estado;
 import Modelos.Entidades.Solicitud;
 import Modelos.Entidades.Hecho;
