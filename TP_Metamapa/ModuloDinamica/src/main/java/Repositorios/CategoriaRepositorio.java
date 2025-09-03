@@ -1,32 +1,10 @@
 package Repositorios;
 
-import java.util.*;
-import Modelos.Entidades.*;
+import Modelos.Entidades.Categoria;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public class CategoriaRepositorio {
-    private List<Categoria> categorias;
+@Repository
+public interface CategoriaRepositorio extends JpaRepository<Categoria, Long>{
 
-    public CategoriaRepositorio(){
-        this.categorias = new ArrayList<>();
-    }
-
-    public Categoria crearCategoria(String nombre) {
-        Categoria categoria = this.obtenerCategoria(nombre);
-        if (categoria == null) {
-            categoria = new Categoria(nombre);
-            agregarCategoria(categoria);
-        }
-        return categoria;
-    }
-
-    public Categoria obtenerCategoria(String nombre){
-        return this.categorias.stream()
-                .filter(c->c.getNombre().equals(nombre))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public void agregarCategoria(Categoria categoria) {
-        categorias.add(categoria);
-    }
 }

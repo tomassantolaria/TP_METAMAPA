@@ -1,11 +1,9 @@
 package Servicios;
 
 import Modelos.HechoDTO;
-import Repositorios.CategoriaRepositorio;
 import Repositorios.HechoRepositorio;
 import Modelos.Entidades.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,13 +12,12 @@ import java.util.List;
 @Service
 public class HechoServicio {
 
-    @Autowired
-    private CategoriaRepositorio categoriaRepositorio;
-    private HechoRepositorio hechoRepositorio;
+
+    HechoRepositorio hechoRepositorio;
 
     public void crearHecho(HechoDTO dto) {
 
-        Categoria categoria = categoriaRepositorio.crearCategoria(dto.getCategoria());
+        Categoria categoria = new Categoria(dto.getCategoria());
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
         Provincia provincia = new Provincia(dto.getNombre_provincia());
         Localidad localidad = new Localidad(dto.getNombre_localidad(), provincia);
@@ -32,14 +29,13 @@ public class HechoServicio {
 
         Hecho hecho = new Hecho(null,null, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
                                 contribuyente, anonimo, true);
-        // AGREGUE VERIFICACION DE FECHA !!!!!
         if (hecho.getFecha().isBefore(LocalDate.now()) || hecho.getFecha().isEqual(LocalDate.now())) {
-            hechoRepositorio.guardarHecho(hecho);
+            hechoRepositorio.save(hecho);
         }
     }
 
     public List<HechoDTO> obtenerHechos() {
-        List<Hecho> hechos = hechoRepositorio.obtenerTodosLosHechos();
+        List<Hecho> hechos = hechoRepositorio.findAll();
         return transformarADTOLista(hechos);
     }
 

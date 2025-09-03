@@ -1,7 +1,9 @@
 package Modelos.Entidades;
 
 import java.util.List;
-import Servicio.Consenso.*;
+
+import Modelos.Conversores.ConsensoConversor;
+import Modelos.Entidades.Consenso.Consenso;
 
 
 import jakarta.persistence.*;
@@ -11,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Colecciones")
+@Table(name = "Coleccion")
 public class Coleccion {
 
     @Id
@@ -28,6 +30,7 @@ public class Coleccion {
     private List<Hecho> hechos;
     @ManyToOne
     @JoinColumn()
+    @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
     @ManyToMany
     @JoinTable()

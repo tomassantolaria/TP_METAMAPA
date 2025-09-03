@@ -1,5 +1,3 @@
-import Repositorio.RepositorioCategoria;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.simmetrics.metrics.JaroWinkler;
 import org.simmetrics.StringMetric;
@@ -13,14 +11,6 @@ import java.util.Locale;
 
 @Service
 public class Servicio {
-    @Autowired
-//    private RepositorioCategoria repositorioCategoria;
-//    public String normalizarCategoria(String categoria) {
-//        String categoria_normalizada = categoria.trim().toLowerCase();
-//        // Aquí podrías usar el repositorio para guardar o verificar la categoría
-//        // repositorioCategoria.guardar(categoria_normalizada);
-//        return categoria_normalizada;
-//    }
 
     private final List<String> categoriaConocidas = new ArrayList<>();  //aca me voy guardando las categorias que ya entraron
     private final StringMetric metric = new JaroWinkler();

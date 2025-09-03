@@ -11,9 +11,9 @@ import lombok.Setter;
 public class Calle {
     String nombre_calle;
     @ManyToOne
-    @JoinColumn(name = "localidad_id_localidad")
+    @JoinColumn()
     Localidad localidad;
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCalle;
 
     public Calle(String nombre_calle, Localidad localidad) {
@@ -23,11 +23,4 @@ public class Calle {
 
     public Calle() {}
 
-    public void setIdCalle(Long idCalle) {
-        this.idCalle = idCalle;
-    }
-
-    public Long getIdCalle() {
-        return idCalle;
-    }
 }

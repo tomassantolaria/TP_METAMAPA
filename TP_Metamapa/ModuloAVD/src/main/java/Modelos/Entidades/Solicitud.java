@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table (name = "Solicitudes")
+@Table (name = "Solicitud")
 public class Solicitud {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,10 @@ public class Solicitud {
     private LocalDate fecha_creacion; //date
     private String motivo;
     @ManyToOne
-    @JoinColumn(name = "id_hecho")
+    @JoinColumn()
     private Hecho hecho;
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado")
+    @Column()
     private Estado estado;
 
     public Solicitud(Long idSolicitud, LocalDate fecha_creacion, String motivo, Hecho hecho, Estado estado){

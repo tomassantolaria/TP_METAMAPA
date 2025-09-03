@@ -9,18 +9,21 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "Solicitudes")
+@Table(name = "Solicitud")
 public class Solicitud {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSolcitud;
+
     LocalDate fecha_creacion; //date
     String motivo;
+
     @ManyToOne
-    @JoinColumn(name = "id_hecho")
-    private Hecho hecho; //Supongo que lo mejor sería que la solicitud ingrese el id del hecho y no el hecho entero. Consultar
+    @JoinColumn()
+    private Hecho hecho;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado")
+    @Column()
     Estado estado;
 
     public Solicitud(Long idSolicitud, LocalDate fecha_creacion, String motivo, Hecho hecho, Estado estado){

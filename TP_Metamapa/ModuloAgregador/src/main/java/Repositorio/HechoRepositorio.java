@@ -18,21 +18,20 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
     SELECT COUNT(DISTINCT(CONCAT(h.idFuente, '-', h.origen_carga)))
     FROM Hecho h
     WHERE h.titulo = :titulo
-      AND h.descripcion = :descripcion
       AND h.categoria = :categoria
       AND h.fecha = :fecha
       AND h.ubicacion = :ubicacion
       AND h.contribuyente = :contribuyente
-      AND h.contenido = :contenido
+
 """)
 Long cantidadDeFuentesConHecho(
         @Param("titulo") String titulo,
-        @Param("descripcion") String descripcion,
+       // @Param("descripcion") String descripcion,
         @Param("categoria") Categoria categoria,
         @Param("fecha") LocalDate fecha,
         @Param("ubicacion") Ubicacion ubicacion,
-        @Param("contribuyente") Contribuyente contribuyente,
-        @Param("contenido") Contenido contenido
+        @Param("contribuyente") Contribuyente contribuyente
+     //   @Param("contenido") Contenido contenido
 );
 
     @Query(value = """

@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 public class RegistroServicio {
 
-    private final ContribuyenteRepositorio contribuyenteRepositorio;
+    ContribuyenteRepositorio contribuyenteRepositorio;
 
     public RegistroServicio(ContribuyenteRepositorio contribuyenteRepositorio) {
         this.contribuyenteRepositorio = contribuyenteRepositorio;}
 
     public void registrar(@RequestBody ContribuyenteDTO contribuyente){
         Contribuyente contribuyente_listo = this.crearContribuyente(contribuyente);
-        contribuyenteRepositorio.agregarContribuyente(contribuyente_listo);
+        contribuyenteRepositorio.save(contribuyente_listo);
     }
     public Contribuyente crearContribuyente(ContribuyenteDTO contribuyenteDTO){
         Contribuyente contribuyente = new Contribuyente();

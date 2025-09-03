@@ -13,13 +13,13 @@ public class Ubicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idUbicacion;
     @ManyToOne
-    @JoinColumn(name = "calle_id_calle")
+    @JoinColumn()
     Calle calle;
     @ManyToOne
-    @JoinColumn(name = "localidad_id_localidad")
+    @JoinColumn()
     Localidad localidad;
     @ManyToOne
-    @JoinColumn(name = "provincia_id_provincia")
+    @JoinColumn()
     Provincia provincia;
     Double latitud;
     Double longitud;

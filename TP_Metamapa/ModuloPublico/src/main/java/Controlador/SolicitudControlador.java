@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class SolicitudControlador {
 
     @Autowired
-    private SolicitudServicio solicitudServicio;
+    SolicitudServicio solicitudServicio;
 
     @PostMapping()
     public ResponseEntity<String> crearSolicitud(@RequestBody SolicitudDTOInput solicitud){

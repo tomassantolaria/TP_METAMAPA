@@ -2,21 +2,23 @@ import Modelos.Categoria;
 import Modelos.Ubicacion;
 import Servicios.ServicioCategoria;
 import Servicios.ServicioUbicacion;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/normalizacion")
 public class Controlador {
-    @Autowired
-    private ServicioCategoria servicioCategoria;
-    private ServicioUbicacion servicioUbicacion;
+
+    private final ServicioCategoria servicioCategoria;
+    private final ServicioUbicacion servicioUbicacion;
+
+    public Controlador(ServicioCategoria servicioCategoria, ServicioUbicacion servicioUbicacion) {
+        this.servicioCategoria = servicioCategoria;
+        this.servicioUbicacion = servicioUbicacion;
+    }
 
     @PostMapping ("/categorias" ) public void normalizarCategoria(String categoria) {
         Categoria categoria_normalizada= servicioCategoria.normalizarCategoria(categoria);

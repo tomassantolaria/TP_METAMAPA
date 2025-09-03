@@ -20,7 +20,7 @@ import lombok.Setter;
 @Service
 public class FuenteEstatica {
 
-    private HechosRepositorio repositorio;
+    HechosRepositorio repositorio;
     private Date ultimaFechaCarga;
     private static FuenteEstatica instance;
 //  private File carpeta = new File("ArchivosCSV");

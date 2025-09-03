@@ -9,22 +9,29 @@ import lombok.Setter;
 @Getter
 @Setter
 
+@Entity
+@Table(name = "CriteriosDePertenencia")
 public class CriteriosDePertenencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     String titulo;
     Boolean multimedia;
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn()
     Categoria categoria;
     LocalDate fecha_carga_desde;
     LocalDate fecha_carga_hasta;
+    @ManyToOne
+    @JoinColumn()
     Ubicacion ubicacion;
+
     LocalDate fecha_acontecimiento_desde;
     LocalDate fecha_acontecimiento_hasta;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "origen_carga")
+    @Column()
     OrigenCarga origen_carga;
 
     public CriteriosDePertenencia(String titulo, Boolean multimedia, Categoria categoria, LocalDate fecha_carga_desde, LocalDate fecha_carga_hasta, Ubicacion ubicacion, LocalDate fecha_acontecimiento_desde, LocalDate fecha_acontecimiento_hasta, OrigenCarga origen_carga) {

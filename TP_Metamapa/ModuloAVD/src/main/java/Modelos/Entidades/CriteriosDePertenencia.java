@@ -20,17 +20,17 @@ public class CriteriosDePertenencia {
     private Boolean multimedia;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn()
     private Categoria categoria;
     private LocalDate fecha_carga_desde;
     private LocalDate fecha_carga_hasta;
     @ManyToOne
-    @JoinColumn(name = "ubicacion_id_ubicacion")
+    @JoinColumn()
     private Ubicacion ubicacion;
     private LocalDate fecha_acontecimiento_desde;
     private LocalDate fecha_acontecimiento_hasta;
     @Enumerated(EnumType.STRING)
-    @Column(name = "origen_carga")
+    @Column()
     private OrigenCarga origen_carga;
 
     public CriteriosDePertenencia(String titulo, Boolean multimedia, Categoria categoria, LocalDate fecha_carga_desde, LocalDate fecha_carga_hasta, Ubicacion ubicacion, LocalDate fecha_acontecimiento_desde, LocalDate fecha_acontecimiento_hasta, OrigenCarga origen_carga) {

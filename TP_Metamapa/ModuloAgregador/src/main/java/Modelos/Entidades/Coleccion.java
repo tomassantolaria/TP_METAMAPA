@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Colecciones")
+@Table(name = "Coleccion")
 public class Coleccion {
 
     @Id
@@ -28,7 +28,7 @@ public class Coleccion {
     @JoinTable()
     private List<Hecho> hechos;
     @ManyToOne
-    @JoinColumn(name = "consenso_id")
+    @JoinColumn()
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
     @ManyToMany

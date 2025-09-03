@@ -1,9 +1,9 @@
 package Servicio;
 
 
-import Modelos.CriteriosDTO;
-import Modelos.FiltrarRequestDTO;
-import Modelos.HechoDTOInput;
+import Modelos.Entidades.DTOs.CriteriosDTO;
+import Modelos.Entidades.DTOs.FiltrarRequestDTO;
+import Modelos.Entidades.DTOs.HechoDTOInput;
 import Modelos.Entidades.*;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
@@ -23,7 +23,6 @@ import java.util.List;
 @Service
 public class AgregadorServicio {
 
-    @Autowired
     RestTemplate restTemplate;
     HechoRepositorio hechoRepositorio;
     ColeccionRepositorio coleccionRepositorio;
@@ -130,14 +129,12 @@ public class AgregadorServicio {
     }
 
     public void guardarHechos(List<Hecho> hechos) {
-        for (Hecho hecho : hechos) {
-            hechoRepositorio.agregarHecho(hecho);
-        }
+        hechoRepositorio.saveAll(hechos);
     }
 
     public void actualizarColecciones(List<Hecho> hechos) {
         try {
-            for (Coleccion coleccion : coleccionRepositorio.getTodas()) {
+            for (Coleccion coleccion : coleccionRepositorio.findAll()) {
                 actualizarColeccionConHecho(hechos, coleccion);
             }
         }catch (Exception e) {
@@ -201,8 +198,10 @@ public class AgregadorServicio {
         return new CriteriosDTO(categoria, multimedia, fecha_carga_desde, fecha_carga_hasta, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen, titulo, calle, localidad, provincia);
     }
 
+
     public void agregarHechosAColeccion(List<Hecho> hechos, Coleccion coleccion) {
         coleccion.agregarHechos(hechos);
+        coleccionRepositorio.save(coleccion);
     }
 
     public List<HechoDTOInput> setearOrigenCarga(List<HechoDTOInput> hechosDTO, OrigenCarga origenCarga) {
@@ -215,8 +214,8 @@ public class AgregadorServicio {
 
     public void cargarColeccionConHechos(Long coleccionId) {
 
-        Coleccion coleccion = coleccionRepositorio.getColeccion(coleccionId);
+        Coleccion coleccion = coleccionRepositorio.getReferenceById(coleccionId);
 
-        actualizarColeccionConHecho(hechoRepositorio.allHechos(),coleccion);
+        actualizarColeccionConHecho(hechoRepositorio.findAll(),coleccion);
     }
 }

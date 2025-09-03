@@ -1,16 +1,22 @@
 package Servicio;
-import java.util.*;
 
+import java.util.*;
 import Modelos.Entidades.*;
 import Modelos.HechoDTO;
 import Repositorio.ColeccionRepositorio;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ConsensoServicio {
-    private final ColeccionRepositorio coleccionRepositorio = new ColeccionRepositorio();
 
+     ColeccionRepositorio coleccionRepositorio;
 
-    public List<HechoDTO> hechosConConsenso (UUID id) {
-        List<Hecho> hechos = coleccionRepositorio.obtenerPorId(id).getHechosConsensuados();
+    public List<HechoDTO> hechosConConsenso (Long id) {
+        Coleccion coleccion = coleccionRepositorio.findById(id).orElse(null);
+        if (coleccion == null ) {
+            throw new RuntimeException("No existe la coleccion");
+        }
+        List<Hecho> hechos = coleccion.getHechosConsensuados();
         List<HechoDTO> hechoDTOS = new ArrayList<>();
         for (Hecho hecho : hechos) {
             hechoDTOS.add(transformarAHechoDTO(hecho));
@@ -18,8 +24,12 @@ public class ConsensoServicio {
         return hechoDTOS;
     }
 
-    public List<HechoDTO> hechosIrrestrictos(UUID id) {
-        List<Hecho> hechos = coleccionRepositorio.obtenerPorId(id).getHechos();
+    public List<HechoDTO> hechosIrrestrictos(Long id) {
+        Coleccion coleccion = coleccionRepositorio.findById(id).orElse(null);
+        if (coleccion == null ) {
+            throw new RuntimeException("No existe la coleccion");
+        }
+        List<Hecho> hechos = coleccion.getHechos();
         List<HechoDTO> hechoDTOS = new ArrayList<>();
         for (Hecho hecho : hechos) {
             hechoDTOS.add(transformarAHechoDTO(hecho));

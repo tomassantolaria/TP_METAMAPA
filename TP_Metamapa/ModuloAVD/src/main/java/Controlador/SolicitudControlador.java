@@ -22,7 +22,7 @@ public class SolicitudControlador {
     }
 
     @PutMapping("/{id}")
-    public void actualizarEstado(@PathVariable String id, @RequestBody EstadoDTO estadoDTO){
+    public void actualizarEstado(@PathVariable Long id, @RequestBody EstadoDTO estadoDTO){
         solicitudServicio.actualizarEstadoSolicitud(id, estadoDTO.getEstado());
     }
 

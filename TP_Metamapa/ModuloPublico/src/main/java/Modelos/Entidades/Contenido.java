@@ -13,6 +13,7 @@ public class Contenido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String texto;
     private String contenido_multimedia;
 

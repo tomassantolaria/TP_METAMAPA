@@ -2,17 +2,17 @@ package Controlador;
 
 import Modelos.DTOs.ColeccionDTO;
 import Servicio.ColeccionServicio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 @RestController
 public class ColeccionControlador {
+    private final ColeccionServicio coleccionServicio;
 
-    @Autowired
-    private ColeccionServicio coleccionServicio;
+    public ColeccionControlador(ColeccionServicio coleccionServicio) {
+        this.coleccionServicio = coleccionServicio;
+    }
 
     @PostMapping("/colecciones/crear")
     public ResponseEntity<String> crearColeccion(@RequestBody ColeccionDTO coleccionDTO) {
@@ -24,7 +24,7 @@ public class ColeccionControlador {
         }
     }
     @DeleteMapping("/hechos/{id}")
-    public ResponseEntity<String> eliminarHecho(@PathVariable UUID id) {
+    public ResponseEntity<String> eliminarHecho(@PathVariable Long id) {
         try {
             coleccionServicio.eliminarHecho(id);
             return ResponseEntity.status(200).body("Hecho eliminado exitosamente");
@@ -33,8 +33,8 @@ public class ColeccionControlador {
         }
     }
 
-    @PutMapping ("/colecciones/{id}/modificarAlgoritmoConsenso/{estrategia}")
-    public ResponseEntity<String> modificarAlgoritmoConsenso(@PathVariable UUID id, @PathVariable String estrategia) {
+    @PutMapping ("/colecciones/{id}/Consenso/{estrategia}")
+    public ResponseEntity<String> modificarAlgoritmoConsenso(@PathVariable Long id, @PathVariable String estrategia) {
         try{
             coleccionServicio.modificarConsenso(id, estrategia);
             return ResponseEntity.status(200).body("Consenso modificado exitosamente");
@@ -44,7 +44,7 @@ public class ColeccionControlador {
     }
 
     @PostMapping ("/colecciones/{id}/agregarFuente/{fuente}")
-    public ResponseEntity<String> agregarFuente(@PathVariable UUID id, @PathVariable UUID fuente) {
+    public ResponseEntity<String> agregarFuente(@PathVariable Long id, @PathVariable Long fuente) {
         try{
             coleccionServicio.agregarFuente(id, fuente);
             return ResponseEntity.status(200).body("Hechos de la fuente " + fuente + " agregado exitosamente");
@@ -54,7 +54,7 @@ public class ColeccionControlador {
     }
 
     @DeleteMapping ("/colecciones/{id}/eliminarFuente/{fuente}")
-    public ResponseEntity<String> eliminarFuente(@PathVariable UUID id, @PathVariable UUID fuente) {
+    public ResponseEntity<String> eliminarFuente(@PathVariable Long id, @PathVariable Long fuente) {
         try{
             coleccionServicio.eliminarFuente(id, fuente);
             return ResponseEntity.status(200).body("Hechos de la fuente " + fuente + " eliminada exitosamente");
@@ -63,8 +63,8 @@ public class ColeccionControlador {
         }
     }
 
-    @DeleteMapping ("/colecciones/{id}/elimarColeccion")
-    public ResponseEntity<String> eliminarColeccion (@PathVariable UUID id) {
+    @DeleteMapping ("/colecciones/{id}")
+    public ResponseEntity<String> eliminarColeccion (@PathVariable Long id) {
         try{
             coleccionServicio.eliminarColeccion(id);
             return ResponseEntity.status(200).body("Coleccion eliminada " +  id + " exitosamente");

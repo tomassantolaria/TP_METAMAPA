@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Setter
 @Service
 @Entity
-@Table(name = "Categorias")
+@Table(name = "Categoria")
 public class Categoria {
 
     @Id

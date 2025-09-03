@@ -7,9 +7,9 @@ import lombok.Getter;
 @Entity
 @Table(name= "Provincia")
 public class Provincia {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProvincia;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     String nombre_provincia;
 
     public Provincia(String nombre_provincia) {

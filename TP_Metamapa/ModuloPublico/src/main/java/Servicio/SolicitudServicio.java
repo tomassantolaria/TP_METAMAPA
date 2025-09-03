@@ -7,8 +7,6 @@ import Modelos.Entidades.Hecho;
 import Repositorio.HechoRepositorio;
 import Repositorio.SolicitudRepositorio;
 import Servicio.Solicitudes.DetectorDeSpam;
-import Servicio.Solicitudes.SolicitudInvalidaException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
@@ -17,7 +15,6 @@ import java.time.LocalDate;
 @Service
 public class SolicitudServicio implements DetectorDeSpam {
 
-    @Autowired
     SolicitudRepositorio solicitudRepositorio;
     HechoRepositorio  hechoRepositorio;
 
@@ -28,9 +25,11 @@ public class SolicitudServicio implements DetectorDeSpam {
         Hecho hecho = hechoRepositorio.findById(solicituddto.getIdHecho()).orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
         if(!esSpam(motivo)){
             Solicitud solicitud = new Solicitud(null, fechaSolicitud, motivo, hecho, Estado.PENDIENTE);
-            solicitudRepositorio.guardarSolicitud(solicitud);
+            solicitudRepositorio.save(solicitud);
         }
-        else throw new SolicitudInvalidaException("Solicitud rechazada por spam");
+        else{
+            Solicitud solicitud = new Solicitud(null, fechaSolicitud, motivo, hecho, Estado.SPAM);
+        }
     }
 
 

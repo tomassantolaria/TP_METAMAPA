@@ -15,27 +15,37 @@ public class Hecho{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     public Long idFuente;
     public String titulo;
     public String descripcion;
+
     @OneToOne
-    @JoinColumn(name = "contenido_id")
+    @JoinColumn()
     public Contenido contenido;
+
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn()
     public Categoria categoria;
+
     public LocalDate fecha;
+
     @ManyToOne
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn()
     public Ubicacion ubicacion;
+
     public LocalDate fecha_carga;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "origen_carga")
-    public OrigenCarga origen_carga; //enum
+    @Column()
+    public OrigenCarga origen_carga;
+
     public boolean visible;
+
     @ManyToOne
-    @JoinColumn(name = "contribuyente_usuario")
+    @JoinColumn()
     private Contribuyente contribuyente;
+
     public boolean anonimo ;
 
     public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
@@ -57,14 +67,4 @@ public class Hecho{
     }
     public Hecho(){}
 
-    public Boolean esIgualA(Hecho otroHecho) {
-        return this.titulo.equals(otroHecho.titulo) &&
-                this.descripcion.equals(otroHecho.descripcion) &&
-                this.contenido.getContenido_multimedia().equals(otroHecho.contenido.getContenido_multimedia()) && // ver
-                this.contenido.getTexto().equals(otroHecho.contenido.getTexto()) && // ver
-                this.categoria.getNombre().equals(otroHecho.categoria.getNombre()) && // ver
-                this.fecha.equals(otroHecho.fecha) &&
-                this.ubicacion.getLatitud().equals(otroHecho.ubicacion.getLatitud()) &&
-                this.ubicacion.getLongitud().equals(otroHecho.ubicacion.getLongitud());
-    }
 }

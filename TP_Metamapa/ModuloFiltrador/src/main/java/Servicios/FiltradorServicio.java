@@ -3,7 +3,6 @@ package Servicios;
 import Modelos.CriteriosDTO;
 
 import Modelos.HechoDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Servicios.Filtros.*;
 
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
 @Service
 public class FiltradorServicio {
 
-    @Autowired
     FiltroCategoria filtroPorCategoria;
     FiltroFechaCargaDesde filtroPorFechaCargaDesde;
     FiltroFechaCargaHasta filtroPorFechaCargaHasta;
@@ -28,12 +26,11 @@ public class FiltradorServicio {
 
 
     public List<HechoDTO> filtrarHechos(List<HechoDTO> hechosDTO, CriteriosDTO criteriosDTO) {
-        List<HechoDTO> hechos_filtrados = this.hechosCumplenCriterios(hechosDTO, criteriosDTO);
-        return hechos_filtrados;
+        return this.hechosCumplenCriterios(hechosDTO, criteriosDTO);
     }
 
     public List<HechoDTO> hechosCumplenCriterios(List<HechoDTO> hechos, CriteriosDTO criterios) {
-        List<HechoDTO> hechos_filtrados = hechos.stream()
+        return hechos.stream()
                 .filter(h -> filtroPorCategoria.cumple(h, criterios))
                 .filter(h -> filtroContenidoMultimedia.cumple(h, criterios))
                 .filter(h -> filtroPorFechaCargaDesde.cumple(h, criterios))
@@ -46,8 +43,6 @@ public class FiltradorServicio {
                 .filter(h -> filtroPorFechaAcontecimientoDesde.cumple(h, criterios))
                 .filter(h -> filtroPorFechaAcontecimientoHasta.cumple(h, criterios))
                 .collect(Collectors.toList());
-
-        return hechos_filtrados;
     }
 
 

@@ -4,6 +4,8 @@ import Modelos.CriteriosDTO;
 import Modelos.FiltrarRequestDTO;
 import Modelos.Entidades.*;
 import Modelos.HechoDTO;
+import Repositorio.ColeccionRepositorio;
+import Repositorio.HechoRepositorio;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -16,8 +18,18 @@ import java.util.stream.Collectors;
 @Service
 public class NavegadorServicio {
 
+  HechoRepositorio hechoRepositorio;
+  ColeccionRepositorio coleccionRepositorio;
 
-    public List<HechoDTO> filtrarHechos(List<Hecho> hechos, String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String titulo, String ubicacion, String origenCarga) {
+
+    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String titulo, String ubicacion, String origenCarga) {
+        List <Hecho> hechos;
+        if(idColeccion == null){
+            hechos = hechoRepositorio.findAll();
+        }else{
+            Coleccion coleccion = coleccionRepositorio.findById(idColeccion).orElseThrow( ()-> new RuntimeException("No se encontro la coleccion") );
+            hechos = coleccion.getHechos();
+        }
         List<HechoDTO> hechoDTOS = transformarADTOLista(hechos);
         CriteriosDTO criteriosDTO = new CriteriosDTO(categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCarga, titulo, ubicacion);
         RestTemplate restTemplate = new RestTemplate();

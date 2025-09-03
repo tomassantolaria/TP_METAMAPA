@@ -13,7 +13,6 @@ import java.util.List;
 public class ColeccionServicio {
 
 
-    @Autowired
     ColeccionRepositorio coleccionRepositorio;
     HechoRepositorio hechoRepositorio;
 

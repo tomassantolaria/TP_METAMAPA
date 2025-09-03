@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+
 @Getter
 @Setter
 @Entity
@@ -13,7 +13,7 @@ import java.util.*;
 @DiscriminatorColumn(name = "tipo_consenso")
 public abstract class Consenso {
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Transient
@@ -31,7 +31,7 @@ public abstract class Consenso {
     public abstract Boolean tieneConsenso(Hecho hecho);
 
     public Long cantidadFuentesConHecho(Hecho hecho) {
-        return repositorio.cantidadDeFuentesConHecho(hecho.getTitulo(),hecho.getDescripcion(),hecho.getCategoria(), hecho.getFecha(), hecho.getUbicacion(), hecho.getContribuyente(), hecho.getContenido());
+        return repositorio.cantidadDeFuentesConHecho(hecho.getTitulo(),hecho.getCategoria(), hecho.getFecha(), hecho.getUbicacion(), hecho.getContribuyente());
     }
 
     // CUANDO SE USA EL CONSENSO SE LE DEBE SETAR EL REPOSITORIO

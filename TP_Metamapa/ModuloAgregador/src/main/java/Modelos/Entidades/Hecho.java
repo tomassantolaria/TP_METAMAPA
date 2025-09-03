@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "Hechos")
+@Table(name = "Hecho")
 public class Hecho{
 
     @Id
@@ -23,29 +23,29 @@ public class Hecho{
     private String descripcion;
 
     @OneToOne
-    @JoinColumn(name = "contenido_id")
+    @JoinColumn()
     private Contenido contenido;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn()
     private Categoria categoria;
 
     private LocalDate fecha;
 
     @ManyToOne
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn()
     private Ubicacion ubicacion;
 
     private LocalDate fecha_carga;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "origen_carga")
+    @Column()
     private OrigenCarga origen_carga; //enum
 
     private boolean visible ;
 
     @ManyToOne
-    @JoinColumn(name = "contribuyente_usuario")
+    @JoinColumn()
     private Contribuyente contribuyente;
 
     private boolean anonimo;
@@ -72,20 +72,4 @@ public class Hecho{
     }
 
 
-    public void eliminarse(){
-        visible = false;
-    }
-
-    //public void someterseARevision(){}
-
-    public Boolean esIgualA(Hecho otroHecho) {
-        return this.titulo.equals(otroHecho.titulo) &&
-                this.descripcion.equals(otroHecho.descripcion) &&
-                this.contenido.getContenido_multimedia().equals(otroHecho.contenido.getContenido_multimedia()) && // ver
-                this.contenido.getTexto().equals(otroHecho.contenido.getTexto()) && // ver
-                this.categoria.getNombre().equals(otroHecho.categoria.getNombre()) && // ver
-                this.fecha.equals(otroHecho.fecha) &&
-                this.ubicacion.getLatitud().equals(otroHecho.ubicacion.getLatitud()) &&
-                this.ubicacion.getLongitud().equals(otroHecho.ubicacion.getLongitud());
-    }
 }

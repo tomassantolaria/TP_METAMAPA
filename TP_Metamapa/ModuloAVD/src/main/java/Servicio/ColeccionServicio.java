@@ -2,18 +2,15 @@ package Servicio;
 
 import Modelos.DTOs.ColeccionDTO;
 import Modelos.Entidades.*;
+import Modelos.Entidades.Consenso.Consenso;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import Servicio.Consenso.*;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +18,16 @@ import java.util.*;
 
 @Service
 public class ColeccionServicio {
-    @Autowired
-    private Map<String, Consenso> consensosMap;
-    private final ColeccionRepositorio coleccionRepositorio;
-    private final HechoRepositorio hechoRepositorio;
+
+    private final Map<String, Consenso> consensosMap;
+    ColeccionRepositorio coleccionRepositorio;
+    HechoRepositorio hechoRepositorio;
     RestTemplate restTemplate;
 
-    public ColeccionServicio(ColeccionRepositorio coleccionRepositorio, HechoRepositorio hechoRepositorio) {
+    public ColeccionServicio(ColeccionRepositorio coleccionRepositorio, HechoRepositorio hechoRepositorio, Map<String, Consenso> consensosMap) {
         this.coleccionRepositorio = coleccionRepositorio;
         this.hechoRepositorio = hechoRepositorio;
+        this.consensosMap = consensosMap;
     }
 
 
@@ -48,16 +46,16 @@ public class ColeccionServicio {
         CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
         List<Hecho> hechos = new ArrayList<>();
         Coleccion coleccion = new Coleccion(null, coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia,hechos);
-        coleccionRepositorio.agregar(coleccion);
+        coleccionRepositorio.save(coleccion);
         this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
 
     }
     private void avisarAgregador (Long coleccionId) {
-        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromPath("http://coleccionCreada/{coleccionId}");
+        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromPath("http://coleccionCreada/" + coleccionId);
         try {
-            ResponseEntity<String> respuestaAgregador = restTemplate.exchange(
+            restTemplate.exchange(
                     urlAgregador.toUriString(),
                     HttpMethod.POST,
                     null,
@@ -68,23 +66,25 @@ public class ColeccionServicio {
             throw new RuntimeException("Error al comunicarse con el servicio Agregador: " + e.getMessage());
         }
 
+
     }
 
-    public void eliminarColeccion(UUID id) {
-        coleccionRepositorio.eliminarColeccion(id);
+    public void eliminarColeccion(Long id) {
+        coleccionRepositorio.deleteById(id);
     }
 
-    public void eliminarHecho(UUID id) {
-        coleccionRepositorio.eliminarHecho(id);
-        hechoRepositorio.eliminarHecho(id);
+    public void eliminarHecho(Long id) {
+        coleccionRepositorio.deleteById(id);
+        hechoRepositorio.deleteById(id);
     }
 
-    public void modificarConsenso(UUID id, String estrategia) {
-        Coleccion coleccion = coleccionRepositorio.obtenerPorId(id);
+    public void modificarConsenso(Long id, String estrategia) {
+        Coleccion coleccion = coleccionRepositorio.findById(id).orElse(null);
         if (coleccion == null) {
             throw new IllegalArgumentException("Coleccion no encontrada:");
         }
-        coleccionRepositorio.modificarConsenso(id,obtenerEstrategiaPorNombre(estrategia));
+        Consenso consenso = this.obtenerEstrategiaPorNombre(estrategia);
+        coleccion.setConsenso(consenso);
     }
 
     private Consenso obtenerEstrategiaPorNombre(String nombre) {
@@ -96,21 +96,29 @@ public class ColeccionServicio {
     }
 
 
-    public void agregarFuente(UUID id, UUID fuente) {
-        Coleccion  coleccion = coleccionRepositorio.obtenerPorId(id);
-        List<Hecho> hechoFuente = hechoRepositorio.hechosConFuente(fuente);
+    public void agregarFuente(Long id, Long fuente) {
+        Coleccion  coleccion = coleccionRepositorio.findById(id).orElse(null);
+
         if (coleccion == null) {
             throw new IllegalArgumentException("Coleccion no encontrada:");
         }
+        List<Hecho> hechoFuente = hechoRepositorio.findByFuente(fuente);
+
         if (hechoFuente.isEmpty()) {
             throw new IllegalArgumentException("No hay hechos de esa fuente");
         }
         for (Hecho hecho: hechoFuente) {
             coleccion.agregarHecho(hecho);
         }
+        coleccionRepositorio.save(coleccion);
     }
-    public void eliminarFuente(UUID id, UUID fuente) {
-        coleccionRepositorio.eliminarHechosFuente(id, fuente);
+    public void eliminarFuente(Long id, Long fuente) {
+        Coleccion coleccion = coleccionRepositorio.findById(id).orElse(null);
+        if (coleccion == null) {
+            throw new IllegalArgumentException("Coleccion no encontrada:");
+        }
+        coleccion.getHechos().removeIf(hecho -> hecho.getIdFuente().equals(fuente));
+        coleccionRepositorio.save(coleccion);
     }
 
 

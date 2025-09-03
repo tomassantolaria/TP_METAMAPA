@@ -2,25 +2,9 @@ package Repositorios;
 
 import Modelos.Entidades.Contribuyente;
 import org.springframework.stereotype.Repository;
-
-import java.util.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public class ContribuyenteRepositorio {
-    //Optional<Coleccion> obtenerPorId(Long id);
-    private final Map<String, Contribuyente> contribuyentes = new HashMap<>();
+public interface ContribuyenteRepositorio extends JpaRepository<Contribuyente, Long>{
 
-    // Constructor con algunas precargadas opcionalmente
-
-    /* public ArrayList<Contribuyente> getTodos() {
-        return new ArrayList<>(contribuyentes.values());
-    }
-
-    public Contribuyente obtenerPorId(String usuario) {
-        return contribuyentes.get(usuario);
-    }*/
-
-    public void agregarContribuyente(Contribuyente contribuyente) {
-        contribuyentes.put(contribuyente.getUsuario(), contribuyente);
-    }
 }
