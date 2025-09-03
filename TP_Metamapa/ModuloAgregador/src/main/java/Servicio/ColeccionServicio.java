@@ -2,7 +2,9 @@ package Servicio;
 
 
 import Modelos.Entidades.*;
+import Modelos.Entidades.Consenso.Consenso;
 import Repositorio.ColeccionRepositorio;
+import Repositorio.HechoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -13,6 +15,7 @@ public class ColeccionServicio {
 
     @Autowired
     ColeccionRepositorio coleccionRepositorio;
+    HechoRepositorio hechoRepositorio;
 
 
     public ColeccionServicio(ColeccionRepositorio coleccionRepositorio) {
@@ -30,7 +33,9 @@ public class ColeccionServicio {
 
     public List<Hecho> actualizarHechosConsensuados(Coleccion coleccion) {
         if (coleccion.getConsenso() != null ) {
-            return coleccion.getHechos().stream().filter(hecho -> coleccion.getConsenso().tieneConsenso(hecho)).toList();
+            Consenso consenso = coleccion.getConsenso();
+            consenso.setRepositorio(hechoRepositorio); // PORQUE SE INSATNCIA CON REPO NULL
+            return coleccion.getHechos().stream().filter(hecho -> consenso.tieneConsenso(hecho)).toList();
         }
             return coleccion.getHechos();
     }
