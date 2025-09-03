@@ -1,41 +1,41 @@
 package Servicios;
 
-import Repositorios.CategoriaRepositorio;
+import Modelos.HechoDTO;
 import Repositorios.HechoRepositorio;
 import Modelos.Entidades.*;
-import Modelos.DTOs.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class HechoServicio {
 
-    @Autowired
-    private CategoriaRepositorio categoriaRepositorio;
-    private HechoRepositorio hechoRepositorio;
+
+    HechoRepositorio hechoRepositorio;
 
     public void crearHecho(HechoDTO dto) {
-        UUID idHecho = UUID.randomUUID(); //https://www.baeldung.com/java-uuid
-        Categoria categoria = categoriaRepositorio.crearCategoria(dto.getCategoria());
+
+        Categoria categoria = new Categoria(dto.getCategoria());
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
-        Ubicacion ubicacion = new Ubicacion(dto.getLugar(), dto.getLatitud(), dto.getLongitud());
+        Provincia provincia = new Provincia(dto.getNombre_provincia());
+        Localidad localidad = new Localidad(dto.getNombre_localidad(), provincia);
+        Calle calle = new Calle(dto.getNombre_calle(), localidad);
+        Ubicacion ubicacion = new Ubicacion(calle, localidad, provincia, dto.getLatitud(), dto.getLongitud());
         LocalDate fechaOcurrencia =  dto.getFechaAcontecimiento();
-        Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), null, null, null); //Decision de diseño.
+        Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFecha_nacimiento()); //Decision de diseño.
         boolean anonimo = dto.getAnonimo();
 
-        Hecho hecho = new Hecho(idHecho, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
+        Hecho hecho = new Hecho(null,null, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
                                 contribuyente, anonimo, true);
-        hechoRepositorio.guardarHecho(hecho);
+        if (hecho.getFecha().isBefore(LocalDate.now()) || hecho.getFecha().isEqual(LocalDate.now())) {
+            hechoRepositorio.save(hecho);
+        }
     }
 
     public List<HechoDTO> obtenerHechos() {
-        List<Hecho> hechos = hechoRepositorio.obtenerTodosLosHechos();
+        List<Hecho> hechos = hechoRepositorio.findAll();
         return transformarADTOLista(hechos);
     }
 
@@ -43,6 +43,8 @@ public class HechoServicio {
         List<HechoDTO> hechosDTO = new ArrayList<>();
         for (Hecho hecho : hechos) {
             HechoDTO dto = new HechoDTO(
+                    null,
+                    hecho.getIdfuente(),
                     hecho.getTitulo(),
                     hecho.getDescripcion(),
                     hecho.getContenido().getTexto(),
@@ -50,13 +52,15 @@ public class HechoServicio {
                     hecho.getCategoria().getNombre(),
                     hecho.getFecha(),
                     null,
-                    hecho.getUbicacion().getNombre(),
+                    hecho.getUbicacion().getCalle().getNombre_calle(),
+                    hecho.getUbicacion().getLocalidad().getNombre_localidad(),
+                    hecho.getUbicacion().getProvincia().getNombre_provincia(),
                     hecho.getUbicacion().getLatitud(),
                     hecho.getUbicacion().getLongitud(),
                     hecho.getContribuyente().getUsuario(),
-                    null,
-                    null,
-                    null,
+                    hecho.getContribuyente().getNombre(),
+                    hecho.getContribuyente().getApellido(),
+                    hecho.getContribuyente().getFecha_nacimiento(),
                     hecho.getAnonimo(),
                     hecho.getVisible(),
                     null

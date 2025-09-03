@@ -1,32 +1,10 @@
 package Repositorios;
 
 import org.springframework.stereotype.Repository;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import Modelos.Entidades.*;
 
 
 @Repository
-public class HechoRepositorio{
-    private List<Hecho> hechos;
-
-    public HechoRepositorio(){
-        this.hechos = new ArrayList<>();
-    }
-
-    public void guardarHecho(Hecho hecho) {
-        hechos.add(hecho);
-    }
-
-    public Hecho buscarHechoPorId(UUID id){
-        return this.hechos.stream()
-                .filter(h->h.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
-    public List<Hecho> obtenerTodosLosHechos() {
-        return new ArrayList<>(hechos);
-    }
+public interface HechoRepositorio extends JpaRepository<Hecho, Long>{
 }

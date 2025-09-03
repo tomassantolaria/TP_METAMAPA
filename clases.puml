@@ -1,0 +1,92 @@
+@startuml
+class Busqueda {
+    
+id: UUID 
+generoActor: generoActor 
+generoObra: generoObra
+rangoEdad: RangoEdad
+requesitos: List<requesito>
+tipoRemuneracion: tipoRemuneracion
+estaActiva: Boolean
+postulaciones: List<Postulacion>
+fechaInicio: LocalDate
+fechaFinal: LocalDate
+
+}
+
+enum generoActor {
+    MASCULINO,
+    FEMENINO,
+    NO_BINARIO,
+    OTRO
+}
+
+enum tipoRemuneracion {
+    REMUNERADO,
+    NO_REMUNERADO
+}
+
+class generoObra {
+    
+genero: String
+}
+' chequear instancias duplicadas
+
+class requesito {
+    
+requesito: String
+}
+
+'Value Object
+class RangoEdad {
+    
+edadMinima: Integer
+edadMaxima: Interger
+}
+
+'Value Object
+class Ubicacion {
+    
+lat: Double 
+long: Double 
+provincia: String
+Localidad: String
+direccion: String
+}
+
+class Postulacion {
+    
+busquedaAsociada: UUID
+curriculum: cv 
+fotos: List<String>
+reel: String
+fechaCarga: LocalDate
+estado: Estado
+}
+
+class BusquedaPublicidad{
+    
+tipo: TipoPublicidad
+}
+
+'
+enum TipoPublicidad{
+    PRODUCTO,
+    SERVICIO 
+
+}
+' chequear tipos
+' chequear herencia
+
+
+Busqueda --> generoActor
+Busqueda --> generoObra
+Busqueda --> RangoEdad
+Busqueda --> tipoRemuneracion
+Busqueda --> requesito
+Busqueda --> Ubicacion
+Postulacion --* Busqueda
+BusquedaPublicidad --|> Busqueda
+BusquedaPublicidad --> TipoPublicidad
+
+@enduml

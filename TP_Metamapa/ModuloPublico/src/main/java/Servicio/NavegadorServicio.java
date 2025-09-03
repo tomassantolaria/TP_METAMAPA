@@ -1,0 +1,63 @@
+package Servicio;
+
+import Modelos.CriteriosDTO;
+import Modelos.FiltrarRequestDTO;
+import Modelos.Entidades.*;
+import Modelos.HechoDTO;
+import Repositorio.ColeccionRepositorio;
+import Repositorio.HechoRepositorio;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class NavegadorServicio {
+
+  HechoRepositorio hechoRepositorio;
+  ColeccionRepositorio coleccionRepositorio;
+
+
+    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String titulo, String ubicacion, String origenCarga) {
+        List <Hecho> hechos;
+        if(idColeccion == null){
+            hechos = hechoRepositorio.findAll();
+        }else{
+            Coleccion coleccion = coleccionRepositorio.findById(idColeccion).orElseThrow( ()-> new RuntimeException("No se encontro la coleccion") );
+            hechos = coleccion.getHechos();
+        }
+        List<HechoDTO> hechoDTOS = transformarADTOLista(hechos);
+        CriteriosDTO criteriosDTO = new CriteriosDTO(categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCarga, titulo, ubicacion);
+        RestTemplate restTemplate = new RestTemplate();
+
+        FiltrarRequestDTO request = new FiltrarRequestDTO(criteriosDTO, hechoDTOS);
+
+        ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
+                "http://localhost:8080/filtrar", // URL de tu API
+                HttpMethod.POST,
+                new HttpEntity<>(request),
+                new ParameterizedTypeReference<>() {}
+        );
+        return response.getBody();
+    }
+
+    public List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {
+        List<HechoDTO> hechosDTO;
+        hechosDTO = hechos.stream()
+                .map(this::transformarAHechoDTO)
+                .collect(Collectors.toList());
+        return hechosDTO;
+    }
+
+    public HechoDTO transformarAHechoDTO (Hecho hecho){
+        HechoDTO hechoDTO = new HechoDTO(hecho.getTitulo(),hecho.getDescripcion(), hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),hecho.getCategoria().getNombre(), hecho.getFecha(), hecho.getFecha_carga(), hecho.getUbicacion().getCalle().getNombre_calle(), hecho.getUbicacion().getLocalidad().getNombre_localidad(), hecho.getUbicacion().getProvincia().getNombre_provincia(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(), hecho.getContribuyente().getUsuario(), hecho.getContribuyente().getNombre(), hecho.getContribuyente().getApellido(), hecho.getContribuyente().getFecha_nacimiento(), hecho.isAnonimo(), hecho.isVisible(), hecho.getOrigen_carga().name());
+        if (hecho.isAnonimo()) {
+            hechoDTO.setUsuario(null);
+        }
+        return hechoDTO;
+    }
+}

@@ -1,0 +1,26 @@
+package Modelos.Entidades;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+@Table(name= "Calle")
+public class Calle {
+    String nombre_calle;
+    @ManyToOne
+    @JoinColumn()
+    Localidad localidad;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idCalle;
+
+    public Calle(String nombre_calle, Localidad localidad) {
+        this.nombre_calle = nombre_calle;
+        this.localidad = localidad;
+    }
+
+    public Calle() {}
+
+}
