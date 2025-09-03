@@ -14,7 +14,7 @@ public class ConsensoAbsoluta extends Consenso {
 
     @Override
     public Boolean tieneConsenso(Hecho hecho) {
-        return cantidadFuentesConHecho(hecho).size() >= 4;
+        return (cantidadFuentesConHecho(hecho).equals(repositorio.cantidadFuentes()));
     }
 }
 

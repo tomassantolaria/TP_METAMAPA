@@ -9,15 +9,14 @@ import org.springframework.stereotype.Service;
 @Component("Consenso mayoria simple")
 public class ConsensoMayoriaSimple extends Consenso {
 
-    public Integer cantidadFuentes = 4; //ver
-
     private ConsensoMayoriaSimple(HechoRepositorio repositorio) {
         super(repositorio);
     }
 
     public Boolean tieneConsenso(Hecho hecho) {
 
-        return cantidadFuentesConHecho(hecho).size() >= cantidadFuentes / 2;
+        Long cantidadFuentes = repositorio.cantidadFuentes();
+        return (cantidadFuentesConHecho(hecho)) >= cantidadFuentes / 2;
     }
 
 }

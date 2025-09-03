@@ -17,10 +17,9 @@ public class ConsensoMultiplesMenciones extends Consenso{
     }
 
     public Boolean tieneConsenso(Hecho hecho) {
-        /*
-        Set <Long> fuentes = repositorio.cantidadFuentesConHecho(hecho);
-        return  fuentes.size() >=2 &&  repositorio.cantidadFuentesConTitulo(hecho.getTitulo(), fuentes);*/
-        return false;
+        Boolean noHayConIgualTituloYDiferentesAtributos = repositorio.cantidadDeFuentesConMismoTituloDiferentesAtributos(hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getFecha(), hecho.getUbicacion(), hecho.getContribuyente(), hecho.getContenido()) == 0 ;
+
+        return (cantidadFuentesConHecho(hecho) >= 2) && (noHayConIgualTituloYDiferentesAtributos);
     }
 
 }

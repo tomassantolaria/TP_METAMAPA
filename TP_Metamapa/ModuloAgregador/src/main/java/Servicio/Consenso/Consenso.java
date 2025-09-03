@@ -13,7 +13,7 @@ public abstract class Consenso {
 
     public abstract Boolean tieneConsenso(Hecho hecho);
 
-    public Set <Long> cantidadFuentesConHecho(Hecho hecho) {
-        return repositorio.cantidadFuentesConHecho(hecho);
+    public Long cantidadFuentesConHecho(Hecho hecho) {
+        return repositorio.cantidadDeFuentesConHecho(hecho.getTitulo(),hecho.getDescripcion(),hecho.getCategoria(), hecho.getFecha(), hecho.getUbicacion(), hecho.getContribuyente(), hecho.getContenido());
     }
 }
