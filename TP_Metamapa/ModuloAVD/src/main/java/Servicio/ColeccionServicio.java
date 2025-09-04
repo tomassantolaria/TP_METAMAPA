@@ -93,7 +93,7 @@ public class ColeccionServicio {
             throw new IllegalArgumentException("Estrategia no encontrada: " + nombre);
         }
         return estrategia;
-    }
+    } // TODO :VER SI CON EL COVERSOR HAY QUE HACER ESTO
 
 
     public void agregarFuente(Long id, Long fuente) {
@@ -120,6 +120,7 @@ public class ColeccionServicio {
         coleccion.getHechos().removeIf(hecho -> hecho.getIdFuente().equals(fuente));
         coleccionRepositorio.save(coleccion);
     }
+    //TODO :REVISAR QUE EL ELIMINAR FUENTE DEBERIA HACERLO PRO LA COMBINACION DE ID Y DE FUENTE
 
 
 }
