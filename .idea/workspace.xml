@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="Arreglo de consenso logica">
+    <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="comentarios para recordar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java" afterDir="false" />
     </list>
     <list id="0dadc650-2d38-40b4-bde7-712727dad629" name="Changes by Agus" comment="" />
     <list id="757559d0-4efc-42ae-a1c4-3a64da5fd63e" name="Changes by mili" comment="" />
@@ -406,7 +405,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756900737158</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="comentarios para recordar">
+      <option name="closed" value="true" />
+      <created>1757020038331</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1757020038331</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -486,7 +493,8 @@
     <MESSAGE value="Creacion de nuevos Componentes Filtrador Y Normalizador" />
     <MESSAGE value="normalizador + mejoras en ubicación" />
     <MESSAGE value="Arreglo de consenso logica" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglo de consenso logica" />
+    <MESSAGE value="comentarios para recordar" />
+    <option name="LAST_COMMIT_MESSAGE" value="comentarios para recordar" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
