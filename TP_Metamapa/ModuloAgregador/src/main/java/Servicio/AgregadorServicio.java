@@ -5,6 +5,7 @@ import Modelos.Entidades.DTOs.CriteriosDTO;
 import Modelos.Entidades.DTOs.FiltrarRequestDTO;
 import Modelos.Entidades.DTOs.HechoDTOInput;
 import Modelos.Entidades.*;
+import Modelos.Entidades.DTOs.HechoDTOoutput;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,56 @@ public class AgregadorServicio {
         }
         // antes de transformar a hecho, filtrar los que ya existen en la base de datos con el normalizador
 
+        for ( HechoDTOInput hechoDTO: hechosDTOTotales){
+            UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromPath("http://normalizacion/categorias");
+            UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromPath("http://normalizacion/ubicaciones");
+
+            String request = hechoDTO.getCategoria();
+
+            ResponseEntity<String> categoriaNormalizada = restTemplate.exchange(
+                    "http://localhost:8080/filtrar", // URL de tu API
+                    HttpMethod.POST,
+                    new HttpEntity<>(request),
+                    new ParameterizedTypeReference<>() {}
+            );
+
+            hechoDTO.setCategoria(categoriaNormalizada.getBody());
+
+            String calle = hechoDTO.getCategoria();
+
+            ResponseEntity<String> calleNormalizada = restTemplate.exchange(
+                    "http://localhost:8080/filtrar", // URL de tu API
+                    HttpMethod.POST,
+                    new HttpEntity<>(calle),
+                    new ParameterizedTypeReference<>() {}
+            );
+
+            hechoDTO.setCalle(calleNormalizada.getBody());
+
+            String localidad = hechoDTO.getCategoria();
+
+            ResponseEntity<String> localidadNormalizada = restTemplate.exchange(
+                    "http://localhost:8080/filtrar", // URL de tu API
+                    HttpMethod.POST,
+                    new HttpEntity<>(localidad),
+                    new ParameterizedTypeReference<>() {}
+            );
+
+            hechoDTO.setLocalidad(localidadNormalizada.getBody());
+
+
+            String provincia = hechoDTO.getCategoria();
+
+            ResponseEntity<String> provinciaNormalizada = restTemplate.exchange(
+                    "http://localhost:8080/filtrar", // URL de tu API
+                    HttpMethod.POST,
+                    new HttpEntity<>(provincia),
+                    new ParameterizedTypeReference<>() {}
+            );
+
+            hechoDTO.setProvincia(provinciaNormalizada.getBody());
+
+        }
         List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
         this.guardarHechos(hechos); // los guarda en la BD asignandoles un ID
         this.actualizarColecciones(hechos);
