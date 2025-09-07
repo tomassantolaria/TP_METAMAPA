@@ -1,9 +1,11 @@
 package Servicios;
 
 import Modelos.HechoDTO;
+import Modelos.HechoDTOInput;
 import Repositorios.HechoRepositorio;
 import Modelos.Entidades.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,16 +14,15 @@ import java.util.List;
 @Service
 public class HechoServicio {
 
-
+    @Autowired
     HechoRepositorio hechoRepositorio;
 
-    public void crearHecho(HechoDTO dto) {
-
+    public void crearHecho(HechoDTOInput dto) {
         Categoria categoria = new Categoria(dto.getCategoria());
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
-        Provincia provincia = new Provincia(dto.getNombre_provincia());
-        Localidad localidad = new Localidad(dto.getNombre_localidad(), provincia);
-        Calle calle = new Calle(dto.getNombre_calle(), localidad);
+        Provincia provincia = new Provincia(dto.getProvincia());
+        Localidad localidad = new Localidad(dto.getLocalidad(), provincia);
+        Calle calle = new Calle(dto.getCalle(), localidad);
         Ubicacion ubicacion = new Ubicacion(calle, localidad, provincia, dto.getLatitud(), dto.getLongitud());
         LocalDate fechaOcurrencia =  dto.getFechaAcontecimiento();
         Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFecha_nacimiento()); //Decision de diseño.
@@ -29,9 +30,7 @@ public class HechoServicio {
 
         Hecho hecho = new Hecho(null,null, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
                                 contribuyente, anonimo, true);
-        if (hecho.getFecha().isBefore(LocalDate.now()) || hecho.getFecha().isEqual(LocalDate.now())) {
-            hechoRepositorio.save(hecho);
-        }
+        hechoRepositorio.save(hecho);
     }
 
     public List<HechoDTO> obtenerHechos() {

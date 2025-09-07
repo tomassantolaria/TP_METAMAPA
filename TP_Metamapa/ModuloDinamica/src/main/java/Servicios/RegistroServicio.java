@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class RegistroServicio {
-
+    /*
     ContribuyenteRepositorio contribuyenteRepositorio;
 
     public RegistroServicio(ContribuyenteRepositorio contribuyenteRepositorio) {
@@ -26,6 +26,6 @@ public class RegistroServicio {
         contribuyente.setApellido(contribuyenteDTO.getApellido());
         contribuyente.setFecha_nacimiento(contribuyenteDTO.getFecha_nacimiento());
         return contribuyente;
-    }
+    }*/
 
 }
