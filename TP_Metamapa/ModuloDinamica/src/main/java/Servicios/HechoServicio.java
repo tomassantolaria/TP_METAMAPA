@@ -20,10 +20,10 @@ public class HechoServicio {
     public void crearHecho(HechoDTOInput dto) {
         Categoria categoria = new Categoria(dto.getCategoria());
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
-        Provincia provincia = new Provincia(dto.getProvincia());
+        Pais pais = new Pais(dto.getPais());
+        Provincia provincia = new Provincia(dto.getProvincia(), pais);
         Localidad localidad = new Localidad(dto.getLocalidad(), provincia);
-        Calle calle = new Calle(dto.getCalle(), localidad);
-        Ubicacion ubicacion = new Ubicacion(calle, localidad, provincia, dto.getLatitud(), dto.getLongitud());
+        Ubicacion ubicacion = new Ubicacion(localidad, provincia, pais, dto.getLatitud(), dto.getLongitud());
         LocalDate fechaOcurrencia =  dto.getFechaAcontecimiento();
         Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFecha_nacimiento()); //Decision de diseño.
         boolean anonimo = dto.getAnonimo();
@@ -51,9 +51,9 @@ public class HechoServicio {
                     hecho.getCategoria().getNombre(),
                     hecho.getFecha(),
                     null,
-                    hecho.getUbicacion().getCalle().getNombre_calle(),
                     hecho.getUbicacion().getLocalidad().getNombre_localidad(),
                     hecho.getUbicacion().getProvincia().getNombre_provincia(),
+                    hecho.getUbicacion().getPais().getNombre_pais(),
                     hecho.getUbicacion().getLatitud(),
                     hecho.getUbicacion().getLongitud(),
                     hecho.getContribuyente().getUsuario(),

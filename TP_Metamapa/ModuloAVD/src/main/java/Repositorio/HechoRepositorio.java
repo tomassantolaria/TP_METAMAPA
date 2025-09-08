@@ -10,6 +10,6 @@ import java.util.List;
 public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
 
 
-     List<Hecho> findByFuente(Long fuente);
+     List<Hecho> findByIdFuente(Long fuente);
 
 }

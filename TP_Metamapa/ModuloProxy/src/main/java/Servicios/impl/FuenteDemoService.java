@@ -67,7 +67,9 @@ public class FuenteDemoService implements IFuenteDemoService {
                 (String) data.get("categoria"),
                 (LocalDate) data.get("fecha"), // Si tu JSON devuelve esto como string, hay que parsearlo
                 null, // fechaAcontecimiento, si no viene en el JSON
-                (String) data.get("lugar"),
+                (String) data.get("pais"),
+                (String) data.get("provincia"),
+                (String) data.get("localidad"),
                 (Double) data.get("latitud"),
                 (Double) data.get("longitud"),
                 null, null, null, null, null, null, null

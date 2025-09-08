@@ -1,49 +1,49 @@
 package Servicios;
 
-import Modelos.Calle;
 import Modelos.Localidad;
 import Modelos.Provincia;
+import Modelos.Pais;
 import Modelos.Ubicacion;
-import Repositorio.RepositorioCalle;
 import Repositorio.RepositorioLocalidad;
 import Repositorio.RepositorioProvincia;
+import Repositorio.RepositorioPais;
 import org.springframework.stereotype.Service;
 
 
 
 @Service
 public class ServicioUbicacion {
-    private final RepositorioCalle repositorioCalle;
     private final RepositorioLocalidad repositorioLocalidad;
     private final RepositorioProvincia repositorioProvincia;
+    private final RepositorioPais repositorioPais;
 
-    public ServicioUbicacion(RepositorioCalle repositorioCalle, RepositorioLocalidad repositorioLocalidad, RepositorioProvincia repositorioProvincia) {
-        this.repositorioCalle = repositorioCalle;
+    public ServicioUbicacion(RepositorioLocalidad repositorioLocalidad, RepositorioProvincia repositorioProvincia, RepositorioPais repositorioPais) {
         this.repositorioLocalidad = repositorioLocalidad;
         this.repositorioProvincia = repositorioProvincia;
+        this.repositorioPais = repositorioPais;
     }
 
-    public Ubicacion normalizarUbicacion (String nombre_provincia, String nombre_calle, String nombre_localidad) {
+    public Ubicacion normalizarUbicacion (String nombre_pais, String nombre_provincia, String nombre_localidad) {
         Ubicacion ubicacion = new Ubicacion();
-        ubicacion.setProvincia(this.normalizarProvincia(nombre_provincia));
+        ubicacion.setPais(this.normalizarPais(nombre_pais));
+        ubicacion.setProvincia(this.normalizarProvincia(nombre_provincia, ubicacion.getPais()));
         ubicacion.setLocalidad(this.normalizarLocalidad(nombre_localidad, ubicacion.getProvincia()));
-        ubicacion.setCalle(this.normalizarCalle(nombre_calle, ubicacion.getLocalidad()));
         return ubicacion;
     }
 
-    public Provincia normalizarProvincia (String nombre_provincia) {
+    public Pais normalizarPais (String nombre_pais) {
+        nombre_pais = nombre_pais.toUpperCase();
+        return repositorioPais.crearPais(nombre_pais);
+    }
+
+    public Provincia normalizarProvincia(String nombre_provincia, Pais pais) {
         nombre_provincia = nombre_provincia.toUpperCase();
-        return repositorioProvincia.crearProvincia(nombre_provincia);
+        return repositorioProvincia.crearProvincia(nombre_provincia, pais);
     }
 
-    public Localidad normalizarLocalidad(String nombre_localidad, Provincia provincia) {
-        nombre_localidad = nombre_localidad.toUpperCase();
-        return repositorioLocalidad.crearLocalidad(nombre_localidad, provincia);
-    }
-
-    public Calle normalizarCalle(String nombre_calle, Localidad localidad) {
-        nombre_calle = nombre_calle.toUpperCase();
-        return repositorioCalle.crearCalle(nombre_calle, localidad);
+    public Localidad normalizarLocalidad(String nombre_Localidad, Provincia provincia) {
+        nombre_Localidad = nombre_Localidad.toUpperCase();
+        return repositorioLocalidad.crearLocalidad(nombre_Localidad, provincia);
     }
 }
 

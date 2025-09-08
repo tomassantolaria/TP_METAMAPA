@@ -5,22 +5,193 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="comentarios para recordar">
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Pais.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/DTOs/UbicacionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Pais.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Pais.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/Pais.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/UbicacionDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Repositorio/RepositorioPais.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Pais.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Main/ModuloAVD.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Main/ModuloAVD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Main/Agregador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Main/Agregador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Main/Dinamica.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Main/Dinamica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Calle.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Calle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Contribuyente.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Contribuyente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/CriterioDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/CriterioDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Calle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/CriteriosDePertenencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/CriteriosDePertenencia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Localidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Ubicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Ubicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/HechoRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/HechoRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Configuracion/RestTemplateConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Controlador/ColeccionControlador.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Controlador/SolicitudControlador.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Main/ModuloAVD.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Conversores/ConsensoConversor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/DTOs/ColeccionDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/DTOs/CriterioDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/DTOs/EstadoDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/DTOs/SolicitudDTOOutput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Calle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Categoria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Coleccion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Consenso/Consenso.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Consenso/ConsensoAbsoluta.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Consenso/ConsensoMayoriaSimple.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Consenso/ConsensoMultiplesMenciones.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Contenido.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Contribuyente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/CriteriosDePertenencia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Estado.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Hecho.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/HechoNoPerteneceException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Localidad.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/OrigenCarga.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Provincia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Solicitud.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Modelos/Entidades/Ubicacion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Repositorio/ColeccionRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Repositorio/HechoRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Repositorio/SolicitudRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Servicio/ColeccionServicio$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Servicio/ColeccionServicio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/Servicio/SolicitudServicio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/ModuloAgregador.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Calle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/CriteriosDePertenencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/CriteriosDePertenencia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/DTOs/HechoDTOInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/DTOs/HechoDTOInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Localidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Ubicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Ubicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/AgregadorServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/AgregadorServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/ModuloAgregador-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Configuracion/RestTemplateConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Controlador/AgregadorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Main/Agregador.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Conversores/ConsensoConversor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Calle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Categoria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Coleccion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Consenso/Consenso.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Consenso/ConsensoAbsoluta.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Consenso/ConsensoMayoriaSimple.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Consenso/ConsensoMultiplesMenciones.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Contenido.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Contribuyente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/CriteriosDePertenencia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/DTOs/CriteriosDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/DTOs/FiltrarRequestDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/DTOs/HechoDTOInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/DTOs/HechoDTOoutput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Hecho.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Localidad.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/OrigenCarga.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Provincia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Modelos/Entidades/Ubicacion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Repositorio/ColeccionRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Repositorio/HechoRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Scheduler/AgregadorScheduler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Scheduler/ColeccionScheduler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Servicio/AgregadorServicio$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Servicio/AgregadorServicio$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Servicio/AgregadorServicio$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Servicio/AgregadorServicio$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Servicio/AgregadorServicio$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Servicio/AgregadorServicio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/Servicio/ColeccionServicio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Controlador/RegistroControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Controlador/RegistroControlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Calle.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Localidad.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Provincia.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Ubicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Ubicacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/UbicacionViejo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Main/Estatica.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Main/Estatica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Main/Proxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Main/Proxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/HechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/HechoDTOInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/HechoDTOInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/RegistroServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/RegistroServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/DTOS/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloEstatica/src/main/java/Modelos/DTOS/HechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloFiltrador/src/main/java/Main/Filtrador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloFiltrador/src/main/java/Main/Filtrador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Controlador/Controlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/Calle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/Localidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/Ubicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Modelos/Ubicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Repositorio/RepositorioCalle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Repositorio/RepositorioCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Repositorio/RepositorioCategoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Repositorio/RepositorioLocalidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Repositorio/RepositorioLocalidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Repositorio/RepositorioProvincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Repositorio/RepositorioProvincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Servicios/ServicioUbicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Servicios/ServicioUbicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Modelos/DTOs/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Modelos/DTOs/HechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Modelos/DTOs/SolicitudDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Modelos/DTOs/SolicitudDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Servicios/impl/FuenteDemoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Servicios/impl/FuenteDemoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Main/ModuloPublico.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Main/ModuloPublico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Calle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Localidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Ubicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/Entidades/Ubicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Modelos/HechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Servicio/ConsensoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Servicio/ConsensoServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Servicio/NavegadorServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Servicio/NavegadorServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Configuracion/RestTemplateConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Controlador/NavegadorControlador.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Controlador/SolicitudControlador.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Main/ModuloPublico.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/CriteriosDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Calle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Categoria.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Coleccion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Consenso/Consenso.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Consenso/ConsensoAbsoluta.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Consenso/ConsensoMayoriaSimple.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Consenso/ConsensoMultiplesMenciones.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Contenido.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Contribuyente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Conversores/ConsensoConversor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/CriteriosDePertenencia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Estado.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Hecho.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Localidad.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/OrigenCarga.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Provincia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Solicitud.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/Entidades/Ubicacion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/FiltrarRequestDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/HechoDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Modelos/SolicitudDTOInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Repositorio/CategoriaRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Repositorio/ColeccionRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Repositorio/HechoRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Repositorio/SolicitudRepositorio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Servicio/ConsensoServicio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Servicio/NavegadorServicio$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Servicio/NavegadorServicio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Servicio/SolicitudServicio.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Servicio/Solicitudes/DetectorDeSpam.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/Servicio/Solicitudes/SolicitudInvalidaException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/clases.puml" beforeDir="false" />
     </list>
     <list id="0dadc650-2d38-40b4-bde7-712727dad629" name="Changes by Agus" comment="" />
     <list id="757559d0-4efc-42ae-a1c4-3a64da5fd63e" name="Changes by mili" comment="" />
@@ -53,15 +224,19 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/tomassantolaria/TP_METADATA.git&quot;,
-    &quot;accountId&quot;: &quot;ba99b59f-9913-441e-8471-c2272f8eb9ec&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/tomassantolaria/TP_METADATA.git",
+    "accountId": "46e82ccc-969a-4c36-b33a-fc7c2bad246b"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Servicios/FuenteMetaMapaService.java" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -119,10 +294,10 @@
       <recent name="C:\Users\morac\OneDrive\Diseño\TP_METADATA\TP_Metamapa\ModuloAgregador\src\main\java\Modelos\Entidades" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\TP_METADATA\TP_Metamapa" />
       <recent name="C:\TP_METADATA\TP_Metamapa\ModuloDinamica\src\main\java\Servicios" />
       <recent name="C:\TP_METADATA\TP_Metamapa\ModuloDinamica\src\main\java\Modelos\Repository" />
       <recent name="C:\TP_METADATA\TP_Metamapa\ModuloProxy\src\main\java" />
-      <recent name="C:\TP_METADATA\TP_Metamapa" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="Modelos" />
@@ -145,7 +320,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.Agregador">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="TP_METADATA" />
       <working_directory value="$PROJECT_DIR$" />
@@ -251,6 +426,14 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="StructureViewState">
     <option name="selectedTab" value="Logical" />
   </component>
@@ -285,6 +468,7 @@
       <workItem from="1756678280839" duration="97000" />
       <workItem from="1756678720286" duration="274000" />
       <workItem from="1756679982709" duration="4108000" />
+      <workItem from="1757341564769" duration="8288000" />
     </task>
     <task id="LOCAL-00001" summary="creacion de modulos">
       <option name="closed" value="true" />

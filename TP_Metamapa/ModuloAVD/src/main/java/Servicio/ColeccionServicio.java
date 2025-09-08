@@ -4,7 +4,9 @@ import Modelos.DTOs.ColeccionDTO;
 import Modelos.Entidades.*;
 import Modelos.Entidades.Consenso.Consenso;
 import Repositorio.ColeccionRepositorio;
+import Repositorio.ConsensoRepositorio;
 import Repositorio.HechoRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -12,23 +14,22 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.*;
+
 
 @Service
 public class ColeccionServicio {
 
-    private final Map<String, Consenso> consensosMap;
+    @Autowired
     ColeccionRepositorio coleccionRepositorio;
+    @Autowired
     HechoRepositorio hechoRepositorio;
+    @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    ConsensoRepositorio consensoRepositorio;
 
-    public ColeccionServicio(ColeccionRepositorio coleccionRepositorio, HechoRepositorio hechoRepositorio, Map<String, Consenso> consensosMap) {
-        this.coleccionRepositorio = coleccionRepositorio;
-        this.hechoRepositorio = hechoRepositorio;
-        this.consensosMap = consensosMap;
-    }
 
 
     public void crearColeccion(ColeccionDTO coleccionDTO) {
@@ -36,16 +37,15 @@ public class ColeccionServicio {
         Boolean multimedia = coleccionDTO.getCriterio().getContenido_multimedia();
         LocalDate fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
         LocalDate fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
-        Provincia provincia = new Provincia(coleccionDTO.getCriterio().getProvincia());
+        Pais pais = new Pais(coleccionDTO.getCriterio().getPais());
+        Provincia provincia = new Provincia(coleccionDTO.getCriterio().getProvincia(), pais);
         Localidad localidad = new Localidad(coleccionDTO.getCriterio().getLocalidad(), provincia);
-        Calle calle = new Calle (coleccionDTO.getCriterio().getCalle(), localidad);
-        Ubicacion ubicacion = new Ubicacion(calle, localidad, provincia, null, null);
+        Ubicacion ubicacion = new Ubicacion(localidad, provincia, pais, null, null);
         LocalDate fecha_acontecimiento_desde = coleccionDTO.getCriterio().getFecha_acontecimiento_desde();
         LocalDate fecha_acontecimiento_hasta = coleccionDTO.getCriterio().getFecha_acontecimiento_hasta();
         OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio().getOrigen_carga());
         CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
-        List<Hecho> hechos = new ArrayList<>();
-        Coleccion coleccion = new Coleccion(null, coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia,hechos);
+        Coleccion coleccion = new Coleccion(null, coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
         this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
@@ -88,7 +88,7 @@ public class ColeccionServicio {
     }
 
     private Consenso obtenerEstrategiaPorNombre(String nombre) {
-        Consenso estrategia = consensosMap.get(nombre);
+        Consenso estrategia = consensoRepositorio.findByName(nombre);
         if (estrategia == null) {
             throw new IllegalArgumentException("Estrategia no encontrada: " + nombre);
         }
@@ -102,7 +102,7 @@ public class ColeccionServicio {
         if (coleccion == null) {
             throw new IllegalArgumentException("Coleccion no encontrada:");
         }
-        List<Hecho> hechoFuente = hechoRepositorio.findByFuente(fuente);
+        List<Hecho> hechoFuente = hechoRepositorio.findByIdFuente(fuente);
 
         if (hechoFuente.isEmpty()) {
             throw new IllegalArgumentException("No hay hechos de esa fuente");

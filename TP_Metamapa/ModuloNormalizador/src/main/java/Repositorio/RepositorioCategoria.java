@@ -1,7 +1,6 @@
 package Repositorio;
 
 import Modelos.Categoria;
-import Modelos.Provincia;
 
 import java.util.*;
 

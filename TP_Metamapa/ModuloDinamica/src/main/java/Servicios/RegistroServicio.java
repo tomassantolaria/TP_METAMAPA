@@ -3,13 +3,15 @@ package Servicios;
 import Modelos.ContribuyenteDTO;
 import Modelos.Entidades.Contribuyente;
 import Repositorios.ContribuyenteRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Service
 public class RegistroServicio {
-    /*
+
+    @Autowired
     ContribuyenteRepositorio contribuyenteRepositorio;
 
     public RegistroServicio(ContribuyenteRepositorio contribuyenteRepositorio) {
@@ -26,6 +28,6 @@ public class RegistroServicio {
         contribuyente.setApellido(contribuyenteDTO.getApellido());
         contribuyente.setFecha_nacimiento(contribuyenteDTO.getFecha_nacimiento());
         return contribuyente;
-    }*/
+    }
 
 }

@@ -6,13 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Ubicacion {
-    Calle calle;
     Localidad localidad;
     Provincia provincia;
+    Pais pais;
 
-    public void ubicacion(Calle calle, Localidad localidad, Provincia provincia) {
-        this.calle = calle;
-        this.localidad = localidad;
-        this.provincia = provincia;
+    public void ubicacion() {
     }
 }

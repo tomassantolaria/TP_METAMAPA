@@ -1,8 +1,10 @@
 package Modelos;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Localidad {
     String nombre_localidad;
     Provincia provincia;

@@ -5,10 +5,9 @@ import Modelos.Entidades.DTOs.CriteriosDTO;
 import Modelos.Entidades.DTOs.FiltrarRequestDTO;
 import Modelos.Entidades.DTOs.HechoDTOInput;
 import Modelos.Entidades.*;
-import Modelos.Entidades.DTOs.HechoDTOoutput;
+import Modelos.Entidades.DTOs.UbicacionDTO;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -96,15 +95,15 @@ public class AgregadorServicio {
             hechosDTOTotales.addAll(hechosMetamapa) ;
         }
         // antes de transformar a hecho, filtrar los que ya existen en la base de datos con el normalizador
+        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromPath("http://normalizacion/categorias");
+        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromPath("http://normalizacion/ubicaciones");
 
         for ( HechoDTOInput hechoDTO: hechosDTOTotales){
-            UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromPath("http://normalizacion/categorias");
-            UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromPath("http://normalizacion/ubicaciones");
 
             String request = hechoDTO.getCategoria();
 
             ResponseEntity<String> categoriaNormalizada = restTemplate.exchange(
-                    "http://localhost:8080/filtrar", // URL de tu API
+                    urlCategoria.toUriString(), // URL de tu API
                     HttpMethod.POST,
                     new HttpEntity<>(request),
                     new ParameterizedTypeReference<>() {}
@@ -112,41 +111,20 @@ public class AgregadorServicio {
 
             hechoDTO.setCategoria(categoriaNormalizada.getBody());
 
-            String calle = hechoDTO.getCategoria();
+            UbicacionDTO ubicacionDTO = new UbicacionDTO( hechoDTO.getPais(), hechoDTO.getProvincia() ,hechoDTO.getLocalidad());
 
-            ResponseEntity<String> calleNormalizada = restTemplate.exchange(
-                    "http://localhost:8080/filtrar", // URL de tu API
+            ResponseEntity<UbicacionDTO> UbicacionNormalizada = restTemplate.exchange(
+                    urlUbicacion.toUriString(), // URL de tu API
                     HttpMethod.POST,
-                    new HttpEntity<>(calle),
+                    new HttpEntity<>(ubicacionDTO),
                     new ParameterizedTypeReference<>() {}
             );
-
-            hechoDTO.setCalle(calleNormalizada.getBody());
-
-            String localidad = hechoDTO.getCategoria();
-
-            ResponseEntity<String> localidadNormalizada = restTemplate.exchange(
-                    "http://localhost:8080/filtrar", // URL de tu API
-                    HttpMethod.POST,
-                    new HttpEntity<>(localidad),
-                    new ParameterizedTypeReference<>() {}
-            );
-
-            hechoDTO.setLocalidad(localidadNormalizada.getBody());
-
-
-            String provincia = hechoDTO.getCategoria();
-
-            ResponseEntity<String> provinciaNormalizada = restTemplate.exchange(
-                    "http://localhost:8080/filtrar", // URL de tu API
-                    HttpMethod.POST,
-                    new HttpEntity<>(provincia),
-                    new ParameterizedTypeReference<>() {}
-            );
-
-            hechoDTO.setProvincia(provinciaNormalizada.getBody());
+            hechoDTO.setPais(UbicacionNormalizada.getBody().getPais());
+            hechoDTO.setProvincia(UbicacionNormalizada.getBody().getProvincia());
+            hechoDTO.setLocalidad(UbicacionNormalizada.getBody().getLocalidad());
 
         }
+
         List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
         this.guardarHechos(hechos); // los guarda en la BD asignandoles un ID
         this.actualizarColecciones(hechos);
@@ -156,9 +134,9 @@ public class AgregadorServicio {
     public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
         List<Hecho> hechos = new ArrayList<>();
         for (HechoDTOInput hechoDTO : hechosDTO) {
-            Provincia provincia = new Provincia(hechoDTO.getProvincia());
+            Pais pais = new Pais(hechoDTO.getPais());
+            Provincia provincia = new Provincia(hechoDTO.getProvincia(), pais);
             Localidad localidad = new Localidad(hechoDTO.getLocalidad(), provincia);
-            Calle calle = new Calle(hechoDTO.getCalle(), localidad);
             Hecho hecho = new Hecho(
                     hechoDTO.getIdHecho(),
                     hechoDTO.getIdFuente(),
@@ -167,7 +145,7 @@ public class AgregadorServicio {
                     new Contenido(hechoDTO.getContenido(), hechoDTO.getContenido_multimedia()),
                     new Categoria(hechoDTO.getCategoria()),
                     hechoDTO.getFechaAcontecimiento(),
-                    new Ubicacion(calle, localidad, provincia, hechoDTO.getLatitud(), hechoDTO.getLongitud()),
+                    new Ubicacion(localidad, provincia, pais, hechoDTO.getLatitud(), hechoDTO.getLongitud()),
                     (hechoDTO.getFechaCarga() != null ? hechoDTO.getFechaCarga() : LocalDate.now()),
                     OrigenCarga.valueOf(hechoDTO.getOrigen_carga().toUpperCase()),
                     (hechoDTO.getVisible() != null ? hechoDTO.getVisible() : true),
@@ -226,8 +204,8 @@ public class AgregadorServicio {
 
         return new HechoDTOInput(hecho.getId(), hecho.getIdFuente(), hecho.getTitulo(),hecho.getDescripcion(),
                                  hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),
-                                 hecho.getCategoria().getNombre(), hecho.getFecha(),hecho.getFecha_carga(),
-                                 hecho.getUbicacion().getCalle().getNombre_calle(),hecho.getUbicacion().getLocalidad().getNombre_localidad(), hecho.getUbicacion().getProvincia().getNombre_provincia(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(),
+                                 hecho.getCategoria().getNombre(),hecho.getFecha(),hecho.getFecha_carga(),
+                                 hecho.getUbicacion().getLocalidad().getNombre_Localidad(),hecho.getUbicacion().getProvincia().getNombre_provincia(), hecho.getUbicacion().getPais().getNombre_pais(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(),
                                  (hecho.getContribuyente() != null ? hecho.getContribuyente().getUsuario() : null), (hecho.getContribuyente() != null ? hecho.getContribuyente().getNombre() : null),
                                  (hecho.getContribuyente() != null ? hecho.getContribuyente().getApellido() : null), (hecho.getContribuyente() != null ? hecho.getContribuyente().getFecha_nacimiento() : null),
                                  hecho.isAnonimo(),hecho.isVisible(), hecho.getOrigen_carga().name());
@@ -238,9 +216,9 @@ public class AgregadorServicio {
         String multimedia = (criterios.getMultimedia() != null) ? criterios.getMultimedia().toString() : null;
         String fecha_carga_desde = (criterios.getFecha_carga_desde() != null) ? criterios.getFecha_carga_desde().toString() : null;
         String fecha_carga_hasta = (criterios.getFecha_carga_hasta() != null) ? criterios.getFecha_carga_hasta().toString() : null;
-        String calle = criterios.getUbicacion().getCalle().getNombre_calle();
-        String localidad = criterios.getUbicacion().getLocalidad().getNombre_localidad();
-        String provincia = criterios.getUbicacion().getProvincia().getNombre_provincia();
+        String calle = criterios.getUbicacion().getLocalidad().getNombre_Localidad();
+        String localidad = criterios.getUbicacion().getProvincia().getNombre_provincia();
+        String provincia = criterios.getUbicacion().getPais().getNombre_pais();
         String fecha_acontecimiento_desde = (criterios.getFecha_acontecimiento_desde() != null) ? criterios.getFecha_acontecimiento_desde().toString() : null;
         String fecha_acontecimiento_hasta = (criterios.getFecha_acontecimiento_hasta() != null) ? criterios.getFecha_acontecimiento_hasta().toString() : null;
         String origen = (criterios.getOrigen_carga() != null) ? criterios.getOrigen_carga().name() : null;

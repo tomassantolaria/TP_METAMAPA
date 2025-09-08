@@ -1,0 +1,22 @@
+package Modelos.Entidades;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Entity
+@Setter
+@Table(name= "Pais")
+public class Pais {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idPais;
+    String nombre_pais;
+
+    public Pais(String nombre_pais) {
+        this.nombre_pais = nombre_pais;
+    }
+
+    public Pais() {}
+}

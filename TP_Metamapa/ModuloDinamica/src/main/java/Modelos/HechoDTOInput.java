@@ -14,9 +14,9 @@ public class HechoDTOInput {
     public String contenido_multimedia;
     public String categoria;
     public LocalDate fechaAcontecimiento;
-    public String calle;
     public String localidad;
     public String provincia;
+    public String pais ;
     public Double latitud;
     public Double longitud;
     public String usuario;

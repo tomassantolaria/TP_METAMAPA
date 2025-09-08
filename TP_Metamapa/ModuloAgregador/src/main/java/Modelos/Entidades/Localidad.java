@@ -2,25 +2,25 @@ package Modelos.Entidades;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
-@Table(name="Localidad")
+@Table(name= "Localidad")
 public class Localidad {
-    String nombre_localidad;
+    String nombre_Localidad;
     @ManyToOne
     @JoinColumn()
     Provincia provincia;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLocalidad;
 
-    public Localidad() {}
-
-
-
-    public Localidad(String nombre_localidad, Provincia provincia) {
-        this.nombre_localidad = nombre_localidad;
+    public Localidad(String nombre_Localidad, Provincia provincia) {
+        this.nombre_Localidad = nombre_Localidad;
         this.provincia = provincia;
     }
+
+    public Localidad() {}
 
 }

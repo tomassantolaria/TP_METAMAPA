@@ -1,5 +1,6 @@
 package Modelos.Entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Modelos.Conversores.ConsensoConversor;
@@ -36,14 +37,14 @@ public class Coleccion {
     @JoinTable()
     private List<Hecho> hechosConsensuados ;
 
-    public Coleccion(Long id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
+    public Coleccion(Long id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.criterio_pertenencia = criterio_pertenencia;
-        this.hechos = hechos;
+        this.hechos = new ArrayList<>();
         this.consenso = null;
-        this.hechosConsensuados = hechos;
+        this.hechosConsensuados = new ArrayList<>();
     }
 
     public Coleccion() {}

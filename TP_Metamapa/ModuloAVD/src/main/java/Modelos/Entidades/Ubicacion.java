@@ -14,21 +14,21 @@ public class Ubicacion {
     private long idUbicacion;
     @ManyToOne
     @JoinColumn()
-    Calle calle;
-    @ManyToOne
-    @JoinColumn()
     Localidad localidad;
     @ManyToOne
     @JoinColumn()
     Provincia provincia;
+    @ManyToOne
+    @JoinColumn()
+    Pais pais;
 
     Double latitud;
     Double longitud;
 
-    public Ubicacion(Calle calle, Localidad localidad, Provincia provincia, Double latitud, Double longitud) {
-        this.calle = calle;
+    public Ubicacion(Localidad localidad, Provincia provincia, Pais pais, Double latitud, Double longitud) {
         this.localidad = localidad;
         this.provincia = provincia;
+        this.pais = pais;
         this.latitud = latitud;
         this.longitud = longitud;
     }

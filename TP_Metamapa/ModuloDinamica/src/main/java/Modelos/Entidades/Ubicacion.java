@@ -14,20 +14,20 @@ public class Ubicacion {
     private long idUbicacion;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
-    Calle calle;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn()
     Localidad localidad;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     Provincia provincia;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
+    Pais pais;
     Double latitud;
     Double longitud;
 
-    public Ubicacion(Calle calle, Localidad localidad, Provincia provincia, Double latitud, Double longitud) {
-        this.calle = calle;
+    public Ubicacion(Localidad localidad, Provincia provincia, Pais pais, Double latitud, Double longitud) {
         this.localidad = localidad;
         this.provincia = provincia;
+        this.pais = pais;
         this.latitud = latitud;
         this.longitud = longitud;
     }
