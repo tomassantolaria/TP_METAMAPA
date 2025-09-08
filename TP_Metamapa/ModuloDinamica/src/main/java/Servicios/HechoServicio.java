@@ -3,6 +3,7 @@ package Servicios;
 import Modelos.HechoDTO;
 import Modelos.HechoDTOInput;
 import Repositorios.HechoRepositorio;
+import Repositorios.ContribuyenteRepositorio;
 import Modelos.Entidades.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class HechoServicio {
 
     @Autowired
     HechoRepositorio hechoRepositorio;
+    @Autowired
+    ContribuyenteRepositorio contribuyenteRepositorio;
 
     public void crearHecho(HechoDTOInput dto) {
         Categoria categoria = new Categoria(dto.getCategoria());
@@ -25,7 +28,7 @@ public class HechoServicio {
         Localidad localidad = new Localidad(dto.getLocalidad(), provincia);
         Ubicacion ubicacion = new Ubicacion(localidad, provincia, pais, dto.getLatitud(), dto.getLongitud());
         LocalDate fechaOcurrencia =  dto.getFechaAcontecimiento();
-        Contribuyente contribuyente = new Contribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFecha_nacimiento()); //Decision de diseño.
+        Contribuyente contribuyente = contribuyenteRepositorio.findById(dto.getUsuario()).orElseThrow( () -> new RuntimeException("El contribuyente debe registrarse antes de crear un hecho."));
         boolean anonimo = dto.getAnonimo();
 
         Hecho hecho = new Hecho(null,null, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,

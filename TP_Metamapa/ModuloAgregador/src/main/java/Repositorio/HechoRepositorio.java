@@ -64,7 +64,31 @@ Long cantidadDeFuentesConHecho(
 
     //si al menos dos fuentes contienen un mismo hecho y ninguna otra fuente
     //contiene otro de igual título pero diferentes atributos, se lo considera consensuado;
-
+    @Query("SELECT h FROM Hecho h " +
+            "WHERE (:categoria IS NULL OR h.categoria = :categoria) " +
+            "AND (:contenidoMultimedia IS NULL OR h.contenido.contenido_multimedia = :contenidoMultimedia) " +
+            "AND (:fechaCargaDesde IS NULL OR h.fecha_carga >= :fechaCargaDesde) " +
+            "AND (:fechaCargaHasta IS NULL OR h.fecha_carga<= :fechaCargaHasta) " +
+            "AND (:fechaHechoDesde IS NULL OR h.fecha>= :fechaHechoDesde) " +
+            "AND (:fechaHechoHasta IS NULL OR h.fecha <= :fechaHechoHasta) " +
+            "AND (:origenCarga IS NULL OR h.origen_carga = :origenCarga) " +
+            "AND (:titulo IS NULL OR h.titulo LIKE %:titulo%) " +
+            "AND (:pais IS NULL OR h.ubicacion.pais.nombre_pais = :pais) " +
+            "AND (:provincia IS NULL OR h.ubicacion.provincia.nombre_provincia = :provincia) " +
+            "AND (:localidad IS NULL OR h.ubicacion.localidad.nombre_localidad = :localidad)")
+    List<Hecho> filtrarHechos(
+            @Param("categoria") String categoria,
+            @Param("contenidoMultimedia") Boolean contenidoMultimedia,
+            @Param("fechaCargaDesde") LocalDate fechaCargaDesde,
+            @Param("fechaCargaHasta") LocalDate fechaCargaHasta,
+            @Param("fechaHechoDesde") LocalDate fechaHechoDesde,
+            @Param("fechaHechoHasta") LocalDate fechaHechoHasta,
+            @Param("origenCarga") String origenCarga,
+            @Param("titulo") String titulo,
+            @Param("pais") String pais,
+            @Param("provincia") String provincia,
+            @Param("localidad") String localidad
+    );
 
 
 }

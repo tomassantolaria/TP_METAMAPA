@@ -1,48 +1,39 @@
 package Servicio;
 
-import Modelos.CriteriosDTO;
-import Modelos.FiltrarRequestDTO;
+
 import Modelos.Entidades.*;
 import Modelos.HechoDTO;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class NavegadorServicio {
 
+  @Autowired
   HechoRepositorio hechoRepositorio;
   ColeccionRepositorio coleccionRepositorio;
 
 
-    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String titulo, String ubicacion, String origenCarga) {
+    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, Boolean contenidoMultimedia, LocalDate fechaCargaDesde, LocalDate fechaCargaHasta, LocalDate fechaHechoDesde, LocalDate fechaHechoHasta, String origenCarga, String titulo, String pais, String provincia, String localidad) {
         List <Hecho> hechos;
+
         if(idColeccion == null){
-            hechos = hechoRepositorio.findAll();
+
+            hechos = hechoRepositorio.filtrarHechos(categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCarga, titulo, pais, provincia, localidad);
+
         }else{
-            Coleccion coleccion = coleccionRepositorio.findById(idColeccion).orElseThrow( ()-> new RuntimeException("No se encontro la coleccion") );
-            hechos = coleccion.getHechos();
+
+             hechos = coleccionRepositorio.filtrarHechosEnColeccion(idColeccion, categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCarga, titulo, pais, provincia, localidad);
         }
-        List<HechoDTO> hechoDTOS = transformarADTOLista(hechos);
-        CriteriosDTO criteriosDTO = new CriteriosDTO(categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCarga, titulo, ubicacion);
-        RestTemplate restTemplate = new RestTemplate();
 
-        FiltrarRequestDTO request = new FiltrarRequestDTO(criteriosDTO, hechoDTOS);
-
-        ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
-                "http://localhost:8080/filtrar", // URL de tu API
-                HttpMethod.POST,
-                new HttpEntity<>(request),
-                new ParameterizedTypeReference<>() {}
-        );
-        return response.getBody();
+        return transformarADTOLista(hechos);
     }
 
     public List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {

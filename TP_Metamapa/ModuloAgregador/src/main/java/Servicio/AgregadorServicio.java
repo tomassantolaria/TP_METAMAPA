@@ -8,6 +8,7 @@ import Modelos.Entidades.*;
 import Modelos.Entidades.DTOs.UbicacionDTO;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -19,17 +20,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AgregadorServicio {
 
+    @Autowired
     RestTemplate restTemplate;
+    @Autowired
     HechoRepositorio hechoRepositorio;
+    @Autowired
     ColeccionRepositorio coleccionRepositorio;
 
     public void actualizarHechos() {
 
-        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromPath("http://dinamica/hechos/obtener"); // cambiar nombre url
+        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromPath("http://dinamica/hechos"); // cambiar nombre url
 
         UriComponentsBuilder urlDemo = UriComponentsBuilder.fromPath("http://demo/hechos");
 
@@ -94,7 +100,9 @@ public class AgregadorServicio {
             List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
             hechosDTOTotales.addAll(hechosMetamapa) ;
         }
-        // antes de transformar a hecho, filtrar los que ya existen en la base de datos con el normalizador
+
+        // CONSUMIR API DE GOOGLE PARA OBTENER UBICACION MEDIANTE LA LATITUD Y LONGITUD O QUE LO HAGA CADA FUENTE
+
         UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromPath("http://normalizacion/categorias");
         UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromPath("http://normalizacion/ubicaciones");
 
@@ -126,8 +134,8 @@ public class AgregadorServicio {
         }
 
         List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
-        this.guardarHechos(hechos); // los guarda en la BD asignandoles un ID
-        this.actualizarColecciones(hechos);
+        hechoRepositorio.saveAll(hechos); // los guarda en la BD asignandoles un ID
+        this.actualizarColecciones();
 
     }
 
@@ -157,81 +165,46 @@ public class AgregadorServicio {
         return hechos;
     }
 
-    public void guardarHechos(List<Hecho> hechos) {
-        hechoRepositorio.saveAll(hechos);
-    }
 
-    public void actualizarColecciones(List<Hecho> hechos) {
+    public void actualizarColecciones() {
         try {
             for (Coleccion coleccion : coleccionRepositorio.findAll()) {
-                actualizarColeccionConHecho(hechos, coleccion);
+                this.actualizarColeccion(coleccion);
             }
         }catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void actualizarColeccionConHecho(List<Hecho> hechos, Coleccion coleccion ) {
-        List<HechoDTOInput> hechosDTO = this.transformarADTOLista(hechos);
-        CriteriosDTO criteriosDTO = this.transformarCriteriosADTO(coleccion.getCriterio_pertenencia());
-        RestTemplate restTemplate = new RestTemplate();
-        FiltrarRequestDTO request = new FiltrarRequestDTO(criteriosDTO, hechosDTO);
-        try {
-            ResponseEntity<List<HechoDTOInput>> response = restTemplate.exchange(
-                    "http://localhost:8080/filtrar", // URL de tu API
-                    HttpMethod.POST,
-                    new HttpEntity<>(request),
-                    new ParameterizedTypeReference<>() {
-                    }
-            );
+    public void actualizarColeccion(Coleccion coleccion ) {
 
-            List<Hecho> hechosRespuesta = this.transaformarAHecho(response.getBody());
-            agregarHechosAColeccion(hechosRespuesta, coleccion);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+        List<Hecho> hechosCumplenCriterio = hechoRepositorio.filtrarHechos(
+                coleccion.getCriterio_pertenencia().getCategoria().getNombre(),
+                coleccion.getCriterio_pertenencia().getMultimedia(),
+                coleccion.getCriterio_pertenencia().getFecha_carga_desde(),
+                coleccion.getCriterio_pertenencia().getFecha_carga_hasta(),
+                coleccion.getCriterio_pertenencia().getFecha_acontecimiento_desde(),
+                coleccion.getCriterio_pertenencia().getFecha_acontecimiento_hasta(),
+                coleccion.getCriterio_pertenencia().getOrigen_carga().toString(),
+                coleccion.getCriterio_pertenencia().getTitulo(),
+                (coleccion.getCriterio_pertenencia().getUbicacion().getLocalidad().getNombre_localidad()),
+                (coleccion.getCriterio_pertenencia().getUbicacion().getProvincia().getNombre_provincia()),
+                (coleccion.getCriterio_pertenencia().getUbicacion().getPais().getNombre_pais())
+        );
 
-    public List<HechoDTOInput> transformarADTOLista(List<Hecho> hechos) {
-        List<HechoDTOInput> hechosDTO;
-        hechosDTO = hechos.stream()
-                .map(this::transformarAHechoDTO)
-                .collect(java.util.stream.Collectors.toList());
-        return hechosDTO;
-    }
-    
-    public HechoDTOInput transformarAHechoDTO (Hecho hecho){
+        Set<Long> idsExistentes = coleccion.getHechos()
+                .stream()
+                .map(Hecho::getId)
+                .collect(Collectors.toSet());
 
-        return new HechoDTOInput(hecho.getId(), hecho.getIdFuente(), hecho.getTitulo(),hecho.getDescripcion(),
-                                 hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),
-                                 hecho.getCategoria().getNombre(),hecho.getFecha(),hecho.getFecha_carga(),
-                                 hecho.getUbicacion().getLocalidad().getNombre_Localidad(),hecho.getUbicacion().getProvincia().getNombre_provincia(), hecho.getUbicacion().getPais().getNombre_pais(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(),
-                                 (hecho.getContribuyente() != null ? hecho.getContribuyente().getUsuario() : null), (hecho.getContribuyente() != null ? hecho.getContribuyente().getNombre() : null),
-                                 (hecho.getContribuyente() != null ? hecho.getContribuyente().getApellido() : null), (hecho.getContribuyente() != null ? hecho.getContribuyente().getFecha_nacimiento() : null),
-                                 hecho.isAnonimo(),hecho.isVisible(), hecho.getOrigen_carga().name());
-    }
+        List<Hecho> nuevosHechos = hechosCumplenCriterio.stream()
+                .filter(h -> !idsExistentes.contains(h.getId()))
+                .toList();
 
-    public CriteriosDTO transformarCriteriosADTO(CriteriosDePertenencia criterios) {
-        String categoria = (criterios.getCategoria() != null) ? criterios.getCategoria().getNombre() : null;
-        String multimedia = (criterios.getMultimedia() != null) ? criterios.getMultimedia().toString() : null;
-        String fecha_carga_desde = (criterios.getFecha_carga_desde() != null) ? criterios.getFecha_carga_desde().toString() : null;
-        String fecha_carga_hasta = (criterios.getFecha_carga_hasta() != null) ? criterios.getFecha_carga_hasta().toString() : null;
-        String calle = criterios.getUbicacion().getLocalidad().getNombre_Localidad();
-        String localidad = criterios.getUbicacion().getProvincia().getNombre_provincia();
-        String provincia = criterios.getUbicacion().getPais().getNombre_pais();
-        String fecha_acontecimiento_desde = (criterios.getFecha_acontecimiento_desde() != null) ? criterios.getFecha_acontecimiento_desde().toString() : null;
-        String fecha_acontecimiento_hasta = (criterios.getFecha_acontecimiento_hasta() != null) ? criterios.getFecha_acontecimiento_hasta().toString() : null;
-        String origen = (criterios.getOrigen_carga() != null) ? criterios.getOrigen_carga().name() : null;
-        String titulo = criterios.getTitulo();
-
-        return new CriteriosDTO(categoria, multimedia, fecha_carga_desde, fecha_carga_hasta, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen, titulo, calle, localidad, provincia);
-    }
-
-
-    public void agregarHechosAColeccion(List<Hecho> hechos, Coleccion coleccion) {
-        coleccion.agregarHechos(hechos);
+        coleccion.agregarHechos(nuevosHechos);
         coleccionRepositorio.save(coleccion);
     }
+
 
     public List<HechoDTOInput> setearOrigenCarga(List<HechoDTOInput> hechosDTO, OrigenCarga origenCarga) {
         for (HechoDTOInput hechoDTO : hechosDTO) {
@@ -243,8 +216,7 @@ public class AgregadorServicio {
 
     public void cargarColeccionConHechos(Long coleccionId) {
 
-        Coleccion coleccion = coleccionRepositorio.getReferenceById(coleccionId);
-
-        actualizarColeccionConHecho(hechoRepositorio.findAll(),coleccion);
+        Coleccion coleccion = coleccionRepositorio.findById(coleccionId).orElseThrow();
+        actualizarColeccion(coleccion);
     }
 }

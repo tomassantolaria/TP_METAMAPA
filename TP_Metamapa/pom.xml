@@ -28,7 +28,6 @@
         <module>ModuloAgregador</module>
         <module>ModuloPublico</module>
         <module>ModuloAVD</module>
-        <module>ModuloFiltrador</module>
         <module>ModuloNormalizador</module>
     </modules>
 

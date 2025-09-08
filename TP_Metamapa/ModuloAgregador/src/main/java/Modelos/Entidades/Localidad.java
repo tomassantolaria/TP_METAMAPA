@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Table(name= "Localidad")
 public class Localidad {
-    String nombre_Localidad;
+    String nombre_localidad;
     @ManyToOne
     @JoinColumn()
     Provincia provincia;
@@ -17,7 +17,7 @@ public class Localidad {
     private Long idLocalidad;
 
     public Localidad(String nombre_Localidad, Provincia provincia) {
-        this.nombre_Localidad = nombre_Localidad;
+        this.nombre_localidad = nombre_Localidad;
         this.provincia = provincia;
     }
 

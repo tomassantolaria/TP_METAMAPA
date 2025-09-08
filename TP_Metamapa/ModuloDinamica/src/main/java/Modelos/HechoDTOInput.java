@@ -20,8 +20,5 @@ public class HechoDTOInput {
     public Double latitud;
     public Double longitud;
     public String usuario;
-    public String nombre;
-    public String apellido;
-    public LocalDate fecha_nacimiento;
     public Boolean anonimo;
 }

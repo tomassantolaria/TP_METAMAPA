@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+
 public class ContribuyenteDTO {
     public String usuario;
     public String nombre;

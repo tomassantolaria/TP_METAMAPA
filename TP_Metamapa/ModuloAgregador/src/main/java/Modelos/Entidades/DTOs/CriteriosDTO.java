@@ -15,11 +15,11 @@ public class CriteriosDTO {
     String fechaHechoHasta;
     String origen;
     String titulo;
-    String calle;
     String localidad;
     String provincia;
+    String pais;
 
-    public CriteriosDTO(String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String origen, String titulo, String calle, String localidad, String provincia) {
+    public CriteriosDTO(String categoria, String contenidoMultimedia, String fechaCargaDesde, String fechaCargaHasta, String fechaHechoDesde, String fechaHechoHasta, String origen, String titulo, String localidad, String provincia, String pais) {
         this.categoria = categoria;
         this.contenidoMultimedia = contenidoMultimedia;
         this.fechaCargaDesde = fechaCargaDesde;
@@ -28,8 +28,8 @@ public class CriteriosDTO {
         this.fechaHechoHasta = fechaHechoHasta;
         this.origen = origen;
         this.titulo = titulo;
-        this.calle = calle;
         this.localidad = localidad;
         this.provincia = provincia;
+        this.pais = pais;
     }
 }
