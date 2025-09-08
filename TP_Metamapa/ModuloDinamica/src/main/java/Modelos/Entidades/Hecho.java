@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "Hechos")
+@Table(name = "Hecho")
 public class Hecho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,18 +16,18 @@ public class Hecho {
     public Long idfuente;
     public String titulo;
     public String descripcion;
-    @OneToOne
-    @JoinColumn(name = "idContenido")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
     public Contenido contenido;
-    @ManyToOne
-    @JoinColumn(name = "idCategoria")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
     public Categoria categoria;
     public LocalDate fecha;
-    @ManyToOne
-    @JoinColumn(name = "idUbicacion")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
     public Ubicacion ubicacion;
-    @ManyToOne
-    @JoinColumn(name = "usuario")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
     public Contribuyente contribuyente;
     public Boolean anonimo;
     public Boolean visible;

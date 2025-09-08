@@ -16,7 +16,7 @@ public class Contribuyente {
     public String nombre;
     public String apellido;
     public LocalDate fecha_nacimiento;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<Hecho> hechosPublicados;
 
 
@@ -25,18 +25,9 @@ public class Contribuyente {
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecha_nacimiento = fechaNacimiento;
+        this.hechosPublicados = new ArrayList<>();
     }
 
     public Contribuyente() {}
 
-    @ManyToOne(optional = false)
-    private Hecho hechos;
-
-    public Hecho getHechos() {
-        return hechos;
-    }
-
-    public void setHechos(Hecho hechos) {
-        this.hechos = hechos;
-    }
 }

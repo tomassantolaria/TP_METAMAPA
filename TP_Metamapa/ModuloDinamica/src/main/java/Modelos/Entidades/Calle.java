@@ -12,12 +12,14 @@ import lombok.ToString;
 @Entity
 @Table(name= "Calle")
 public class Calle {
-    String nombre_calle;
-    @ManyToOne
-    @JoinColumn(name = "localidad_id_localidad")
-    Localidad localidad;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCalle;
+    String nombre_calle;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
+    Localidad localidad;
+
 
     public Calle(String nombre_calle, Localidad localidad) {
         this.nombre_calle = nombre_calle;

@@ -12,14 +12,14 @@ public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idUbicacion;
-    @ManyToOne
-    @JoinColumn(name = "calle_id_calle")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
     Calle calle;
-    @ManyToOne
-    @JoinColumn(name = "localidad_id_localidad")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
     Localidad localidad;
-    @ManyToOne
-    @JoinColumn(name = "provincia_id_provincia")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
     Provincia provincia;
     Double latitud;
     Double longitud;
