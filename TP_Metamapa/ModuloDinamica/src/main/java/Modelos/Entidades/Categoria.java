@@ -12,7 +12,13 @@ public class Categoria{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idCategoria;
     private String nombre;
+
+    public Categoria(){
+
+    }
+
     public Categoria(String nombre) {
         this.nombre = nombre;
     }
+
 }

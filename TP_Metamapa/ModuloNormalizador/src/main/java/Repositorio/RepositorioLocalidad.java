@@ -2,11 +2,14 @@ package Repositorio;
 
 import Modelos.Localidad;
 import Modelos.Provincia;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RepositorioLocalidad {
-    private List<Localidad> localidades;
+    private List<Localidad> localidades = new ArrayList<>();
 
     public Localidad crearLocalidad(String nombre_Localidad, Provincia provincia) {
         Localidad localidad = this.obtenerLocalidad(nombre_Localidad, provincia);

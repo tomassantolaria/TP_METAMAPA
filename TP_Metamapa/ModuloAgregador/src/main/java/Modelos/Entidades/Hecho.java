@@ -22,17 +22,17 @@ public class Hecho{
     private String titulo;
     private String descripcion;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     private Contenido contenido;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     private Categoria categoria;
 
     private LocalDate fecha;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     private Ubicacion ubicacion;
 
@@ -44,7 +44,7 @@ public class Hecho{
 
     private boolean visible ;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     private Contribuyente contribuyente;
 

@@ -7,21 +7,19 @@ import Modelos.Ubicacion;
 import Repositorio.RepositorioLocalidad;
 import Repositorio.RepositorioProvincia;
 import Repositorio.RepositorioPais;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 
 @Service
 public class ServicioUbicacion {
-    private final RepositorioLocalidad repositorioLocalidad;
-    private final RepositorioProvincia repositorioProvincia;
-    private final RepositorioPais repositorioPais;
-
-    public ServicioUbicacion(RepositorioLocalidad repositorioLocalidad, RepositorioProvincia repositorioProvincia, RepositorioPais repositorioPais) {
-        this.repositorioLocalidad = repositorioLocalidad;
-        this.repositorioProvincia = repositorioProvincia;
-        this.repositorioPais = repositorioPais;
-    }
+    @Autowired
+    RepositorioLocalidad repositorioLocalidad;
+    @Autowired
+    RepositorioProvincia repositorioProvincia;
+    @Autowired
+    RepositorioPais repositorioPais;
 
     public Ubicacion normalizarUbicacion (String nombre_pais, String nombre_provincia, String nombre_localidad) {
         Ubicacion ubicacion = new Ubicacion();

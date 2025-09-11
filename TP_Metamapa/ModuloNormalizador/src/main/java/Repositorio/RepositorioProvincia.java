@@ -2,10 +2,12 @@ package Repositorio;
 
 import Modelos.Provincia;
 import Modelos.Pais;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RepositorioProvincia {
     private List<Provincia> Provincia = new ArrayList<>();;
 

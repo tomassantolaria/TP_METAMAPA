@@ -8,7 +8,7 @@ import lombok.Getter;
 @Table(name="Provincia")
 public class Provincia {
     String nombre_provincia;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     Pais pais;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

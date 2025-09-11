@@ -10,7 +10,7 @@ import lombok.Setter;
 @Table(name= "Localidad")
 public class Localidad {
     String nombre_localidad;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     Provincia provincia;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

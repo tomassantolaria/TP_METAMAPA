@@ -9,7 +9,6 @@ import lombok.Getter;
 public class Pais {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPais;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     String nombre_pais;
 
     public Pais(String nombre_pais) {

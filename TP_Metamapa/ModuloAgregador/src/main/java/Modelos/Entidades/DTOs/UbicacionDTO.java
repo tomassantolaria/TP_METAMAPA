@@ -11,6 +11,10 @@ public class UbicacionDTO{
     private String provincia;
     private String localidad;
 
+    public UbicacionDTO(){
+
+    }
+
     public UbicacionDTO(String pais, String provincia, String localidad) {
         this.pais = pais;
         this.provincia = provincia;

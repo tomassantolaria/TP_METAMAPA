@@ -34,8 +34,8 @@ public class AgregadorServicio {
     ColeccionRepositorio coleccionRepositorio;
 
     public void actualizarHechos() {
-
-        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromPath("http://dinamica/hechos"); // cambiar nombre url
+        //Las URL tiene que tener este formato fromHttpUrl
+        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/dinamica/hechos"); // cambiar nombre url
 
         UriComponentsBuilder urlDemo = UriComponentsBuilder.fromPath("http://demo/hechos");
 
@@ -47,7 +47,7 @@ public class AgregadorServicio {
                 urlDinamica.toUriString(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<>() {
+                new ParameterizedTypeReference<List<HechoDTOInput>>() {
                 }
         );
 
@@ -103,10 +103,13 @@ public class AgregadorServicio {
 
         // CONSUMIR API DE GOOGLE PARA OBTENER UBICACION MEDIANTE LA LATITUD Y LONGITUD O QUE LO HAGA CADA FUENTE
 
-        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromPath("http://normalizacion/categorias");
-        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromPath("http://normalizacion/ubicaciones");
+        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/normalizacion/categorias");
+        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/normalizacion/ubicaciones");
+
 
         for ( HechoDTOInput hechoDTO: hechosDTOTotales){
+
+            System.out.println("Pais antes de normalizar: " + hechoDTO.getNombre_pais());
 
             String request = hechoDTO.getCategoria();
 
@@ -119,32 +122,32 @@ public class AgregadorServicio {
 
             hechoDTO.setCategoria(categoriaNormalizada.getBody());
 
-            UbicacionDTO ubicacionDTO = new UbicacionDTO( hechoDTO.getPais(), hechoDTO.getProvincia() ,hechoDTO.getLocalidad());
+            UbicacionDTO ubicacionDTO = new UbicacionDTO(hechoDTO.getNombre_localidad(), hechoDTO.getNombre_provincia(), hechoDTO.getNombre_pais());
 
             ResponseEntity<UbicacionDTO> UbicacionNormalizada = restTemplate.exchange(
                     urlUbicacion.toUriString(), // URL de tu API
                     HttpMethod.POST,
                     new HttpEntity<>(ubicacionDTO),
-                    new ParameterizedTypeReference<>() {}
+                    UbicacionDTO.class
             );
-            hechoDTO.setPais(UbicacionNormalizada.getBody().getPais());
-            hechoDTO.setProvincia(UbicacionNormalizada.getBody().getProvincia());
-            hechoDTO.setLocalidad(UbicacionNormalizada.getBody().getLocalidad());
+            hechoDTO.setNombre_pais(UbicacionNormalizada.getBody().getPais());
+            hechoDTO.setNombre_provincia(UbicacionNormalizada.getBody().getProvincia());
+            hechoDTO.setNombre_localidad(UbicacionNormalizada.getBody().getLocalidad());
 
         }
 
         List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
         hechoRepositorio.saveAll(hechos); // los guarda en la BD asignandoles un ID
-        this.actualizarColecciones();
+        //this.actualizarColecciones();
 
     }
 
     public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
         List<Hecho> hechos = new ArrayList<>();
         for (HechoDTOInput hechoDTO : hechosDTO) {
-            Pais pais = new Pais(hechoDTO.getPais());
-            Provincia provincia = new Provincia(hechoDTO.getProvincia(), pais);
-            Localidad localidad = new Localidad(hechoDTO.getLocalidad(), provincia);
+            Pais pais = new Pais(hechoDTO.getNombre_pais());
+            Provincia provincia = new Provincia(hechoDTO.getNombre_provincia(), pais);
+            Localidad localidad = new Localidad(hechoDTO.getNombre_localidad(), provincia);
             Hecho hecho = new Hecho(
                     hechoDTO.getIdHecho(),
                     hechoDTO.getIdFuente(),

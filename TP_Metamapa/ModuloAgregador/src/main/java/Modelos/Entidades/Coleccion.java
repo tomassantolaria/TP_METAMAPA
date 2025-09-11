@@ -20,18 +20,18 @@ public class Coleccion {
     private Long id;
     private String titulo;
     private String descripcion;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     private CriteriosDePertenencia criterio_pertenencia;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable()
     private List<Hecho> hechos;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable()
     private List<Hecho> hechosConsensuados ;
 

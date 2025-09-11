@@ -7,14 +7,16 @@ import lombok.Setter;
 @Setter
 public class UbicacionDTO
 {
-    String pais;
-    String provincia;
     String localidad;
+    String provincia;
+    String pais;
 
-    public UbicacionDTO( String pais, String provincia,String localidad) {
-        this.pais = pais;
-        this.provincia = provincia;
+    public UbicacionDTO(){}
+
+    public UbicacionDTO( String localidad, String provincia, String pais) {
         this.localidad = localidad;
+        this.provincia = provincia;
+        this.pais = pais;
     }
 
 }

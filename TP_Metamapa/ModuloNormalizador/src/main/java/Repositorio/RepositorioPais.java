@@ -1,11 +1,14 @@
 package Repositorio;
 
 import Modelos.Pais;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class RepositorioPais {
-    private List<Pais> pais;
+    private List<Pais> pais = new ArrayList<>();
 
     public Pais crearPais(String nombre) {
         Pais pais = this.obtenerPais(nombre);
