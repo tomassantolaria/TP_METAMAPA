@@ -26,7 +26,7 @@ public class Hecho{
     @JoinColumn()
     private Contenido contenido;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Categoria categoria;
 

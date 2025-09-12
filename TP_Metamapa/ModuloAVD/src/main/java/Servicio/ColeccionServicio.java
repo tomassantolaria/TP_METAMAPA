@@ -3,8 +3,8 @@ package Servicio;
 import Modelos.DTOs.ColeccionDTO;
 import Modelos.Entidades.*;
 import Modelos.Entidades.Consenso.Consenso;
+import Modelos.Conversores.ConsensoConversor;
 import Repositorio.ColeccionRepositorio;
-import Repositorio.ConsensoRepositorio;
 import Repositorio.HechoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -28,7 +28,7 @@ public class ColeccionServicio {
     @Autowired
     RestTemplate restTemplate;
     @Autowired
-    ConsensoRepositorio consensoRepositorio;
+    ConsensoConversor consensoConversor;
 
 
 
@@ -88,7 +88,7 @@ public class ColeccionServicio {
     }
 
     private Consenso obtenerEstrategiaPorNombre(String nombre) {
-        Consenso estrategia = consensoRepositorio.findByName(nombre);
+        Consenso estrategia = consensoConversor.convertToEntityAttribute(nombre);
         if (estrategia == null) {
             throw new IllegalArgumentException("Estrategia no encontrada: " + nombre);
         }

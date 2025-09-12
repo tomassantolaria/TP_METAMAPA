@@ -14,7 +14,7 @@ public class ColeccionControlador {
         this.coleccionServicio = coleccionServicio;
     }
 
-    @PostMapping("/colecciones/crear")
+    @PostMapping("/coleccion")
     public ResponseEntity<String> crearColeccion(@RequestBody ColeccionDTO coleccionDTO) {
         try {
             coleccionServicio.crearColeccion(coleccionDTO);
@@ -33,7 +33,7 @@ public class ColeccionControlador {
         }
     }
 
-    @PutMapping ("/colecciones/{id}/Consenso/{estrategia}")
+    @PutMapping ("/coleccion/{id}/Consenso/{estrategia}")
     public ResponseEntity<String> modificarAlgoritmoConsenso(@PathVariable Long id, @PathVariable String estrategia) {
         try{
             coleccionServicio.modificarConsenso(id, estrategia);
@@ -43,7 +43,7 @@ public class ColeccionControlador {
         }
     }
 
-    @PostMapping ("/colecciones/{id}/agregarFuente/{fuente}")
+    @PostMapping ("/coleccion/{id}/{fuente}")
     public ResponseEntity<String> agregarFuente(@PathVariable Long id, @PathVariable Long fuente) {
         try{
             coleccionServicio.agregarFuente(id, fuente);
@@ -53,7 +53,7 @@ public class ColeccionControlador {
         }
     }
 
-    @DeleteMapping ("/colecciones/{id}/eliminarFuente/{fuente}")
+    @DeleteMapping ("/coleccion/{id}/{fuente}")
     public ResponseEntity<String> eliminarFuente(@PathVariable Long id, @PathVariable Long fuente) {
         try{
             coleccionServicio.eliminarFuente(id, fuente);

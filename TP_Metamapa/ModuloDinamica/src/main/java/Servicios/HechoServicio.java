@@ -2,6 +2,7 @@ package Servicios;
 
 import Modelos.HechoDTO;
 import Modelos.HechoDTOInput;
+import Repositorios.CategoriaRepositorio;
 import Repositorios.HechoRepositorio;
 import Repositorios.ContribuyenteRepositorio;
 import Modelos.Entidades.*;
@@ -19,9 +20,15 @@ public class HechoServicio {
     HechoRepositorio hechoRepositorio;
     @Autowired
     ContribuyenteRepositorio contribuyenteRepositorio;
+    @Autowired
+    CategoriaRepositorio categoriaRepositorio;
 
     public void crearHecho(HechoDTOInput dto) {
-        Categoria categoria = new Categoria(dto.getCategoria());
+        Categoria categoria = categoriaRepositorio.findByNombre(dto.getCategoria());
+        if(categoria == null){
+            categoria = new Categoria(dto.getCategoria());
+            categoriaRepositorio.save(categoria);
+        }
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
         Pais pais = new Pais(dto.getPais());
         Provincia provincia = new Provincia(dto.getProvincia(), pais);

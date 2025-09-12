@@ -9,6 +9,8 @@ public class Ubicacion {
     Localidad localidad;
     Provincia provincia;
     Pais pais;
+    Double latitud;
+    Double longitud;
 
     public void ubicacion() {
     }
