@@ -7,8 +7,8 @@ import lombok.Getter;
 @Entity
 @Table(name="Provincia")
 public class Provincia {
-    String nombre_provincia;
-    @ManyToOne(cascade = CascadeType.ALL)
+    String provincia;
+    @ManyToOne()
     @JoinColumn()
     Pais pais;
 

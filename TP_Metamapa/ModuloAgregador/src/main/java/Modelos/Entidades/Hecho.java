@@ -22,7 +22,7 @@ public class Hecho{
     private String titulo;
     private String descripcion;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn()
     private Contenido contenido;
 
@@ -32,7 +32,7 @@ public class Hecho{
 
     private LocalDate fecha;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Ubicacion ubicacion;
 
@@ -44,7 +44,7 @@ public class Hecho{
 
     private boolean visible ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Contribuyente contribuyente;
 
@@ -53,9 +53,9 @@ public class Hecho{
 
     public Hecho() {}
 
-    public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    public Hecho(Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                  Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
-        this.id = id;
+        this.id = null;
         this.idFuente = idFuente;
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;

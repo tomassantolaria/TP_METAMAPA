@@ -24,14 +24,14 @@ public class Coleccion {
     @JoinColumn()
     private CriteriosDePertenencia criterio_pertenencia;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable()
     private List<Hecho> hechos;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable()
     private List<Hecho> hechosConsensuados ;
 

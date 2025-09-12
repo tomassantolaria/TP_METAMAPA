@@ -13,10 +13,10 @@ public class Pais {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPais;
 
-    String nombre_Pais;
+    String pais;
 
     public Pais(String nombre_Pais) {
-        this.nombre_Pais = nombre_Pais;
+        this.pais = nombre_Pais;
     }
 
     public Pais() {}

@@ -1,4 +1,5 @@
 package Repositorio;
+import Modelos.Entidades.OrigenCarga;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import Modelos.Entidades.Hecho;

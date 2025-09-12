@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="comentarios para recordar">
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/ColeccionDTOOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/FuenteDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/HechoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/UbicacionDTOOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/CategoriaRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/LocalidadRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/PaisRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/ProvinciaRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/UbicacionRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Repositorio/ContribuyenteRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Repositorio/LocalidadRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Repositorio/PaisRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Repositorio/ProvinciaRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Repositorio/UbicacionRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Repositorios/LocalidadRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Repositorios/PaisRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Repositorios/ProvinciaRepositorio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Repositorios/UbicacionRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/TP_METADATA.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/TP_METAMAPA.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Controlador/ColeccionControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Controlador/ColeccionControlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/CriterioDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/CriterioDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/ColeccionRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/ColeccionRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/HechoRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/HechoRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Localidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Pais.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Pais.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Repositorio/HechoRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Repositorio/HechoRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/AgregadorServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/AgregadorServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Localidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Pais.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Pais.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Modelos/Entidades/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Controlador/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/Controlador/Controlador.java" afterDir="false" />
+    </list>
+    <list id="0dadc650-2d38-40b4-bde7-712727dad629" name="Changes by Agus" comment="" />
+    <list id="51498169-a795-43f6-8ad2-622c46c4b4c2" name="Changes by arce_mili" comment="" />
+    <list id="757559d0-4efc-42ae-a1c4-3a64da5fd63e" name="Changes by mili" comment="" />
+    <list id="c717bd2a-909a-4895-a319-6d4fc89a91d9" name="Changes by PC" comment="">
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Controlador/ColeccionControlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Controlador/ColeccionControlador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/ColeccionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs/ColeccionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Coleccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Localidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Pais.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Pais.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Modelos/Entidades/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/HechoRepositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/HechoRepositorio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Coleccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/CriteriosDePertenencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/CriteriosDePertenencia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Localidad.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Localidad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Ubicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Ubicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/AgregadorServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/AgregadorServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Servicio/SolicitudServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/Servicio/SolicitudServicio.java" afterDir="false" />
+    </list>
+    <list id="c5d956ac-31c7-4b1b-8cb1-2e191171efcb" name="Changes by Tomas Santolaria" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GitHubPullRequestState">{
+  &quot;prStates&quot;: [
+    {
+      &quot;id&quot;: {
+        &quot;id&quot;: &quot;PR_kwDOOzhtR86mvW2T&quot;,
+        &quot;number&quot;: 1
+      },
+      &quot;lastSeen&quot;: 1757362732022
+    }
+  ]
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/tomassantolaria/TP_METADATA.git&quot;,
+    &quot;accountId&quot;: &quot;ba99b59f-9913-441e-8471-c2272f8eb9ec&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/TP_Metamapa/ModuloProxy/src/main/java/Servicios/FuenteMetaMapaService.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/TP_Metamapa/ModuloDinamica/src/main/java/Servicios/HechoServicio.java">
+      <ranges>
+        <range start1="4" end1="7" start2="4" end2="5" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="24" end1="24" start2="22" end2="30" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="26" end1="31" start2="32" end2="33" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="32" end1="36" start2="34" end2="38" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="45" end1="45" start2="47" end2="93" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="63" end1="66" start2="111" end2="114" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Servicio/ColeccionServicio.java">
+      <ranges>
+        <range start1="3" end1="3" start2="3" end2="6" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="6" end1="8" start2="9" end2="10" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="17" end1="17" start2="19" end2="20" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="31" end1="32" start2="34" end2="44" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="35" end1="36" start2="47" end2="48" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="39" end1="43" start2="51" end2="55" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="47" end1="48" start2="59" end2="60" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="54" end1="54" start2="66" end2="113" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="76" end1="77" start2="135" end2="139" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="79" end1="79" start2="141" end2="147" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="98" end1="100" start2="166" end2="168" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="102" end1="103" start2="170" end2="171" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="104" end1="106" start2="172" end2="173" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="114" end1="115" start2="181" end2="182" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="119" end1="120" start2="186" end2="187" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="122" end1="122" start2="189" end2="253" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Controlador/ColeccionControlador.java">
+      <ranges>
+        <range start1="3" end1="3" start2="3" end2="5" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="4" end1="4" start2="6" end2="7" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="10" end1="11" start2="13" end2="13" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="12" end1="15" start2="14" end2="17" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="25" end1="26" start2="27" end2="49" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="34" end1="34" start2="57" end2="67" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="45" end1="47" start2="78" end2="80" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="48" end1="50" start2="81" end2="83" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="51" end1="52" start2="84" end2="85" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="55" end1="57" start2="88" end2="90" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="58" end1="60" start2="91" end2="93" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="61" end1="62" start2="94" end2="95" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="65" end1="74" start2="98" end2="98" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Provincia.java">
+      <ranges>
+        <range start1="9" end1="11" start2="9" end2="11" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="13" end1="13" start2="13" end2="14" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="21" end1="22" start2="22" end2="23" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/Repositorio/HechoRepositorio.java">
+      <ranges>
+        <range start1="1" end1="1" start2="1" end2="2" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="12" end1="13" start2="13" end2="14" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Modelos/Entidades/Localidad.java">
+      <ranges>
+        <range start1="11" end1="13" start2="11" end2="13" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="19" end1="20" start2="19" end2="20" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/TP_Metamapa/ModuloAgregador/src/main/java/Servicio/AgregadorServicio.java">
+      <ranges>
+        <range start1="6" end1="9" start2="6" end2="7" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="35" end1="35" start2="33" end2="43" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="39" end1="40" start2="47" end2="48" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="45" end1="46" start2="53" end2="54" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="54" end1="55" start2="62" end2="63" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="79" end1="80" start2="87" end2="88" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="83" end1="84" start2="91" end2="92" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="88" end1="89" start2="96" end2="97" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="93" end1="94" start2="101" end2="102" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="103" end1="104" start2="111" end2="112" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+        <range start1="161" end1="169" start2="169" end2="175" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="170" end1="171" start2="176" end2="176" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="177" end1="179" start2="182" end2="184" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="180" end1="182" start2="185" end2="187" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="184" end1="184" start2="189" end2="190" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="185" end1="185" start2="191" end2="192" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="189" end1="189" start2="196" end2="252" changelist="c717bd2a-909a-4895-a319-6d4fc89a91d9" />
+        <range start1="211" end1="214" start2="274" end2="277" changelist="0a1a60b4-5578-40b2-8f1c-c84804389ca8" />
+      </ranges>
+    </file>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2xuz9L8SEx3It3mZTt1c6zbwehK" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "pruebas-dinamica",
+    "go.import.settings.migrated": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/morac/IdeaProjects/TP_METAMAPA/TP_Metamapa/ModuloAVD/src/main/java/Modelos/DTOs",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/TP_METADATA/TP_Metamapa/ModuloNormalizador/src/main/java/com/TP_Metamapa/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Repositorios" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\morac\IdeaProjects\TP_METAMAPA\TP_Metamapa\ModuloAVD\src\main\java\Modelos\DTOs" />
+      <recent name="C:\Users\morac\IdeaProjects\TP_METAMAPA\TP_Metamapa\ModuloAVD\src\main\java\Repositorio" />
+      <recent name="C:\Users\morac\IdeaProjects\TP_METAMAPA\TP_Metamapa\ModuloDinamica\src\main\java\Repositorios" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloPublico\src\main\java\Modelos\Entidades" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloAVD\src\main\java\Modelos\Conversores" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\TP_METADATA\TP_Metamapa" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloDinamica\src\main\java\Servicios" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloDinamica\src\main\java\Modelos\Repository" />
+      <recent name="C:\TP_METADATA\TP_Metamapa\ModuloProxy\src\main\java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Modelos" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Repositorios" />
+      <recent name="Modelos.DTOs" />
+      <recent name="Modelos.Entidades" />
+      <recent name="Controlador" />
+      <recent name="Repositorio" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.Agregador">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="TP_METADATA" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="TP_METADATA" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Agregador" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloAgregador" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Main.Agregador" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Dinamica" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloDinamica" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Main.Dinamica" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Estatica" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloEstatica" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Main.Estatica" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Filtrador" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloFiltrador" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Main.Filtrador" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Metamapa" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="TP_Metamapa" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Metamapa.Metamapa" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModuloAVD" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloAVD" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Main.ModuloAVD" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModuloProxyApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloEstatica" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="utn.dsi.ModuloProxy.ModuloProxyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModuloProxyApplication (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloProxy" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="utn.dsi.ModuloProxy.ModuloProxyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModuloProxyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloDinamica" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="utn.dsi.ModuloProxy.ModuloProxyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ModuloPublico" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloPublico" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Main.ModuloPublico" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Normalizador" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloNormalizador" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Main.Normalizador" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Proxy" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ModuloProxy" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Main.Proxy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0a1a60b4-5578-40b2-8f1c-c84804389ca8" name="Changes" comment="" />
+      <created>1748802595180</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748802595180</updated>
+      <workItem from="1748802596469" duration="379000" />
+      <workItem from="1748802993028" duration="11082000" />
+      <workItem from="1748898298834" duration="4975000" />
+      <workItem from="1748977153120" duration="2118000" />
+      <workItem from="1748979300998" duration="183000" />
+      <workItem from="1748979529397" duration="10000" />
+      <workItem from="1748979591590" duration="1167000" />
+      <workItem from="1748980788696" duration="4950000" />
+      <workItem from="1749130657655" duration="4399000" />
+      <workItem from="1749147051961" duration="6356000" />
+      <workItem from="1749214914174" duration="7000" />
+      <workItem from="1749402526331" duration="16146000" />
+      <workItem from="1749498999634" duration="1717000" />
+      <workItem from="1749693860442" duration="4009000" />
+      <workItem from="1749748116476" duration="5795000" />
+      <workItem from="1749761534369" duration="1221000" />
+      <workItem from="1751934914802" duration="7967000" />
+      <workItem from="1752185493413" duration="1697000" />
+      <workItem from="1755608221605" duration="3933000" />
+      <workItem from="1756326789668" duration="12397000" />
+      <workItem from="1756661434600" duration="12342000" />
+      <workItem from="1756678280839" duration="97000" />
+      <workItem from="1756678720286" duration="274000" />
+      <workItem from="1756679982709" duration="4108000" />
+      <workItem from="1757341564769" duration="8288000" />
+    </task>
+    <task id="LOCAL-00001" summary="creacion de modulos">
+      <option name="closed" value="true" />
+      <created>1748814361562</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748814361562</updated>
+    </task>
+    <task id="LOCAL-00002" summary="agregacion fuenteDEMO">
+      <option name="closed" value="true" />
+      <created>1748985913703</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748985913703</updated>
+    </task>
+    <task id="LOCAL-00003" summary="cambios fuente proxy">
+      <option name="closed" value="true" />
+      <created>1749135098692</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1749135098692</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cambios fuente proxy">
+      <option name="closed" value="true" />
+      <created>1749155488118</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1749155488118</updated>
+    </task>
+    <task id="LOCAL-00005" summary="actualizaciones">
+      <option name="closed" value="true" />
+      <created>1749419508666</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1749419508666</updated>
+    </task>
+    <task id="LOCAL-00006" summary="proxy terminado">
+      <option name="closed" value="true" />
+      <created>1749695901792</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1749695901792</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Filtros y organizador unico">
+      <option name="closed" value="true" />
+      <created>1749752976707</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1749752976707</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Coreccion">
+      <option name="closed" value="true" />
+      <created>1749753151174</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1749753151174</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Coreccion">
+      <option name="closed" value="true" />
+      <created>1749753324269</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749753324269</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Entrega 2">
+      <option name="closed" value="true" />
+      <created>1749760756426</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749760756426</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Entrega 2.1">
+      <option name="closed" value="true" />
+      <created>1749762236992</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749762236992</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Entrega 2.1">
+      <option name="closed" value="true" />
+      <created>1749762541506</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749762541506</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Creacion de nuevos Componentes">
+      <option name="closed" value="true" />
+      <created>1755270599662</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1755270599662</updated>
+    </task>
+    <task id="LOCAL-00014" summary="normalizador + mejoras en ubicación">
+      <option name="closed" value="true" />
+      <created>1756674333788</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1756674333788</updated>
+    </task>
+    <task id="LOCAL-00015" summary="normalizador + mejoras en ubicación">
+      <option name="closed" value="true" />
+      <created>1756678990732</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1756678990732</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Arreglo de consenso logica">
+      <option name="closed" value="true" />
+      <created>1756900737157</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1756900737158</updated>
+    </task>
+    <task id="LOCAL-00017" summary="comentarios para recordar">
+      <option name="closed" value="true" />
+      <created>1757020038331</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1757020038331</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="bc3ce289-af73-4a84-8ae1-0d02dded7b0c" value="TOOL_WINDOW" />
+        <entry key="2c0ea2e8-e072-42b2-b2d1-3d31fae1c783" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="2c0ea2e8-e072-42b2-b2d1-3d31fae1c783">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="RamaMili" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="bc3ce289-af73-4a84-8ae1-0d02dded7b0c">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="creacion de modulos" />
+    <MESSAGE value="agregacion fuenteDEMO" />
+    <MESSAGE value="cambios fuente proxy" />
+    <MESSAGE value="actualizaciones" />
+    <MESSAGE value="proxy terminado" />
+    <MESSAGE value="Filtros y organizador unico" />
+    <MESSAGE value="Coreccion" />
+    <MESSAGE value="Entrega 2" />
+    <MESSAGE value="Entrega 2.1" />
+    <MESSAGE value="Entrega 3 Corren los Modulos" />
+    <MESSAGE value="Creacion de nuevos Componentes" />
+    <MESSAGE value="Creacion de nuevos Componentes Filtrador Y Normalizador" />
+    <MESSAGE value="normalizador + mejoras en ubicación" />
+    <MESSAGE value="Arreglo de consenso logica" />
+    <MESSAGE value="comentarios para recordar" />
+    <option name="LAST_COMMIT_MESSAGE" value="comentarios para recordar" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TP_Metamapa/ModuloPublico/src/main/java/com/TP_Metamapa/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TP_Metamapa/ModuloAVD/src/main/java/com/TP_Metamapa/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TP_Metamapa/ModuloFiltrador/src/main/java/com/TP_Metamapa/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TP_Metamapa/ModuloNormalizador/src/main/java/com/TP_Metamapa/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

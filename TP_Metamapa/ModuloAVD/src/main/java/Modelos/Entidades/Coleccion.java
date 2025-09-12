@@ -22,23 +22,22 @@ public class Coleccion {
     private Long id;
     private String titulo;
     private String descripcion;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     private CriteriosDePertenencia criterio_pertenencia;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable()
     private List<Hecho> hechos;
     @ManyToOne
     @JoinColumn()
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
-    @ManyToMany
+    @ManyToMany()
     @JoinTable()
     private List<Hecho> hechosConsensuados ;
 
-    public Coleccion(Long id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia) {
-        this.id = id;
+    public Coleccion(String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.criterio_pertenencia = criterio_pertenencia;

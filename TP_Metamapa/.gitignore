@@ -10,6 +10,9 @@
 .idea/
 *.iml
 out/
+workspace.xml
+tasks.xml
+usage.statistics.xml
 
 # Eclipse
 .project

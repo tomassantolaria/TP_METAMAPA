@@ -19,12 +19,12 @@ public class CriteriosDePertenencia {
     private String titulo;
     private Boolean multimedia;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Categoria categoria;
     private LocalDate fecha_carga_desde;
     private LocalDate fecha_carga_hasta;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Ubicacion ubicacion;
     private LocalDate fecha_acontecimiento_desde;

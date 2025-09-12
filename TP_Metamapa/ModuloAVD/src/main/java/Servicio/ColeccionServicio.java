@@ -57,7 +57,7 @@ public class ColeccionServicio {
         LocalDate fecha_acontecimiento_hasta = coleccionDTO.getCriterio().getFecha_acontecimiento_hasta();
         OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio().getOrigen_carga());
         CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
-        Coleccion coleccion = new Coleccion(null, coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia);
+        Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
         this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
@@ -133,7 +133,10 @@ public class ColeccionServicio {
     }
 
     public void eliminarHecho(Long id) {
-        coleccionRepositorio.deleteById(id);
+        List<Coleccion> colecciones = coleccionRepositorio.findAll();
+        for (Coleccion coleccion : colecciones) {
+            this.eliminarHechoDeColeccion(coleccion.getId(), id);
+        }
         hechoRepositorio.deleteById(id);
     }
 
@@ -161,14 +164,13 @@ public class ColeccionServicio {
     } // TODO :VER SI CON EL COVERSOR HAY QUE HACER ESTO
 
 
-    public void agregarFuente(Long id, Long fuente) {
-        Coleccion  coleccion = coleccionRepositorio.findById(id).orElse(null);
+    public void agregarFuente(Long id_coleccion, Long id_fuente, String origen) {
+        Coleccion  coleccion = coleccionRepositorio.findById(id_coleccion).orElse(null);
 
         if (coleccion == null) {
             throw new IllegalArgumentException("Coleccion no encontrada: " + id_coleccion);
         }
-        List<Hecho> hechoFuente = hechoRepositorio.findByIdFuente(fuente);
-
+        List<Hecho> hechoFuente = hechoRepositorio.findByIdFuenteAndOrigen(id_fuente, OrigenCarga.valueOf(origen.toUpperCase()));
         if (hechoFuente.isEmpty()) {
             throw new IllegalArgumentException("No hay hechos de esa fuente");
         }
@@ -177,13 +179,77 @@ public class ColeccionServicio {
         }
         coleccionRepositorio.save(coleccion);
     }
-    public void eliminarFuente(Long id, Long fuente) {
+    public void eliminarFuente(Long id, Long fuente, String origen) {
         Coleccion coleccion = coleccionRepositorio.findById(id).orElse(null);
         if (coleccion == null) {
             throw new IllegalArgumentException("Coleccion no encontrada:");
         }
-        coleccion.getHechos().removeIf(hecho -> hecho.getIdFuente().equals(fuente));
+        coleccion.getHechos().removeIf(hecho -> hecho.getIdFuente().equals(fuente) && hecho.getOrigen().equals(OrigenCarga.valueOf(origen)));
         coleccionRepositorio.save(coleccion);
+    }
+
+    public ColeccionDTOOutput obtenerColeccion(Long id) {
+        Coleccion coleccion = coleccionRepositorio.findById(id).orElseThrow();
+        return this.transformarColeccionADTO(coleccion);
+    }
+
+    public CriterioDTO transformarCriterioADTO(CriteriosDePertenencia criteriosDePertenencia) {
+        return new CriterioDTO(
+                criteriosDePertenencia.getTitulo(),
+                criteriosDePertenencia.getMultimedia(),
+                criteriosDePertenencia.getCategoria().getNombre(),
+                criteriosDePertenencia.getFecha_carga_desde(),
+                criteriosDePertenencia.getFecha_carga_hasta(),
+                criteriosDePertenencia.getUbicacion().getLocalidad().getLocalidad(),
+                criteriosDePertenencia.getUbicacion().getProvincia().getProvincia(),
+                criteriosDePertenencia.getUbicacion().getPais().getPais(),
+                criteriosDePertenencia.getFecha_acontecimiento_desde(),
+                criteriosDePertenencia.getFecha_acontecimiento_hasta(),
+                criteriosDePertenencia.getOrigen_carga().name()
+        );
+    }
+
+    public HechoDTO transformarHechoDTO(Hecho hecho) {
+
+        HechoDTO dto = new HechoDTO(
+                hecho.getTitulo(),
+                hecho.getDescripcion(),
+                hecho.getContenido().getTexto(),
+                hecho.getContenido().getContenido_multimedia(),
+                hecho.getCategoria().getNombre(),
+                hecho.getFecha(),
+                hecho.getUbicacion().getPais().getPais(),
+                hecho.getUbicacion().getProvincia().getProvincia(),
+                hecho.getUbicacion().getLocalidad().getLocalidad(),
+                null,
+                null,
+                null,
+                null,
+                hecho.getOrigen().name());
+
+        if(!hecho.isAnonimo()){
+            dto.setUsuario(hecho.getContribuyente().getUsuario());
+            dto.setApellido(hecho.getContribuyente().getApellido());
+            dto.setNombre(hecho.getContribuyente().getNombre());
+            dto.setFecha_nacimiento(hecho.getContribuyente().getFecha_nacimiento());
+        }
+        return dto;
+    }
+
+    public ColeccionDTOOutput transformarColeccionADTO(Coleccion coleccion) {
+        CriterioDTO criterio = this.transformarCriterioADTO(coleccion.getCriterio_pertenencia());
+        List<HechoDTO> hechosDTO = new ArrayList<>();
+        for (Hecho hecho: coleccion.getHechos() ) {
+            HechoDTO hechoDTO = this.transformarHechoDTO(hecho);
+            hechosDTO.add(hechoDTO);
+        }
+
+        List<HechoDTO> hechosConsensuadosDTO = new ArrayList<>();
+        for (Hecho hecho: coleccion.getHechosConsensuados() ) {
+            HechoDTO hechoDTO = this.transformarHechoDTO(hecho);
+            hechosConsensuadosDTO.add(hechoDTO);
+        }
+        return new ColeccionDTOOutput(coleccion.getTitulo(), coleccion.getDescripcion(), criterio, hechosDTO, coleccion.getConsenso().toString(),hechosConsensuadosDTO );
     }
     //TODO :REVISAR QUE EL ELIMINAR FUENTE DEBERIA HACERLO PRO LA COMBINACION DE ID Y DE FUENTE
 

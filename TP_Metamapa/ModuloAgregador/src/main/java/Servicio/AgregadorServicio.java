@@ -167,34 +167,89 @@ public class AgregadorServicio {
     public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
         List<Hecho> hechos = new ArrayList<>();
         for (HechoDTOInput hechoDTO : hechosDTO) {
-            Pais pais = new Pais(hechoDTO.getNombre_pais());
-            Provincia provincia = new Provincia(hechoDTO.getNombre_provincia(), pais);
-            Localidad localidad = new Localidad(hechoDTO.getNombre_localidad(), provincia);
-            Categoria categoria = categoriaRepositorio.findByNombre(hechoDTO.getCategoria());
-            if(categoria == null){
-                categoria = new Categoria(hechoDTO.getCategoria());
-                categoriaRepositorio.save(categoria);
-            }
+            Pais pais = this.crearPais(hechoDTO.getNombre_pais());
+            Provincia provincia = this.crearProvincia(hechoDTO.getNombre_provincia(), pais);
+            Localidad localidad = this.crearLocalidad(hechoDTO.getNombre_localidad(), provincia);
+            Categoria categoria = this.crearCategoria(hechoDTO.getCategoria());
+            Ubicacion ubicacion = this.crearUbicacion(hechoDTO.getLatitud(), hechoDTO.getLongitud(), localidad, provincia, pais);
+            Contribuyente contribuyente = this.crearContribuyente(hechoDTO.getUsuario(), hechoDTO.getNombre(), hechoDTO.getApellido(), hechoDTO.getFecha_nacimiento());
             Hecho hecho = new Hecho(
-                    hechoDTO.getIdHecho(),
                     hechoDTO.getIdFuente(),
                     hechoDTO.getTitulo(),
                     hechoDTO.getDescripcion(),
                     new Contenido(hechoDTO.getContenido(), hechoDTO.getContenido_multimedia()),
                     categoria,
                     hechoDTO.getFechaAcontecimiento(),
-                    new Ubicacion(localidad, provincia, pais, hechoDTO.getLatitud(), hechoDTO.getLongitud()),
-                    (hechoDTO.getFechaCarga() != null ? hechoDTO.getFechaCarga() : LocalDate.now()),
+                    ubicacion,
+                    LocalDate.now(),
                     OrigenCarga.valueOf(hechoDTO.getOrigen_carga().toUpperCase()),
-                    (hechoDTO.getVisible() != null ? hechoDTO.getVisible() : true),
-                    (hechoDTO.getUsuario() != null ? new Contribuyente(hechoDTO.getUsuario(), hechoDTO.getNombre(), hechoDTO.getApellido(), hechoDTO.getFecha_nacimiento()) : null),
+                    true,
+                    contribuyente,
                     hechoDTO.getAnonimo() // el ? : funciona como un if(?) y else(:)
             );
+
             hechos.add(hecho);
+
         }
         return hechos;
     }
 
+    public Contribuyente crearContribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
+        if(usuario == null){
+            return null;
+        }
+        Contribuyente contribuyente = contribuyenteRepositorio.findByUsuario(usuario);
+        if(contribuyente == null){
+            contribuyente = new Contribuyente(usuario, nombre, apellido, fechaNacimiento);
+            contribuyenteRepositorio.save(contribuyente);
+        }
+        return contribuyente;
+    }
+
+    public Categoria crearCategoria(String nombre) {
+        Categoria categoria = categoriaRepositorio.findByNombre(nombre);
+        if(categoria == null){
+            categoria = new Categoria(nombre);
+            categoriaRepositorio.save(categoria);
+        }
+        return categoria;
+    }
+
+    public Pais crearPais(String nombre) {
+        Pais pais = paisRepositorio.findByPais(nombre);
+        if(pais == null){
+            pais = new Pais(nombre);
+            paisRepositorio.save(pais);
+        }
+        return pais;
+    }
+
+    public Provincia crearProvincia(String nombre, Pais pais) {
+        Provincia provincia = provinciaRepositorio.findByProvinciaAndPais(nombre, pais);
+        if(provincia == null){
+            provincia = new Provincia(nombre, pais);
+            provinciaRepositorio.save(provincia);
+        }
+        return provincia;
+    }
+
+    public Localidad crearLocalidad(String nombre, Provincia provincia) {
+        Localidad localidad = localidadRepositorio.findByLocalidadAndProvincia(nombre, provincia);
+        if(localidad == null){
+            localidad = new Localidad(nombre, provincia);
+            localidadRepositorio.save(localidad);
+        }
+        return localidad;
+    }
+
+    public Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia, Pais pais) {
+        Ubicacion ubicacion = ubicacionRepositorio.findByLatitudAndLongitud(latitud, longitud);
+        if(ubicacion == null){
+            ubicacion = new Ubicacion(localidad, provincia, pais, latitud, longitud);
+            ubicacionRepositorio.save(ubicacion);
+        }
+        return ubicacion;
+    }
 
     public void actualizarColecciones() {
         try {

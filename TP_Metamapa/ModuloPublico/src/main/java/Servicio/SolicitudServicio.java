@@ -29,7 +29,9 @@ public class SolicitudServicio implements DetectorDeSpam {
         }
         else{
             Solicitud solicitud = new Solicitud(null, fechaSolicitud, motivo, hecho, Estado.SPAM);
+            solicitudRepositorio.save(solicitud);
         }
+
     }
 
 
