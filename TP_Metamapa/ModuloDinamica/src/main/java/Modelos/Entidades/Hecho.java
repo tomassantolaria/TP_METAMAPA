@@ -19,14 +19,14 @@ public class Hecho {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     public Contenido contenido;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     public Categoria categoria;
     public LocalDate fecha;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     public Ubicacion ubicacion;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     public Contribuyente contribuyente;
     public Boolean anonimo;

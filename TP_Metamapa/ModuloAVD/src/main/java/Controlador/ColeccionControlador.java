@@ -33,6 +33,16 @@ public class ColeccionControlador {
         }
     }
 
+    @DeleteMapping("/coleccion/{id_coleccion}/hecho/{id_hecho}")
+    public ResponseEntity<String> eliminarHecho(@PathVariable Long id_coleccion, @PathVariable Long id_hecho) {
+        try {
+            coleccionServicio.eliminarHechoDeColeccion(id_coleccion, id_hecho);
+            return ResponseEntity.status(200).body("Hecho eliminado exitosamente");
+        } catch (Exception e){
+            return ResponseEntity.status(500).body("Error al eliminar el hecho" + e.getMessage());
+        }
+    }
+
     @PutMapping ("/coleccion/{id}/Consenso/{estrategia}")
     public ResponseEntity<String> modificarAlgoritmoConsenso(@PathVariable Long id, @PathVariable String estrategia) {
         try{
@@ -43,13 +53,13 @@ public class ColeccionControlador {
         }
     }
 
-    @PostMapping ("/coleccion/{id}/{fuente}")
-    public ResponseEntity<String> agregarFuente(@PathVariable Long id, @PathVariable Long fuente) {
+    @PostMapping ("/coleccion/{id_coleccion}/fuentes")
+    public ResponseEntity<String>agregarFuente(@RequestBody FuenteDTO fuenteDTO, @PathVariable Long id_coleccion) {
         try{
-            coleccionServicio.agregarFuente(id, fuente);
-            return ResponseEntity.status(200).body("Hechos de la fuente " + fuente + " agregado exitosamente");
+            coleccionServicio.agregarFuente(id_coleccion,fuenteDTO.getIdFuente(), fuenteDTO.getOrigenCarga());
+            return ResponseEntity.status(200).body("Hechos de la fuente " + fuenteDTO.getIdFuente() + "del origen carga: " + fuenteDTO.getOrigenCarga() + "agregado exitosamente");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error al agregar hechos de la fuente " + fuente + ":" + e.getMessage());
+            return ResponseEntity.status(500).body("Error al agregar hechos de la fuente " + fuenteDTO.getIdFuente() + "del origen carga: " + fuenteDTO.getOrigenCarga() + ":" + e.getMessage());
         }
     }
 

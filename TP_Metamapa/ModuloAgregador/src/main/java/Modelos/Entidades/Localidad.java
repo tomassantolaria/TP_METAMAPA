@@ -17,7 +17,7 @@ public class Localidad {
     private Long idLocalidad;
 
     public Localidad(String nombre_Localidad, Provincia provincia) {
-        this.nombre_localidad = nombre_Localidad;
+        this.localidad = nombre_Localidad;
         this.provincia = provincia;
     }
 

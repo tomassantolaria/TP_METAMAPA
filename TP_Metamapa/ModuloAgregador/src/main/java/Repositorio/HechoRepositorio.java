@@ -73,9 +73,9 @@ Long cantidadDeFuentesConHecho(
             "AND (:fechaHechoHasta IS NULL OR h.fecha <= :fechaHechoHasta) " +
             "AND (:origenCarga IS NULL OR h.origen_carga = :origenCarga) " +
             "AND (:titulo IS NULL OR h.titulo LIKE %:titulo%) " +
-            "AND (:pais IS NULL OR h.ubicacion.pais.nombre_pais = :pais) " +
-            "AND (:provincia IS NULL OR h.ubicacion.provincia.nombre_provincia = :provincia) " +
-            "AND (:localidad IS NULL OR h.ubicacion.localidad.nombre_localidad = :localidad)")
+            "AND (:pais IS NULL OR h.ubicacion.pais.pais = :pais) " +
+            "AND (:provincia IS NULL OR h.ubicacion.provincia.provincia = :provincia) " +
+            "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)")
     List<Hecho> filtrarHechos(
             @Param("categoria") String categoria,
             @Param("contenidoMultimedia") Boolean contenidoMultimedia,

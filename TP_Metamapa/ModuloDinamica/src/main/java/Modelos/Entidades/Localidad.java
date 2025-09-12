@@ -13,14 +13,14 @@ public class Localidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLocalidad;
-    String nombre_localidad;
+    String localidad;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     Provincia provincia;
 
 
     public Localidad(String nombre_localidad, Provincia provincia) {
-        this.nombre_localidad = nombre_localidad;
+        this.localidad = nombre_localidad;
         this.provincia = provincia;
     }
 

@@ -4,9 +4,7 @@ import Modelos.Entidades.DTOs.HechoDTOInput;
 import Modelos.Entidades.*;
 import Modelos.Entidades.DTOs.UbicacionDTOInput;
 import Modelos.Entidades.DTOs.UbicacionDTOOutput;
-import Repositorio.CategoriaRepositorio;
-import Repositorio.ColeccionRepositorio;
-import Repositorio.HechoRepositorio;
+import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -33,17 +31,27 @@ public class AgregadorServicio {
     ColeccionRepositorio coleccionRepositorio;
     @Autowired
     CategoriaRepositorio categoriaRepositorio;
+    @Autowired
+    ProvinciaRepositorio provinciaRepositorio;
+    @Autowired
+    PaisRepositorio paisRepositorio;
+    @Autowired
+    LocalidadRepositorio localidadRepositorio;
+    @Autowired
+    UbicacionRepositorio ubicacionRepositorio;
+    @Autowired
+    ContribuyenteRepositorio contribuyenteRepositorio;
 
     public void actualizarHechos() {
         //Las URL tiene que tener este formato fromHttpUrl
         UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/dinamica/hechos"); // cambiar nombre url
-
+/*
         UriComponentsBuilder urlDemo = UriComponentsBuilder.fromPath("http://demo/hechos");
 
         UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromPath("http://fuenteEstatica/hechos");
 
         UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromPath("http://metamapa/hechos");
-
+*/
         ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
                 urlDinamica.toUriString(),
                 HttpMethod.GET,
@@ -52,7 +60,7 @@ public class AgregadorServicio {
                 }
         );
 
-
+/*
         ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
                 urlDemo.toUriString(),
                 HttpMethod.GET,
@@ -77,21 +85,21 @@ public class AgregadorServicio {
                 new ParameterizedTypeReference<>() {
                 }
         );
-
+*/
         List<HechoDTOInput> hechosDTOTotales = new ArrayList<>();
         // Cambiar el HECHOdtoOutput de las distintas fuentes
 
-
+/*
         if (!respuestaDemo.getBody().isEmpty()) {
             List<HechoDTOInput> hechosDemo = this.setearOrigenCarga(respuestaDemo.getBody(), OrigenCarga.FUENTE_PROXY);
             hechosDTOTotales.addAll(hechosDemo) ;
         }
-
+*/
         if (!respuestaDinamica.getBody().isEmpty()) {
             List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
             hechosDTOTotales.addAll(hechosDinamica);
         }
-
+/*
         if (!respuestaEstatica.getBody().isEmpty()) {
             List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
             hechosDTOTotales.addAll(hechosEstatica) ;
@@ -101,7 +109,7 @@ public class AgregadorServicio {
             List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
             hechosDTOTotales.addAll(hechosMetamapa) ;
         }
-
+*/
         // CONSUMIR API DE GOOGLE PARA OBTENER UBICACION MEDIANTE LA LATITUD Y LONGITUD O QUE LO HAGA CADA FUENTE
 
         UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromPath("http://localhost:8082/normalizacion/categorias");
@@ -209,9 +217,9 @@ public class AgregadorServicio {
                 coleccion.getCriterio_pertenencia().getFecha_acontecimiento_hasta(),
                 coleccion.getCriterio_pertenencia().getOrigen_carga().toString(),
                 coleccion.getCriterio_pertenencia().getTitulo(),
-                (coleccion.getCriterio_pertenencia().getUbicacion().getLocalidad().getNombre_localidad()),
-                (coleccion.getCriterio_pertenencia().getUbicacion().getProvincia().getNombre_provincia()),
-                (coleccion.getCriterio_pertenencia().getUbicacion().getPais().getNombre_pais())
+                (coleccion.getCriterio_pertenencia().getUbicacion().getLocalidad().getLocalidad()),
+                (coleccion.getCriterio_pertenencia().getUbicacion().getProvincia().getProvincia()),
+                (coleccion.getCriterio_pertenencia().getUbicacion().getPais().getPais())
         );
 
         Set<Long> idsExistentes = coleccion.getHechos()

@@ -9,10 +9,11 @@ import lombok.Getter;
 public class Pais {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPais;
-    String nombre_pais;
+
+    String pais;
 
     public Pais(String nombre_pais) {
-        this.nombre_pais = nombre_pais;
+        this.pais = nombre_pais;
     }
 
     public Pais() {}
