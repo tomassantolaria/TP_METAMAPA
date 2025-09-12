@@ -19,7 +19,7 @@ public class EstaticaController {
     @GetMapping("/hechos")
     public ResponseEntity<?> devolverHechos() {
         List<HechoDTO> hechos = new ArrayList<>();
-        hechos = fuenteEstatica.getHechos();
+        hechos = fuenteEstatica.getHechosNoEnviados();
         if (hechos.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No hay hechos disponibles");
         }

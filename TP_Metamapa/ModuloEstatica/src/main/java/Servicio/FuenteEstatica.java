@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import Modelos.Entidades.HechoCSV;
 import Repositorio.HechosRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 
@@ -20,10 +22,10 @@ import lombok.Setter;
 @Service
 public class FuenteEstatica {
 
+    @Autowired
     HechosRepositorio repositorio;
     private Date ultimaFechaCarga;
     private static FuenteEstatica instance;
-//  private File carpeta = new File("ArchivosCSV");
     private Importador importador = new ImportadorFileServerLocal();
 
     private FuenteEstatica() {
@@ -50,7 +52,7 @@ public class FuenteEstatica {
                     guardarHechos(hechosCSV,nuevoArchivo);
                 }
                 else {
-                    hechosCSV = hechosCSV.stream().filter(hecho -> repositorio.noExisteHecho(hecho, archivo.getId())).toList();
+                    hechosCSV = hechosCSV.stream().filter(hecho -> repositorio.noExisteHecho( archivo.getId(), hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getLatitud(), hecho.getLongitud(), hecho.getFechaAcontecimiento())).toList();
                     guardarHechos(hechosCSV,archivo);
                 }
             }
@@ -73,9 +75,17 @@ public class FuenteEstatica {
            return false;
         }
     }
-    public List<HechoDTO> getHechos () {
+
+    @Transactional
+    public List<Hecho> obtenerNoEnviados() {
+        List<Hecho> hechosNoEnviados = repositorio.findAllByProcesadoFalse();
+        hechosNoEnviados.forEach(h -> h.setProcesado(true));
+        return hechosNoEnviados;
+    }
+
+    public List<HechoDTO> getHechosNoEnviados() {
         List<HechoDTO> hechosDTO = new ArrayList<>();
-        List<Hecho> hechos = repositorio.allHechosNoEnviados();
+        List<Hecho> hechos = obtenerNoEnviados();
         for (Hecho hecho : hechos ) {
             hechosDTO.add(convertToDTO(hecho));
         }
@@ -83,20 +93,19 @@ public class FuenteEstatica {
     }
 
     private HechoDTO convertToDTO(Hecho hecho) {
-        return new HechoDTO(hecho.getTitulo(), hecho.getDescripcion(), hecho.getFuente().getId(),hecho.getCategoria(), hecho.getFechaAcontecimiento(), hecho.getLatitud(),  hecho.getLongitud());
+        return new HechoDTO(hecho.getTitulo(), hecho.getDescripcion(), hecho.getArchivo().getId(),hecho.getCategoria(), hecho.getFechaAcontecimiento(), hecho.getLatitud(),  hecho.getLongitud());
     }
-    private void guardarHechos(List<HechoCSV> hechosCSV, Archivo path) {
+    private void guardarHechos(List<HechoCSV> hechosCSV, Archivo archivo) {
         for (HechoCSV hechoCSV : hechosCSV) {
-            Hecho hecho = convertToHecho(hechoCSV, path);
+            Hecho hecho = convertToHecho(hechoCSV, archivo);
             // AGREGUE VERIFICACION DE FECHA !!!!!
             if (hecho.getFechaAcontecimiento().isBefore(LocalDate.now()) || hecho.getFechaAcontecimiento().isEqual(LocalDate.now())) {
-                repositorio.addHecho(hecho);
+                repositorio.save(hecho); // esto era un addHecho(Hecho)
             }
-
         }
     }
-    private Hecho convertToHecho(HechoCSV hechoCSV, Archivo path) {
-        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), path, hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(), hechoCSV.getLongitud(), false);
+    private Hecho convertToHecho(HechoCSV hechoCSV, Archivo archivo) {
+        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), archivo, hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(), hechoCSV.getLongitud(), false);
     }
 }
 

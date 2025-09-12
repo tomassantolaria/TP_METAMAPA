@@ -1,30 +1,35 @@
 package Modelos.Entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+
+@Entity
 @Getter
 @Setter
+@Table(name = "Hecho")
 public class Hecho {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; //Cambiar a long
 
     private String titulo;
     private String descripcion;
-    private Archivo fuente; // ID
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "archivo_id", referencedColumnName="id")
+    private Archivo archivo; // ID
     private String categoria;
     private Double latitud;
     private Double longitud;
     private LocalDate fechaAcontecimiento;
     private Boolean procesado;
 
-    public Hecho(String titulo, String descripcion,  Archivo fuente, String categoria, LocalDate fechaAcontecimiento,  Double longitud, Double latitud, Boolean procesado) {
+    public Hecho(String titulo, String descripcion,  Archivo archivo, String categoria, LocalDate fechaAcontecimiento,  Double longitud, Double latitud, Boolean procesado) {
         this.titulo = titulo;
         this.longitud = longitud;
-        this.fuente = fuente;
+        this.archivo = archivo;
         this.fechaAcontecimiento = fechaAcontecimiento;
         this.latitud = latitud;
         this.categoria = categoria;
@@ -32,4 +37,8 @@ public class Hecho {
         this.procesado = procesado;
     }
 
+
+    public Hecho() {
+
+    }
 }
