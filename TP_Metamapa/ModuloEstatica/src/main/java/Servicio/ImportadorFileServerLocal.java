@@ -1,6 +1,7 @@
 package Servicio;
 
 import Modelos.Entidades.*;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service("fileServerImportador")
 public class ImportadorFileServerLocal implements Importador{
     private File carpeta = new File("ArchivosCSV");
     @Override

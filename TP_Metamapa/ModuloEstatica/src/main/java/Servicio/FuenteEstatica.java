@@ -10,7 +10,9 @@ import java.util.ArrayList;
 
 import Modelos.Entidades.HechoCSV;
 import Repositorio.HechosRepositorio;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.Date;
@@ -20,23 +22,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Service
+@RequiredArgsConstructor
 public class FuenteEstatica {
 
     @Autowired
     HechosRepositorio repositorio;
     private Date ultimaFechaCarga;
     private static FuenteEstatica instance;
-    private Importador importador = new ImportadorFileServerLocal();
+    private Importador importador ;
 
-    private FuenteEstatica() {
+    public FuenteEstatica(@Qualifier("fileServerImportador") Importador importador,
+                          HechosRepositorio repositorio) {
+        this.importador = importador;
+        this.repositorio = repositorio;
     }
 
-    public static FuenteEstatica getInstance() {
-        if (instance == null) {
-            instance = new FuenteEstatica();
-        }
-        return instance;
-    }
 
     public void cargarHechos() throws  Exception {
         try {
@@ -79,7 +79,9 @@ public class FuenteEstatica {
     @Transactional
     public List<Hecho> obtenerNoEnviados() {
         List<Hecho> hechosNoEnviados = repositorio.findAllByProcesadoFalse();
-        hechosNoEnviados.forEach(h -> h.setProcesado(true));
+        hechosNoEnviados.forEach(h -> {
+            h.setProcesado(true);
+            repositorio.save(h);});
         return hechosNoEnviados;
     }
 
