@@ -1,0 +1,36 @@
+# Carpetas generadas por Maven en cualquier módulo
+**/target/
+
+# Archivos de IDE
+*.iml
+*.idea/
+*.classpath
+*.class
+*.project
+*.settings/
+*.iws
+*.ipr
+
+# Logs y archivos temporales
+*.log
+*.tmp
+*.out
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Maven
+target/
+*.jar
+*.war
+*.ear
+
+# Archivos temporales
+*.lst
+*.bak
+*.swp
+
+# Archivos generados por Maven
+dependency-reduced-pom.xml
+buildNumber.properties
