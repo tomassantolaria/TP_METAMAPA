@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idUbicacion;
+    private Long idUbicacion;
     @ManyToOne()
     @JoinColumn()
     Localidad localidad;

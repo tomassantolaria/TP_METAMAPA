@@ -112,23 +112,28 @@ public class AgregadorServicio {
 */
         // CONSUMIR API DE GOOGLE PARA OBTENER UBICACION MEDIANTE LA LATITUD Y LONGITUD O QUE LO HAGA CADA FUENTE
 
-        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromPath("http://localhost:8082/normalizacion/categorias");
-        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromPath("http://localhost:8082/normalizacion/ubicaciones");
-        UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromPath("http://localhost:8082/normalizacion/titulos");
+        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/normalizacion/categorias");
+        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/normalizacion/ubicaciones");
+        UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/normalizacion/titulos");
 
         for (HechoDTOInput hechoDTO: hechosDTOTotales){
 
             //CATEEGORIAAAAAA
+
             String categoriaRequest = hechoDTO.getCategoria();
-            ResponseEntity<Categoria> categoriaResponse = restTemplate.exchange(
+            System.out.printf("Categoria desnormalizada: %s", categoriaRequest);
+
+            ResponseEntity<String> categoriaResponse = restTemplate.exchange(
                     urlCategoria.toUriString(),
                     HttpMethod.POST,
                     new HttpEntity<>(categoriaRequest),
-                    Categoria.class
+                    String.class
             );
-            Categoria categoriaNormalizada = categoriaResponse.getBody();
+            String categoriaNormalizada = categoriaResponse.getBody();
+            System.out.printf("Categoria Normalizada: %s", categoriaNormalizada ) ;
+
             if (categoriaNormalizada != null) {
-                hechoDTO.setCategoria(categoriaNormalizada.getNombre()); // solo guardamos el nombre
+                hechoDTO.setCategoria(categoriaNormalizada); // solo guardamos el nombre
             }
 
             //UBICACIOOOOONN
@@ -141,8 +146,11 @@ public class AgregadorServicio {
                     UbicacionDTOInput.class
             );
             hechoDTO.setNombre_pais(UbicacionNormalizada.getBody().getPais());
+            System.out.printf("Pais normalizado: %s", UbicacionNormalizada.getBody().getPais());
             hechoDTO.setNombre_provincia(UbicacionNormalizada.getBody().getProvincia());
+            System.out.printf("provincia normalizado: %s", UbicacionNormalizada.getBody().getProvincia());
             hechoDTO.setNombre_localidad(UbicacionNormalizada.getBody().getLocalidad());
+            System.out.printf("localidad normalizado: %s", UbicacionNormalizada.getBody().getLocalidad());
 
             //TITULOOO
             String tituloRequest = hechoDTO.getTitulo();
@@ -160,7 +168,7 @@ public class AgregadorServicio {
 
         List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
         hechoRepositorio.saveAll(hechos); // los guarda en la BD asignandoles un ID
-        this.actualizarColecciones();
+        //this.actualizarColecciones();
 
     }
 

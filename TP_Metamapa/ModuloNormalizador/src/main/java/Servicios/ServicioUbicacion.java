@@ -1,9 +1,6 @@
 package Servicios;
 
-import Modelos.Localidad;
-import Modelos.Provincia;
-import Modelos.Pais;
-import Modelos.Ubicacion;
+import Modelos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,7 +12,7 @@ public class ServicioUbicacion {
 
     private static final String NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
 
-    public Ubicacion normalizarUbicacion (Double latitud, Double longitud) {
+    public UbicacionDTOoutput normalizarUbicacion (Double latitud, Double longitud) {
 
         RestTemplate restTemplate = new RestTemplate();
         Ubicacion ubicacion = new Ubicacion();
@@ -44,7 +41,8 @@ public class ServicioUbicacion {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return ubicacion;
+        UbicacionDTOoutput ubicacionDTOoutput = new UbicacionDTOoutput(ubicacion.getPais().getNombre_pais(), ubicacion.getProvincia().getNombre_provincia(), ubicacion.getLocalidad().getNombre_localidad(), ubicacion.getLatitud(), ubicacion.getLongitud());
+        return ubicacionDTOoutput;
     }
 }
 

@@ -15,7 +15,7 @@ import java.util.List;
 public class HechoControlador {
 
     @Autowired
-    HechoServicio hechoServicio;
+     HechoServicio hechoServicio;
 
     @PostMapping("/hechos")
     public ResponseEntity<String> crearHecho(@RequestBody HechoDTOInput hechoDTO) {

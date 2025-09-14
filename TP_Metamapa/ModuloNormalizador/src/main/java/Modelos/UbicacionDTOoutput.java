@@ -1,11 +1,11 @@
-package Modelos.Entidades.DTOs;
+package Modelos;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UbicacionDTOInput {
+public class UbicacionDTOoutput {
 
     private String pais;
     private String provincia;
@@ -14,7 +14,7 @@ public class UbicacionDTOInput {
     private Double longitud;
 
 
-    public UbicacionDTOInput(String pais, String provicia, String localidad, Double latitud, Double longitud) {
+    public UbicacionDTOoutput(String pais, String provicia, String localidad, Double latitud, Double longitud) {
         this.pais = pais;
         this.provincia = provicia;
         this.localidad = localidad;
@@ -22,5 +22,5 @@ public class UbicacionDTOInput {
         this.longitud = longitud;
     }
 
-    public UbicacionDTOInput() {}
+    public UbicacionDTOoutput() {}
 }

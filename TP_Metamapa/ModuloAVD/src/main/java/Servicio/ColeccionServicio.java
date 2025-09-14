@@ -56,10 +56,10 @@ public class ColeccionServicio {
         LocalDate fecha_acontecimiento_desde = coleccionDTO.getCriterio().getFecha_acontecimiento_desde();
         LocalDate fecha_acontecimiento_hasta = coleccionDTO.getCriterio().getFecha_acontecimiento_hasta();
         OrigenCarga origen = OrigenCarga.valueOf(coleccionDTO.getCriterio().getOrigen_carga());
-        CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
+        CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getCriterio().getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
         Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
-        this.avisarAgregador(coleccion.getId());
+        //this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
 
@@ -67,6 +67,7 @@ public class ColeccionServicio {
 
 
     public Categoria crearCategoria(String nombre) {
+        if (nombre == null) return null;
         Categoria categoria = categoriaRepositorio.findByNombre(nombre);
         if(categoria == null){
             categoria = new Categoria(nombre);
@@ -76,6 +77,7 @@ public class ColeccionServicio {
     }
 
     public Pais crearPais(String nombre) {
+        if (nombre == null) return null;
         Pais pais = paisRepositorio.findByPais(nombre);
         if(pais == null){
             pais = new Pais(nombre);
@@ -85,6 +87,7 @@ public class ColeccionServicio {
     }
 
     public Provincia crearProvincia(String nombre, Pais pais) {
+        if (nombre == null) return null;
         Provincia provincia = provinciaRepositorio.findByProvinciaAndPais(nombre, pais);
         if(provincia == null){
             provincia = new Provincia(nombre, pais);
@@ -94,6 +97,7 @@ public class ColeccionServicio {
     }
 
     public Localidad crearLocalidad(String nombre, Provincia provincia) {
+        if (nombre == null) return null;
         Localidad localidad = localidadRepositorio.findByLocalidadAndProvincia(nombre, provincia);
         if(localidad == null){
             localidad = new Localidad(nombre, provincia);
@@ -103,6 +107,7 @@ public class ColeccionServicio {
     }
 
     public Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia, Pais pais) {
+        if (pais == null) return null;
         Ubicacion ubicacion = ubicacionRepositorio.findByLocalidadAndProvinciaAndPais(localidad, provincia, pais);
         if(ubicacion == null){
             ubicacion = new Ubicacion(localidad, provincia, pais, latitud, longitud);

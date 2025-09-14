@@ -11,16 +11,14 @@ import lombok.Setter;
 public class Contenido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idContenido;
+    private Long idContenido;
     private String texto;
     private String contenido_multimedia;
-
-    public Contenido(){
-
-    }
 
     public Contenido(String texto, String contenido_multimedia){
         this.texto = texto;
         this.contenido_multimedia = contenido_multimedia;
     }
+
+    public Contenido(){}
 }

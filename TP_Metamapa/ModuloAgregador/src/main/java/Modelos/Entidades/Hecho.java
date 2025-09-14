@@ -22,7 +22,7 @@ public class Hecho{
     private String titulo;
     private String descripcion;
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     private Contenido contenido;
 

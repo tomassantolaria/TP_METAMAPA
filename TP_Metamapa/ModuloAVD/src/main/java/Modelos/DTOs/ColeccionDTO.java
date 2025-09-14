@@ -17,4 +17,6 @@ public class ColeccionDTO {
         this.descripcion = descripcion;
         this.criterio = criterio;
     }
+
+    public ColeccionDTO() {}
 }

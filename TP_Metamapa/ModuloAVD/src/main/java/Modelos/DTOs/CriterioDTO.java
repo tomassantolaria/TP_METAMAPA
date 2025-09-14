@@ -35,4 +35,6 @@ public class CriterioDTO {
         this.fecha_acontecimiento_hasta = fecha_acontecimiento_hasta;
         this.origen_carga = origen_carga;
     }
+
+    public CriterioDTO(){}
 }

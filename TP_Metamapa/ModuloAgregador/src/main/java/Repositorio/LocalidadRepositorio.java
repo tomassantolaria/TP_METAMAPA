@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LocalidadRepositorio extends JpaRepository<Localidad, Integer> {
+public interface LocalidadRepositorio extends JpaRepository<Localidad, Long> {
     Localidad findByLocalidadAndProvincia(String nombre_localidad, Provincia provincia);
 
 }

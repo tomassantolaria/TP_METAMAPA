@@ -12,8 +12,9 @@ public class ServicioCategoria {
         this.repositorioCategoria = repositorioCategoria;
     }
 
-    public Categoria normalizarCategoria(String nombre_categoria) {
+    public String normalizarCategoria(String nombre_categoria) {
         nombre_categoria = nombre_categoria.toUpperCase();
-        return repositorioCategoria.crearCategoria(nombre_categoria);
+        repositorioCategoria.crearCategoria(nombre_categoria);
+        return nombre_categoria;
     }
 }

@@ -3,6 +3,7 @@ package Controlador;
 import Modelos.Categoria;
 import Modelos.Ubicacion;
 import Modelos.UbicacionDTO;
+import Modelos.UbicacionDTOoutput;
 import Servicios.ServicioCategoria;
 import Servicios.ServicioTitulo;
 import Servicios.ServicioUbicacion;
@@ -27,14 +28,14 @@ public class Controlador {
 
     // LAS CATEGORIAS Y UBICACIONES SON REQUEST BODY
     @PostMapping ("/categorias" )
-    public ResponseEntity<Categoria> normalizarCategoria(@RequestBody String categoria) {
-        Categoria categoria_normalizada= servicioCategoria.normalizarCategoria(categoria);
+    public ResponseEntity<String> normalizarCategoria(@RequestBody String categoria) {
+        String categoria_normalizada= servicioCategoria.normalizarCategoria(categoria);
         return ResponseEntity.ok(categoria_normalizada);
     }
 
     @PostMapping("/ubicaciones")
-    public ResponseEntity<Ubicacion> normalizarUbicacion(@RequestBody UbicacionDTO ubicacion) {
-        Ubicacion ubicacion_normalizada = servicioUbicacion.normalizarUbicacion(ubicacion.getLatitud(), ubicacion.getLongitud());
+    public ResponseEntity<UbicacionDTOoutput> normalizarUbicacion(@RequestBody UbicacionDTO ubicacion) {
+        UbicacionDTOoutput ubicacion_normalizada = servicioUbicacion.normalizarUbicacion(ubicacion.getLatitud(), ubicacion.getLongitud());
         return ResponseEntity.ok(ubicacion_normalizada);
     }
 
