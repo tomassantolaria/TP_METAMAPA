@@ -23,14 +23,14 @@ public class ServicioUbicacion {
             JsonNode root = mapper.readTree(response);
             JsonNode address = root.path("address");
 
-            Pais pais = new Pais(address.path("country").asText().toUpperCase());
-            Provincia provincia = new Provincia(address.path("state").asText().toUpperCase(), pais);
+            Pais pais = new Pais(capitalizarCadaPalabra(address.path("country").asText()));
+            Provincia provincia = new Provincia(capitalizarCadaPalabra(address.path("state").asText()), pais );
 
             String ciudad = address.path("city").asText();
             if (ciudad == null){
                 ciudad = address.path("town").asText();
             }
-            Localidad localidad = new Localidad(ciudad.toUpperCase(), provincia);
+            Localidad localidad = new Localidad(capitalizarCadaPalabra(ciudad), provincia);
 
             ubicacion.setPais(pais);
             ubicacion.setProvincia(provincia);
@@ -43,6 +43,21 @@ public class ServicioUbicacion {
         }
         UbicacionDTOoutput ubicacionDTOoutput = new UbicacionDTOoutput(ubicacion.getPais().getNombre_pais(), ubicacion.getProvincia().getNombre_provincia(), ubicacion.getLocalidad().getNombre_localidad(), ubicacion.getLatitud(), ubicacion.getLongitud());
         return ubicacionDTOoutput;
+    }
+
+    private String capitalizarCadaPalabra(String texto) {
+        if (texto == null || texto.isBlank()) return texto;
+
+        String[] palabras = texto.trim().toLowerCase().split("\\s+");
+        StringBuilder resultado = new StringBuilder();
+
+        for (String palabra : palabras) {
+            resultado.append(Character.toUpperCase(palabra.charAt(0)))
+                    .append(palabra.substring(1))
+                    .append(" ");
+        }
+
+        return resultado.toString().trim();
     }
 }
 

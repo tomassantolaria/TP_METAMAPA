@@ -13,6 +13,7 @@ public class Localidad {
     @ManyToOne()
     @JoinColumn()
     Provincia provincia;
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLocalidad;
 

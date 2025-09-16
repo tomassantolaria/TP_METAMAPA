@@ -278,7 +278,7 @@ public class AgregadorServicio {
                 coleccion.getCriterio_pertenencia().getFecha_carga_hasta(),
                 coleccion.getCriterio_pertenencia().getFecha_acontecimiento_desde(),
                 coleccion.getCriterio_pertenencia().getFecha_acontecimiento_hasta(),
-                coleccion.getCriterio_pertenencia().getOrigen_carga().toString(),
+                coleccion.getCriterio_pertenencia().getOrigen().toString(),
                 coleccion.getCriterio_pertenencia().getTitulo(),
                 (coleccion.getCriterio_pertenencia().getUbicacion().getLocalidad().getLocalidad()),
                 (coleccion.getCriterio_pertenencia().getUbicacion().getProvincia().getProvincia()),

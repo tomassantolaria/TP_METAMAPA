@@ -40,7 +40,7 @@ public class Hecho{
 
     @Enumerated(EnumType.STRING)
     @Column()
-    private OrigenCarga origen_carga; //enum
+    private OrigenCarga origen; //enum
 
     private boolean visible ;
 
@@ -64,7 +64,7 @@ public class Hecho{
         this.fecha = unaFechaOcurrencia;
         this.ubicacion = unaUbicacion;
         this.fecha_carga = unaFechaCarga;
-        this.origen_carga = unOrigen;
+        this.origen = unOrigen;
         this.visible = estaVisible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;

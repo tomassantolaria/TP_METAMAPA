@@ -14,7 +14,22 @@ public class ServicioCategoria {
 
     public String normalizarCategoria(String nombre_categoria) {
         nombre_categoria = nombre_categoria.toUpperCase();
-        repositorioCategoria.crearCategoria(nombre_categoria);
-        return nombre_categoria;
+        Categoria categoriaNormalizada = repositorioCategoria.crearCategoria(nombre_categoria);
+        return capitalizarCadaPalabra(categoriaNormalizada.getNombre_categoria());
+    }
+
+    private String capitalizarCadaPalabra(String texto) {
+        if (texto == null || texto.isBlank()) return texto;
+
+        String[] palabras = texto.trim().toLowerCase().split("\\s+");
+        StringBuilder resultado = new StringBuilder();
+
+        for (String palabra : palabras) {
+            resultado.append(Character.toUpperCase(palabra.charAt(0)))
+                    .append(palabra.substring(1))
+                    .append(" ");
+        }
+
+        return resultado.toString().trim();
     }
 }

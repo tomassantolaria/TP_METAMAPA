@@ -22,7 +22,8 @@ public class Coleccion {
     private Long id;
     private String titulo;
     private String descripcion;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @OneToOne()
     @JoinColumn()
     private CriteriosDePertenencia criterio_pertenencia;
 
