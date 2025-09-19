@@ -31,9 +31,10 @@ public class Hecho {
     public Contribuyente contribuyente;
     public Boolean anonimo;
     public Boolean visible;
+    public Boolean publicado;
 
     public Hecho(Long idHecho, Long idfuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, boolean visible) {
+                 Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, Boolean visible, Boolean publicado) {
         this.idHecho = idHecho;
         this.idfuente = idfuente;
         this.titulo = unTitulo;
@@ -45,6 +46,7 @@ public class Hecho {
         this.visible = visible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;
+        this.publicado = publicado;
     }
 
     public Hecho() {}

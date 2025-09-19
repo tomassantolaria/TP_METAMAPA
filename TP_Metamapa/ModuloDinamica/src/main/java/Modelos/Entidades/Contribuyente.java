@@ -12,7 +12,9 @@ import java.time.LocalDate;
 @Table(name = "Contribuyente")
 public class Contribuyente {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     public String usuario;
     public String nombre;
     public String apellido;

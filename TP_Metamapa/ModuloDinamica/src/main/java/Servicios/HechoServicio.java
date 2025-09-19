@@ -4,7 +4,7 @@ import Modelos.HechoDTO;
 import Modelos.HechoDTOInput;
 import Repositorios.*;
 import Modelos.Entidades.*;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -37,11 +37,11 @@ public class HechoServicio {
         Localidad localidad = this.crearLocalidad(dto.getLocalidad(), provincia);
         Ubicacion ubicacion = this.crearUbicacion(dto.getLatitud(), dto.getLongitud(), localidad, provincia, pais);
         LocalDate fechaOcurrencia =  dto.getFechaAcontecimiento();
-        Contribuyente contribuyente = contribuyenteRepositorio.findById(dto.getUsuario()).orElseThrow( () -> new RuntimeException("El contribuyente debe registrarse antes de crear un hecho."));
+        Contribuyente contribuyente = this.crearContribuyente(dto.getUsuario());
         boolean anonimo = dto.getAnonimo();
 
-        Hecho hecho = new Hecho(null,null, dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
-                                contribuyente, anonimo, true);
+        Hecho hecho = new Hecho(null,contribuyente.getId(), dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
+                                contribuyente, anonimo, true, false);
         hechoRepositorio.save(hecho);
     }
 
@@ -52,6 +52,14 @@ public class HechoServicio {
             categoriaRepositorio.save(categoria);
         }
         return categoria;
+    }
+
+    public Contribuyente crearContribuyente( String usuario){
+        Contribuyente contribuyente = contribuyenteRepositorio.findByUsuario(usuario);
+        if(contribuyente == null){
+            throw new RuntimeException("No existe el contribuyente con el usuario " + usuario + "debe registrarse antes de crear un hecho") ;
+        }
+        return contribuyente;
     }
 
     public Pais crearPais(String nombre) {
@@ -90,9 +98,11 @@ public class HechoServicio {
         return ubicacion;
     }
 
-
+    @Transactional
     public List<HechoDTO> obtenerHechos() {
-        List<Hecho> hechos = hechoRepositorio.findAll();
+        List<Hecho> hechos = hechoRepositorio.findByPublicadoFalse();
+        hechos.forEach(h -> h.setPublicado(true));
+        hechoRepositorio.saveAll(hechos);
         return transformarADTOLista(hechos);
     }
 
