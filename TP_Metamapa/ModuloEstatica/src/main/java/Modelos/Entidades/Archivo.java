@@ -15,11 +15,9 @@ public class Archivo {
 
     private String path;
 
-    public Archivo (String path) {
-        this.path = path;
-    }
 
     public Archivo () {
 
     }
+
 }

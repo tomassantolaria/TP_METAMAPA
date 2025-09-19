@@ -16,6 +16,7 @@ public class EstaticaScheduler {
 
     @Scheduled(cron = "0 0 4 * * ?")
     public void actualizarHechos() {
+        System.out.println("Actualizando hechos...");
         try {
             fuenteEstatica.cargarHechos();
         }

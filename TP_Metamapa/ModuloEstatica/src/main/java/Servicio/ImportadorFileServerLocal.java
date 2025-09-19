@@ -1,6 +1,7 @@
 package Servicio;
 
 import Modelos.Entidades.*;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -10,19 +11,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-@Service("fileServerImportador")
+@Component("ImportadorFileServerLocal")
+@Service
 public class ImportadorFileServerLocal implements Importador{
-    private File carpeta = new File("ArchivosCSV");
+    final private File carpeta = new File("src/main/resources/datos/Fuentes_de_hechos/");
     @Override
-    public List<HechoCSV> getHechoFromFile(String ruta) throws Exception{
+    public List<HechoCSV> getHechoFromFile(String ruta) throws Exception {
+        System.out.println("EXTRAYENDO HECHOS DE" + ruta);
         HechosCSV hechos = new HechosCSV();
-        List<Hecho> hechosRepo= new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(ruta));
         String linea;
         br.readLine(); // Saltar encabezado
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         while ((linea = br.readLine()) != null) {
-            String[] campos = linea.split(",");
+            String[] campos = linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
             HechoCSV hecho = HechoCSV.getInstance(
                     campos[0], // Título
                     campos[1], // Descripción
@@ -41,10 +43,16 @@ public class ImportadorFileServerLocal implements Importador{
      @Override
     public List<String> getPaths() throws Exception {
         List<String> paths = new ArrayList<>();
+         System.out.println("CARPETA EXISTE :"+ carpeta.exists());
+         System.out.println("CARPETA es DIRECTORIO :"+ carpeta.isDirectory());
             if(carpeta.exists() && carpeta.isDirectory()) {
-                if(carpeta.listFiles() != null) {
-                    for (File archivo : carpeta.listFiles()) {
+                System.out.println("CARPETA EXISTE Y ES DIRECTORIO");
+                File[] archivos = carpeta.listFiles();
+                if(archivos != null) {
+                    System.out.println("tiene archivos");
+                    for (File archivo : archivos){
                         if (archivo.isFile()) { // solo archivos, no subdirectorios
+                            System.out.println(archivo.getName());
                             paths.add(archivo.getAbsolutePath());
                         }
                     }

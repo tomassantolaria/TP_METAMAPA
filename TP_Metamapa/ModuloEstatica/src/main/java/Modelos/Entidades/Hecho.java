@@ -17,8 +17,8 @@ public class Hecho {
 
     private String titulo;
     private String descripcion;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "archivo_id", referencedColumnName="id")
+    @ManyToOne()
+    @JoinColumn
     private Archivo archivo; // ID
     private String categoria;
     private Double latitud;

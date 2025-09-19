@@ -17,36 +17,36 @@ public interface HechosRepositorio extends JpaRepository<Hecho, Long> {
     List<Hecho> findAllByProcesadoFalse();
 
     @Query("""
-    SELECT CASE WHEN COUNT(h) > 0 THEN false ELSE true END
+    SELECT COUNT(*)
     FROM Hecho h
     WHERE h.archivo.id = :id
-      AND h.titulo = :titulo
-      AND h.descripcion = :descripcion
-      AND h.categoria = :categoria
+      AND LOWER(TRIM(h.titulo)) = LOWER(TRIM(:titulo))
+      AND LOWER(TRIM(h.descripcion)) = LOWER(TRIM(:descripcion))
+      AND LOWER(TRIM(h.categoria)) = LOWER(TRIM(:categoria))
       AND h.latitud = :latitud
       AND h.longitud = :longitud
       AND h.fechaAcontecimiento = :fechaAcontecimiento
     """)
 
-    Boolean noExisteHecho(
+    Integer noExisteHecho(
             @Param("id") Long id,
             @Param("titulo") String titulo,
             @Param("descripcion") String descripcion,
             @Param("categoria") String categoria,
             @Param("latitud") Double latitud,
             @Param("longitud") Double longitud,
-            @Param("fechaAcontecimiento") LocalDate fecha
+            @Param("fechaAcontecimiento") LocalDate fechaAcontecimiento
     );
 
-    @Query("""
-    SELECT h.archivo
-    FROM Hecho h
-    WHERE h.archivo.path = :path
-  """)
-
-    Archivo existePath(
-            @Param("path") String path
-    );
+//    @Query("""
+//    SELECT h.archivo
+//    FROM Hecho h
+//    WHERE h.archivo.path = :path
+//  """)
+//
+//    Archivo existePath(
+//            @Param("path") String path
+//    );
 
 }
 
@@ -55,7 +55,7 @@ package Repositorios;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
-import Modelos.Entidades.*;
+      AND h.titulo = :titulo
 
 @Repository
 public interface HechosRepositorio JpaRepository<Hecho, Long>{{
