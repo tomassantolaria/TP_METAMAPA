@@ -14,7 +14,8 @@ public class EstaticaScheduler {
         this.fuenteEstatica = fuenteEstatica;
     }
 
-    @Scheduled(cron = "0 0 4 * * ?")
+    //@Scheduled(cron = "0 0 4 * * ?") //
+    @Scheduled(initialDelay = 0, fixedRate = 60000)
     public void actualizarHechos() {
         System.out.println("Actualizando hechos...");
         try {

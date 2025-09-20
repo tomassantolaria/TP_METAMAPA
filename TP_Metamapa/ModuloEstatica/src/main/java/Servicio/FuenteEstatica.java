@@ -61,6 +61,7 @@ public class FuenteEstatica {
                     continue;
                 }
                 hechosCSV = importador.getHechoFromFile(path);
+                System.out.println("TITULO EJEMPLO: " + hechosCSV.get(0).getTitulo());
                 if(archivo == null)
                 {
                     System.out.println("ARCHIVO NO CREADO SE GUARDA");
@@ -71,7 +72,8 @@ public class FuenteEstatica {
                 }
                 else {
                     System.out.println("ARCHIVO EXISTE");
-                    List<HechoCSV> hechosModificados = hechosCSV.stream().filter(hecho -> (repositorio.noExisteHecho( archivo.getId(), hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getLatitud(), hecho.getLongitud(), hecho.getFechaAcontecimiento()) == 0)).toList();
+
+                    List<HechoCSV> hechosModificados = hechosCSV.stream().filter(hecho -> (repositorio.noExisteHecho( archivo.getId(), hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getFechaAcontecimiento()) == 0)).toList();// agregar fechaAcontesimiento
                     System.out.println("HECHOS MODFICADOS --------------------------------");
                     System.out.println(hechosModificados);
                     guardarHechos(hechosModificados,archivo);
@@ -121,7 +123,7 @@ public class FuenteEstatica {
     }
 
     private HechoDTO convertToDTO(Hecho hecho) {
-        return new HechoDTO(hecho.getTitulo(), hecho.getDescripcion(), hecho.getArchivo().getId(),hecho.getCategoria(), hecho.getFechaAcontecimiento(), hecho.getLatitud(),  hecho.getLongitud());
+        return new HechoDTO(hecho.getTitulo(), hecho.getDescripcion(), hecho.getArchivo().getId(),hecho.getCategoria(), hecho.getFechaAcontecimiento(), Double.parseDouble(hecho.getLatitud()),  Double.parseDouble(hecho.getLongitud()));
     }
     private void guardarHechos(List<HechoCSV> hechosCSV, Archivo archivo) {
         System.out.println("ANTES DE GUARDAR HECHO");

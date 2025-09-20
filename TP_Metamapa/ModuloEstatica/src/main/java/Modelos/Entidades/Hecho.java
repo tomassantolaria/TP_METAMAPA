@@ -21,12 +21,14 @@ public class Hecho {
     @JoinColumn
     private Archivo archivo; // ID
     private String categoria;
-    private Double latitud;
-    private Double longitud;
+    @Column(precision = 9, scale = 5) // o 6
+    private String latitud;
+    @Column(precision = 9, scale = 5)
+    private String longitud;
     private LocalDate fechaAcontecimiento;
     private Boolean procesado;
 
-    public Hecho(String titulo, String descripcion,  Archivo archivo, String categoria, LocalDate fechaAcontecimiento,  Double longitud, Double latitud, Boolean procesado) {
+    public Hecho(String titulo, String descripcion,  Archivo archivo, String categoria, LocalDate fechaAcontecimiento,  String longitud, String latitud, Boolean procesado) {
         this.titulo = titulo;
         this.longitud = longitud;
         this.archivo = archivo;

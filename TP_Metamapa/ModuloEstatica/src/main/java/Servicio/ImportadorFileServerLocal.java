@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,13 +27,20 @@ public class ImportadorFileServerLocal implements Importador{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         while ((linea = br.readLine()) != null) {
             String[] campos = linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+            String titulo     = unquoteCsvField(campos[0]); // Título
+            String descripcion= unquoteCsvField(campos[1]); // Descripción
+            String categoria  = unquoteCsvField(campos[2]); // Categoría
+            String lat = campos[3].trim();
+            String lon = (campos[4].trim());
+
             HechoCSV hecho = HechoCSV.getInstance(
-                    campos[0], // Título
-                    campos[1], // Descripción
-                    campos[2], // Categoría
-                    LocalDate.parse(campos[5], formatter), // Fecha del hecho
-                    Double.parseDouble(campos[3]), // Latitud
-                    Double.parseDouble(campos[4])// Longitud
+                    titulo,
+                    descripcion,
+                    categoria,
+                    LocalDate.parse(campos[5].trim(), formatter),
+                    lat,
+                    lon
             );
 
             hechos.addHecho(hecho);
@@ -39,6 +48,21 @@ public class ImportadorFileServerLocal implements Importador{
 
         br.close();
         return hechos.getHechos();
+    }
+
+    private static String unquoteCsvField(String s) {
+
+
+
+        if (s == null) return null;
+        s = s.trim();
+        // Quita comillas envolventes "..."
+        if (s.length() >= 2 && s.startsWith("\"") && s.endsWith("\"")) {
+            s = s.substring(1, s.length() - 1);
+        }
+        // Convierte comillas escapadas CSV ("") a una sola (")
+        s = s.replace("\"\"", "\"");
+        return s;
     }
      @Override
     public List<String> getPaths() throws Exception {

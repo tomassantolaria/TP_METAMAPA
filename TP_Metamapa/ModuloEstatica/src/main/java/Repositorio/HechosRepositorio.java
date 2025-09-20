@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import Modelos.Entidades.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,11 +21,9 @@ public interface HechosRepositorio extends JpaRepository<Hecho, Long> {
     SELECT COUNT(*)
     FROM Hecho h
     WHERE h.archivo.id = :id
-      AND LOWER(TRIM(h.titulo)) = LOWER(TRIM(:titulo))
-      AND LOWER(TRIM(h.descripcion)) = LOWER(TRIM(:descripcion))
-      AND LOWER(TRIM(h.categoria)) = LOWER(TRIM(:categoria))
-      AND h.latitud = :latitud
-      AND h.longitud = :longitud
+      AND h.titulo = :titulo
+      AND h.descripcion = :descripcion
+      AND h.categoria =:categoria
       AND h.fechaAcontecimiento = :fechaAcontecimiento
     """)
 
@@ -33,9 +32,9 @@ public interface HechosRepositorio extends JpaRepository<Hecho, Long> {
             @Param("titulo") String titulo,
             @Param("descripcion") String descripcion,
             @Param("categoria") String categoria,
-            @Param("latitud") Double latitud,
-            @Param("longitud") Double longitud,
-            @Param("fechaAcontecimiento") LocalDate fechaAcontecimiento
+            //@Param("latitud") String latitud,
+           // @Param("longitud") String longitud
+           @Param("fechaAcontecimiento") LocalDate fechaAcontecimiento
     );
 
 //    @Query("""
