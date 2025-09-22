@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FuenteDemoScheduler {
+    
     private final FuenteDemoService fuenteDemoService;
 
     public FuenteDemoScheduler(FuenteDemoService fuenteDemoService) {

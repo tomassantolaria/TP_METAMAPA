@@ -4,10 +4,11 @@ import Modelos.DTOs.HechoDTO;
 import Servicios.impl.FuenteDemoService;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
-@RequestMapping("demo")
+@RequestMapping("/fuente-demo")
 public class FuenteDemoControler{
 
     private final FuenteDemoService fuenteDemoService;
