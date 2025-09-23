@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelos.DTOs.SolicitudDTO;
 import Modelos.DTOs.HechoDTO;
+import Servicios.IMetaMapaService;
 import Servicios.impl.FuenteMetaMapaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,9 @@ import java.util.List;
 @RequestMapping("/metamapa")
 public class MetaMapaControler {
 
-    private final FuenteMetaMapaService metaMapaServicio;
+    private final IMetaMapaService metaMapaServicio;
 
-    public MetaMapaControler(FuenteMetaMapaService metaMapaServicio) {
+    public MetaMapaControler(IMetaMapaService metaMapaServicio) {
         this.metaMapaServicio = metaMapaServicio;
     }
 
