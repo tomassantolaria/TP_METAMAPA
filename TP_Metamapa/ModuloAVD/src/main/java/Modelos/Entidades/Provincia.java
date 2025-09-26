@@ -2,12 +2,14 @@ package Modelos.Entidades;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 @Entity
 @Table(name="Provincia")
 public class Provincia {
-    String nombre_provincia;
+    String provincia;
     @ManyToOne
     @JoinColumn()
     Pais pais;
@@ -16,8 +18,8 @@ public class Provincia {
 
     public Provincia() {}
 
-    public Provincia(String nombre_provincia, Pais pais) {
-        this.nombre_provincia = nombre_provincia;
+    public Provincia(String provincia, Pais pais) {
+        this.provincia = provincia;
         this.pais = pais;
     }
 

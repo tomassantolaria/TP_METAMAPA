@@ -12,7 +12,7 @@ public class Provincia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProvincia;
-    String nombre_provincia;
+    String provincia;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     Pais pais;
@@ -23,7 +23,7 @@ public class Provincia {
 
 
     public Provincia(String nombre_provincia, Pais pais) {
-        this.nombre_provincia = nombre_provincia;
+        this.provincia = nombre_provincia;
         this.pais = pais;
     }
 }

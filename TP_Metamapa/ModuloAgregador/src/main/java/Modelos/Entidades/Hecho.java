@@ -26,13 +26,13 @@ public class Hecho{
     @JoinColumn()
     private Contenido contenido;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Categoria categoria;
 
     private LocalDate fecha;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Ubicacion ubicacion;
 
@@ -40,11 +40,11 @@ public class Hecho{
 
     @Enumerated(EnumType.STRING)
     @Column()
-    private OrigenCarga origen_carga; //enum
+    private OrigenCarga origen; //enum
 
     private boolean visible ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Contribuyente contribuyente;
 
@@ -53,9 +53,9 @@ public class Hecho{
 
     public Hecho() {}
 
-    public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    public Hecho(Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
                  Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
-        this.id = id;
+        this.id = null;
         this.idFuente = idFuente;
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
@@ -64,7 +64,7 @@ public class Hecho{
         this.fecha = unaFechaOcurrencia;
         this.ubicacion = unaUbicacion;
         this.fecha_carga = unaFechaCarga;
-        this.origen_carga = unOrigen;
+        this.origen = unOrigen;
         this.visible = estaVisible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;

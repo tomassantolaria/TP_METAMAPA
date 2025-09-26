@@ -2,17 +2,20 @@ package Modelos.Entidades;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 @Entity
 @Table(name= "Pais")
 public class Pais {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPais;
-    String nombre_pais;
+
+    String pais;
 
     public Pais(String nombre_pais) {
-        this.nombre_pais = nombre_pais;
+        this.pais = nombre_pais;
     }
 
     public Pais() {}

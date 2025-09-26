@@ -11,12 +11,12 @@ public class ColeccionDTO {
     private  String titulo;
     private  String descripcion;
     private  CriterioDTO criterio;
-    private  String origen_carga;
 
-    public ColeccionDTO(String titulo, String descripcion, CriterioDTO criterio, String origen_carga) {
+    public ColeccionDTO(String titulo, String descripcion, CriterioDTO criterio) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.criterio = criterio;
-        this.origen_carga = origen_carga;
     }
+
+    public ColeccionDTO() {}
 }

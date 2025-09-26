@@ -3,7 +3,9 @@ package Controlador;
 import Modelos.Categoria;
 import Modelos.Ubicacion;
 import Modelos.UbicacionDTO;
+import Modelos.UbicacionDTOoutput;
 import Servicios.ServicioCategoria;
+import Servicios.ServicioTitulo;
 import Servicios.ServicioUbicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,33 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/normalizacion")
 public class Controlador {
+
     @Autowired
     ServicioCategoria servicioCategoria;
     @Autowired
     ServicioUbicacion servicioUbicacion;
+    @Autowired
+    private ServicioTitulo servicioTitulo;
 
     // LAS CATEGORIAS Y UBICACIONES SON REQUEST BODY
-    @PostMapping ("/categorias" ) public ResponseEntity<String> normalizarCategoria(@RequestBody String categoria) {
-        Categoria categoria_normalizada= servicioCategoria.normalizarCategoria(categoria);
-        return ResponseEntity.ok(categoria_normalizada.getNombre_categoria());
+    @PostMapping ("/categorias" )
+    public ResponseEntity<String> normalizarCategoria(@RequestBody String categoria) {
+        String categoria_normalizada= servicioCategoria.normalizarCategoria(categoria);
+        return ResponseEntity.ok(categoria_normalizada);
     }
-
 
     @PostMapping("/ubicaciones")
-    public ResponseEntity<UbicacionDTO> normalizarUbicaciones(@RequestBody UbicacionDTO ubicacion) {
-        Ubicacion u = servicioUbicacion.normalizarUbicacion(
-                ubicacion.getPais(),
-                ubicacion.getProvincia(),
-                ubicacion.getLocalidad()
-        );
-        UbicacionDTO dto = new UbicacionDTO(u.getLocalidad().getNombre_localidad(), u.getProvincia().getNombre_provincia(), u.getPais().getNombre_pais());
-        return ResponseEntity.ok(dto);
+    public ResponseEntity<UbicacionDTOoutput> normalizarUbicacion(@RequestBody UbicacionDTO ubicacion) {
+        UbicacionDTOoutput ubicacion_normalizada = servicioUbicacion.normalizarUbicacion(ubicacion.getLatitud(), ubicacion.getLongitud());
+        return ResponseEntity.ok(ubicacion_normalizada);
     }
-    /*
-    @PostMapping ("/fecha" ) public void normalizarFecha(String fecha) {
-        LocalDate fechaNormalizada = servicio.normalizarFecha(fecha);
-        ResponseBody.status(200).body("Fecha normalizada: " + fechaNormalizada);
-    }*/
 
-
+    @PostMapping("/titulos")
+    public ResponseEntity<String> normalizarTitulo(@RequestBody String titulo) {
+        String titulo_normalizado = servicioTitulo.normalizarTitulo(titulo);
+        return ResponseEntity.ok(titulo_normalizado);
+    }
 }

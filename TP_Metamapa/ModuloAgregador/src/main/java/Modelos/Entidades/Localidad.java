@@ -9,15 +9,16 @@ import lombok.Setter;
 @Entity
 @Table(name= "Localidad")
 public class Localidad {
-    String nombre_localidad;
-    @ManyToOne(cascade = CascadeType.ALL)
+    String localidad;
+    @ManyToOne()
     @JoinColumn()
     Provincia provincia;
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLocalidad;
 
     public Localidad(String nombre_Localidad, Provincia provincia) {
-        this.nombre_localidad = nombre_Localidad;
+        this.localidad = nombre_Localidad;
         this.provincia = provincia;
     }
 
