@@ -31,10 +31,10 @@ public class EstadisticasControlador{
         }
     }
 
-    @GetMapping("/coleccion/{idColeccion}/categoria-max-hechos")
-    public ResponseEntity<String> obtenerCategoriaConMasHechos(@PathVariable Long idColeccion){
+    @GetMapping("/coleccion/categoria-max-hechos")
+    public ResponseEntity<String> obtenerCategoriaConMasHechos(){
         try{
-            String categoria = estadisticasServicio.categoriaConMasHechos(idColeccion);
+            String categoria = estadisticasServicio.categoriaConMasHechos();
             return ResponseEntity.status(200).body(categoria);
         }catch (ColeccionNoEncontradaException e){
             return ResponseEntity.status(404).body(e.getMessage());
@@ -62,12 +62,9 @@ public class EstadisticasControlador{
     }
 
     @GetMapping("/solicitudes/spam/total")
-    public ResponseEntity<Longong> obtenerCantidadSolicitudesSpam(){
+    public ResponseEntity<Long> obtenerCantidadSolicitudesSpam(){
         Long cantidad = estadisticasServicio.cantidadSolicitudesSpam();
         return ResponseEntity.status(200).body(cantidad);
     }  
     
-    
-
-
 }
