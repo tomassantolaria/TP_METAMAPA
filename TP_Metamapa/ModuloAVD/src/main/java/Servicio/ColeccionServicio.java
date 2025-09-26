@@ -19,6 +19,7 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -62,6 +63,7 @@ public class ColeccionServicio {
         criterioPertenenciaRepositorio.save(criterio_pertenencia);
         Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
+        System.out.printf("El id es: %d" ,coleccion.getId());
         this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
@@ -138,19 +140,13 @@ public class ColeccionServicio {
 
     private void avisarAgregador (Long coleccionId) {
         UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/colecciones/" + coleccionId);
-        try {
-            restTemplate.exchange(
-                    urlAgregador.toUriString(),
-                    HttpMethod.POST,
-                    null,
-                    new ParameterizedTypeReference<>() {
-                    }
-            );
-        } catch (HttpServerErrorException e) {
-            throw new RuntimeException("Error al comunicarse con el servicio Agregador: " + e.getMessage());
-        }
-
-
+        restTemplate.exchange(
+                urlAgregador.toUriString(),
+                HttpMethod.POST,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+                );
     }
 
     public void eliminarColeccion(Long id) {
@@ -162,7 +158,9 @@ public class ColeccionServicio {
         for (Coleccion coleccion : colecciones) {
             this.eliminarHechoDeColeccion(coleccion.getId(), id);
         }
-        hechoRepositorio.deleteById(id);
+        Hecho hecho = hechoRepositorio.findById(id).orElseThrow();
+        hecho.eliminarse();
+        hechoRepositorio.save(hecho);
     }
 
     public void eliminarHechoDeColeccion(Long id_coleccion, Long id_hecho) {
@@ -177,7 +175,9 @@ public class ColeccionServicio {
             throw new IllegalArgumentException("Coleccion no encontrada:");
         }
         Consenso consenso = this.obtenerEstrategiaPorNombre(estrategia);
+
         coleccion.setConsenso(consenso);
+        coleccionRepositorio.save(coleccion);
     }
 
     private Consenso obtenerEstrategiaPorNombre(String nombre) {
@@ -222,15 +222,28 @@ public class ColeccionServicio {
         return new CriterioDTO(
                 criteriosDePertenencia.getTitulo(),
                 criteriosDePertenencia.getMultimedia(),
-                criteriosDePertenencia.getCategoria().getNombre(),
+                Optional.ofNullable(criteriosDePertenencia.getCategoria())
+                        .map(c->c.getNombre())
+                        .orElse(null),
                 criteriosDePertenencia.getFecha_carga_desde(),
                 criteriosDePertenencia.getFecha_carga_hasta(),
-                criteriosDePertenencia.getUbicacion().getLocalidad().getLocalidad(),
-                criteriosDePertenencia.getUbicacion().getProvincia().getProvincia(),
-                criteriosDePertenencia.getUbicacion().getPais().getPais(),
+                Optional.ofNullable(criteriosDePertenencia.getUbicacion())
+                    .map(u -> u.getLocalidad())
+                    .map(l -> l.getLocalidad())
+                    .orElse(null),
+                Optional.ofNullable(criteriosDePertenencia.getUbicacion())
+                        .map(u -> u.getProvincia())
+                        .map(p -> p.getProvincia())
+                        .orElse(null),
+                Optional.ofNullable(criteriosDePertenencia.getUbicacion())
+                        .map(u -> u.getPais())
+                        .map(p -> p.getPais())
+                        .orElse(null),
                 criteriosDePertenencia.getFecha_acontecimiento_desde(),
                 criteriosDePertenencia.getFecha_acontecimiento_hasta(),
-                criteriosDePertenencia.getOrigen().name()
+                Optional.ofNullable(criteriosDePertenencia.getOrigen())
+                        .map(o->o.name())
+                        .orElse(null)
         );
     }
 
@@ -269,12 +282,16 @@ public class ColeccionServicio {
             hechosDTO.add(hechoDTO);
         }
 
+        String consenso = Optional.ofNullable(coleccion.getConsenso())
+                .map(c -> c.toString())
+                .orElse(null);
+
         List<HechoDTO> hechosConsensuadosDTO = new ArrayList<>();
         for (Hecho hecho: coleccion.getHechosConsensuados() ) {
             HechoDTO hechoDTO = this.transformarHechoDTO(hecho);
             hechosConsensuadosDTO.add(hechoDTO);
         }
-        return new ColeccionDTOOutput(coleccion.getTitulo(), coleccion.getDescripcion(), criterio, hechosDTO, coleccion.getConsenso().toString(),hechosConsensuadosDTO );
+        return new ColeccionDTOOutput(coleccion.getTitulo(), coleccion.getDescripcion(), criterio, hechosDTO, consenso,hechosConsensuadosDTO );
     }
     //TODO :REVISAR QUE EL ELIMINAR FUENTE DEBERIA HACERLO PRO LA COMBINACION DE ID Y DE FUENTE
 

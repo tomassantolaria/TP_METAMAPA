@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -273,18 +274,30 @@ public class AgregadorServicio {
     public void actualizarColeccion(Coleccion coleccion ) {
 
         List<Hecho> hechosCumplenCriterio = hechoRepositorio.filtrarHechos(
-                coleccion.getCriterio_pertenencia().getCategoria().getNombre(),
+                Optional.ofNullable(coleccion.getCriterio_pertenencia().getCategoria())
+                        .map(c->c.getNombre())
+                        .orElse(null),
                 coleccion.getCriterio_pertenencia().getMultimedia(),
                 coleccion.getCriterio_pertenencia().getFecha_carga_desde(),
                 coleccion.getCriterio_pertenencia().getFecha_carga_hasta(),
                 coleccion.getCriterio_pertenencia().getFecha_acontecimiento_desde(),
                 coleccion.getCriterio_pertenencia().getFecha_acontecimiento_hasta(),
-                coleccion.getCriterio_pertenencia().getOrigen().toString(),
+                coleccion.getCriterio_pertenencia().getOrigen(),
                 coleccion.getCriterio_pertenencia().getTitulo(),
-                (coleccion.getCriterio_pertenencia().getUbicacion().getLocalidad().getLocalidad()),
-                (coleccion.getCriterio_pertenencia().getUbicacion().getProvincia().getProvincia()),
-                (coleccion.getCriterio_pertenencia().getUbicacion().getPais().getPais())
+                Optional.ofNullable(coleccion.getCriterio_pertenencia().getUbicacion())
+                        .map(u -> u.getPais())
+                        .map(p -> p.getPais())
+                        .orElse(null),
+                Optional.ofNullable(coleccion.getCriterio_pertenencia().getUbicacion())
+                        .map(u -> u.getProvincia())
+                        .map(p -> p.getProvincia())
+                        .orElse(null),
+                Optional.ofNullable(coleccion.getCriterio_pertenencia().getUbicacion())
+                        .map(u -> u.getLocalidad())
+                        .map(l -> l.getLocalidad())
+                        .orElse(null)
         );
+        System.out.printf("Lista: %s%n", hechosCumplenCriterio);
 
         Set<Long> idsExistentes = coleccion.getHechos()
                 .stream()
@@ -292,7 +305,7 @@ public class AgregadorServicio {
                 .collect(Collectors.toSet());
 
         List<Hecho> nuevosHechos = hechosCumplenCriterio.stream()
-                .filter(h -> !idsExistentes.contains(h.getId()))
+                .filter(h -> !idsExistentes.contains(h.getId())&&h.isVisible())
                 .toList();
 
         coleccion.agregarHechos(nuevosHechos);

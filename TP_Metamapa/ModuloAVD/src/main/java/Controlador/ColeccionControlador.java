@@ -57,7 +57,7 @@ public class ColeccionControlador {
     }
 
     @DeleteMapping("/coleccion/{id_coleccion}/hecho/{id_hecho}")
-    public ResponseEntity<String> eliminarHecho(@PathVariable Long id_coleccion, @PathVariable Long id_hecho) {
+    public ResponseEntity<String> eliminarHechoDeColeccion(@PathVariable Long id_coleccion, @PathVariable Long id_hecho) {
         try {
             coleccionServicio.eliminarHechoDeColeccion(id_coleccion, id_hecho);
             return ResponseEntity.status(200).body("Hecho eliminado exitosamente");
