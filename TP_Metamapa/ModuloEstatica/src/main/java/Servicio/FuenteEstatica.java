@@ -10,51 +10,77 @@ import java.util.ArrayList;
 
 import Modelos.Entidades.HechoCSV;
 import Repositorio.HechosRepositorio;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import Repositorio.ArchivoRepository;
 
 import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
 @Service
+@RequiredArgsConstructor
 public class FuenteEstatica {
 
+    @Autowired
     HechosRepositorio repositorio;
-    private Date ultimaFechaCarga;
+    @Autowired
+    ArchivoRepository archivoRepository;
+    private Date ultimaFechaCarga = new Date();
     private static FuenteEstatica instance;
-//  private File carpeta = new File("ArchivosCSV");
     private Importador importador = new ImportadorFileServerLocal();
 
-    private FuenteEstatica() {
+
+    public FuenteEstatica(ArchivoRepository archivoRepository,
+                          HechosRepositorio repositorio) {
+        this.importador = importador;
+        this.repositorio = repositorio;
+        this.archivoRepository = archivoRepository;
     }
 
-    public static FuenteEstatica getInstance() {
-        if (instance == null) {
-            instance = new FuenteEstatica();
-        }
-        return instance;
-    }
 
     public void cargarHechos() throws  Exception {
         try {
             List<String> paths = importador.getPaths();
             List<HechoCSV> hechosCSV ;
-            paths = paths.stream().filter(path -> esPosteriorAUltimaCarga(path)).toList();
+
+            System.out.println("PATHS ENCONTRADOS PARA CARGAR" + paths);
+
             for (String path : paths) {
+
+                Archivo archivo = archivoRepository.findByPath(path)
+                        .orElseGet(() -> {
+                            return null;
+                        });
+
+                if(archivo != null &&  !esPosteriorAUltimaCarga(path)) {
+                    System.out.println("----------------------ARCHIVO YA REVISADO-----------------------------");
+                    continue;
+                }
                 hechosCSV = importador.getHechoFromFile(path);
-                Archivo archivo = repositorio.existePath(path);
+                System.out.println("TITULO EJEMPLO: " + hechosCSV.get(0).getTitulo());
                 if(archivo == null)
                 {
-                    Archivo nuevoArchivo = new Archivo(path);
+                    System.out.println("ARCHIVO NO CREADO SE GUARDA");
+                    Archivo nuevoArchivo = new Archivo();
+                    nuevoArchivo.setPath(path);
+                    archivoRepository.save(nuevoArchivo);
                     guardarHechos(hechosCSV,nuevoArchivo);
                 }
                 else {
-                    hechosCSV = hechosCSV.stream().filter(hecho -> repositorio.noExisteHecho(hecho, archivo.getId())).toList();
-                    guardarHechos(hechosCSV,archivo);
+                    System.out.println("ARCHIVO EXISTE");
+
+                    List<HechoCSV> hechosModificados = hechosCSV.stream().filter(hecho -> (repositorio.noExisteHecho( archivo.getId(), hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getFechaAcontecimiento()) == 0)).toList();// agregar fechaAcontesimiento
+                    System.out.println("HECHOS MODFICADOS --------------------------------");
+                    System.out.println(hechosModificados);
+                    guardarHechos(hechosModificados,archivo);
                 }
             }
             ultimaFechaCarga = new Date();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,8 +90,12 @@ public class FuenteEstatica {
 
     private Boolean esPosteriorAUltimaCarga(String path){
         File archivo = new File(path);
+        System.out.println("EVALUAR ARCHIVO FECHA" + archivo.getAbsolutePath());
         if (archivo.exists()) {
+            System.out.println("ULT FECHA MODIF" + ultimaFechaCarga);
             Date fechaModificacion = new Date(archivo.lastModified());
+            System.out.println("FECHA MODIF ARCHIVO" + fechaModificacion);
+            System.out.println(fechaModificacion.after(ultimaFechaCarga));
             return fechaModificacion.after(ultimaFechaCarga);
         }
         else {
@@ -73,9 +103,19 @@ public class FuenteEstatica {
            return false;
         }
     }
-    public List<HechoDTO> getHechos () {
+
+    @Transactional
+    public List<Hecho> obtenerNoEnviados() {
+        List<Hecho> hechosNoEnviados = repositorio.findAllByProcesadoFalse();
+        hechosNoEnviados.forEach(h -> {
+            h.setProcesado(true);
+            repositorio.save(h);});
+        return hechosNoEnviados;
+    }
+
+    public List<HechoDTO> getHechosNoEnviados() {
         List<HechoDTO> hechosDTO = new ArrayList<>();
-        List<Hecho> hechos = repositorio.allHechosNoEnviados();
+        List<Hecho> hechos = obtenerNoEnviados();
         for (Hecho hecho : hechos ) {
             hechosDTO.add(convertToDTO(hecho));
         }
@@ -83,20 +123,23 @@ public class FuenteEstatica {
     }
 
     private HechoDTO convertToDTO(Hecho hecho) {
-        return new HechoDTO(hecho.getTitulo(), hecho.getDescripcion(), hecho.getFuente().getId(),hecho.getCategoria(), hecho.getFechaAcontecimiento(), hecho.getLatitud(),  hecho.getLongitud());
+        return new HechoDTO(hecho.getTitulo(), hecho.getDescripcion(), hecho.getArchivo().getId(),hecho.getCategoria(), hecho.getFechaAcontecimiento(), Double.parseDouble(hecho.getLatitud()),  Double.parseDouble(hecho.getLongitud()));
     }
-    private void guardarHechos(List<HechoCSV> hechosCSV, Archivo path) {
+    private void guardarHechos(List<HechoCSV> hechosCSV, Archivo archivo) {
+        System.out.println("ANTES DE GUARDAR HECHO");
         for (HechoCSV hechoCSV : hechosCSV) {
-            Hecho hecho = convertToHecho(hechoCSV, path);
-            // AGREGUE VERIFICACION DE FECHA !!!!!
-            if (hecho.getFechaAcontecimiento().isBefore(LocalDate.now()) || hecho.getFechaAcontecimiento().isEqual(LocalDate.now())) {
-                repositorio.addHecho(hecho);
-            }
 
+            Hecho hecho = convertToHecho(hechoCSV, archivo);
+            // AGREGUE VERIFICACION DE FECHA !!!!!
+
+            if (hecho.getFechaAcontecimiento().isBefore(LocalDate.now()) || hecho.getFechaAcontecimiento().isEqual(LocalDate.now())) {
+                Hecho hechoGuardado = repositorio.save(hecho); // esto era un addHecho(Hecho)
+
+            }
         }
     }
-    private Hecho convertToHecho(HechoCSV hechoCSV, Archivo path) {
-        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), path, hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(), hechoCSV.getLongitud(), false);
+    private Hecho convertToHecho(HechoCSV hechoCSV, Archivo archivo) {
+        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), archivo, hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(), hechoCSV.getLongitud(), false);
     }
 }
 
