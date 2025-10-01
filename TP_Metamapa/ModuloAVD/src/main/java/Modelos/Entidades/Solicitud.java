@@ -16,6 +16,7 @@ public class Solicitud {
     private Long idSolcitud;
 
     private LocalDate fecha_creacion; //date
+    @Column(length = 500)
     private String motivo;
     @ManyToOne
     @JoinColumn()

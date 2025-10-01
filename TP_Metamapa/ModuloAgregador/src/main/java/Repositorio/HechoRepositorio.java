@@ -66,7 +66,11 @@ Long cantidadDeFuentesConHecho(
     //contiene otro de igual título pero diferentes atributos, se lo considera consensuado;
     @Query("SELECT h FROM Hecho h " +
             "WHERE (:categoria IS NULL OR h.categoria.nombre = :categoria) " +
-            "AND (:contenidoMultimedia IS NULL OR h.contenido.contenido_multimedia = :contenidoMultimedia) " +
+            "AND (" +
+            "    :contenidoMultimedia IS NULL" +
+            "    OR (:contenidoMultimedia = TRUE AND h.contenido.contenido_multimedia IS NOT NULL AND h.contenido.contenido_multimedia <> '')" +
+            "    OR (:contenidoMultimedia = FALSE AND (h.contenido.contenido_multimedia IS NULL OR h.contenido.contenido_multimedia = ''))" +
+            ") " +
             "AND (:fechaCargaDesde IS NULL OR h.fecha_carga >= :fechaCargaDesde) " +
             "AND (:fechaCargaHasta IS NULL OR h.fecha_carga<= :fechaCargaHasta) " +
             "AND (:fechaHechoDesde IS NULL OR h.fecha>= :fechaHechoDesde) " +

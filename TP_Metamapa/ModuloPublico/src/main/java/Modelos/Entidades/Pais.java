@@ -12,7 +12,7 @@ public class Pais {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPais;
 
-    String nombre_pais;
+    String pais;
 
     public Pais() {}
 }
