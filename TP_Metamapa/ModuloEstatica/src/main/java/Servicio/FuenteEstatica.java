@@ -72,8 +72,10 @@ public class FuenteEstatica {
                 }
                 else {
                     System.out.println("ARCHIVO EXISTE");
-
-                    List<HechoCSV> hechosModificados = hechosCSV.stream().filter(hecho -> (repositorio.noExisteHecho( archivo.getId(), hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getFechaAcontecimiento()) == 0)).toList();// agregar fechaAcontesimiento
+                    List<HechoCSV> hechosModificados = hechosCSV.stream().filter(hecho -> {
+                        System.out.println("LATITUDDDDDDDD: " + hecho.getLatitud());
+                        System.out.println("LONGITUDDDDDDDDDDD: " + hecho.getLongitud());
+                        return (repositorio.noExisteHecho( archivo.getId(), hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getLatitud(), hecho.getLongitud(), hecho.getFechaAcontecimiento()) == 0);}).toList();// agregar fechaAcontesimiento
                     System.out.println("HECHOS MODFICADOS --------------------------------");
                     System.out.println(hechosModificados);
                     guardarHechos(hechosModificados,archivo);
@@ -139,7 +141,7 @@ public class FuenteEstatica {
         }
     }
     private Hecho convertToHecho(HechoCSV hechoCSV, Archivo archivo) {
-        return new Hecho(hechoCSV.getTitulo(), hechoCSV.getDescripcion(), archivo, hechoCSV.getCategoria(), hechoCSV.getFechaAcontecimiento(), hechoCSV.getLatitud(), hechoCSV.getLongitud(), false);
+        return new Hecho(false, hechoCSV.getFechaAcontecimiento(), hechoCSV.getLongitud(), hechoCSV.getLatitud(), hechoCSV.getCategoria(), archivo, hechoCSV.getDescripcion(), hechoCSV.getTitulo());
     }
 }
 

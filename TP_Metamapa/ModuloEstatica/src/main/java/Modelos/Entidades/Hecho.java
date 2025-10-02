@@ -21,24 +21,21 @@ public class Hecho {
     @JoinColumn
     private Archivo archivo; // ID
     private String categoria;
-    @Column(precision = 9, scale = 5) // o 6
     private String latitud;
-    @Column(precision = 9, scale = 5)
     private String longitud;
     private LocalDate fechaAcontecimiento;
     private Boolean procesado;
 
-    public Hecho(String titulo, String descripcion,  Archivo archivo, String categoria, LocalDate fechaAcontecimiento,  String longitud, String latitud, Boolean procesado) {
-        this.titulo = titulo;
-        this.longitud = longitud;
-        this.archivo = archivo;
+    public Hecho(Boolean procesado, LocalDate fechaAcontecimiento, String longitud, String latitud, String categoria, Archivo archivo, String descripcion, String titulo) {
+        this.procesado = procesado;
         this.fechaAcontecimiento = fechaAcontecimiento;
+        this.longitud = longitud;
         this.latitud = latitud;
         this.categoria = categoria;
+        this.archivo = archivo;
         this.descripcion = descripcion;
-        this.procesado = procesado;
+        this.titulo = titulo;
     }
-
 
     public Hecho() {
 
