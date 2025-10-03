@@ -24,7 +24,10 @@ public class ConsensoConversor implements AttributeConverter<Consenso, String> {
     @Override
     public Consenso convertToEntityAttribute(String consenso) {
         Consenso consenso1 = null;
-        if (consenso.equals("Absoluta")) {
+        System.out.println("EL CONSENSO ES NULL: " + (consenso == null));
+        if(consenso == null) {
+            return null;
+        } else  if (consenso.equals("Absoluta")) {
             consenso1 = new ConsensoAbsoluta();
         } else if (consenso.equals("MultiplesMenciones")) {
             consenso1 =  new ConsensoMultiplesMenciones();

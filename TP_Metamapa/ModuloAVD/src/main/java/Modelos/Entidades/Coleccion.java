@@ -30,8 +30,7 @@ public class Coleccion {
     @ManyToMany()
     @JoinTable()
     private List<Hecho> hechos;
-    @ManyToOne
-    @JoinColumn()
+    @Column(nullable = true)
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
     @ManyToMany()

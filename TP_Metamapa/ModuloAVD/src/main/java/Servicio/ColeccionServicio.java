@@ -7,6 +7,9 @@ import Modelos.DTOs.HechoDTO;
 import Modelos.Entidades.*;
 import Modelos.Entidades.Consenso.Consenso;
 import Modelos.Conversores.ConsensoConversor;
+import Modelos.Entidades.Consenso.ConsensoAbsoluta;
+import Modelos.Entidades.Consenso.ConsensoMayoriaSimple;
+import Modelos.Entidades.Consenso.ConsensoMultiplesMenciones;
 import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -31,8 +34,6 @@ public class ColeccionServicio {
     HechoRepositorio hechoRepositorio;
     @Autowired
     RestTemplate restTemplate;
-    @Autowired
-    ConsensoConversor consensoConversor;
     @Autowired
     CategoriaRepositorio categoriaRepositorio;
     @Autowired
@@ -64,7 +65,7 @@ public class ColeccionServicio {
         Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
         System.out.printf("El id es: %d" ,coleccion.getId());
-        this.avisarAgregador(coleccion.getId());
+       // this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
 
@@ -179,14 +180,23 @@ public class ColeccionServicio {
         coleccion.setConsenso(consenso);
         coleccionRepositorio.save(coleccion);
     }
-
-    private Consenso obtenerEstrategiaPorNombre(String nombre) {
-        Consenso estrategia = consensoConversor.convertToEntityAttribute(nombre);
-        if (estrategia == null) {
-            throw new IllegalArgumentException("Estrategia no encontrada: " + nombre);
+    private Consenso transformarAConsenso(String nombre) {
+            if (nombre == null || nombre.equals("SIN_CONSENSO")) {
+            return null;
         }
+        switch (nombre) {
+            case "ABSOLUTA": return new ConsensoAbsoluta();
+            case "MULTIPLES_MENCIONES": return new ConsensoMultiplesMenciones();
+            case "MAYORIA_SIMPLE": return new ConsensoMayoriaSimple();
+            default:
+                throw new IllegalArgumentException("Tipo de CONSENSO desconocido: " + nombre);
+        }
+    }
+    private Consenso obtenerEstrategiaPorNombre(String nombre) {
+        Consenso estrategia = transformarAConsenso(nombre);
+
         return estrategia;
-    } // TODO :VER SI CON EL COVERSOR HAY QUE HACER ESTO
+    }
 
 
     public void agregarFuente(Long id_coleccion, Long id_fuente, String origen) {

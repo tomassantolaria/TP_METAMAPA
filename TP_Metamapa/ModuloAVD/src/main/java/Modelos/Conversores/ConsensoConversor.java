@@ -11,32 +11,37 @@ import org.springframework.stereotype.Service;
 @Service
 @Converter(autoApply = true)
 public class ConsensoConversor implements AttributeConverter<Consenso, String> {
-    @Override
-    public String convertToDatabaseColumn(Consenso consenso) {
-        if (consenso instanceof ConsensoAbsoluta ) {
-            return "Absoluta";
-        } else if (consenso instanceof ConsensoMultiplesMenciones ) {
-            return "MultiplesMenciones";
-        } else if (consenso instanceof ConsensoMayoriaSimple){
-            return "MayoriaSimple";
-        }
-        return null;
 
+    @Override
+    public String convertToDatabaseColumn(Consenso atributo) {
+        if (atributo == null) {
+            return null;
+        }
+        if (atributo instanceof ConsensoAbsoluta) {
+            return "ABSOLUTA";
+        }
+        if (atributo instanceof ConsensoMultiplesMenciones) {
+            return "MULTIPLES_MENCIONES";
+        }
+        if (atributo instanceof ConsensoMayoriaSimple) {
+            return "MAYORIA_SIMPLE";
+        }
+        throw new IllegalArgumentException(
+                "Tipo de Consenso no soportado: " + atributo.getClass().getName()
+        );
     }
+
     @Override
-    public Consenso convertToEntityAttribute(String consenso) {
-        Consenso consenso1 = null;
-        if (consenso.equals("Absoluta")) {
-            consenso1 = new ConsensoAbsoluta();
-        } else if (consenso.equals("MultiplesMenciones")) {
-            consenso1 =  new ConsensoMultiplesMenciones();
-        } else if (consenso.equals("MayoriaSimple")) {
-            consenso1 =  new ConsensoMayoriaSimple();
-        } else {
-            throw new IllegalArgumentException("Tipo desconocido: " + consenso);
+    public Consenso convertToEntityAttribute(String valor) {
+        if (valor == null || valor.isBlank()) {
+            return null; // o instancia por defecto: new ConsensoMayoriaSimple();
         }
-        return consenso1;
-
-
+        switch (valor) {
+            case "ABSOLUTA": return new ConsensoAbsoluta();
+            case "MULTIPLES_MENCIONES": return new ConsensoMultiplesMenciones();
+            case "MAYORIA_SIMPLE": return new ConsensoMayoriaSimple();
+            default:
+                throw new IllegalArgumentException("Tipo desconocido: " + valor);
+        }
     }
 }
