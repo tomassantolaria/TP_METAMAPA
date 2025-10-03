@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*; 
-import Servicio.Modelos.Exceptions.ColeccionNoEncontradaException;
-import Servicio.Modelos.Exceptions.CategoriaNoEncontradaException;
+import Modelos.Exceptions.ColeccionNoEncontradaException;
+import Modelos.Exceptions.CategoriaNoEncontradaException;
 
 
 @RestController
@@ -52,10 +52,10 @@ public class EstadisticasControlador{
     }
     
     @GetMapping("/categoria/{categoria}/hora-max-hechos")
-    public ResponseEntity<Integer> obtenerHoraConMasHechos(@PathVariable String categoria){
+    public ResponseEntity<String> obtenerHoraConMasHechos(@PathVariable String categoria){
         try{ 
             Integer hora = estadisticasServicio.obtenerHoraConMasHechos(categoria);
-            return ResponseEntity.status(200).body(hora);
+            return ResponseEntity.status(200).body(hora.toString());
         }catch (CategoriaNoEncontradaException e){
             return ResponseEntity.status(404).body("Categoría no encontrada");
         }
@@ -65,6 +65,19 @@ public class EstadisticasControlador{
     public ResponseEntity<Long> obtenerCantidadSolicitudesSpam(){
         Long cantidad = estadisticasServicio.cantidadSolicitudesSpam();
         return ResponseEntity.status(200).body(cantidad);
-    }  
-    
+    }
+
+
+    @GetMapping
+    public ResponseEntity<UltimasEstadisticasDTO> obtenerEstadisticas() {
+        return ResponseEntity.ok(estadisticasServicio.obtenerEstadisticas());
+    }
+
+    @GetMapping("/csv")
+    public ResponseEntity<String> exportarCSV() {
+        String csv = estadisticasServicio.exportarCSV();
+        return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=estadisticas.csv").body(csv);
+    }
+
+
 }
