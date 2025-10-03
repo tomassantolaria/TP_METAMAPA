@@ -25,6 +25,9 @@ public interface HechosRepositorio extends JpaRepository<Hecho, Long> {
       AND h.descripcion = :descripcion
       AND h.categoria =:categoria
       AND h.fechaAcontecimiento = :fechaAcontecimiento
+      AND TRIM(h.longitud) = TRIM(:longitud)
+                AND TRIM(h.latitud) = TRIM(:latitud)
+      
     """)
 
     Integer noExisteHecho(
@@ -32,8 +35,8 @@ public interface HechosRepositorio extends JpaRepository<Hecho, Long> {
             @Param("titulo") String titulo,
             @Param("descripcion") String descripcion,
             @Param("categoria") String categoria,
-            //@Param("latitud") String latitud,
-           // @Param("longitud") String longitud
+            @Param("latitud") String latitud,
+           @Param("longitud") String longitud,
            @Param("fechaAcontecimiento") LocalDate fechaAcontecimiento
     );
 

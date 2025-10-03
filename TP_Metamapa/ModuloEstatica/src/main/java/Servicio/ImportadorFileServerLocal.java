@@ -67,16 +67,11 @@ public class ImportadorFileServerLocal implements Importador{
      @Override
     public List<String> getPaths() throws Exception {
         List<String> paths = new ArrayList<>();
-         System.out.println("CARPETA EXISTE :"+ carpeta.exists());
-         System.out.println("CARPETA es DIRECTORIO :"+ carpeta.isDirectory());
             if(carpeta.exists() && carpeta.isDirectory()) {
-                System.out.println("CARPETA EXISTE Y ES DIRECTORIO");
                 File[] archivos = carpeta.listFiles();
                 if(archivos != null) {
-                    System.out.println("tiene archivos");
                     for (File archivo : archivos){
-                        if (archivo.isFile()) { // solo archivos, no subdirectorios
-                            System.out.println(archivo.getName());
+                        if (archivo.isFile()) {
                             paths.add(archivo.getAbsolutePath());
                         }
                     }
