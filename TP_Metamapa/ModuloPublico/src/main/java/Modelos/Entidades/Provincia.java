@@ -7,7 +7,7 @@ import lombok.Getter;
 @Entity
 @Table(name="Provincia")
 public class Provincia {
-    String nombre_provincia;
+    String provincia;
     @ManyToOne
     @JoinColumn()
     Pais pais;
@@ -18,7 +18,7 @@ public class Provincia {
 
 
     public Provincia(String nombre_provincia, Pais pais) {
-        this.nombre_provincia = nombre_provincia;
+        this.provincia = nombre_provincia;
         this.pais = pais;
     }
 

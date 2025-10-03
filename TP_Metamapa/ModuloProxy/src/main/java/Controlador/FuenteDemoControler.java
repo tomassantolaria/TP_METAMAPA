@@ -1,7 +1,8 @@
 package Controlador;
 
 import Modelos.DTOs.HechoDTO;
-import Servicios.impl.FuenteDemoService;
+import Servicios.FuenteDemoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -11,11 +12,9 @@ import java.util.List;
 @RequestMapping("/fuente-demo")
 public class FuenteDemoControler{
 
-    private final FuenteDemoService fuenteDemoService;
+    @Autowired
+    FuenteDemoService fuenteDemoService;
 
-    public FuenteDemoControler(FuenteDemoService fuenteDemoService) {
-        this.fuenteDemoService = fuenteDemoService;
-    }
 
     //PARA OBTENER LOS HECHOS DE LA FUENTE DEMO
     @GetMapping("/hechos")

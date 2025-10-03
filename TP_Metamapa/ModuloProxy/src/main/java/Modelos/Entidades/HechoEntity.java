@@ -15,7 +15,6 @@ public class HechoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idHecho;
-
     private Long idFuente;
     private String titulo;
     private String descripcion;
@@ -37,4 +36,6 @@ public class HechoEntity {
     private Boolean visible;
     private String origen_carga;
     private String urlFuente;
+
+    public HechoEntity(){}
 }

@@ -1,10 +1,8 @@
-package Servicios.impl;
+package Servicios;
 
 import Modelos.DTOs.HechoDTO;
 import Modelos.Entidades.HechoEntity;
-import Repositorios.FuenteDemo_Hechos;
-import Servicios.IConexionService;
-import Servicios.IFuenteDemoService;
+import Repositorios.HechoDemoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.net.URL;
@@ -17,17 +15,17 @@ import java.util.Map;
 
 
 @Service
-public class FuenteDemoService implements IFuenteDemoService {
+public class FuenteDemoService {
 
-    private final IConexionService conexionService;
-    private final FuenteDemo_Hechos fuenteDemoHechos;
+    @Autowired
+    ConexionService conexionService;
+    @Autowired
+    HechoDemoRepositorio hechoDemoRepositorio;
+
     private LocalDateTime ultimaConsulta;
     private final URL url;
 
-    @Autowired
-    public FuenteDemoService(FuenteDemo_Hechos fuenteDemoHechos, IConexionService conexionService) {
-        this.fuenteDemoHechos = fuenteDemoHechos;
-        this.conexionService = conexionService;
+    public FuenteDemoService() {
         this.ultimaConsulta = null;
         try {
             this.url = new URL("https://fuente-demo.org/api/hechos");
@@ -36,13 +34,13 @@ public class FuenteDemoService implements IFuenteDemoService {
         }
     } 
 
-    @Override
+
     public List<HechoDTO> obtenerHecho() {
     return hechoDemoRepositorio.findAll().stream().map(this::entityToDTO).toList();
     }
 
 
-    @Override
+
     public void actualizarHechos() {
     
     Map<String, Object> data;
@@ -146,44 +144,4 @@ public class FuenteDemoService implements IFuenteDemoService {
         );
     }
 
-//    private Hecho convertirHecho(Map<String, Object> data) {
-//        return new Hecho(
-//                (String) data.get("titulo"),
-//                (String) data.get("descripcion"),
-//                (String) data.get("contenido"),
-//                (String) data.get("contenidoMultimedia"),
-//                (String) data.get("categoria"),
-//                (LocalDate) data.get("fecha"),
-//                (String) data.get("lugar"),
-//                (Double) data.get("latitud"),
-//                (Double) data.get("longitud")
-//        );
-//    }
-
-//    private List<HechoDTO> convertirADTO(List<Hecho> hechos) {
-//        List<HechoDTO> hechosDTO = new ArrayList<>();
-//        for (Hecho hecho : hechos) {
-//            HechoDTO dto = new HechoDTO(
-//                    hecho.getTitulo(),
-//                    hecho.getDescripcion(),
-//                    hecho.getContenido(),
-//                    hecho.getContenidoMultimedia(),
-//                    hecho.getCategoria(),
-//                    hecho.getFecha(),
-//                    null,
-//                    hecho.getLugar(),
-//                    hecho.getLatitud(),
-//                    hecho.getLongitud(),
-//                    null,
-//                    null,
-//                    null,
-//                    null,
-//                    null,
-//                    null,
-//                    null
-//            );
-//            hechosDTO.add(dto);
-//        }
-//        return hechosDTO;
-//    }
 }

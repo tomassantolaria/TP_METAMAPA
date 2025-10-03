@@ -1,3 +1,4 @@
+
 package Modelos.Entidades;
 
 import java.util.List;
@@ -47,7 +48,3 @@ public class Coleccion {
     public Coleccion() {}
 
 }
-
-
-
-

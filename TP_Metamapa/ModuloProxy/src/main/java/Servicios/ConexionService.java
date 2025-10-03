@@ -1,6 +1,5 @@
-package Servicios.impl;
+package Servicios;
 
-import Servicios.IConexionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,12 +13,9 @@ import java.util.Map;
 @Service
 public class ConexionService implements IConexionService {
 
-    private final RestTemplate restTemplate;
-
     @Autowired
-    public ConexionService(RestTemplate restTemplate){
-        this.restTemplate = restTemplate;
-    }
+    RestTemplate restTemplate;
+
 
     @Override
     public Map<String, Object> siguienteHecho(URL url, LocalDateTime fechaUltimaConsulta) {
