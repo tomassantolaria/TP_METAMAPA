@@ -40,16 +40,16 @@ public class Hecho{
     @Column()
     public OrigenCarga origen;
 
-    public boolean visible;
+    public Boolean visible;
 
     @ManyToOne
     @JoinColumn()
     private Contribuyente contribuyente;
 
-    public boolean anonimo ;
+    public Boolean anonimo ;
 
     public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
+                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, Boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
         this.id = id;
         this.idFuente = idFuente;
         this.titulo = unTitulo;

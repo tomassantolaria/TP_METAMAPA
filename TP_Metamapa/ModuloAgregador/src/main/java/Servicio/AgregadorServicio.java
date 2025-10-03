@@ -46,21 +46,22 @@ public class AgregadorServicio {
 
     public void actualizarHechos() {
         //Las URL tiene que tener este formato fromHttpUrl
-        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/dinamica/hechos"); // cambiar nombre url
+      //  UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/dinamica/hechos"); // cambiar nombre url
 /*
         UriComponentsBuilder urlDemo = UriComponentsBuilder.fromPath("http://demo/hechos");
 
-        UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromPath("http://fuenteEstatica/hechos");
+
 
         UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromPath("http://metamapa/hechos");
 */
-        ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
-                urlDinamica.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<HechoDTOInput>>() {
-                }
-        );
+        UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8087/fuenteEstatica/hechos");
+//        ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
+//                urlDinamica.toUriString(),
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<List<HechoDTOInput>>() {
+//                }
+//        );
 
 /*
         ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
@@ -72,13 +73,7 @@ public class AgregadorServicio {
         );
 
 
-        ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
-                urlEstatica.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                }
-        );
+
 
         ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
                 urlMetamapa.toUriString(),
@@ -88,6 +83,13 @@ public class AgregadorServicio {
                 }
         );
 */
+        ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
+                urlEstatica.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+        );
         List<HechoDTOInput> hechosDTOTotales = new ArrayList<>();
         // Cambiar el HECHOdtoOutput de las distintas fuentes
 
@@ -97,16 +99,16 @@ public class AgregadorServicio {
             hechosDTOTotales.addAll(hechosDemo) ;
         }
 */
-        if (!respuestaDinamica.getBody().isEmpty()) {
-            List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
-            hechosDTOTotales.addAll(hechosDinamica);
-        }
-/*
+//        if (!respuestaDinamica.getBody().isEmpty()) {
+//            List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
+//            hechosDTOTotales.addAll(hechosDinamica);
+//        }
+
         if (!respuestaEstatica.getBody().isEmpty()) {
             List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
             hechosDTOTotales.addAll(hechosEstatica) ;
         }
-
+/*
         if (!respuestaMetamapa.getBody().isEmpty()) {
             List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
             hechosDTOTotales.addAll(hechosMetamapa) ;
@@ -305,7 +307,7 @@ public class AgregadorServicio {
                 .collect(Collectors.toSet());
 
         List<Hecho> nuevosHechos = hechosCumplenCriterio.stream()
-                .filter(h -> !idsExistentes.contains(h.getId())&&h.isVisible())
+                .filter(h -> !idsExistentes.contains(h.getId())&&h.getVisible())
                 .toList();
 
         coleccion.agregarHechos(nuevosHechos);

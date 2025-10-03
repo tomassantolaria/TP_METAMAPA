@@ -14,6 +14,7 @@ import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -65,7 +66,7 @@ public class ColeccionServicio {
         Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
         System.out.printf("El id es: %d" ,coleccion.getId());
-       // this.avisarAgregador(coleccion.getId());
+        this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
 
@@ -141,13 +142,16 @@ public class ColeccionServicio {
 
     private void avisarAgregador (Long coleccionId) {
         UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/colecciones/" + coleccionId);
-        restTemplate.exchange(
+        ResponseEntity<String> respuestaAgregador =  restTemplate.exchange(
                 urlAgregador.toUriString(),
                 HttpMethod.POST,
                 null,
                 new ParameterizedTypeReference<>() {
                 }
                 );
+        if (respuestaAgregador.getStatusCode().isError()) {
+            throw new HttpServerErrorException(respuestaAgregador.getStatusCode());
+        }
     }
 
     public void eliminarColeccion(Long id) {
@@ -275,7 +279,7 @@ public class ColeccionServicio {
                 null,
                 hecho.getOrigen().name());
 
-        if(!hecho.isAnonimo()){
+        if(Boolean.FALSE.equals(hecho.getAnonimo())){
             dto.setUsuario(hecho.getContribuyente().getUsuario());
             dto.setApellido(hecho.getContribuyente().getApellido());
             dto.setNombre(hecho.getContribuyente().getNombre());

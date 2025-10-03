@@ -26,8 +26,6 @@ public class Coleccion {
     @JoinTable()
     private List<Hecho> hechos;
 
-    @ManyToOne
-    @JoinColumn()
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
     @ManyToMany

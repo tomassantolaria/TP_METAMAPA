@@ -1,5 +1,6 @@
 package Modelos.Entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,12 +24,9 @@ public class Coleccion {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn()
     private CriteriosDePertenencia criterio_pertenencia;
-
     @ManyToMany()
     @JoinTable()
     private List<Hecho> hechos;
-    @ManyToOne()
-    @JoinColumn()
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
     @ManyToMany()
@@ -40,9 +38,9 @@ public class Coleccion {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.criterio_pertenencia = criterio_pertenencia;
-        this.hechos = hechos;
+        this.hechos = new ArrayList<>(hechos);
         this.consenso = null;
-        this.hechosConsensuados = hechos;
+        this.hechosConsensuados = new ArrayList<>(hechos);
     }
 
     public Coleccion() {}

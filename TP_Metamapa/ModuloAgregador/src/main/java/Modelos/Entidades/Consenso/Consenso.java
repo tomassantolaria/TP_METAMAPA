@@ -29,6 +29,20 @@ public abstract class Consenso {
 
 
     public abstract Boolean tieneConsenso(Hecho hecho);
+    public Boolean tieneConsenso(Hecho hecho, HechoRepositorio repo) {
+        if (repo == null) {
+            throw new IllegalArgumentException("HechoRepositorio no puede ser null");
+        }
+        HechoRepositorio previous = this.repositorio;
+        this.repositorio = repo;
+        try {
+            return this.tieneConsenso(hecho);
+        } finally {
+            // Restaurar por seguridad
+            this.repositorio = previous;
+        }
+
+    }
 
     public Long cantidadFuentesConHecho(Hecho hecho) {
         return repositorio.cantidadDeFuentesConHecho(hecho.getTitulo(),hecho.getCategoria(), hecho.getFecha(), hecho.getUbicacion(), hecho.getContribuyente());

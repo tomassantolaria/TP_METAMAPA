@@ -16,7 +16,7 @@ public class AgregadorScheduler {
     }
 
 
-    @Scheduled(fixedRate = 3600000) // cada 1HS
+    @Scheduled(fixedRate = 120000) // TODO :cambiar a 1 hs
     public void actualizarHechos() {
         agregadorService.actualizarHechos();
     }

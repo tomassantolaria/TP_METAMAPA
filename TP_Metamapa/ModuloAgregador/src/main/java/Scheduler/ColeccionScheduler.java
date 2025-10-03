@@ -16,7 +16,9 @@ public class ColeccionScheduler {
     }
 
 
-    @Scheduled(cron = "0 0 3 * * ?") //  en horarios d baja carga en el sistema.
+    //@Scheduled(cron = "0 0 3 * * ?") //  en horarios d baja carga en el sistema.
+    @Scheduled(fixedRate = 60000) // TODO :cambiar a LO ANTERIOR
+
     public void actualizarHechos() {
         coleccionServicio.actalizarHechosConsensuados();
     }

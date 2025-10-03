@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "Hecho")
+@Table(name = "hecho")
 public class Hecho{
 
     @Id
@@ -42,19 +42,19 @@ public class Hecho{
     @Column()
     private OrigenCarga origen; //enum
 
-    private boolean visible ;
+    private Boolean visible ;
 
     @ManyToOne
     @JoinColumn()
     private Contribuyente contribuyente;
 
-    private boolean anonimo;
+    private Boolean anonimo;
 
 
     public Hecho() {}
 
     public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
+                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, Boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
         this.id = id;
         this.idFuente = idFuente;
         this.titulo = unTitulo;

@@ -36,7 +36,7 @@ Long cantidadDeFuentesConHecho(
 
     @Query(value = """
     SELECT COUNT(DISTINCT CONCAT(h.id_fuente, '-', h.origen))
-    FROM Hechos h
+    FROM Hecho h
 """, nativeQuery = true) //
     Long cantidadFuentes();
 
