@@ -45,7 +45,7 @@ public abstract class Consenso {
     }
 
     public Long cantidadFuentesConHecho(Hecho hecho) {
-        return repositorio.cantidadDeFuentesConHecho(hecho.getTitulo(),hecho.getCategoria(), hecho.getFecha(), hecho.getUbicacion(), hecho.getContribuyente());
+        return repositorio.cantidadDeFuentesConHecho(hecho.getTitulo(),hecho.getCategoria(), hecho.getFecha(), hecho.getUbicacion());
     }
 
     // CUANDO SE USA EL CONSENSO SE LE DEBE SETAR EL REPOSITORIO

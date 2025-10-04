@@ -24,7 +24,9 @@ public class ConsensoAbsoluta extends Consenso {
 
     @Override
     public Boolean tieneConsenso(Hecho hecho) {
-        return (cantidadFuentesConHecho(hecho).equals(repositorio.cantidadFuentes()));
+        Long cantidadEnRepo = repositorio.cantidadFuentes();
+        Long cantudadFuentesConHecho = cantidadFuentesConHecho(hecho);
+        return (cantudadFuentesConHecho == cantidadEnRepo);
     }
 }
 

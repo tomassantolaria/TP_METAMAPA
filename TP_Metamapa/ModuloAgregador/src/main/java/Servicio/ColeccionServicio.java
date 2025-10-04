@@ -36,13 +36,13 @@ public class ColeccionServicio {
            if (consenso != null) {
                hechos = coleccion.getHechos().stream()
                        .filter(h -> consenso.tieneConsenso(h, hechoRepositorio))
-                       .toList();
+                       .collect(Collectors.toCollection(ArrayList::new));
            } else {
                hechos = new ArrayList<>(coleccion.getHechos());
            }
-
             coleccion.setHechosConsensuados(hechos);
             coleccionRepositorio.save(coleccion);
+
        }
     }
 

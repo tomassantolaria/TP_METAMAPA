@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "hecho")
+@Table(name = "Hecho")
 public class Hecho{
 
     @Id
