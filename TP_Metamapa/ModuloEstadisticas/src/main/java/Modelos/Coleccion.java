@@ -47,8 +47,6 @@ public class Coleccion {
     public Coleccion() {}
 
 
-
-
     public void agregarHecho(Hecho unHecho) {
         if (! hechos.contains(unHecho)) {
             hechos.add(unHecho);

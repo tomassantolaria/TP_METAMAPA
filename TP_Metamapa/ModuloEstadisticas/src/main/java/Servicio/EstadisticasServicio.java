@@ -53,9 +53,11 @@ public class EstadisticasServicio{
     //cada una hora
     @Scheduled(fixedRate = 3600000)
     public void recalcularEstadisticas() {
+        
             if(!ultimasEstadisticasRepositorio.isEmpty()){
                 ultimasEstadisticasRepositorio.vaciarCache();}
             UltimasEstadisticasDTO dto = new UltimasEstadisticasDTO();
+            
             Map<Long, String> provinciaPorColeccion = new HashMap<>();
             for(Long idColeccion : hechoRepositorio.getColeccionId()){
                 provinciaPorColeccion.put(idColeccion,this.provinciaConMasHechos(idColeccion));
