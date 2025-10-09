@@ -1,6 +1,6 @@
 package Servicio;
 
-import Modelos.DTOs.UltimasEstadisticasDTO;
+import Modelos.UltimasEstadisticasDTO;
 import Repositorio.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,8 +22,6 @@ public class EstadisticasServicio{
     CategoriaRepositorio categoriaRepositorio;
     @Autowired
     HechoRepositorio hechoRepositorio;
-    @Autowired
-    UltimasEstadisticasRepositorio ultimasEstadisticasRepositorio;
     @Autowired
     SolicitudRepositorio solicitudRepositorio;
 

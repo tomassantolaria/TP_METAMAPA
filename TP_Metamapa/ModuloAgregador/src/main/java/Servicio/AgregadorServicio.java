@@ -46,7 +46,7 @@ public class AgregadorServicio {
 
     public void actualizarHechos() {
         //Las URL tiene que tener este formato fromHttpUrl
-      //  UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/dinamica/hechos"); // cambiar nombre url
+        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/dinamica/hechos"); // cambiar nombre url
 /*
         UriComponentsBuilder urlDemo = UriComponentsBuilder.fromPath("http://demo/hechos");
 
@@ -54,14 +54,15 @@ public class AgregadorServicio {
 
         UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromPath("http://metamapa/hechos");
 */
-        UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8087/fuenteEstatica/hechos");
-//        ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
-//                urlDinamica.toUriString(),
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<List<HechoDTOInput>>() {
-//                }
-//        );
+        UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8084/fuenteEstatica/hechos");
+
+        ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
+                urlDinamica.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<HechoDTOInput>>() {
+                }
+        );
 
 /*
         ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
@@ -99,10 +100,11 @@ public class AgregadorServicio {
             hechosDTOTotales.addAll(hechosDemo) ;
         }
 */
-//        if (!respuestaDinamica.getBody().isEmpty()) {
-//            List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
-//            hechosDTOTotales.addAll(hechosDinamica);
-//        }
+        if (!respuestaDinamica.getBody().isEmpty()) {
+            List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
+            hechosDTOTotales.addAll(hechosDinamica);
+        }
+
 
         if (!respuestaEstatica.getBody().isEmpty()) {
             List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
@@ -116,9 +118,9 @@ public class AgregadorServicio {
 */
         // CONSUMIR API DE GOOGLE PARA OBTENER UBICACION MEDIANTE LA LATITUD Y LONGITUD O QUE LO HAGA CADA FUENTE
 
-        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/normalizacion/categorias");
-        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/normalizacion/ubicaciones");
-        UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/normalizacion/titulos");
+        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/categorias");
+        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/ubicaciones");
+        UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/titulos");
 
         for (HechoDTOInput hechoDTO: hechosDTOTotales){
 

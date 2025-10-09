@@ -1,8 +1,8 @@
 package Modelos;
 
-import Modelos.Entidades.Localidad;
-import Modelos.Entidades.Pais;
-import Modelos.Entidades.Provincia;
+import Modelos.Localidad;
+import Modelos.Pais;
+import Modelos.Provincia;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

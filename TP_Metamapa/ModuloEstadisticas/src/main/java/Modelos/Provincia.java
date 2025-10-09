@@ -1,6 +1,6 @@
 package Modelos;
 
-import Modelos.Entidades.Pais;
+import Modelos.Pais;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
