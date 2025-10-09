@@ -2,6 +2,9 @@ package Servicios;
 
 import Modelos.DTOs.SolicitudDTO;
 import Modelos.DTOs.HechoDTO;
+import Modelos.Entidades.Fuente;
+import Modelos.Entidades.TipoFuente;
+import Repositorios.FuenteRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -9,6 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,94 +26,45 @@ public class FuenteMetaMapaService{
 
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    FuenteRepositorio fuenteRepositorio;
 
 
-    public List<HechoDTO> obtenerHechos(/*String categoria,
-                                        String ContenidoMultimedia,
-                                        String fecha_reporte_desde,
-                                        String fecha_reporte_hasta,
-                                        String fecha_acontecimiento_desde,
-                                        String fecha_acontecimiento_hasta,
-                                        String origen,
-                                        String titulo,
-                                        String pais,
-                                        String provincia,
-                                        String localidad*/) {
-        UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs
-                .fromHttpUrl("http://localhost:8084/publico/hechos")/*
-                .queryParamIfPresent("categoria", Optional.ofNullable(categoria))
-                .queryParamIfPresent("contenidoMultimedia", Optional.ofNullable(ContenidoMultimedia))
-                .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fecha_reporte_desde))
-                .queryParamIfPresent("fechaCargaHasta", Optional.ofNullable(fecha_reporte_hasta))
-                .queryParamIfPresent("fechaHechoDesde", Optional.ofNullable(fecha_acontecimiento_desde))
-                .queryParamIfPresent("fechaHechoHasta", Optional.ofNullable(fecha_acontecimiento_hasta))
-                .queryParamIfPresent("origen", Optional.ofNullable(origen))
-                .queryParamIfPresent("titulo", Optional.ofNullable(titulo))
-                .queryParamIfPresent("pais", Optional.ofNullable(pais)) //Localhost deberia remplazarse por la instancia de MetaMapa
-                .queryParamIfPresent("provincia", Optional.ofNullable(provincia))
-                .queryParamIfPresent("localicad", Optional.ofNullable(localidad))*/;
+    public List<HechoDTO> obtenerHechos() {
+        List<Fuente> fuentes =fuenteRepositorio.findByTipoFuente(TipoFuente.METAMAPA);
+        List<HechoDTO> hechosMetamapa = new ArrayList<>();
+       for( Fuente fuente : fuentes ) {
+
+           UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs
+                   .fromHttpUrl(fuente.getUrl())
+                   .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fuente.getFechaUltimaConsulta()));
 
 
-        ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
-                url.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {}
-        );
+           ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
+                   url.toUriString(),
+                   HttpMethod.GET,
+                   null,
+                   new ParameterizedTypeReference<>() {
+                   }
+           );
 
+           if (response.getBody() != null ) {
+               List<HechoDTO> hechosConIdFuente = this.setearFuente(response.getBody(), fuente.getId());
+               hechosMetamapa.addAll(hechosConIdFuente);
+           }
+           fuente.setFechaUltimaConsulta(LocalDateTime.now());
+           fuenteRepositorio.save(fuente);
+       }
 
-        return response.getBody();
+        return hechosMetamapa;
     }
 
-
-
-
-    /*public List<HechoDTO> obtenerHechosPorColeccion(String idColeccion,
-                                                    String categoria,
-                                                    String ContenidoMultimedia,
-                                                    String fecha_reporte_desde,
-                                                    String fecha_reporte_hasta,
-                                                    String fecha_acontecimiento_desde,
-                                                    String fecha_acontecimiento_hasta,
-                                                    String origen,
-                                                    String titulo,
-                                                    String ubicacion) {
-        UriComponentsBuilder url = UriComponentsBuilder
-                .fromPath("http://agregador/colecciones/" + idColeccion + "/hechos")
-                .queryParam("categoria", categoria)
-                .queryParam("contenido_multimedia", ContenidoMultimedia)
-                .queryParam("fecha_reporte_desde", fecha_reporte_desde)
-                .queryParam("fecha_reporte_hasta", fecha_reporte_hasta)
-                .queryParam("fecha_acontecimiento_desde", fecha_acontecimiento_desde)
-                .queryParam("fecha_acontecimiento_hasta", fecha_acontecimiento_hasta)
-                .queryParam("origen", origen)
-                .queryParam("titulo", titulo)
-                .queryParam("ubicacion", ubicacion);
-
-
-
-        ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(
-                url.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                }
-        );
-
-
-        return response.getBody();
-    }
-
-    public void crearSolicitud(SolicitudDTO solicitud) throws Exception {
-        UriComponentsBuilder url = UriComponentsBuilder
-                .fromHttpUrl("http://localhost:8084/solicitudes");
-
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                url.toUriString(), solicitud, String.class);
-
-        if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new Exception("Error al crear la solicitud: " + response.getBody());
+    public List<HechoDTO> setearFuente(List<HechoDTO> hechos, Long idfuente){
+        for ( HechoDTO hecho : hechos){
+            hecho.setIdFuente(idfuente);
         }
+        return  hechos;
     }
-*/
+
+
 }
