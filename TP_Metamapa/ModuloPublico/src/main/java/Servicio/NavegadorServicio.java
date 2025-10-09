@@ -47,8 +47,8 @@ public class NavegadorServicio {
     }
 
     public HechoDTO transformarAHechoDTO (Hecho hecho){
-        HechoDTO hechoDTO = new HechoDTO(hecho.getId(), hecho.getIdFuente(), hecho.getTitulo(),hecho.getDescripcion(), hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),hecho.getCategoria().getNombre(), hecho.getFecha(), hecho.getFecha_carga(), hecho.getUbicacion().getLocalidad().getLocalidad(), hecho.getUbicacion().getProvincia().getProvincia(), hecho.getUbicacion().getPais().getPais(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(), hecho.getContribuyente().getUsuario(), hecho.getContribuyente().getNombre(), hecho.getContribuyente().getApellido(), hecho.getContribuyente().getFecha_nacimiento(), hecho.isAnonimo(), hecho.isVisible(), hecho.getOrigen().name());
-        if (hecho.isAnonimo()) {
+        HechoDTO hechoDTO = new HechoDTO(hecho.getId(), hecho.getIdFuente(), hecho.getTitulo(),hecho.getDescripcion(), hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),hecho.getCategoria().getNombre(), hecho.getFecha(), hecho.getFecha_carga(), hecho.getUbicacion().getLocalidad().getLocalidad(), hecho.getUbicacion().getProvincia().getProvincia(), hecho.getUbicacion().getPais().getPais(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(), hecho.getContribuyente().getUsuario(), hecho.getContribuyente().getNombre(), hecho.getContribuyente().getApellido(), hecho.getContribuyente().getFecha_nacimiento(), hecho.getAnonimo(), hecho.getVisible(), hecho.getOrigen().name());
+        if (hecho.getAnonimo()) {
             hechoDTO.setUsuario(null);
         }
         return hechoDTO;

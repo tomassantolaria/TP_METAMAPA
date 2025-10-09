@@ -42,7 +42,7 @@ public class ConsensoServicio {
 
     public HechoDTO transformarAHechoDTO (Hecho hecho){
         HechoDTO hechoDTO = new HechoDTO(hecho.getId(), hecho.getIdFuente(),hecho.getTitulo(),hecho.getDescripcion(), hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),hecho.getCategoria().getNombre(), hecho.getFecha(), hecho.getFecha_carga(), hecho.getUbicacion().getLocalidad().getLocalidad(), hecho.getUbicacion().getProvincia().getProvincia(), hecho.getUbicacion().getPais().getPais(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(), hecho.getContribuyente().getUsuario(), null, null, null, null, null, hecho.getOrigen().name());
-        if (hecho.isAnonimo()) {
+        if (hecho.getAnonimo()) {
             hechoDTO.setUsuario(null);
         }
         return hechoDTO;
