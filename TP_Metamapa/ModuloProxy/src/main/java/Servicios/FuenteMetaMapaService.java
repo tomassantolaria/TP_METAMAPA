@@ -35,9 +35,9 @@ public class FuenteMetaMapaService{
         List<HechoDTO> hechosMetamapa = new ArrayList<>();
         for( Fuente fuente : fuentes ) {
 
-            UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs
-                    .fromHttpUrl(fuente.getUrl())
-                    .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fuente.getFechaUltimaConsulta()));
+                UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs
+                        .fromHttpUrl(fuente.getUrl())
+                        .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fuente.getFechaUltimaConsulta().toLocalDate()));
 
 
             ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(

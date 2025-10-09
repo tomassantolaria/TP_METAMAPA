@@ -46,13 +46,73 @@ public class NavegadorServicio {
         return hechosDTO;
     }
 
-    public HechoDTO transformarAHechoDTO (Hecho hecho){
-        HechoDTO hechoDTO = new HechoDTO(hecho.getId(), hecho.getIdFuente(), hecho.getTitulo(),hecho.getDescripcion(), hecho.getContenido().getTexto(),hecho.getContenido().getContenido_multimedia(),hecho.getCategoria().getNombre(), hecho.getFecha(), hecho.getFecha_carga(), hecho.getUbicacion().getLocalidad().getLocalidad(), hecho.getUbicacion().getProvincia().getProvincia(), hecho.getUbicacion().getPais().getPais(), hecho.getUbicacion().getLatitud(), hecho.getUbicacion().getLongitud(), hecho.getContribuyente().getUsuario(), hecho.getContribuyente().getNombre(), hecho.getContribuyente().getApellido(), hecho.getContribuyente().getFecha_nacimiento(), hecho.getAnonimo(), hecho.getVisible(), hecho.getOrigen().name());
-        if (hecho.getAnonimo()) {
+    public HechoDTO transformarAHechoDTO(Hecho hecho) {
+        if (hecho == null) return null;
+
+        // Protecciones contra null en objetos relacionados
+        String texto = hecho.getContenido() != null ? hecho.getContenido().getTexto() : null;
+        String contenidoMultimedia = hecho.getContenido() != null ? hecho.getContenido().getContenido_multimedia() : null;
+        String categoria = hecho.getCategoria() != null ? hecho.getCategoria().getNombre() : null;
+
+        String localidad = null;
+        String provincia = null;
+        String pais = null;
+        Double latitud = null;
+        Double longitud = null;
+        if (hecho.getUbicacion() != null) {
+            localidad = hecho.getUbicacion().getLocalidad() != null ? hecho.getUbicacion().getLocalidad().getLocalidad() : null;
+            provincia = hecho.getUbicacion().getProvincia() != null ? hecho.getUbicacion().getProvincia().getProvincia() : null;
+            pais = hecho.getUbicacion().getPais() != null ? hecho.getUbicacion().getPais().getPais() : null;
+            latitud = hecho.getUbicacion().getLatitud();
+            longitud = hecho.getUbicacion().getLongitud();
+        }
+
+        String usuario = null;
+        String nombre = null;
+        String apellido = null;
+        LocalDate fechaNacimiento = null;
+
+        if (hecho.getContribuyente() != null) {
+            usuario = hecho.getContribuyente().getUsuario();
+            nombre = hecho.getContribuyente().getNombre();
+            apellido = hecho.getContribuyente().getApellido();
+            fechaNacimiento = hecho.getContribuyente().getFecha_nacimiento();
+        }
+
+        String origen = hecho.getOrigen() != null ? hecho.getOrigen().name() : null;
+
+        HechoDTO hechoDTO = new HechoDTO(
+                hecho.getId(),
+                hecho.getIdFuente(),
+                hecho.getTitulo(),
+                hecho.getDescripcion(),
+                texto,
+                contenidoMultimedia,
+                categoria,
+                hecho.getFecha(),
+                hecho.getFecha_carga(),
+                localidad,
+                provincia,
+                pais,
+                latitud,
+                longitud,
+                usuario,
+                nombre,
+                apellido,
+                fechaNacimiento,
+                hecho.getAnonimo(),
+                hecho.getVisible(),
+                origen
+        );
+
+        // Si el hecho es anónimo, ocultar usuario
+        if (hecho.getAnonimo() != null && hecho.getAnonimo()) {
             hechoDTO.setUsuario(null);
         }
+
         return hechoDTO;
     }
+
     public OrigenCarga crearOrigen(String origen){
         if (origen == null) {
             return null;
