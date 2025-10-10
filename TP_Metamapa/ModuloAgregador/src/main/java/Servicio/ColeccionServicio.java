@@ -28,7 +28,7 @@ public class ColeccionServicio {
     }
 
     @Transactional
-    public void actalizarHechosConsensuados() {
+    public void actualizarHechosConsensuados() {
        for (Coleccion coleccion : coleccionRepositorio.findAll()) {
            Hibernate.initialize(coleccion.getHechos());
            Consenso consenso = coleccion.getConsenso();

@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.time.LocalDate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,8 +53,8 @@ public class ColeccionServicio {
     public void crearColeccion(ColeccionDTO coleccionDTO) {
         Categoria categoria =  this.crearCategoria(coleccionDTO.getCriterio().getCategoria());
         Boolean multimedia = coleccionDTO.getCriterio().getContenido_multimedia();
-        LocalDate fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
-        LocalDate fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
+        LocalDateTime fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
+        LocalDateTime fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
         Pais pais = this.crearPais(coleccionDTO.getCriterio().getPais());
         Provincia provincia = this.crearProvincia(coleccionDTO.getCriterio().getProvincia(), pais);
         Localidad localidad = this.crearLocalidad(coleccionDTO.getCriterio().getLocalidad(), provincia);
@@ -267,7 +268,7 @@ public class ColeccionServicio {
                 hecho.getTitulo(),
                 hecho.getDescripcion(),
                 hecho.getContenido().getTexto(),
-                hecho.getContenido().getContenido_multimedia(),
+                hecho.getContenido().getContenidoMultimedia(),
                 hecho.getCategoria().getNombre(),
                 hecho.getFecha(),
                 hecho.getUbicacion().getPais().getPais(),

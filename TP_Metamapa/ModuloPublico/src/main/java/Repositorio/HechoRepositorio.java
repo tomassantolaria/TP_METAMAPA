@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import Modelos.Entidades.Hecho;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -17,8 +18,8 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
             "WHERE (:categoria IS NULL OR h.categoria.nombre = :categoria) " +
             "AND (" +
             "    :contenidoMultimedia IS NULL" +
-            "    OR (:contenidoMultimedia = TRUE AND h.contenido.contenido_multimedia IS NOT NULL AND h.contenido.contenido_multimedia <> '')" +
-            "    OR (:contenidoMultimedia = FALSE AND (h.contenido.contenido_multimedia IS NULL OR h.contenido.contenido_multimedia = ''))" +
+            "    OR (:contenidoMultimedia = TRUE AND h.contenido.contenidoMultimedia IS NOT NULL AND h.contenido.contenidoMultimedia <> '')" +
+            "    OR (:contenidoMultimedia = FALSE AND (h.contenido.contenidoMultimedia IS NULL OR h.contenido.contenidoMultimedia = ''))" +
             ") " +
             "AND (:fechaCargaDesde IS NULL OR h.fecha_carga >= :fechaCargaDesde) " +
             "AND (:fechaCargaHasta IS NULL OR h.fecha_carga<= :fechaCargaHasta) " +
@@ -28,12 +29,13 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
             "AND (:titulo IS NULL OR h.titulo LIKE %:titulo%) " +
             "AND (:pais IS NULL OR h.ubicacion.pais.pais = :pais) " +
             "AND (:provincia IS NULL OR h.ubicacion.provincia.provincia = :provincia) " +
-            "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)")
+            "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)"+
+            "AND (h.visible = true)")
     List<Hecho> filtrarHechos(
             @Param("categoria") String categoria,
             @Param("contenidoMultimedia") Boolean contenidoMultimedia,
-            @Param("fechaCargaDesde") LocalDate fechaCargaDesde,
-            @Param("fechaCargaHasta") LocalDate fechaCargaHasta,
+            @Param("fechaCargaDesde") LocalDateTime fechaCargaDesde,
+            @Param("fechaCargaHasta") LocalDateTime fechaCargaHasta,
             @Param("fechaHechoDesde") LocalDate fechaHechoDesde,
             @Param("fechaHechoHasta") LocalDate fechaHechoHasta,
             @Param("origenCarga") OrigenCarga origenCarga,

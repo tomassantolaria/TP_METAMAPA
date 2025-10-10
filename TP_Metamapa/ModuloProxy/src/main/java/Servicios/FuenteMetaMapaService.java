@@ -37,7 +37,7 @@ public class FuenteMetaMapaService{
 
                 UriComponentsBuilder url = UriComponentsBuilder // clase de Spring que ayuda a construir URLs
                         .fromHttpUrl(fuente.getUrl())
-                        .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fuente.getFechaUltimaConsulta().toLocalDate()));
+                        .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fuente.getFechaUltimaConsulta()));
 
 
             ResponseEntity<List<HechoDTO>> response = restTemplate.exchange(

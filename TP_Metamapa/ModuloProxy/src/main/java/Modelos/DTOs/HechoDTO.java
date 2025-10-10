@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class HechoDTO {
     private String contenido_multimedia;
     private String categoria;
     private LocalDate fechaAcontecimiento;
-    private LocalDate fechaCarga = null;
+    private LocalDateTime fechaCarga = null;
     private String localidad;
     private String provincia;
     private String pais;

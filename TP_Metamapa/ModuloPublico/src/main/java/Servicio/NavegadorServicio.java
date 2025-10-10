@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ public class NavegadorServicio {
   ColeccionRepositorio coleccionRepositorio;
 
 
-    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, Boolean contenidoMultimedia, LocalDate fechaCargaDesde, LocalDate fechaCargaHasta, LocalDate fechaHechoDesde, LocalDate fechaHechoHasta, String origenCarga, String titulo, String pais, String provincia, String localidad) {
+    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, Boolean contenidoMultimedia, LocalDateTime fechaCargaDesde, LocalDateTime fechaCargaHasta, LocalDate fechaHechoDesde, LocalDate fechaHechoHasta, String origenCarga, String titulo, String pais, String provincia, String localidad) {
         List <Hecho> hechos;
 
         OrigenCarga origenCargaNuevo = crearOrigen(origenCarga);
@@ -51,7 +52,7 @@ public class NavegadorServicio {
 
         // Protecciones contra null en objetos relacionados
         String texto = hecho.getContenido() != null ? hecho.getContenido().getTexto() : null;
-        String contenidoMultimedia = hecho.getContenido() != null ? hecho.getContenido().getContenido_multimedia() : null;
+        String contenidoMultimedia = hecho.getContenido() != null ? hecho.getContenido().getContenidoMultimedia() : null;
         String categoria = hecho.getCategoria() != null ? hecho.getCategoria().getNombre() : null;
 
         String localidad = null;

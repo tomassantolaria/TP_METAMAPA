@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,10 +18,10 @@ public class HechoDTOInput {
     public String contenido_multimedia;
     public String categoria;
     public LocalDate fechaAcontecimiento;
-    public LocalDate fechaCarga;
-    public String nombre_localidad;
-    public String nombre_provincia;
-    public String nombre_pais ;
+    public LocalDateTime fechaCarga;
+    public String localidad;
+    public String provincia;
+    public String pais ;
     public Double latitud;
     public Double longitud;
     public String usuario;
@@ -35,7 +36,7 @@ public class HechoDTOInput {
 
     }
 
-    public HechoDTOInput(Long idHecho, Long idFuente, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDate fechaAcontecimiento, LocalDate fechaCarga, String localidad, String provincia,String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
+    public HechoDTOInput(Long idHecho, Long idFuente, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDate fechaAcontecimiento, LocalDateTime fechaCarga, String localidad, String provincia,String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
         this.idHecho = idHecho;
         this.idFuente = idFuente;
         this.titulo = titulo;
@@ -45,9 +46,9 @@ public class HechoDTOInput {
         this.categoria = categoria;
         this.fechaAcontecimiento = fechaAcontecimiento;
         this.fechaCarga = fechaCarga;
-        this.nombre_localidad = localidad;
-        this.nombre_provincia = provincia;
-        this.nombre_pais = pais;
+        this.localidad = localidad;
+        this.provincia = provincia;
+        this.pais = pais;
         this.latitud = latitud;
         this.longitud = longitud;
         this.usuario = usuario;

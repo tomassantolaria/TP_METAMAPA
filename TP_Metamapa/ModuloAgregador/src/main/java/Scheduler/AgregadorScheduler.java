@@ -9,12 +9,7 @@ import org.springframework.stereotype.Component;
 public class AgregadorScheduler {
 
     @Autowired
-    private final AgregadorServicio agregadorService;
-
-    public AgregadorScheduler(AgregadorServicio agregadorService) {
-        this.agregadorService = agregadorService;
-    }
-
+    AgregadorServicio agregadorService;
 
     @Scheduled(fixedRate = 36000000)
     public void actualizarHechos() {

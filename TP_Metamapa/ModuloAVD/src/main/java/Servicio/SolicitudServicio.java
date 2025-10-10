@@ -21,12 +21,7 @@ public class SolicitudServicio {
     @Autowired
     SolicitudRepositorio solicitudRepositorio;
     @Autowired
-    HechoRepositorio hechoRepositorio;
-
-    public SolicitudServicio(SolicitudRepositorio solicitudRepositorio) {
-        this.solicitudRepositorio = solicitudRepositorio;
-    }
-
+    ColeccionServicio coleccionServicio;
 
     public List<SolicitudDTOOutput> solicitudesPendientes(){
         List<Solicitud> solicitudes = solicitudRepositorio.findByEstado(Estado.PENDIENTE);
@@ -45,12 +40,7 @@ public class SolicitudServicio {
         Estado estado = this.crearEstado(nuevoEstado);
         solicitud.setEstado(estado);
         if(estado == Estado.ACEPTADA){
-            Hecho hecho = hechoRepositorio.findById(solicitud.getHecho().getId()).orElse(null);
-            if(hecho == null){
-                throw new HechoInvalidoException("El hecho no existe.");
-            }
-            hecho.eliminarse();
-            hechoRepositorio.save(hecho);
+            coleccionServicio.eliminarHecho(solicitud.getHecho().getId());
         }
         solicitudRepositorio.save(solicitud);
     }

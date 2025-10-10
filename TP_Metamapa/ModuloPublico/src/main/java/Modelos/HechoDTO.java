@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class HechoDTO {
     public String contenido_multimedia;
     public String categoria;
     public LocalDate fechaAcontecimiento;
-    public LocalDate fechaCarga;
+    public LocalDateTime fechaCarga;
     public String localidad;
     public String provincia;
     public String pais;
@@ -33,7 +34,7 @@ public class HechoDTO {
     public Boolean visible;
     public String origen_carga;
 
-    public HechoDTO(Long idHecho, Long idFuente,String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDate fechaAcontecimiento, LocalDate fechaCarga, String localidad, String provincia, String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
+    public HechoDTO(Long idHecho, Long idFuente,String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDate fechaAcontecimiento, LocalDateTime fechaCarga, String localidad, String provincia, String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
         this.idHecho = idHecho;
         this.idFuente = idFuente;
         this.titulo = titulo;

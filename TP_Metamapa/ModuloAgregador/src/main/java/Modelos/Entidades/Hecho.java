@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -22,7 +22,7 @@ public class Hecho{
     private String titulo;
     private String descripcion;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Contenido contenido;
 
@@ -36,7 +36,7 @@ public class Hecho{
     @JoinColumn()
     private Ubicacion ubicacion;
 
-    private LocalDate fecha_carga;
+    private LocalDateTime fecha_carga;
 
     @Enumerated(EnumType.STRING)
     @Column()
@@ -54,7 +54,7 @@ public class Hecho{
     public Hecho() {}
 
     public Hecho(Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, Boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
+                 Ubicacion unaUbicacion, LocalDateTime unaFechaCarga, OrigenCarga unOrigen, Boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
         this.id = null;
         this.idFuente = idFuente;
         this.titulo = unTitulo;

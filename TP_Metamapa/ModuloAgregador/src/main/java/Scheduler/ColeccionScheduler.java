@@ -3,22 +3,21 @@ package Scheduler;
 
 
 import Servicio.ColeccionServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ColeccionScheduler {
 
-    private final ColeccionServicio coleccionServicio;
+    @Autowired
+    ColeccionServicio coleccionServicio;
 
-    public ColeccionScheduler(ColeccionServicio coleccionServicio) {
-        this.coleccionServicio = coleccionServicio;
-    }
 
 
     @Scheduled(cron = "0 0 3 * * ?") //  en horarios d baja carga en el sistema.
     //@Scheduled(fixedRate = 60000) //PUEBAS
     public void actualizarHechos() {
-        coleccionServicio.actalizarHechosConsensuados();
+        coleccionServicio.actualizarHechosConsensuados();
     }
 }
