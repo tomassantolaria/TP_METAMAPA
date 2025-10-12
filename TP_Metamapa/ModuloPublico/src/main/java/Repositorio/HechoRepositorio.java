@@ -44,4 +44,9 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
             @Param("provincia") String provincia,
             @Param("localidad") String localidad
     );
+
+    @Query("SELECT h FROM Hecho h WHERE h.visible = true") //para lo del texto libre
+    List<Hecho> buscarTodosVisibles(); 
+
+
 }

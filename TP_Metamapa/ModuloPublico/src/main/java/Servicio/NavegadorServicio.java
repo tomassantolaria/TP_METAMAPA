@@ -127,4 +127,39 @@ public class NavegadorServicio {
             throw new ColeccionNotFoundException("Colección no encontrada con id: "  + id);
         }
     }
+
+    public List<HechoDTO> buscarPorTextoLibre(String texto){
+
+        //es para recibir todo el texto y separarlo en una lista de palabras para ir recorriendola 
+        String[] palabras = texto.toLowerCase().split("\\s+");
+
+        List<Hecho> hechos = hechoRepositorio.buscarTodosVisibles();
+
+        List<Hecho> filtrados = hechos.stream().filter(h -> {
+            String textoTotal = (
+                (hecho.getTitulo() != null ? hecho.getTitulo().toLowerCase() + " " : "") +
+                (hecho.getDescripcion() != null ? hecho.getDescripcion().toLowerCase() + " " : "") +
+                (hecho.getCategoria() != null ? hecho.getCategoria().getNombre().toLowerCase() + " " : "") +
+                (hecho.getContenido() != null && hecho.getContenido().getTexto() != null ? hecho.getContenido().getTexto().toLowerCase() + " " : "") +
+                (hecho.getUbicacion() != null ? (
+                        (hecho.getUbicacion().getLocalidad() != null ? hecho.getUbicacion().getLocalidad().getLocalidad().toLowerCase() + " " : "") +
+                        (hecho.getUbicacion().getProvincia() != null ? hecho.getUbicacion().getProvincia().getProvincia().toLowerCase() + " " : "") +
+                        (hecho.getUbicacion().getPais() != null ? hecho.getUbicacion().getPais().getPais().toLowerCase() + " " : "")
+                ): "")
+        );
+
+        for (String palabra : palabras) {
+            if (!textoTotal.contains(palabra)) {
+                return false;
+            }
+        }
+        return true;
+        }).toList();
+
+        if (filtrados.isEmpty()) {
+            throw new HechosNoEncontradosException("No se encontraron hechos que coincidan con el texto: " + texto);
+        }
+
+    return transformarADTOLista(filtrados);
+}   
 }

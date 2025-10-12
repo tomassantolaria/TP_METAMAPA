@@ -96,5 +96,16 @@ public class NavegadorControlador {
         }
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<?> buscarPorTextoLibre(@RequestParam String texto){
+        try {
+            List<HechoDTO> hechos = navegadorServicio.buscarPorTextoLibre(texto);
+            return ResponseEntity.ok(hechos);
+        } catch (HechosNoEncontradosException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al buscar hechos");
+        }
+    }
+
 
 }
