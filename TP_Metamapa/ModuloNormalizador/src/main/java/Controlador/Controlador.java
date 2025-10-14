@@ -1,12 +1,10 @@
 package Controlador;
 
-import Modelos.Categoria;
-import Modelos.Ubicacion;
 import Modelos.UbicacionDTO;
 import Modelos.UbicacionDTOoutput;
-import Servicios.ServicioCategoria;
-import Servicios.ServicioTitulo;
-import Servicios.ServicioUbicacion;
+import servicios.ServicioCategoria;
+import servicios.ServicioTitulo;
+import servicios.ServicioUbicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

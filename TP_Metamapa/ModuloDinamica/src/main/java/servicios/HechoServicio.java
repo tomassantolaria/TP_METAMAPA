@@ -1,4 +1,4 @@
-package Servicios;
+package servicios;
 
 import Modelos.HechoDTO;
 import Modelos.HechoDTOInput;

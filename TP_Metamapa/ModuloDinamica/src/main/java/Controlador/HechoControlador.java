@@ -3,7 +3,7 @@ package Controlador;
 
 import Modelos.HechoDTO;
 import Modelos.HechoDTOInput;
-import Servicios.HechoServicio;
+import servicios.HechoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
