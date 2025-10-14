@@ -1,6 +1,7 @@
 package Repositorio;
 
-import Modelos.UltimasEstadisticaDTO;
+
+import Modelos.UltimasEstadisticasDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository

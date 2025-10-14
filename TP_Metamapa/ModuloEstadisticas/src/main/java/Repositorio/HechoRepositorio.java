@@ -16,19 +16,15 @@ import java.util.List;
 public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
 
     @Query("""
-        SELECT FUNCTION('HOUR', h.fecha)
-        FROM Hecho H
-        left join Categoria C
-        WHERE C.nombre = :categoria
-        GROUP BY FUNCTION('HOUR', h.fecha)
-        ORDER BY COUNT(H.id) DESC
+        SELECT FUNCTION('HOUR', h.fecha) as hora
+        FROM Hecho h
+        WHERE h.categoria.nombre = :categoria
+        GROUP BY hora
+        ORDER BY COUNT(h.id) DESC
     """)
     List<Integer> getHoraConMasHechos(String categoria, Pageable pageable);
 
-    @Query("""
-        select c.id
-        from Coleccion c
-    """)
-    List<Long> getColeccionId();
+
+
 
 }

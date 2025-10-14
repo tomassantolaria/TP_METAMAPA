@@ -9,11 +9,16 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ServicioUbicacion {
 
+    private final RestTemplate restTemplate;
+
+    public ServicioUbicacion(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     private static final String NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
 
     public UbicacionDTOoutput normalizarUbicacion (Double latitud, Double longitud) {
 
-        RestTemplate restTemplate = new RestTemplate();
         Ubicacion ubicacion = new Ubicacion();
 
         try{
@@ -59,38 +64,4 @@ public class ServicioUbicacion {
         return resultado.toString().trim();
     }
 }
-
-
-//@Service
-//public class ServicioUbicacion {
-//    @Autowired
-//    RepositorioLocalidad repositorioLocalidad;
-//    @Autowired
-//    RepositorioProvincia repositorioProvincia;
-//    @Autowired
-//    RepositorioPais repositorioPais;
-//
-//    public Ubicacion normalizarUbicacion (String nombre_pais, String nombre_provincia, String nombre_localidad) {
-//        Ubicacion ubicacion = new Ubicacion();
-//        ubicacion.setPais(this.normalizarPais(nombre_pais));
-//        ubicacion.setProvincia(this.normalizarProvincia(nombre_provincia, ubicacion.getPais()));
-//        ubicacion.setLocalidad(this.normalizarLocalidad(nombre_localidad, ubicacion.getProvincia()));
-//        return ubicacion;
-//    }
-//
-//    public Pais normalizarPais (String nombre_pais) {
-//        nombre_pais = nombre_pais.toUpperCase();
-//        return repositorioPais.crearPais(nombre_pais);
-//    }
-//
-//    public Provincia normalizarProvincia(String nombre_provincia, Pais pais) {
-//        nombre_provincia = nombre_provincia.toUpperCase();
-//        return repositorioProvincia.crearProvincia(nombre_provincia, pais);
-//    }
-//
-//    public Localidad normalizarLocalidad(String nombre_Localidad, Provincia provincia) {
-//        nombre_Localidad = nombre_Localidad.toUpperCase();
-//        return repositorioLocalidad.crearLocalidad(nombre_Localidad, provincia);
-//    }
-//}
 

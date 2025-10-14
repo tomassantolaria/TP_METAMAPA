@@ -1,9 +1,9 @@
 package Servicio;
 
+import Modelos.Coleccion;
 import Modelos.UltimasEstadisticasDTO;
 import Repositorio.*;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,6 +24,10 @@ public class EstadisticasServicio{
     HechoRepositorio hechoRepositorio;
     @Autowired
     SolicitudRepositorio solicitudRepositorio;
+    @Autowired
+    ColeccionRepositorio coleccionRepositorio;
+    @Autowired
+    UltimasEstadisticasRepositorio ultimasEstadisticasRepositorio;
 
     public String provinciaConMasHechos(Long idColeccion){
         List<String> resultado = provinciaRepositorio.getProvinciaConMasHechos(idColeccion, PageRequest.of(0, 1));
@@ -59,7 +63,7 @@ public class EstadisticasServicio{
             UltimasEstadisticasDTO dto = new UltimasEstadisticasDTO();
             
             Map<Long, String> provinciaPorColeccion = new HashMap<>();
-            for(Long idColeccion : hechoRepositorio.getColeccionId()){
+            for(Long idColeccion : coleccionRepositorio.findAll().stream().map(Coleccion::getId).toList()){
                 provinciaPorColeccion.put(idColeccion,this.provinciaConMasHechos(idColeccion));
             }
             dto.setProvinciaConMasHechosPorColeccion(provinciaPorColeccion);
@@ -71,13 +75,13 @@ public class EstadisticasServicio{
             for (String categoria : categorias) {
                 provinciaPorCategoria.put(categoria, this.provinciaConMasHechosDeCategoria(categoria));
             }
-            dto.setProvinciaPorCategoria(provinciaPorCategoria);
+            dto.setProvinciaConMasHechosDeCategoria(provinciaPorCategoria);
 
             Map<String, Integer> horaPorCategoria = new HashMap<>();
             for (String categoria : categorias) {
                 horaPorCategoria.put(categoria, this.obtenerHoraConMasHechos(categoria));
             }
-            dto.setHoraPorCategoria(horaPorCategoria);
+            dto.setHoraConMasHechosPorCategoria(horaPorCategoria);
 
             dto.setCantidadSolicitudesSpam(this.cantidadSolicitudesSpam());
 
@@ -100,12 +104,12 @@ public class EstadisticasServicio{
             csv.append("Categoría con más hechos: ").append(dto.getCategoriaConMasHechos()).append("\n");
 
             csv.append("Provincia con más hechos por categoría:\nCategoria,Provincia\n");
-            dto.getProvinciaPorCategoria().forEach((cat, prov) -> {
+            dto.getProvinciaConMasHechosDeCategoria().forEach((cat, prov) -> {
                 csv.append(cat).append(",").append(prov).append("\n");
             });
 
             csv.append("Hora por categoría:\nCategoria,Hora\n");
-            dto.getHoraPorCategoria().forEach((cat, hora) -> {
+            dto.getHoraConMasHechosPorCategoria().forEach((cat, hora) -> {
                 csv.append(cat).append(",").append(hora).append("\n");
             });
 

@@ -1,7 +1,7 @@
 package Modelos;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 @Getter
 @Setter
@@ -10,5 +10,5 @@ public class ContribuyenteDTO {
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDate fecha_nacimiento;
+    public LocalDateTime fecha_nacimiento;
 }

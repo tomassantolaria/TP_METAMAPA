@@ -16,7 +16,8 @@ public interface CategoriaRepositorio extends JpaRepository<Categoria, Long> {
     @Query("""
         select C.nombre
         from Hecho H
-        left join Categoria C
+        left join Categoria C 
+        on H.categoria.id = C.id
         group by C.nombre
         order by count(H.id) desc
     """)
@@ -26,6 +27,7 @@ public interface CategoriaRepositorio extends JpaRepository<Categoria, Long> {
            select distinct c.nombre
            from Hecho h
            left join Categoria c
+           on h.categoria.id = c.id
            """)
     List<String> getCategorias();
 

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import Modelos.Entidades.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 import java.util.List;
 
 @Repository
@@ -37,7 +37,7 @@ public interface HechosRepositorio extends JpaRepository<Hecho, Long> {
             @Param("categoria") String categoria,
             @Param("latitud") String latitud,
            @Param("longitud") String longitud,
-           @Param("fechaAcontecimiento") LocalDate fechaAcontecimiento
+           @Param("fechaAcontecimiento") LocalDateTime fechaAcontecimiento
     );
 
 //    @Query("""
@@ -99,10 +99,10 @@ public List<Hecho> allHechosNoEnviados() {
     List<Hecho> filtrarHechos(
             @Param("categoria") String categoria,
             @Param("contenidoMultimedia") Boolean contenidoMultimedia,
-            @Param("fechaCargaDesde") LocalDate fechaCargaDesde,
-            @Param("fechaCargaHasta") LocalDate fechaCargaHasta,
-            @Param("fechaHechoDesde") LocalDate fechaHechoDesde,
-            @Param("fechaHechoHasta") LocalDate fechaHechoHasta,
+            @Param("fechaCargaDesde") LocalDateTime fechaCargaDesde,
+            @Param("fechaCargaHasta") LocalDateTime fechaCargaHasta,
+            @Param("fechaHechoDesde") LocalDateTime fechaHechoDesde,
+            @Param("fechaHechoHasta") LocalDateTime fechaHechoHasta,
             @Param("origenCarga") String origenCarga,
             @Param("titulo") String titulo,
             @Param("pais") String pais,

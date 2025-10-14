@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import Modelos.Entidades.*;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
 
 @Getter
 @Setter
@@ -20,7 +20,7 @@ public class Fuente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String url;
-    private LocalDateTime fechaUltimaConsulta;
+    private LocalDateTime  fechaUltimaConsulta;
     @Enumerated(EnumType.STRING)
     @Column()
     private TipoFuente tipoFuente;

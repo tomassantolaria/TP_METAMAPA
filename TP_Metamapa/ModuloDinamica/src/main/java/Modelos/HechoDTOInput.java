@@ -3,7 +3,7 @@ package Modelos;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 @Getter
 @Setter
@@ -13,7 +13,7 @@ public class HechoDTOInput {
     public String contenido;
     public String contenido_multimedia;
     public String categoria;
-    public LocalDate fechaAcontecimiento;
+    public LocalDateTime fechaAcontecimiento;
     public String localidad;
     public String provincia;
     public String pais ;

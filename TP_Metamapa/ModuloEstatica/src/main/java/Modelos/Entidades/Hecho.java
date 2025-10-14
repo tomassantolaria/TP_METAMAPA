@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 @Entity
 @Getter
@@ -23,10 +23,10 @@ public class Hecho {
     private String categoria;
     private String latitud;
     private String longitud;
-    private LocalDate fechaAcontecimiento;
+    private LocalDateTime fechaAcontecimiento;
     private Boolean procesado;
 
-    public Hecho(Boolean procesado, LocalDate fechaAcontecimiento, String longitud, String latitud, String categoria, Archivo archivo, String descripcion, String titulo) {
+    public Hecho(Boolean procesado, LocalDateTime fechaAcontecimiento, String longitud, String latitud, String categoria, Archivo archivo, String descripcion, String titulo) {
         this.procesado = procesado;
         this.fechaAcontecimiento = fechaAcontecimiento;
         this.longitud = longitud;

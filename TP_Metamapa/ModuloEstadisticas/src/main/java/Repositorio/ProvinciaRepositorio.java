@@ -15,9 +15,9 @@ public interface ProvinciaRepositorio extends JpaRepository<Provincia, Long> {
     @Query("""
         SELECT p.provincia
         FROM Coleccion c
-        left JOIN Hecho h
-        left join Ubicacion u
-        left join Provincia p
+        left JOIN Hecho h ON c.hechos.id = h.id
+        left join Ubicacion u ON h.ubicacion.idUbicacion = u.idUbicacion
+        left join Provincia p ON u.provincia.idProvincia = p.idProvincia
         WHERE c.id = :idColeccion
         GROUP BY p.provincia
         ORDER BY COUNT(h.id) DESC
@@ -26,21 +26,11 @@ public interface ProvinciaRepositorio extends JpaRepository<Provincia, Long> {
 
 
     @Query("""
-        select c.nombre
-        from Hecho H
-        left join Categoria c
-        group by c.nombre
-        order by count(H.id) desc
-    """)
-    List<String> getCategoriaConMasHechos(Pageable pageable);
-
-
-    @Query("""
         SELECT p.provincia
         FROM Hecho h
-        left join Categoria c
-        left join Ubicacion u
-        left join Provincia p
+        left join Categoria c ON h.categoria.id = c.id
+        left join Ubicacion u ON h.ubicacion.idUbicacion = u.idUbicacion
+        left join Provincia p ON u.provincia.idProvincia = p.idProvincia
         WHERE c.nombre = :categoria
         GROUP BY p.provincia
         ORDER BY COUNT(h.id) DESC

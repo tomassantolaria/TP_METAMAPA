@@ -3,7 +3,7 @@ package Modelos.DTOs;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 @Getter
 @Setter
@@ -14,17 +14,17 @@ public class HechoDTO {
     public String contenido;
     public String contenido_multimedia;
     public String categoria;
-    public LocalDate fechaAcontecimiento;
+    public LocalDateTime fechaAcontecimiento;
     public String pais;
     public String provincia;
     public String localidad;
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDate fecha_nacimiento;
+    public LocalDateTime fecha_nacimiento;
     public String origen_carga;
 
-    public HechoDTO(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDate fechaAcontecimiento, String pais,String provincia, String localidad,  String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, String origen_carga) {
+    public HechoDTO(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, String pais,String provincia, String localidad,  String usuario, String nombre, String apellido, LocalDateTime fecha_nacimiento, String origen_carga) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contenido = contenido;

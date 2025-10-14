@@ -12,7 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +50,7 @@ public class FuenteMetaMapaService{
                 List<HechoDTO> hechosConIdFuente = this.setearFuente(response.getBody(), fuente.getId());
                 hechosMetamapa.addAll(hechosConIdFuente);
             }
-            fuente.setFechaUltimaConsulta(LocalDateTime.now());
+            fuente.setFechaUltimaConsulta(LocalDateTime .now());
             fuenteRepositorio.save(fuente);
         }
 

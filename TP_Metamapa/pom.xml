@@ -30,6 +30,7 @@
         <module>ModuloAVD</module>
         <module>ModuloNormalizador</module>
         <module>ModuloEstadisticas</module>
+        <module>FrontEnd</module>
     </modules>
 
 

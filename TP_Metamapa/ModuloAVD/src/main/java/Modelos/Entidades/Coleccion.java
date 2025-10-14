@@ -29,36 +29,26 @@ public class Coleccion {
 
     @ManyToMany()
     @JoinTable()
-    private List<Hecho> hechos;
+    private List<Hecho> hechos = new ArrayList<>();
     @Column(nullable = true)
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
     @ManyToMany()
     @JoinTable()
-    private List<Hecho> hechosConsensuados ;
+    private List<Hecho> hechosConsensuados = new ArrayList<>();
 
-    public Coleccion(String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia) {
+    public Coleccion(String titulo, String descripcion,Consenso consenso ,CriteriosDePertenencia criterio_pertenencia) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.criterio_pertenencia = criterio_pertenencia;
         this.hechos = new ArrayList<>();
-        this.consenso = null;
+        this.consenso = consenso;
         this.hechosConsensuados = new ArrayList<>();
     }
 
-    public Coleccion() {}
-
-
-
-
-
-    public void eliminarHecho(Hecho unHecho) throws HechoNoPerteneceException {
-        if (hechos.contains(unHecho)) {
-            hechos.remove(unHecho);
-        } else {
-            throw new HechoNoPerteneceException();
-        }
+    public Coleccion() {
     }
+
 
     public void agregarHecho(Hecho unHecho) {
         if (! hechos.contains(unHecho)) {

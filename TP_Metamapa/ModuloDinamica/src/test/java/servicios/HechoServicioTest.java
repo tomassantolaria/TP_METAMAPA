@@ -1,5 +1,6 @@
 package servicios;
 
+import Modelos.HechoDTO;
 import Modelos.HechoDTOInput;
 import Modelos.Entidades.*;
 import Repositorios.*;
@@ -10,10 +11,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyDouble;
 
 @ExtendWith(MockitoExtension.class)
 class HechoServicioTest {
@@ -44,7 +47,7 @@ class HechoServicioTest {
         dtoInput.setUsuario("usuario1");
         dtoInput.setTitulo("Título del hecho");
         dtoInput.setDescripcion("Descripción del hecho");
-        dtoInput.setFechaAcontecimiento(LocalDate.now());
+        dtoInput.setFechaAcontecimiento(LocalDateTime.now());
         dtoInput.setAnonimo(false);
     }
 
@@ -71,7 +74,7 @@ class HechoServicioTest {
 
     @Test
     void crearContribuyente_existente_retornaCorrecto() {
-        Contribuyente c = new Contribuyente("usuario1", "Juan", "Pérez", LocalDate.of(1990, 1, 1));
+        Contribuyente c = new Contribuyente("usuario1", "Juan", "Pérez", LocalDateTime.now());
         when(contribuyenteRepositorio.findByUsuario("usuario1")).thenReturn(c);
 
         Contribuyente resultado = hechoServicio.crearContribuyente("usuario1");
@@ -93,7 +96,7 @@ class HechoServicioTest {
     @Test
     void crearHecho_conDatosValidos_guardaHecho() {
         Categoria cat = new Categoria("Ambiente");
-        Contribuyente c = new Contribuyente("usuario1", "Juan", "Pérez", LocalDate.of(1990, 1, 1));
+        Contribuyente c = new Contribuyente("usuario1", "Juan", "Pérez", LocalDateTime.now());
         Pais pais = new Pais("Argentina");
         Provincia prov = new Provincia("Buenos Aires", pais);
         Localidad loc = new Localidad("La Plata", prov);
@@ -104,10 +107,46 @@ class HechoServicioTest {
         when(paisRepositorio.findByPais(any())).thenReturn(pais);
         when(provinciaRepositorio.findByProvinciaAndPais(any(), any())).thenReturn(prov);
         when(localidadRepositorio.findByLocalidadAndProvincia(any(), any())).thenReturn(loc);
-        when(ubicacionRepositorio.findByLatitudAndLongitud(any(), any())).thenReturn(ub);
+        when(ubicacionRepositorio.findByLatitudAndLongitud(anyDouble(), anyDouble())).thenReturn(ub);
 
         hechoServicio.crearHecho(dtoInput);
 
         verify(hechoRepositorio).save(any(Hecho.class));
     }
+
+    @Test
+    void obtenerHechos_devuelveHechosMarcadosComoPublicados() {
+        // Arrange: crear hechos no publicados
+        Hecho hecho1 = new Hecho();
+        hecho1.setPublicado(false);
+        hecho1.setTitulo("Hecho 1");
+        hecho1.setDescripcion("Descripción 1");
+
+        Hecho hecho2 = new Hecho();
+        hecho2.setPublicado(false);
+        hecho2.setTitulo("Hecho 2");
+        hecho2.setDescripcion("Descripción 2");
+
+        List<Hecho> hechos = List.of(hecho1, hecho2);
+
+        // Simulamos que el repositorio devuelve los hechos no publicados
+        when(hechoRepositorio.findByPublicadoFalse()).thenReturn(hechos);
+
+        // Si transformarADTOLista() convierte a DTOs, podés mockearla si no querés testear su lógica acá:
+        HechoDTO dto1 = new HechoDTO();
+        HechoDTO dto2 = new HechoDTO();
+        List<HechoDTO> dtos = List.of(dto1, dto2);
+        HechoServicio spyServicio = spy(hechoServicio);
+        doReturn(dtos).when(spyServicio).transformarADTOLista(hechos);
+
+        // Act
+        var resultado = spyServicio.obtenerHechos();
+
+        // Assert
+        assertTrue(hecho1.getPublicado());
+        assertTrue(hecho2.getPublicado());
+        verify(hechoRepositorio).saveAll(hechos);
+        assertEquals(2, resultado.size());
+    }
+
 }

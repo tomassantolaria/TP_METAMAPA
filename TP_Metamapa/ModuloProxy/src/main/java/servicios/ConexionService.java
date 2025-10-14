@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
 import java.util.Map;
 
 
@@ -18,7 +18,7 @@ public class ConexionService implements IConexionService {
 
 
     @Override
-    public Map<String, Object> siguienteHecho(URL url, LocalDateTime fechaUltimaConsulta) {
+    public Map<String, Object> siguienteHecho(URL url, LocalDateTime  fechaUltimaConsulta) {
         try {
             String urlStr = url.toString();
             if (fechaUltimaConsulta != null) {
@@ -38,7 +38,7 @@ public class ConexionService implements IConexionService {
 
 
 //@Override
-//public Map<String, Object> siguienteHecho(URL url, LocalDateTime fechaUltimaConsulta) {
+//public Map<String, Object> siguienteHecho(URL url, LocalDateTime  fechaUltimaConsulta) {
 //    try {
 //        // Construcción segura de la URI con parámetros
 //        UriComponentsBuilder builder = UriComponentsBuilder.fromUri(url.toURI());
@@ -70,7 +70,7 @@ public class ConexionService implements IConexionService {
 //    private final
 //
 //    @Override
-//    public Map<String, Object> siguienteHecho(URL url, LocalDateTime fechaUltimaConsulta) {
+//    public Map<String, Object> siguienteHecho(URL url, LocalDateTime  fechaUltimaConsulta) {
 //        Map<String, Object> hechos = new HashMap<>();
 //        // Implementar la lógica para obtener el siguiente hecho desde la URL
 //        return hechos;

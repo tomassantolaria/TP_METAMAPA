@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import Modelos.Entidades.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 @Getter
 @Setter
@@ -25,8 +25,8 @@ public class HechoDemo {
     private String contenido;
     private String contenido_multimedia;
     private String categoria;
-    private LocalDate fechaAcontecimiento;
-    private LocalDate fechaCarga;
+    private LocalDateTime fechaAcontecimiento;
+    private LocalDateTime fechaCarga;
     private String localidad;
     private String provincia;
     private String pais;

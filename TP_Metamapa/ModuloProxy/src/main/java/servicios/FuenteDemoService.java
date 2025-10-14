@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.net.URL;
 import java.net.MalformedURLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +59,7 @@ public class FuenteDemoService {
                 hechoDemoRepositorio.saveAll(hechosDemo);
             }
 
-            fuente.setFechaUltimaConsulta(LocalDateTime.now());
+            fuente.setFechaUltimaConsulta(LocalDateTime .now());
             fuenteRepositorio.save(fuente);
         }
 
@@ -72,7 +72,7 @@ public class FuenteDemoService {
         entity.setContenido((String) data.get("contenido"));
         entity.setContenido_multimedia((String) data.get("contenidoMultimedia"));
         entity.setCategoria((String) data.get("categoria"));
-        entity.setFechaAcontecimiento((java.time.LocalDate) data.get("fecha"));
+        entity.setFechaAcontecimiento((java.time.LocalDateTime) data.get("fecha"));
         entity.setPais((String) data.get("pais"));
         entity.setProvincia((String) data.get("provincia"));
         entity.setLocalidad((String) data.get("localidad"));
@@ -107,7 +107,7 @@ public class FuenteDemoService {
                 (String) data.get("contenido"),
                 (String) data.get("contenidoMultimedia"),
                 (String) data.get("categoria"),
-                (LocalDate) data.get("fecha"), // Si tu JSON devuelve esto como string, hay que parsearlo
+                (LocalDateTime) data.get("fecha"), // Si tu JSON devuelve esto como string, hay que parsearlo
                 (String) data.get("pais"),
                 (String) data.get("provincia"),
                 (String) data.get("localidad"),

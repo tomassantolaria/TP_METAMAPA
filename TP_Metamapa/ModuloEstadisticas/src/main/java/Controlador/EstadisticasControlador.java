@@ -1,6 +1,7 @@
 package Controlador;
 
 import Servicio.EstadisticasServicio;
+import Modelos.UltimasEstadisticasDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +15,14 @@ import Modelos.Exceptions.CategoriaNoEncontradaException;
 @RequestMapping("/estadisticas")
 public class EstadisticasControlador{
 
-    private final EstadisticasServicio estadisticasServicio;
+    @Autowired
+    EstadisticasServicio estadisticasServicio;
 
-    public EstadisticasControlador(EstadisticasServicio estadisticasServicio) {
-        this.estadisticasServicio = estadisticasServicio;
-    }
 
     @GetMapping("/coleccion/{idColeccion}/provincia-max-hechos")
     public ResponseEntity<String> obtenerProvinciaConMasHechos(@PathVariable Long idColeccion) {
         try{
-            String provincia = estadisticasServico.provinciaConMasHechos(idColeccion);
+            String provincia = estadisticasServicio.provinciaConMasHechos(idColeccion);
             return ResponseEntity.status(200).body(provincia);
         }
         catch(ColeccionNoEncontradaException e){

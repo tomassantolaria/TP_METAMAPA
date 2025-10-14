@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 
 @Getter
@@ -22,18 +22,18 @@ public class CriteriosDePertenencia {
     @ManyToOne()
     @JoinColumn()
     private Categoria categoria;
-    private LocalDate fecha_carga_desde;
-    private LocalDate fecha_carga_hasta;
+    private LocalDateTime fecha_carga_desde;
+    private LocalDateTime fecha_carga_hasta;
     @ManyToOne()
     @JoinColumn()
     private Ubicacion ubicacion;
-    private LocalDate fecha_acontecimiento_desde;
-    private LocalDate fecha_acontecimiento_hasta;
+    private LocalDateTime fecha_acontecimiento_desde;
+    private LocalDateTime fecha_acontecimiento_hasta;
     @Enumerated(EnumType.STRING)
     @Column()
     private OrigenCarga origen;
 
-    public CriteriosDePertenencia(String titulo, Boolean multimedia, Categoria categoria, LocalDate fecha_carga_desde, LocalDate fecha_carga_hasta, Ubicacion ubicacion, LocalDate fecha_acontecimiento_desde, LocalDate fecha_acontecimiento_hasta, OrigenCarga origen_carga) {
+    public CriteriosDePertenencia(String titulo, Boolean multimedia, Categoria categoria, LocalDateTime fecha_carga_desde, LocalDateTime fecha_carga_hasta, Ubicacion ubicacion, LocalDateTime fecha_acontecimiento_desde, LocalDateTime fecha_acontecimiento_hasta, OrigenCarga origen_carga) {
         this.titulo = titulo;
         this.multimedia = multimedia;
         this.categoria = categoria;

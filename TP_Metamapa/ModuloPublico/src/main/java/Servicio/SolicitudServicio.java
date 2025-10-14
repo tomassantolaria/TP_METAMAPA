@@ -10,7 +10,7 @@ import Servicio.Solicitudes.DetectorDeSpam;
 import Servicio.Solicitudes.SolicitudInvalidaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 
 
@@ -24,7 +24,7 @@ public class SolicitudServicio implements DetectorDeSpam {
 
 
     public void crearSolicitud(SolicitudDTOInput solicituddto){
-        LocalDate fechaSolicitud =  LocalDate.now();
+        LocalDateTime fechaSolicitud =  LocalDateTime.now();
         String motivo = solicituddto.getMotivo();
         Hecho hecho = hechoRepositorio.findById(solicituddto.getIdHecho()).orElse(null);
         if(hecho == null){

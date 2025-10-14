@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 @Setter
 @Getter
@@ -17,9 +17,9 @@ public class Contribuyente {
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDate fecha_nacimiento;
+    public LocalDateTime fecha_nacimiento;
 
-    public Contribuyente(String usuario, String nombre, String apellido, LocalDate fecha_nacimiento) {
+    public Contribuyente(String usuario, String nombre, String apellido, LocalDateTime fecha_nacimiento) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.apellido = apellido;

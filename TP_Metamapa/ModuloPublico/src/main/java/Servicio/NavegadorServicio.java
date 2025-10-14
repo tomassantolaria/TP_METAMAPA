@@ -3,14 +3,15 @@ package Servicio;
 
 import Modelos.Entidades.*;
 import Modelos.Entidades.Excepciones.ColeccionNotFoundException;
+import Modelos.Entidades.Excepciones.HechosNoEncontradosException;
 import Modelos.HechoDTO;
 import Repositorio.ColeccionRepositorio;
 import Repositorio.HechoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class NavegadorServicio {
   ColeccionRepositorio coleccionRepositorio;
 
 
-    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, Boolean contenidoMultimedia, LocalDateTime fechaCargaDesde, LocalDateTime fechaCargaHasta, LocalDate fechaHechoDesde, LocalDate fechaHechoHasta, String origenCarga, String titulo, String pais, String provincia, String localidad) {
+    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, Boolean contenidoMultimedia, LocalDateTime  fechaCargaDesde, LocalDateTime  fechaCargaHasta, LocalDateTime fechaHechoDesde, LocalDateTime fechaHechoHasta, String origenCarga, String titulo, String pais, String provincia, String localidad) {
         List <Hecho> hechos;
 
         OrigenCarga origenCargaNuevo = crearOrigen(origenCarga);
@@ -71,7 +72,7 @@ public class NavegadorServicio {
         String usuario = null;
         String nombre = null;
         String apellido = null;
-        LocalDate fechaNacimiento = null;
+        LocalDateTime fechaNacimiento = null;
 
         if (hecho.getContribuyente() != null) {
             usuario = hecho.getContribuyente().getUsuario();
@@ -135,7 +136,7 @@ public class NavegadorServicio {
 
         List<Hecho> hechos = hechoRepositorio.buscarTodosVisibles();
 
-        List<Hecho> filtrados = hechos.stream().filter(h -> {
+        List<Hecho> filtrados = hechos.stream().filter(hecho -> {
             String textoTotal = (
                 (hecho.getTitulo() != null ? hecho.getTitulo().toLowerCase() + " " : "") +
                 (hecho.getDescripcion() != null ? hecho.getDescripcion().toLowerCase() + " " : "") +

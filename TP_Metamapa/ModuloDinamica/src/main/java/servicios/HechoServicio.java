@@ -7,7 +7,7 @@ import Modelos.Entidades.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class HechoServicio {
         Provincia provincia = this.crearProvincia(dto.getProvincia(), pais);
         Localidad localidad = this.crearLocalidad(dto.getLocalidad(), provincia);
         Ubicacion ubicacion = this.crearUbicacion(dto.getLatitud(), dto.getLongitud(), localidad, provincia, pais);
-        LocalDate fechaOcurrencia =  dto.getFechaAcontecimiento();
+        LocalDateTime fechaOcurrencia =  dto.getFechaAcontecimiento();
         Contribuyente contribuyente = this.crearContribuyente(dto.getUsuario());
         boolean anonimo = dto.getAnonimo();
 
@@ -106,7 +106,7 @@ public class HechoServicio {
         return transformarADTOLista(hechos);
     }
 
-    private List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {
+    public List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {
         List<HechoDTO> hechosDTO = new ArrayList<>();
         for (Hecho hecho : hechos) {
             HechoDTO dto = new HechoDTO(

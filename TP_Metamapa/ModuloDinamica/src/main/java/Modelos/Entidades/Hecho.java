@@ -2,7 +2,7 @@ package Modelos.Entidades;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 
 @Getter
@@ -22,7 +22,7 @@ public class Hecho {
     @ManyToOne()
     @JoinColumn()
     public Categoria categoria;
-    public LocalDate fecha;
+    public LocalDateTime fecha;
     @ManyToOne()
     @JoinColumn()
     public Ubicacion ubicacion;
@@ -33,7 +33,7 @@ public class Hecho {
     public Boolean visible;
     public Boolean publicado;
 
-    public Hecho(Long idHecho, Long idfuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
+    public Hecho(Long idHecho, Long idfuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
                  Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, Boolean visible, Boolean publicado) {
         this.idHecho = idHecho;
         this.idfuente = idfuente;

@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,7 +26,7 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
 Long cantidadDeFuentesConHecho(
         @Param("titulo") String titulo,
         @Param("categoria") Categoria categoria,
-        @Param("fecha") LocalDate fecha,
+        @Param("fecha") LocalDateTime fecha,
         @Param("ubicacion") Ubicacion ubicacion
 );
 
@@ -52,7 +52,7 @@ Long cantidadDeFuentesConHecho(
             @Param("titulo") String titulo,
             @Param("descripcion") String descripcion,
             @Param("categoria") Categoria categoria,
-            @Param("fecha") LocalDate fecha,
+            @Param("fecha") LocalDateTime fecha,
             @Param("ubicacion") Ubicacion ubicacion,
             @Param("contribuyente") Contribuyente contribuyente,
             @Param("contenido") Contenido contenido
@@ -80,10 +80,10 @@ Long cantidadDeFuentesConHecho(
     List<Hecho> filtrarHechos(
             @Param("categoria") String categoria,
             @Param("contenidoMultimedia") Boolean contenidoMultimedia,
-            @Param("fechaCargaDesde") LocalDateTime fechaCargaDesde,
-            @Param("fechaCargaHasta") LocalDateTime fechaCargaHasta,
-            @Param("fechaHechoDesde") LocalDate fechaHechoDesde,
-            @Param("fechaHechoHasta") LocalDate fechaHechoHasta,
+            @Param("fechaCargaDesde") LocalDateTime  fechaCargaDesde,
+            @Param("fechaCargaHasta") LocalDateTime  fechaCargaHasta,
+            @Param("fechaHechoDesde") LocalDateTime fechaHechoDesde,
+            @Param("fechaHechoHasta") LocalDateTime fechaHechoHasta,
             @Param("origenCarga") OrigenCarga origenCarga,
             @Param("titulo") String titulo,
             @Param("pais") String pais,

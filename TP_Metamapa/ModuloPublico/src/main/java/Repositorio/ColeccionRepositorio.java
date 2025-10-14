@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 import java.util.List;
 
 
@@ -36,10 +36,10 @@ public interface ColeccionRepositorio extends JpaRepository<Coleccion, Long> {
             @Param("coleccionId") Long coleccionId,
             @Param("categoria") String categoria,
             @Param("contenidoMultimedia") Boolean contenidoMultimedia,
-            @Param("fechaCargaDesde") LocalDateTime fechaCargaDesde,
-            @Param("fechaCargaHasta") LocalDateTime fechaCargaHasta,
-            @Param("fechaHechoDesde") LocalDate fechaHechoDesde,
-            @Param("fechaHechoHasta") LocalDate fechaHechoHasta,
+            @Param("fechaCargaDesde") LocalDateTime  fechaCargaDesde,
+            @Param("fechaCargaHasta") LocalDateTime  fechaCargaHasta,
+            @Param("fechaHechoDesde") LocalDateTime fechaHechoDesde,
+            @Param("fechaHechoHasta") LocalDateTime fechaHechoHasta,
             @Param("origenCarga") OrigenCarga origenCarga,
             @Param("titulo") String titulo,
             @Param("pais") String pais,

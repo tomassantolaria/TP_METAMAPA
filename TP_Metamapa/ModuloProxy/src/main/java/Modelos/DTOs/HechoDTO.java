@@ -6,8 +6,8 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 
 @Getter
 @Setter
@@ -19,8 +19,8 @@ public class HechoDTO {
     private String contenido;
     private String contenido_multimedia;
     private String categoria;
-    private LocalDate fechaAcontecimiento;
-    private LocalDateTime fechaCarga = null;
+    private LocalDateTime fechaAcontecimiento;
+    private LocalDateTime  fechaCarga = null;
     private String localidad;
     private String provincia;
     private String pais;
@@ -29,13 +29,13 @@ public class HechoDTO {
     private String usuario = null;
     private String nombre = null;
     private String apellido = null;
-    private LocalDate fecha_nacimiento = null;
+    private LocalDateTime fecha_nacimiento = null;
     private Boolean anonimo = null;
     private Boolean visible = null;
     private String origen_carga = null;
 
     public HechoDTO(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria,
-                    LocalDate fechaAcontecimiento, String localidad, String provincia, String pais,
+                    LocalDateTime fechaAcontecimiento, String localidad, String provincia, String pais,
                     Double latitud, Double longitud) {
         this.titulo = titulo;
         this.descripcion = descripcion;

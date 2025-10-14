@@ -19,9 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,18 +53,19 @@ public class ColeccionServicio {
     public void crearColeccion(ColeccionDTO coleccionDTO) {
         Categoria categoria =  this.crearCategoria(coleccionDTO.getCriterio().getCategoria());
         Boolean multimedia = coleccionDTO.getCriterio().getContenido_multimedia();
-        LocalDateTime fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
-        LocalDateTime fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
+        LocalDateTime  fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
+        LocalDateTime  fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
         Pais pais = this.crearPais(coleccionDTO.getCriterio().getPais());
         Provincia provincia = this.crearProvincia(coleccionDTO.getCriterio().getProvincia(), pais);
         Localidad localidad = this.crearLocalidad(coleccionDTO.getCriterio().getLocalidad(), provincia);
         Ubicacion ubicacion = this.crearUbicacion(null, null, localidad, provincia, pais);
-        LocalDate fecha_acontecimiento_desde = coleccionDTO.getCriterio().getFecha_acontecimiento_desde();
-        LocalDate fecha_acontecimiento_hasta = coleccionDTO.getCriterio().getFecha_acontecimiento_hasta();
+        LocalDateTime  fecha_acontecimiento_desde = coleccionDTO.getCriterio().getFecha_acontecimiento_desde();
+        LocalDateTime  fecha_acontecimiento_hasta = coleccionDTO.getCriterio().getFecha_acontecimiento_hasta();
         OrigenCarga origen = this.crearOrigen(coleccionDTO.getCriterio().getOrigen_carga());
         CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getCriterio().getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
         criterioPertenenciaRepositorio.save(criterio_pertenencia);
-        Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),criterio_pertenencia);
+        Consenso consenso = this.obtenerEstrategiaPorNombre(coleccionDTO.getConsenso());
+        Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),consenso,criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
         System.out.printf("El id es: %d" ,coleccion.getId());
         this.avisarAgregador(coleccion.getId());

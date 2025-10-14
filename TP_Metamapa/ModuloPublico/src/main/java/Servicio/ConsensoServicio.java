@@ -1,6 +1,6 @@
 package Servicio;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 import java.util.*;
 import Modelos.Entidades.*;
 import Modelos.Entidades.Excepciones.ColeccionNotFoundException;
@@ -65,7 +65,7 @@ public class ConsensoServicio {
         String usuario = null;
         String nombre = null;
         String apellido = null;
-        LocalDate fechaNacimiento = null;
+        LocalDateTime fechaNacimiento = null;
 
         if (hecho.getContribuyente() != null) {
             usuario = hecho.getContribuyente().getUsuario();

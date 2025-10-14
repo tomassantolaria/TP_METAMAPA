@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 
 
 @Getter
@@ -23,7 +23,7 @@ public class Hecho{
     private String titulo;
     private String descripcion;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn()
     private Contenido contenido;
 
@@ -31,13 +31,13 @@ public class Hecho{
     @JoinColumn()
     private Categoria categoria;
 
-    private LocalDate fecha;
+    private LocalDateTime fecha;
 
     @ManyToOne()
     @JoinColumn()
     private Ubicacion ubicacion;
 
-    private LocalDate fecha_carga;
+    private LocalDateTime  fecha_carga;
 
     @Enumerated(EnumType.STRING)
     @Column()
@@ -54,8 +54,8 @@ public class Hecho{
 
     public Hecho() {}
 
-    public Hecho(Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Boolean anonimo){ //Lista etiquetas
+    public Hecho(Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
+                 Ubicacion unaUbicacion, LocalDateTime  unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Boolean anonimo){ //Lista etiquetas
         this.id = null;
         this.idFuente = idFuente;
         this.titulo = unTitulo;
