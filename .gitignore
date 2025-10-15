@@ -22,7 +22,7 @@
 Thumbs.db
 
 # Maven
-target/
+/target/
 *.jar
 *.war
 *.ear
@@ -36,3 +36,4 @@ target/
 dependency-reduced-pom.xml
 buildNumber.properties
 
+/TP_Metamapa/FrontEnd/node_modules/
