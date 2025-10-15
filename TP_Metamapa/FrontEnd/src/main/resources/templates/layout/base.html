@@ -1,10 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>MetaMapa</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+
+<header th:fragment="header" class="bg-pastel-blue-100 shadow-md">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <a th:href="@{/}" class="text-2xl font-bold text-pastel-blue-900 tracking-tight">
+            MetaMapa
+        </a>
+
+        <nav class="flex items-center gap-2 md:gap-4">
+            <a th:href="@{/}" class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
+                <span>Inicio</span>
+            </a>
+            <a th:href="@{/browse}" class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503-12.495l-9.006 3.602a.75.75 0 00-.503.708v11.183a.75.75 0 00.503.708l9.006 3.602a.75.75 0 00.994 0l8.998-3.602a.75.75 0 00.505-.708V7.457a.75.75 0 00-.505-.708L15.495 3.15a.75.75 0 00-.994 0z" /></svg>
+                <span>Navegar</span>
+            </a>
+            <a th:href="@{/statistics}" class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
+                <span>Estadísticas</span>
+            </a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/hechos/nuevo}" class="hidden md:inline-flex items-center gap-1 bg-pastel-blue-500 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-pastel-blue-600">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" /></svg>
+                    Crear Hecho
+                </a>
+
+                <div class="relative" id="profile-menu-container">
+                    <button id="profile-menu-button" class="w-10 h-10 rounded-full bg-pastel-blue-300 flex items-center justify-center text-pastel-blue-800 hover:bg-pastel-blue-400 focus:outline-none focus:ring-2 focus:ring-pastel-blue-500 focus:ring-offset-2">
+                        <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </button>
+                    <div id="profile-menu-dropdown" class="absolute hidden right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 z-10">
+                        <div class="px-4 py-2 border-b">
+                            <p class="text-sm font-semibold text-gray-700" sec:authentication="principal.nombre"></p>
+                            <p class="text-xs text-gray-500" sec:authentication="principal.email"></p>
+                        </div>
+                        <a th:href="@{/profile}" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Mi Perfil</a>
+
+                        <a sec:authorize="hasRole('ADMINISTRADOR')" th:href="@{/admin}" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Panel de Admin</a>
+
+                        <form th:action="@{/logout}" method="post" class="w-full">
+                            <button type="submit" class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Cerrar Sesión</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/auth}" class="bg-pastel-blue-500 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-pastel-blue-600">
+                    Iniciar Sesión
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<footer th:fragment="footer" class="bg-pastel-blue-100 mt-8">
+</footer>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Script simple para manejar el menú desplegable del perfil.
+    // Esto reemplaza la necesidad de 'useState' de React.
+    const profileMenuButton = document.getElementById('profile-menu-button');
+    const profileMenuDropdown = document.getElementById('profile-menu-dropdown');
+
+    if(profileMenuButton) {
+        profileMenuButton.addEventListener('click', () => {
+            profileMenuDropdown.classList.toggle('hidden');
+        });
+
+        // Opcional: Cerrar el menú si se hace clic fuera de él.
+        document.addEventListener('click', (event) => {
+            const container = document.getElementById('profile-menu-container');
+            if (!container.contains(event.target)) {
+                profileMenuDropdown.classList.add('hidden');
+            }
+        });
+    }
+    /*]]>*/
+</script>
 
 </body>
 </html>
