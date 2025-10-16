@@ -20,8 +20,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         // ESTAS DOS LÍNEAS SON LAS MÁS IMPORTANTES AHORA
                         .requestMatchers("/css/**", "/js/**").permitAll() // Permite acceso a archivos estáticos
-                        .requestMatchers("/").permitAll()                 // Permite acceso a la página de inicio
-
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/navegar").permitAll() // Permite acceso a la página de navegación sin autenticación
+                        .requestMatchers("/estadisticas").permitAll()
                         .anyRequest().authenticated() // Cualquier otra cosa requiere login
                 )
                 .formLogin(form -> form.permitAll())

@@ -24,7 +24,7 @@ public class NavegadorServicio {
   ColeccionRepositorio coleccionRepositorio;
 
 
-    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, Boolean contenidoMultimedia, LocalDateTime  fechaCargaDesde, LocalDateTime  fechaCargaHasta, LocalDateTime fechaHechoDesde, LocalDateTime fechaHechoHasta, String origenCarga, String titulo, String pais, String provincia, String localidad) {
+    public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, Boolean contenidoMultimedia, LocalDateTime  fechaCargaDesde, LocalDateTime  fechaCargaHasta, LocalDateTime fechaHechoDesde, LocalDateTime fechaHechoHasta, String origenCarga, String titulo, String pais, String provincia, String localidad, Boolean navegacionCurada){
         List <Hecho> hechos;
 
         OrigenCarga origenCargaNuevo = crearOrigen(origenCarga);
@@ -34,7 +34,15 @@ public class NavegadorServicio {
 
         }else{
              this.validarColeccion(idColeccion);
-             hechos = coleccionRepositorio.filtrarHechosEnColeccion(idColeccion, categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCargaNuevo, titulo, pais, provincia, localidad);
+             if(navegacionCurada){
+
+                 hechos = coleccionRepositorio.filtrarHechosCuradosEnColeccion(idColeccion, categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCargaNuevo, titulo, pais, provincia, localidad);
+
+             }else{
+
+                 hechos = coleccionRepositorio.filtrarHechosEnColeccion(idColeccion, categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCargaNuevo, titulo, pais, provincia, localidad);
+
+             }
         }
 
         return transformarADTOLista(hechos);

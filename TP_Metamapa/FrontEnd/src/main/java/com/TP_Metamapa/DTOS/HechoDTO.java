@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class HechoDTO {
-        public Long idHecho;
+        public Long id;
         public Long idFuente;//VER COMO MANEJAR ESTO
         public String titulo;
         public String descripcion;

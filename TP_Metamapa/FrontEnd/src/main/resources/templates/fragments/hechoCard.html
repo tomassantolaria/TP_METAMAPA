@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="hechoCard(hecho)" class="p-4 bg-white rounded-lg shadow border border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col justify-between">
+    <a th:href="@{/hecho/{id}(id=${hecho.id})}" class="flex-grow">
+        <h4 class="font-bold text-pastel-blue-900" th:text="${hecho.titulo}">Título del Hecho</h4>
+        <p class="text-sm text-gray-600 mt-1" th:text="${#strings.abbreviate(hecho.descripcion, 100)}">Descripción corta...</p>
+    </a>
+    <div class="text-xs text-gray-500 mt-2 flex justify-between items-center">
+        <span>
+            <span th:text="${hecho.categoria}">Categoría</span> |
+            <span th:text="${hecho.provincia}">Provincia</span> |
+            <span th:text="${hecho.fechaAcontecimiento}">Fecha</span>
+        </span>
+        <button class="p-1 text-gray-400 hover:text-red-600 ..." title="Solicitar eliminación">
+            <!-- Puedes pegar el SVG del ícono directamente aquí -->
+            <svg class="w-5 h-5" ...>...</svg>
+        </button>
+    </div>
+</div>
+</body>
+</html>

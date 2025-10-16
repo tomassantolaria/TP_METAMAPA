@@ -47,4 +47,37 @@ public interface ColeccionRepositorio extends JpaRepository<Coleccion, Long> {
             @Param("localidad") String localidad
     );
 
+    @Query("SELECT h FROM Coleccion c JOIN c.hechosConsensuados h " +
+            "WHERE c.id = :coleccionId " +
+            "AND (:categoria IS NULL OR h.categoria.nombre = :categoria) " +
+            "AND (" +
+            "    :contenidoMultimedia IS NULL" +
+            "    OR (:contenidoMultimedia = TRUE AND h.contenido.contenidoMultimedia IS NOT NULL AND h.contenido.contenidoMultimedia <> '')" +
+            "    OR (:contenidoMultimedia = FALSE AND (h.contenido.contenidoMultimedia IS NULL OR h.contenido.contenidoMultimedia = ''))" +
+            ") " +
+            "AND (:fechaCargaDesde IS NULL OR h.fecha_carga >= :fechaCargaDesde) " +
+            "AND (:fechaCargaHasta IS NULL OR h.fecha_carga <= :fechaCargaHasta) " +
+            "AND (:fechaHechoDesde IS NULL OR h.fecha >= :fechaHechoDesde) " +
+            "AND (:fechaHechoHasta IS NULL OR h.fecha <= :fechaHechoHasta) " +
+            "AND (:origenCarga IS NULL OR h.origen = :origenCarga) " +
+            "AND (:titulo IS NULL OR h.titulo LIKE %:titulo%) " +
+            "AND (:pais IS NULL OR h.ubicacion.pais.pais = :pais) " +
+            "AND (:provincia IS NULL OR h.ubicacion.provincia.provincia = :provincia) " +
+            "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)" +
+            "AND (h.visible = true)")
+    List<Hecho> filtrarHechosCuradosEnColeccion(
+            @Param("coleccionId") Long coleccionId,
+            @Param("categoria") String categoria,
+            @Param("contenidoMultimedia") Boolean contenidoMultimedia,
+            @Param("fechaCargaDesde") LocalDateTime  fechaCargaDesde,
+            @Param("fechaCargaHasta") LocalDateTime  fechaCargaHasta,
+            @Param("fechaHechoDesde") LocalDateTime fechaHechoDesde,
+            @Param("fechaHechoHasta") LocalDateTime fechaHechoHasta,
+            @Param("origenCarga") OrigenCarga origenCarga,
+            @Param("titulo") String titulo,
+            @Param("pais") String pais,
+            @Param("provincia") String provincia,
+            @Param("localidad") String localidad
+    );
+
 }

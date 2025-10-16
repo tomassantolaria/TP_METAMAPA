@@ -24,8 +24,7 @@ public class HechoServicio {
                 urlHechos.toUriString(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<HechoDTO>>() {
-                }
+                new ParameterizedTypeReference<List<HechoDTO>>() {}
         );
         return obtenerCuatroMasRecientes(respuesta.getBody());
 
