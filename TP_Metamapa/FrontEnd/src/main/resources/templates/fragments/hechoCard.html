@@ -11,10 +11,10 @@
         <span>
             <span th:text="${hecho.categoria}">Categoría</span> |
             <span th:text="${hecho.provincia}">Provincia</span> |
-            <span th:text="${hecho.fechaAcontecimiento}">Fecha</span>
+            <span th:text="${hecho.fechaAcontecimiento.toLocalDate()}">Fecha</span>
         </span>
         <button class="p-1 text-gray-400 hover:text-red-600 ..." title="Solicitar eliminación">
-            <!-- Puedes pegar el SVG del ícono directamente aquí -->
+
             <svg class="w-5 h-5" ...>...</svg>
         </button>
     </div>
