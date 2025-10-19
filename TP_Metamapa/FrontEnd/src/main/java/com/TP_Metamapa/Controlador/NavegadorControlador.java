@@ -2,12 +2,13 @@ package com.TP_Metamapa.Controlador;
 
 import com.TP_Metamapa.DTOS.*;
 import com.TP_Metamapa.Modelos.*;
-import com.TP_Metamapa.Servicio.NavegacionServicio;
+import com.TP_Metamapa.Servicio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
@@ -23,9 +24,17 @@ import static java.util.Map.entry;
 public class NavegadorControlador {
 
     // @Autowired
-    // private HechoService hechoService; // Lo usarás para llamar al backend real
+    // HechoServicio hechoServicio; // Lo usarás para llamar al backend real
     // @Autowired
-    // private ColeccionService coleccionService;
+    // ColeccionServicio coleccionServicio;
+    // @Autowired
+//     CategoriaServicio categoriaServicio;
+//    @Autowired
+//    LocalidadServicio localidadServicio;
+//    @Autowired
+//    ProvinciaServicio provinciaServicio;
+//    @Autowired
+//    PaisServicio paisServicio;
 
     @GetMapping("/navegar")
     public String navegar(
@@ -51,23 +60,23 @@ public class NavegadorControlador {
         if ("buscarTexto".equals(accion) && textoLibre != null && !textoLibre.isBlank()) {
             // Si el usuario presionó "Buscar" y hay texto, llamamos al endpoint de búsqueda libre
             System.out.println("LOGICA: Llamando al endpoint de BÚSQUEDA POR TEXTO LIBRE con: " + textoLibre);
-            // hechosFiltrados = hechoService.buscarPorTextoLibre(textoLibre); // <-- Llamada a tu segundo endpoint
+            // hechosFiltrados = HechoServicio.buscarPorTextoLibre(textoLibre); // <-- Llamada a tu segundo endpoint
 
 
         } else {
             // Si presionó "Aplicar Filtros" o cargó la página por primera vez, llamamos al endpoint de filtros avanzados
             System.out.println("LOGICA: Llamando al endpoint de FILTROS AVANZADOS");
-            // hechosFiltrados = hechoService.buscarConFiltros(categoria, contenidoMultimedia, fechaCargaDesde,fechaCargaHasta,
+            // hechosFiltrados = HechoServicio.buscarConFiltros(categoria, contenidoMultimedia, fechaCargaDesde,fechaCargaHasta,
             //        //                                                              fechaHechoDesde, fechaHechoHasta, origen, titulo,
             //        //                                                              pais, provincia, localidad, coleccionId, navegacionCurada);
 
         }
 
-        // List<String> listaCategorias = hechoService.getCategoriasUnicas();
-        // List<String> listaPaises = hechoService.getPaisesUnicos();
-        // List<String> listaProvincias = hechoService.getProvinciasUnicas();
-        // List<String> listaLocalidades = hechoService.getLocalidadesUnicas();
-        // List<ColeccionDTO> colecciones = coleccionService.getColecciones();
+        // List<String> listaCategorias = categoriaServicio.getCategoriasUnicas();
+        // List<String> listaPaises = paisServicio.getPaisesUnicos();
+        // List<String> listaProvincias = provinciaServicio.getProvinciasUnicas();
+        // List<String> listaLocalidades = localidadServicio.getLocalidadesUnicas();
+        // List<ColeccionDTO> colecciones = coleccionServicio.getColecciones();
 
         List<String> listaCategorias = List.of("Cultura", "Historia", "Incendio Forestal");
         List<String> listaPaises = List.of("Argentina", "Uruguay", "Chile");
@@ -84,7 +93,7 @@ public class NavegadorControlador {
         // Lista fija desde nuestro Enum
         OrigenCarga[] origenesDeCarga = OrigenCarga.values();
         List<ColeccionDTO> colecciones = new ArrayList<>();
-        ColeccionDTO coleccionDTO = new ColeccionDTO(1L, "Colección de Prueba", "Descripción de prueba", null, null);
+        ColeccionDTO coleccionDTO = new ColeccionDTO(1L, "Colección de Prueba", "Descripción de prueba",null, null, null, null);
         colecciones.add(coleccionDTO);
 
 
@@ -114,5 +123,9 @@ public class NavegadorControlador {
         ));
 
         return "navegar";
+
+
     }
+
+
 }

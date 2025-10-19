@@ -89,5 +89,16 @@ public class NavegacionServicio {
         return respuesta.getBody();
     }
 
+    public HechoDTO obtenerHechoPorId(Long id) {
+        String url = apiBaseUrl + "/hechos/" + id; // O la ruta que corresponda
 
+        ResponseEntity<HechoDTO> respuesta = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                HechoDTO.class
+        );
+
+        return respuesta.getBody();
+    }
 }

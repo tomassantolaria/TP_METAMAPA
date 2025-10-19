@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="card(title)" class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
+    <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3" th:text="${title}">Título de la Tarjeta</h3>
+    <div th:transclude></div>
+</div>
+</body>
+</html>

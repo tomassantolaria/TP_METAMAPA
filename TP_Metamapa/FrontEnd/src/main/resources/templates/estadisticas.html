@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/base :: head (title='Estadísticas - Metamapa')}"></head>
+<body class="bg-pastel-blue-50 flex flex-col min-h-screen">
+
+<div th:replace="~{layout/base :: header}"></div>
+
+<main class="container mx-auto px-4 py-8 flex-grow">
+    <div class="space-y-8">
+        <h1 class="text-3xl font-bold text-pastel-blue-900">Estadísticas</h1>
+
+        <th:block th:if="${estadisticas != null}">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div th:replace="~{fragments/estadisticasCard :: card(title='Provincia con más Hechos por Colección')}">
+                    <form method="get" th:action="@{/estadisticas}">
+                        <div class="space-y-3">
+                            <select name="selectedCollectionId" onchange="this.form.submit()" class="w-full ... rounded-md">
+                                <option th:each="col : ${colecciones}"
+                                        th:value="${col.coleccionId}"
+                                        th:text="${col.titulo}"
+                                        th:selected="${col.coleccionId == coleccionSeleccionada}"></option>
+                            </select>
+                            <div th:if="${coleccionesEstadisticas != null}" class="text-center p-2">
+                                <p class="text-2xl font-bold text-pastel-blue-700" th:text="${coleccionesEstadisticas.name}"></p>
+                                <p class="text-lg text-gray-600" th:text="|${coleccionesEstadisticas.count} hechos|"></p>
+                            </div>
+                            <p th:if="${coleccionesEstadisticas == null}" class="text-center text-sm text-gray-500 py-4">No hay datos para esta colección.</p>
+                        </div>
+                    </form>
+                </div>
+
+                <div th:replace="~{fragments/estadisticasCard :: card(title='Categoría más Reportada')}">
+                    <div class="text-center">
+                        <p class="text-2xl font-bold text-pastel-blue-700" th:text="${estadisticas.topCategory.name}"></p>
+                        <p class="text-lg text-gray-600" th:text="|${estadisticas.topCategory.count} hechos|"></p>
+                    </div>
+                </div>
+
+                <div th:replace="~{fragments/estadisticasCard :: card(title='Solicitudes de Eliminación Spam')}">
+                    <div class="text-center">
+                        <p class="text-4xl font-bold text-pastel-blue-700" th:text="${estadisticas.spamRequestCount}"></p>
+                        <p class="text-md text-gray-600" th:text="|de ${estadisticas.totalRequestCount} solicitudes totales|"></p>
+                    </div>
+                </div>
+
+                <div th:replace="~{fragments/estadisticasCard :: card(title='Provincia con más Hechos por Categoría')}">
+                    <form method="get" th:action="@{/estadisticas}">
+                        <div class="space-y-3">
+                            <select name="selectedCategory" onchange="this.form.submit()" class="w-full ... rounded-md">
+                                <option th:each="cat : ${estadisticas.provincesByCategory.keySet()}"
+                                        th:value="${cat}"
+                                        th:text="${cat}"
+                                        th:selected="${cat == selectedCategory}"></option>
+                            </select>
+                            <div th:if="${provinciaPorCategoria != null}" class="text-center p-2">
+                                <p class="text-2xl font-bold text-pastel-blue-700" th:text="${provinciaPorCategoria.key}"></p>
+                                <p class="text-lg text-gray-600" th:text="|${provinciaPorCategoria.value} hechos|"></p>
+                            </div>
+                            <p th:if="${provinciaPorCategoria == null}" class="text-center text-sm text-gray-500">No hay datos.</p>
+                        </div>
+                    </form>
+                </div>
+
+                <div th:replace="~{fragments/estadisticasCard :: card(title='Hora Pico de Reportes')}">
+                    <div th:if="${mejorHora != null}" class="text-center">
+                        <p class="text-4xl font-bold text-pastel-blue-700" th:text="|${#numbers.formatInteger(mejorHora.key, 2)}:00 hs|"></p>
+                        <p class="text-lg text-gray-600">(UTC)</p>
+                        <p class="text-md text-gray-500 mt-2" th:text="|${mejorHora.value} reportes|"></p>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+
+    </div>
+</main>
+
+<div th:replace="~{layout/base :: footer}"></div>
+
+</body>
+</html>

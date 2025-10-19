@@ -1,4 +1,4 @@
-package com.TP_Metamapa.DTOS;
+package Modelos;
 
 import lombok.Getter;
 import lombok.Setter;

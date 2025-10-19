@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelos.ColeccionDTO;
 import Modelos.Entidades.Excepciones.ColeccionNotFoundException;
 import Modelos.Entidades.Excepciones.HechosNoEncontradosException;
 import Modelos.HechoDTO;
@@ -48,6 +49,15 @@ public class NavegadorControlador {
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }
+    @GetMapping("hechos/{id}")
+    public  ResponseEntity<?> obtenerHechoPorId(@PathVariable Long id){
+        try {
+            HechoDTO hecho = navegadorServicio.obtenerHechoPorId(id);
+            return ResponseEntity.ok(hecho);
+        } catch (HechosNoEncontradosException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
 
     @GetMapping("hechos")
     public ResponseEntity<?> hechosFiltrados(
@@ -87,5 +97,31 @@ public class NavegadorControlador {
         }
     }
 
+    @GetMapping("/paises")
+    public ResponseEntity<List<String>> listaDePaises(){
+            List<String> paises = navegadorServicio.obtenerPaises();
+            return ResponseEntity.ok(paises);
+    }
+    @GetMapping("/provincias")
+    public ResponseEntity<List<String>> listaDeProvincias(){
+        List<String> provincias = navegadorServicio.obtenerProvincias();
+        return ResponseEntity.ok(provincias);
+    }
+    @GetMapping("/localidades")
+    public ResponseEntity<List<String>> listaDeLocalidades(){
+        List<String> localidades = navegadorServicio.obtenerLocalidades();
+        return ResponseEntity.ok(localidades);
+    }
+    @GetMapping("/categorias")
+    public ResponseEntity<List<String>> listaDeCategorias(){
+        List<String> categorias = navegadorServicio.obtenerCategorias();
+        return ResponseEntity.ok(categorias);
+    }
+
+    @GetMapping("/colecciones")
+    public ResponseEntity<List<ColeccionDTO>> listaDeColecciones(){
+        List<ColeccionDTO> colecciones = navegadorServicio.obtenerColecciones();
+        return ResponseEntity.ok(colecciones);
+    }
 
 }

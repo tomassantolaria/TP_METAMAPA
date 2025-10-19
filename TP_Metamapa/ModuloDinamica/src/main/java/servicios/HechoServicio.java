@@ -136,5 +136,4 @@ public class HechoServicio {
         }
         return hechosDTO;
     }
-
 }

@@ -331,4 +331,9 @@ public class AgregadorServicio {
         Coleccion coleccion = coleccionRepositorio.findById(coleccionId).orElseThrow(ColeccionNoEncontradaException::new);
         actualizarColeccion(coleccion);
     }
+
+    public List<String> obtenerCategorias(){
+        return categoriaRepositorio.findAllNombres();
+    }
+
 }

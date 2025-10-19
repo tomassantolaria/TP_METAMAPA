@@ -2,22 +2,56 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="hechoCard(hecho)" class="p-4 bg-white rounded-lg shadow border border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col justify-between">
-    <a th:href="@{/hecho/{id}(id=${hecho.id})}" class="flex-grow">
+<div th:fragment="hechoCard(hecho, showOptions)"
+     class="p-4 bg-white rounded-lg shadow border border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col justify-between relative">
+
+    <a th:href="@{/hecho/{id}(id=${hecho.id})}" class="flex-grow block">
         <h4 class="font-bold text-pastel-blue-900" th:text="${hecho.titulo}">Título del Hecho</h4>
-        <p class="text-sm text-gray-600 mt-1" th:text="${#strings.abbreviate(hecho.descripcion, 100)}">Descripción corta...</p>
+        <p class="text-sm text-gray-600 mt-1" th:text="${hecho.descripcion}">Descripción del hecho...</p>
     </a>
+
     <div class="text-xs text-gray-500 mt-2 flex justify-between items-center">
         <span>
             <span th:text="${hecho.categoria}">Categoría</span> |
             <span th:text="${hecho.provincia}">Provincia</span> |
-            <span th:text="${hecho.fechaAcontecimiento.toLocalDate()}">Fecha</span>
+            <span th:text="${#temporals.format(hecho.fechaAcontecimiento, 'dd-MM-yyyy')}">Fecha</span>
         </span>
-        <button class="p-1 text-gray-400 hover:text-red-600 ..." title="Solicitar eliminación">
 
-            <svg class="w-5 h-5" ...>...</svg>
-        </button>
+        <div th:if="${showOptions}" class="relative inline-block text-left dropdown-container">
+            <button
+                    th:id="|menu-button-${hecho.id}|"
+                    type="button"
+                    class="p-1 rounded-full text-gray-400 hover:text-gray-700 hover:bg-pastel-blue-50 focus:outline-none"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    th:onclick="|toggleMenu('menu-${hecho.id}')|"
+                    title="Opciones del hecho"
+            >
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                </svg>
+            </button>
+
+            <div
+                    th:id="|menu-${hecho.id}|"
+                    class="origin-top-right absolute hidden right-0 mt-2 w-56 rounded-md shadow-md bg-white ring-1 ring-black ring-opacity-5 z-50 dropdown-menu-content"
+                    role="menu"
+                    aria-orientation="vertical"
+                    tabindex="-1"
+            >
+                <div class="py-1" role="none">
+                    <a th:href="@{/solicitarElimiacion/{id}(id=${hecho.id})}"
+                       class="text-gray-700 block px-4 py-2 text-sm hover:bg-pastel-blue-100 hover:text-red-600 transition-colors"
+                       role="menuitem"
+                       tabindex="-1">
+                        <span class="font-medium">Solicitar Eliminación del Hecho</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+
 </body>
 </html>

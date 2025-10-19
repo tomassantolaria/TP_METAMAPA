@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+    <style>
+        #map { height: 400px; width: 100%; border-radius: 0.375rem; border: 1px solid #d1d5db; }
+    </style>
     <link rel="icon" th:href="@{/images/logo.png}" type="image/png">
 </head>
 <body >
@@ -30,8 +33,8 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <div sec:authorize="isAuthenticated()">
-                <a th:href="@{/hechos/nuevo}" class="hidden md:inline-flex items-center gap-1 bg-pastel-blue-500 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-pastel-blue-600">
+            <div sec:authorize="isAuthenticated()" class="flex items-center gap-3">
+                <a th:href="@{/crear-hecho}" class="hidden md:inline-flex items-center gap-1 bg-pastel-blue-600 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-pastel-blue-700">
                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" /></svg>
                     Crear Hecho
                 </a>
@@ -40,10 +43,10 @@
                     <button id="profile-menu-button" class="w-10 h-10 rounded-full bg-pastel-blue-300 flex items-center justify-center text-pastel-blue-800 hover:bg-pastel-blue-400 focus:outline-none focus:ring-2 focus:ring-pastel-blue-500 focus:ring-offset-2">
                         <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     </button>
-                    <div id="profile-menu-dropdown" class="absolute hidden right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 z-10">
+                    <div id="profile-menu-dropdown" class="absolute hidden right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 z-10 dropdown-menu-content">
                         <div class="px-4 py-2 border-b">
-                            <p class="text-sm font-semibold text-gray-700" sec:authentication="principal.nombre"></p>
-                            <p class="text-xs text-gray-500" sec:authentication="principal.email"></p>
+                            <p class="text-sm font-semibold text-gray-700" sec:authentication="principal.username"></p>
+                            <p class="text-xs text-gray-500" sec:authentication="principal.username"></p>
                         </div>
                         <a th:href="@{/perfil}" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Mi Perfil</a>
 
@@ -73,24 +76,57 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    // Script simple para manejar el menú desplegable del perfil.
-    // Esto reemplaza la necesidad de 'useState' de React.
-    const profileMenuButton = document.getElementById('profile-menu-button');
-    const profileMenuDropdown = document.getElementById('profile-menu-dropdown');
 
-    if(profileMenuButton) {
-        profileMenuButton.addEventListener('click', () => {
-            profileMenuDropdown.classList.toggle('hidden');
-        });
+    // =================================================================
+    // SCRIPT MAESTRO Y DEFINITIVO PARA TODOS LOS MENÚS
+    // =================================================================
 
-        // Opcional: Cerrar el menú si se hace clic fuera de él.
-        document.addEventListener('click', (event) => {
-            const container = document.getElementById('profile-menu-container');
-            if (!container.contains(event.target)) {
+    // Función global para abrir/cerrar un menú (usada por los 3 puntos)
+    // No es necesario que esté dentro de DOMContentLoaded porque se llama desde un 'onclick'
+    window.toggleMenu = function(menuId) {
+        const menuToToggle = document.getElementById(menuId);
+        if (!menuToToggle) return;
+        menuToToggle.classList.toggle('hidden');
+    };
+
+    // Lógica para el menú del PERFIL (se ejecuta cuando la página carga)
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileMenuButton = document.getElementById('profile-menu-button');
+        const profileMenuDropdown = document.getElementById('profile-menu-dropdown');
+
+        if (profileMenuButton && profileMenuDropdown) {
+            profileMenuButton.addEventListener('click', function(event) {
+                event.stopPropagation(); // Evita que el clic se propague al 'document'
+                profileMenuDropdown.classList.toggle('hidden');
+            });
+        }
+    });
+
+    // Escuchador global para CERRAR cualquier menú si se hace clic afuera
+    document.addEventListener('click', function(event) {
+        // Cierra el menú del PERFIL si está abierto y se hace clic afuera
+        const profileMenuContainer = document.getElementById('profile-menu-container');
+        const profileMenuDropdown = document.getElementById('profile-menu-dropdown');
+        if (profileMenuContainer && profileMenuDropdown && !profileMenuDropdown.classList.contains('hidden')) {
+            if (!profileMenuContainer.contains(event.target)) {
                 profileMenuDropdown.classList.add('hidden');
             }
+        }
+
+        // Cierra los menús de las TARJETAS si están abiertos y se hace clic afuera
+        document.querySelectorAll('[id^="menu-button-"]').forEach(button => {
+            const menuId = 'menu-' + button.id.substring(12);
+            const menu = document.getElementById(menuId);
+
+            if (menu && !menu.classList.contains('hidden')) {
+                // Si el clic no fue en el botón de esta tarjeta, cierra su menú
+                if (!button.contains(event.target)) {
+                    menu.classList.add('hidden');
+                }
+            }
         });
-    }
+    });
+
     /*]]>*/
 </script>
 
