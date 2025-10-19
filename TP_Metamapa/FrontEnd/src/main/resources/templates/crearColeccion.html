@@ -98,7 +98,11 @@
             </fieldset>
 
             <!-- Botón -->
-            <div class="flex justify-end pt-4">
+            <div class="flex justify-end items-center gap-4 pt-4">
+                <a th:href="@{/admin(tab='collections')}"
+                   class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-md hover:bg-gray-300 transition-colors">
+                    Cancelar
+                </a>
                 <button type="submit"
                         class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700">
                     Crear Colección
@@ -187,6 +191,6 @@
     });
 </script>
 
-
+<div th:replace="~{layout/base :: scripts}"></div>
 </body>
 </html>

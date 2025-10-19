@@ -12,14 +12,15 @@
         <div th:each="solicitud : ${solicitudes}" class="bg-white p-4 rounded-lg shadow-md border flex items-start justify-between gap-4">
             <div>
                 <p class="text-sm text-gray-500">Solicitud para eliminar el hecho:</p>
-                <p class="font-bold text-pastel-blue-900" th:text="${solicitud.hechoId}">Título del Hecho</p>
+                <p class="font-bold text-pastel-blue-900" th:text="${solicitud.idHecho}">ID del Hecho</p>
                 <p class="text-sm text-gray-700 mt-2"><b>Motivo:</b> <span th:text="${solicitud.motivo}"></span></p>
+                <p class="text-sm text-gray-700 mt-2"><b>Fecha de Creación:</b> <span th:text="${solicitud.fechaCreacion.toLocalDate()}"></span></p>
             </div>
             <div class="flex gap-2 flex-shrink-0">
-                <form th:action="@{/admin/solicitudes/aprobar/{id}(id=${solicitud.id})}" method="post">
+                <form th:action="@{/admin/aprobar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
                     <button type="submit" class="px-3 py-1 bg-green-500 text-white text-sm rounded-md hover:bg-green-600">Aprobar</button>
                 </form>
-                <form th:action="@{/admin/solicitudes/rechazar/{id}(id=${solicitud.id})}" method="post">
+                <form th:action="@{/admin/rechazar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
                     <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">Rechazar</button>
                 </form>
             </div>

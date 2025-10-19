@@ -14,7 +14,7 @@
 </head>
 <body >
 
-<header th:fragment="header" class="bg-pastel-blue-100 shadow-md sticky top-0 z-50">
+<header th:fragment="header" class="bg-pastel-blue-100 shadow-md sticky top-0 z-[1000]">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
         <a th:href="@{/}" class="text-2xl font-bold text-pastel-blue-900 tracking-tight">
             MetaMapa
@@ -68,12 +68,12 @@
     </div>
 </header>
 
-<footer th:fragment="footer" class="bg-pastel-blue-200 mt-8 sticky bottom-0 z-50">
+<footer th:fragment="footer" class="bg-pastel-blue-200 mt-8 sticky bottom-0 z-[1000]">
     <div class="container mx-auto px-4 py-4 text-center text-pastel-blue-700">
         <p>&copy; 2025 MetaMapa. Todos los derechos reservados.</p>
     </div>
 </footer>
-
+<div th:fragment="scripts">
 <script th:inline="javascript">
     /*<![CDATA[*/
 
@@ -129,6 +129,6 @@
 
     /*]]>*/
 </script>
-
+</div>
 </body>
 </html>

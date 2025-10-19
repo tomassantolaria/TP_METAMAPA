@@ -29,4 +29,16 @@ public class ColeccionServicio {
         return respuesta.getBody();
 
     }
+
+    public void eliminarColeccion(Long idColeccion) {
+        UriComponentsBuilder urlEliminar = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + idColeccion);
+
+        ResponseEntity<String> respuesta = restTemplate.exchange(
+                urlEliminar.toUriString(),
+                HttpMethod.DELETE,
+                null,
+                String.class
+        );
+        // Ver si hacer algo con la respuesta
+    }
 }

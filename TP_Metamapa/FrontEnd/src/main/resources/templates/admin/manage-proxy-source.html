@@ -16,7 +16,7 @@
         <p class="text-sm text-gray-600 mb-6">
             Ingrese la URL de una fuente de datos externa (otra instancia de MetaMapa o un servicio Demo) para integrarla al sistema.
         </p>
-        <form method="post" th:action="@{/admin/proxy/crear}" class="space-y-4 max-w-lg">
+        <form method="post" th:action="@{/admin/crear-proxy}" class="space-y-4 max-w-lg">
             <div>
                 <label for="proxy-url" class="block text-sm font-medium text-gray-700">URL de la Fuente</label>
                 <input type="url" name="url" id="proxy-url" required placeholder="https://ejemplo.com/api/hechos"
@@ -52,21 +52,12 @@
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-pastel-blue-800 uppercase tracking-wider">URL</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-pastel-blue-800 uppercase tracking-wider">Tipo</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-pastel-blue-800 uppercase tracking-wider">Estado</th>
-                <th class="px-6 py-3 text-right text-xs font-medium text-pastel-blue-800 uppercase tracking-wider">Acciones</th>
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
             <tr th:each="fuente : ${fuentesProxy}">
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" th:text="${fuente.url}"></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${fuente.tipo}"></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm">
-                    <span th:if="${fuente.activa}" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Activa</span>
-                    <span th:unless="${fuente.activa}" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Inactiva</span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                    <a th:href="@{/admin/proxy/editar/{id}(id=${fuente.id})}" class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" th:text="${fuente.tipoFuente}"></td>
             </tr>
             </tbody>
         </table>

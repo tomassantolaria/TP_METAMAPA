@@ -34,10 +34,18 @@
 
         <div class="mt-6">
             <div th:switch="${activeTab}">
-                <div th:case="'collections'" th:replace="~{admin/manage-collections :: content}"></div>
-                <div th:case="'requests'"    th:replace="~{admin/manage-requests :: content}"></div>
-                <div th:case="'static'"      th:replace="~{admin/manage-static-source :: content}"></div>
-                <div th:case="'proxy'"       th:replace="~{admin/manage-proxy-source :: content}"></div>
+                <div th:case="'collections'">
+                    <div th:replace="~{admin/manage-collections :: content}"></div>
+                </div>
+                <div th:case="'requests'">
+                    <div th:replace="~{admin/manage-requests :: content}"></div>
+                </div>
+                <div th:case="'static'">
+                    <div th:replace="~{admin/manage-static-source :: content}"></div>
+                </div>
+                <div th:case="'proxy'">
+                    <div th:replace="~{admin/manage-proxy-source :: content}"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -45,5 +53,6 @@
 
 <div th:replace="~{layout/base :: footer}"></div>
 
+<div th:replace="~{layout/base :: scripts}"></div>
 </body>
 </html>

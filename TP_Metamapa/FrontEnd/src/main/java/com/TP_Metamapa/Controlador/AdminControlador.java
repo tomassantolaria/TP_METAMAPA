@@ -37,7 +37,6 @@ public class AdminControlador {
         switch (activeTab) {
             case "collections":
                 // List<ColeccionDTO> colecciones = coleccionServicio.getColecciones();
-                // model.addAttribute("colecciones", colecciones);
 
                 ColeccionDTO c1 = new ColeccionDTO(1L, "Avistamientos de Fauna", "Hechos relacionados con animales.", null, null,"MAYORIA_SIMPLE",null);
                 ColeccionDTO c2 = new ColeccionDTO(2L, "Sucesos Históricos", "Eventos importantes de la historia.", null, null,"MAYORIA_SIMPLE",null);
@@ -58,8 +57,9 @@ public class AdminControlador {
                 // No se necesitan datos adicionales para esta pestaña
                 break;
             case "proxy":
-                // Lista<FuentesDTO> fuentes = fuenteProxyServicio.obtenerTodas();
+                // List<FuentesDTO> fuentes = fuenteProxyServicio.obtenerTodas();
                 fuentes.add(new FuentesDTO("http://ejemplo.com/api", TipoFuente.METAMAPA));
+
                 break;
             default:
                 break;
@@ -85,7 +85,7 @@ public class AdminControlador {
             return "redirect:/admin?tab=static";
         }
 
-        // Verificación 2: que sea un archivo CSV (opcional pero recomendado)
+        // Verificación 2: que sea un archivo CSV
         if (!"text/csv".equals(file.getContentType())) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error: El archivo debe ser de formato CSV.");
             return "redirect:/admin?tab=static";
@@ -93,25 +93,18 @@ public class AdminControlador {
 
         try {
             // Aquí iría la lógica para leer y procesar el archivo
-            // Por ejemplo: myCsvProcessingService.procesar(file.getInputStream());
-
-            System.out.println("Archivo recibido: " + file.getOriginalFilename());
-            System.out.println("Tamaño: " + file.getSize() + " bytes");
-
-            // Si todo sale bien, mandamos un mensaje de éxito
+            // estaticaServicio.procesarArchivoCsv(file); //TODO: HACER ESTO E IMPLEMENTARLO EN EL BACKEND
             redirectAttributes.addFlashAttribute("successMessage", "¡Archivo '" + file.getOriginalFilename() + "' cargado exitosamente!");
 
         } catch (Exception e) {
-            // Si algo falla durante el procesamiento, mandamos un mensaje de error
             redirectAttributes.addFlashAttribute("errorMessage", "Error al procesar el archivo: " + e.getMessage());
         }
-
         // Redirigimos de vuelta a la misma pestaña del admin
         return "redirect:/admin?tab=static";
     }
 
 
-    @PostMapping("/admin/proxy/crear")
+    @PostMapping("/admin/crear-proxy")
     public String crearFuenteProxy(
             @RequestParam String url,
             @RequestParam TipoFuente tipoFuente,
@@ -124,7 +117,6 @@ public class AdminControlador {
         }
 
         try {
-            // Aquí llamarías a tu servicio para guardar la nueva fuente
             // fuenteProxyService.crear(url, tipoFuente);
 
             System.out.println("Nueva fuente recibida: URL=" + url + ", Tipo=" + tipoFuente);
@@ -136,5 +128,29 @@ public class AdminControlador {
         }
 
         return "redirect:/admin?tab=proxy";
+    }
+
+    @PostMapping("/admin/eliminar-coleccion/{id}")
+    public String eliminarColeccion(
+            @RequestParam Long id
+    ) {
+        // coleccionServicio.eliminarColeccion(id);
+        return "redirect:/admin?tab=collections";
+    }
+
+    @PostMapping("/admin/aceptar-solicitud/{id}")
+    public String aceptarSolicitud(
+            @RequestParam Long id
+    ) {
+        // solicitudServicio.aceptarSolicitud(id);
+        return "redirect:/admin?tab=requests";
+    }
+
+    @PostMapping("/admin/rechazar-solicitud/{id}")
+    public String rechazarSolicitud(
+            @RequestParam Long id
+            ) {
+        // solicitudServicio.rechazarSolicitud(id);
+        return "redirect:/admin?tab=requests";
     }
 }

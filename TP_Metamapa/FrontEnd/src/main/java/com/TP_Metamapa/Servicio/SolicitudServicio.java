@@ -53,4 +53,30 @@ public class SolicitudServicio {
             throw new RuntimeException("No se pudo contactar con el servicio.", e);
         }
     }
+
+    public void rechazarSolicitud(Long idSolicitud){
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes/pendientes/" + idSolicitud);
+        HttpEntity<String> requestEntity = new HttpEntity<>("RECHAZADA");
+        ResponseEntity<String> respuesta = restTemplate.exchange(
+                urlSolicitudes.toUriString(),
+                HttpMethod.PUT,
+                requestEntity,
+                String.class
+        );
+
+        // ver si hacer algo con la respuesta
+    }
+
+    public void aceptarSolicitud(Long idSolicitud){
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes/pendientes" + idSolicitud);
+        HttpEntity<String> requestEntity = new HttpEntity<>("ACEPTADA");
+        ResponseEntity<String> respuesta = restTemplate.exchange(
+                urlSolicitudes.toUriString(),
+                HttpMethod.PUT,
+                requestEntity,
+                String.class
+        );
+
+        // ver si hacer algo con la respuesta
+    }
 }

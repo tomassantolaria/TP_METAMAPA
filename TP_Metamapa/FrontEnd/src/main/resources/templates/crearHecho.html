@@ -115,7 +115,8 @@
             </div>
 
 
-            <div class="flex justify-end pt-4">
+            <div class="flex justify-end items-center gap-4 pt-4">
+                <a href="javascript:history.back()" class="text-sm text-gray-600 hover:text-gray-900">Volver</a>
                 <button type="submit"
                         class="px-6 py-3 bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700">
                     Crear Hecho
@@ -223,5 +224,7 @@
     // document.addEventListener('DOMContentLoaded', cargarCategorias);
 
 </script>
+
+<div th:replace="~{layout/base :: scripts}"></div>
 </body>
 </html>

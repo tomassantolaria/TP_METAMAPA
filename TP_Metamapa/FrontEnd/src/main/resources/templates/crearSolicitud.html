@@ -6,10 +6,14 @@
 <div th:replace="~{layout/base :: header}"></div>
 <main class="container mx-auto px-4 py-8 flex-grow flex flex-col">
         <div class="container mx-auto py-8 px-4">
+            <a th:href="@{/navegar}"
+               class="px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-md hover:bg-gray-300 transition-colors">
+                Volver a Navegar
+            </a>
             <h2 class="text-3xl font-bold tracking-tight text-pastel-blue-900 mb-8 text-center">
                 Solicitar Eliminación de Hecho
             </h2>
-            <h2></h2>
+
             <div class="grid md:grid-cols-2 gap-6 items-start mx-auto max-w-4xl">
 
                 <div class="md:w-full">
@@ -72,6 +76,8 @@
 
     /*]]>*/
 </script>
+
+<div th:replace="~{layout/base :: scripts}"></div>
 
 </body>
 </html>
