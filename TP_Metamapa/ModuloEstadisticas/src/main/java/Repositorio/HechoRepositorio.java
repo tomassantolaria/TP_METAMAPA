@@ -22,7 +22,7 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
         GROUP BY hora
         ORDER BY COUNT(h.id) DESC
     """)
-    List<Integer> getHoraConMasHechos(String categoria, Pageable pageable);
+    List<Integer> getHoraConMasHechos(@Param("categoria") String categoria, Pageable pageable);
 
 
 

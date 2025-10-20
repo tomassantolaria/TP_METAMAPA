@@ -28,9 +28,4 @@ public class AgregadorController {
 
     }
 
-    @GetMapping("/categorias")
-    public ResponseEntity<List<String>> obtenerCategorias() {
-        return ResponseEntity.ok(agregadorServicio.obtenerCategorias());
-    }
-
 }

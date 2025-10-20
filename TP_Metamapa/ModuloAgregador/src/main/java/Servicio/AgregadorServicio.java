@@ -51,8 +51,8 @@ public class AgregadorServicio {
         //Las URL tiene que tener este formato fromHttpUrl
         UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/dinamica/hechos"); // cambiar nombre url
   //    UriComponentsBuilder urlDemo = UriComponentsBuilder.fromPath("http://localhost:8086/demo/hechos");
-        UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/metamapa/hechos");
-        UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8084/fuenteEstatica/hechos");
+        //UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/metamapa/hechos");
+        //UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8084/fuenteEstatica/hechos");
 
         ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
                 urlDinamica.toUriString(),
@@ -71,21 +71,21 @@ public class AgregadorServicio {
  //               }
  //       );
 
-        ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
-                urlMetamapa.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                }
-        );
-
-        ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
-                urlEstatica.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                }
-        );
+//        ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
+//                urlMetamapa.toUriString(),
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<>() {
+//                }
+//        );
+//
+//        ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
+//                urlEstatica.toUriString(),
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<>() {
+//                }
+//        );
         List<HechoDTOInput> hechosDTOTotales = new ArrayList<>();
         // Cambiar el HECHOdtoOutput de las distintas fuentes
 
@@ -100,16 +100,16 @@ public class AgregadorServicio {
             hechosDTOTotales.addAll(hechosDinamica);
         }
 
-
-        if (!respuestaEstatica.getBody().isEmpty()) {
-            List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
-            hechosDTOTotales.addAll(hechosEstatica) ;
-        }
-
-        if (!respuestaMetamapa.getBody().isEmpty()) {
-            List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
-            hechosDTOTotales.addAll(hechosMetamapa) ;
-        }
+//
+//        if (!respuestaEstatica.getBody().isEmpty()) {
+//            List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
+//            hechosDTOTotales.addAll(hechosEstatica) ;
+//        }
+//
+//        if (!respuestaMetamapa.getBody().isEmpty()) {
+//            List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
+//            hechosDTOTotales.addAll(hechosMetamapa) ;
+//        }
         // CONSUMIR API DE GOOGLE PARA OBTENER UBICACION MEDIANTE LA LATITUD Y LONGITUD O QUE LO HAGA CADA FUENTE
 
         UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/categorias");
@@ -332,8 +332,5 @@ public class AgregadorServicio {
         actualizarColeccion(coleccion);
     }
 
-    public List<String> obtenerCategorias(){
-        return categoriaRepositorio.findAllNombres();
-    }
 
 }

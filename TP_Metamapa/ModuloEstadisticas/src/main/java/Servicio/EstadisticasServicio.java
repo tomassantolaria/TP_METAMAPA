@@ -1,6 +1,7 @@
 package Servicio;
 
 import Modelos.Coleccion;
+import Modelos.Estado;
 import Modelos.UltimasEstadisticasDTO;
 import Repositorio.*;
 import org.springframework.data.domain.PageRequest;
@@ -50,7 +51,7 @@ public class EstadisticasServicio{
     }
 
     public Long cantidadSolicitudesSpam(){
-        Long resultado = solicitudRepositorio.getCantidadSolicitudesSpam();
+        Long resultado = solicitudRepositorio.countSolicitudByEstado(Estado.SPAM);
         return resultado == null ? 0 : resultado;
     }
 

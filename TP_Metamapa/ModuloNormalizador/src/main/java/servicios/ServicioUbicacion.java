@@ -1,6 +1,7 @@
 package servicios;
 
 import Modelos.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,11 +10,12 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ServicioUbicacion {
 
-    private final RestTemplate restTemplate;
+    @Autowired
+    RestTemplate restTemplate;
 
-    public ServicioUbicacion(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    //public ServicioUbicacion(RestTemplate restTemplate) {
+        //this.restTemplate = restTemplate;
+    //}
 
     private static final String NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
 
