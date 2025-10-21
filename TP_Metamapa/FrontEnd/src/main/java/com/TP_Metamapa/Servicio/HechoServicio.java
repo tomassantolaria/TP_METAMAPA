@@ -36,4 +36,15 @@ public class HechoServicio {
                 .limit(4)
                 .collect(Collectors.toList());
     }
+
+    public void eliminarHechoDeColeccion(Long idColeccion, Long idHecho){
+        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + idColeccion + "/hecho" + idHecho);
+
+        ResponseEntity<String> respuesta = restTemplate.exchange(
+                url.toUriString(),
+                HttpMethod.DELETE,
+                null,
+                new ParameterizedTypeReference<String>() {}
+        );
+    }
 }

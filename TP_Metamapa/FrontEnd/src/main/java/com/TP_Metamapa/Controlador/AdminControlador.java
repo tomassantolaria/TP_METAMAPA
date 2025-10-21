@@ -1,21 +1,18 @@
 package com.TP_Metamapa.Controlador;
 
 
-import com.TP_Metamapa.DTOS.ColeccionDTO;
-import com.TP_Metamapa.DTOS.FuentesDTO;
-import com.TP_Metamapa.DTOS.SolicitudDTO;
+import com.TP_Metamapa.DTOS.*;
 import com.TP_Metamapa.Modelos.TipoFuente;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdminControlador {
@@ -38,7 +35,16 @@ public class AdminControlador {
             case "collections":
                 // List<ColeccionDTO> colecciones = coleccionServicio.getColecciones();
 
-                ColeccionDTO c1 = new ColeccionDTO(1L, "Avistamientos de Fauna", "Hechos relacionados con animales.", null, null,"MAYORIA_SIMPLE",null);
+                List<HechoDTO> hechosDePrueba = new ArrayList<>();
+                HechoDTO hecho1 = new HechoDTO(1L, 101L, "Incendio en bosque", "Un gran incendio forestal afectó la zona sur.", "El incendio comenzó en horas de la tarde y se extendió rápidamente.", "imagen_incendio.jpg", "Desastre natural", LocalDateTime.of(2023, 5, 20, 16, 30), LocalDateTime.now(), "Bariloche", "Río Negro", "Argentina", -41.1335, -71.3103, "usuario123", "Juan", "Pérez", LocalDateTime.of(1990, 3, 15, 0, 0), false, true, "App móvil");
+                HechoDTO hecho2 = new HechoDTO(2L, 102L, "Marcha por los derechos laborales", "Manifestación pacífica en el centro.", "Cientos de personas se reunieron para reclamar mejoras salariales.", "video_marcha.mp4", "Protesta social", LocalDateTime.of(2024, 9, 1, 10, 0), LocalDateTime.now(), "Córdoba", "Córdoba", "Argentina", -31.4201, -64.1888, "usuario456", "María", "González", LocalDateTime.of(1985, 8, 22, 0, 0), true, true, "Sitio web");
+                HechoDTO hecho3 = new HechoDTO(3L, 103L, "Lanzamiento de satélite nacional", "Evento histórico en el ámbito tecnológico.", "Argentina lanzó su nuevo satélite de comunicaciones desde Cabo Cañaveral.", "foto_satélite.jpg", "Tecnología", LocalDateTime.of(2025, 4, 10, 14, 0), LocalDateTime.now(), "Cabo Cañaveral", "Florida", "Estados Unidos", 28.3922, -80.6077, "usuario789", "Lucía", "Martínez", LocalDateTime.of(1992, 12, 5, 0, 0), false, false, "Carga institucional");
+
+                hechosDePrueba.add(hecho1);
+                hechosDePrueba.add(hecho2);
+                hechosDePrueba.add(hecho3);
+
+                ColeccionDTO c1 = new ColeccionDTO(1L, "Avistamientos de Fauna", "Hechos relacionados con animales.", hechosDePrueba, null, "MAYORIA_SIMPLE", null);
                 ColeccionDTO c2 = new ColeccionDTO(2L, "Sucesos Históricos", "Eventos importantes de la historia.", null, null,"MAYORIA_SIMPLE",null);
                 ColeccionDTO c3 =  new ColeccionDTO(3L, "Incendios Forestales", "Reportes de incendios en zonas naturales.", null, null,null,null);
                 coleccionesDePrueba.add(c1);
@@ -149,8 +155,77 @@ public class AdminControlador {
     @PostMapping("/admin/rechazar-solicitud/{id}")
     public String rechazarSolicitud(
             @RequestParam Long id
-            ) {
+    ) {
         // solicitudServicio.rechazarSolicitud(id);
         return "redirect:/admin?tab=requests";
+    }
+
+    @GetMapping("/admin/ver-coleccion/{id}")
+    public String verColeccion(@PathVariable("id") Long id, Model model) {
+
+
+        // Optional<ColeccionDTO> coleccionOpt = coleccionServicio.obtenerColeccion(id);
+
+        List<HechoDTO> hechosDePrueba = new ArrayList<>();
+        HechoDTO hecho1 = new HechoDTO(1L, 101L, "Incendio en bosque", "Un gran incendio forestal afectó la zona sur.", "El incendio comenzó en horas de la tarde y se extendió rápidamente.", "imagen_incendio.jpg", "Desastre natural", LocalDateTime.of(2023, 5, 20, 16, 30), LocalDateTime.now(), "Bariloche", "Río Negro", "Argentina", -41.1335, -71.3103, "usuario123", "Juan", "Pérez", LocalDateTime.of(1990, 3, 15, 0, 0), false, true, "App móvil");
+        HechoDTO hecho2 = new HechoDTO(2L, 102L, "Marcha por los derechos laborales", "Manifestación pacífica en el centro.", "Cientos de personas se reunieron para reclamar mejoras salariales.", "video_marcha.mp4", "Protesta social", LocalDateTime.of(2024, 9, 1, 10, 0), LocalDateTime.now(), "Córdoba", "Córdoba", "Argentina", -31.4201, -64.1888, "usuario456", "María", "González", LocalDateTime.of(1985, 8, 22, 0, 0), true, true, "Sitio web");
+        HechoDTO hecho3 = new HechoDTO(3L, 103L, "Lanzamiento de satélite nacional", "Evento histórico en el ámbito tecnológico.", "Argentina lanzó su nuevo satélite de comunicaciones desde Cabo Cañaveral.", "foto_satélite.jpg", "Tecnología", LocalDateTime.of(2025, 4, 10, 14, 0), LocalDateTime.now(), "Cabo Cañaveral", "Florida", "Estados Unidos", 28.3922, -80.6077, "usuario789", "Lucía", "Martínez", LocalDateTime.of(1992, 12, 5, 0, 0), false, false, "Carga institucional");
+
+        hechosDePrueba.add(hecho1);
+        hechosDePrueba.add(hecho2);
+        hechosDePrueba.add(hecho3);
+
+        CriterioDTO criterioDePrueba = new CriterioDTO(
+                "incendio", null, "Desastre natural", null, null,
+                null, "Río Negro", "Argentina", null, null, null
+        );
+
+        Optional<ColeccionDTO> coleccionOpt = Optional.of(
+                new ColeccionDTO(id, "Avistamientos de Fauna", "Hechos relacionados con animales.", hechosDePrueba, criterioDePrueba, "MAYORIA_SIMPLE", null)
+        );
+
+
+
+        // --- 2. MANEJAR EL CASO "NO ENCONTRADO" ---
+        if (coleccionOpt.isEmpty() || coleccionOpt == null ) {
+            model.addAttribute("errorMessage", "La colección con ID " + id + " no fue encontrada.");
+            return "error/404";
+        }
+
+        // --- 3. AÑADIR DATOS AL MODELO ---
+        model.addAttribute("coleccion", coleccionOpt.get());
+        model.addAttribute("hechos", hechosDePrueba);
+
+        return "verColeccion";
+    }
+
+    @GetMapping("admin/editar-coleccion/{id}")
+    public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
+        //ColeccionDTO coleccion = coleccionServicio.obtenerColeccion(id);
+        ColeccionDTO coleccion = new ColeccionDTO(id, "Avistamientos de Fauna", "Hechos relacionados con animales.", null, null, "MAYORIA_SIMPLE", null);
+        model.addAttribute("coleccion", coleccion);
+        return "editarColeccion"; // nombre de tu template thymeleaf
+    }
+
+    @PostMapping("/{id}/consenso")
+    public String actualizarConsenso(@PathVariable Long id,
+                                     @RequestParam String criterioConsenso,
+                                     RedirectAttributes redirectAttributes) {
+        try {
+            //coleccionServicio.actualizarConsenso(id, criterioConsenso);
+            redirectAttributes.addFlashAttribute("mensaje", "Criterio de consenso actualizado correctamente");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al actualizar");
+        }
+        return "redirect:/admin/ver-coleccion/{id}/editar";
+    }
+
+    @PostMapping("/admin/colecciones/{idColeccion}/eliminar-hecho/{idHecho}")
+    public String eliminarHecho(@PathVariable Long idHecho, @PathVariable Long idColeccion ,RedirectAttributes redirectAttributes) {
+        // hechoServicio.eliminarHechoDeColeccion(idColeccion, idHecho);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Hecho quitado de la colección exitosamente.");
+
+        return "redirect:/admin/ver-coleccion/" + idColeccion;
     }
 }

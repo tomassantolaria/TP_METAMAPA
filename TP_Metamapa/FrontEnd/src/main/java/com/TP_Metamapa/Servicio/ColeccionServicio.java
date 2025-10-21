@@ -41,4 +41,27 @@ public class ColeccionServicio {
         );
         // Ver si hacer algo con la respuesta
     }
+
+
+
+    public ColeccionDTO obtenerColeccion(Long id){
+        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + id);
+        ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
+                urlColeccion.toUriString(),
+                HttpMethod.GET,
+                null,
+                ColeccionDTO.class
+        );
+        return respuesta.getBody();
+    }
+
+    public void actualizarColeccion(Long id, String consenso){
+        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + id + "/Consenso/" + consenso);
+        ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
+                urlColeccion.toUriString(),
+                HttpMethod.POST,
+                null,
+                ColeccionDTO.class
+        );
+    }
 }

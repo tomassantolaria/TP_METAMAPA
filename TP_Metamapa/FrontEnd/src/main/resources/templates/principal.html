@@ -28,7 +28,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                     <div th:each="hecho : ${hechos}">
-                        <a th:href="@{/hecho/{id}(id=${hecho.id})}">
+                        <a th:href="@{/ver-hecho/{id}(id=${hecho.id})}">
                             <div class="p-4 bg-white rounded-lg shadow border border-gray-200 hover:shadow-lg transition-shadow h-full">
                                 <h4 class="font-bold text-pastel-blue-900" th:text="${hecho.titulo}">Título del Hecho</h4>
                                 <p class="text-sm text-gray-600 mt-1" th:text="${#strings.abbreviate(hecho.descripcion, 100)}">Descripción corta...</p>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-<head th:replace="~{layout/base :: head (title='Crear hecho - Metamapa')}">
+<head th:replace="~{layout/base :: head (title='Crear Colección - Metamapa')}">
     <title>Crear Colección</title>
 </head>
 <body class="bg-gray-50">
 <div th:replace="~{layout/base :: header}"></div>
+
 <main class="container mx-auto px-4 py-8">
     <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border border-blue-200">
         <h1 class="text-3xl font-bold text-blue-900 mb-6">Crear Colección</h1>
@@ -30,8 +31,9 @@
                 <label for="criterioConsenso" class="block text-sm font-medium text-gray-700">Criterio de Consenso</label>
                 <select id="criterioConsenso" name="criterioConsenso"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                    <option value="MAYORIA SIMPLE">MAYORÍA SIMPLE</option>
-                    <option value="ABSOLUTA">ABSOLUTA</option>
+                    <option value="mayoria-simple">Mayoría simple</option>
+                    <option value="absoluta">Absoluta</option>
+                    <option value="multiples-menciones">Múltiples menciones</option>
                 </select>
             </div>
 
@@ -49,49 +51,66 @@
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
                     </div>
 
-                    <div>
-                        <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría es</label>
-                        <select id="categoria" name="categoria"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                            <option value="">Cualquiera</option>
-                            <option value="Economía">Economía</option>
-                            <option value="Política">Política</option>
-                            <option value="Ciencia">Ciencia</option>
-                        </select>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
+                            <select name="categoria" id="categoria" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                                <option value="" disabled selected>Selecciona una categoría</option>
+                                <option th:each="cat : ${categorias}"
+                                        th:value="${cat}"
+                                        th:text="${cat}"></option>
+                            </select>
+                        </div>
+
+                        <div id="customCategoriaDiv" class="hidden">
+                            <label for="customCategoria" class="block text-sm font-medium text-gray-700">Nueva Categoría</label>
+                            <input type="text" name="customCategoria" id="customCategoria"
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
+                        </div>
                     </div>
 
-                    <!-- País, Provincia/Estado, Localidad/Ciudad -->
+                    <!-- Buscador de ubicación -->
+                    <div class="md:col-span-2">
+                        <label for="searchDireccion" class="block text-sm font-medium text-gray-700">Buscar dirección</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="searchDireccion" placeholder="Ejemplo: Rosario, Santa Fe, Argentina"
+                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
+                            <button type="button" id="buscarUbicacion"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                Buscar
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Ingrese una dirección o ciudad para autocompletar país, provincia y localidad.</p>
+                    </div>
+
                     <div>
                         <label for="pais" class="block text-sm font-medium text-gray-700">País</label>
-                        <select id="pais" name="pais"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                            <option value="">Seleccione un país</option>
-                        </select>
+                        <input type="text" id="pais" name="pais"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
                     </div>
 
                     <div>
-                        <label for="provincia" class="block text-sm font-medium text-gray-700">Provincia / Estado</label>
-                        <select id="provincia" name="provincia"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" disabled>
-                            <option value="">Seleccione una provincia</option>
-                        </select>
+                        <label for="provincia" class="block text-sm font-medium text-gray-700">Provincia</label>
+                        <input type="text" id="provincia" name="provincia"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
                     </div>
 
                     <div>
-                        <label for="localidad" class="block text-sm font-medium text-gray-700">Localidad / Ciudad</label>
-                        <select id="localidad" name="localidad"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" disabled>
-                            <option value="">Seleccione una localidad</option>
-                        </select>
+                        <label for="localidad" class="block text-sm font-medium text-gray-700">Localidad</label>
+                        <input type="text" id="localidad" name="localidad"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
                     </div>
 
                     <div>
-                        <label for="origen_carga" class="block text-sm font-medium text-gray-700">Origen de Carga</label>
-                        <select id="origen_carga" name="origen_carga"
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
-                            <option value="">Cualquiera</option>
-                            <option value="Manual">Manual</option>
-                            <option value="Automático">Automático</option>
+                        <label for="origen" class="block text-sm font-medium text-gray-700">Origen Carga</label>
+                        <select name="origen" id="origen"
+                                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                            <option value="">Todos</option>
+                            <option th:each="o : ${origenesDeCarga}"
+                                    th:value="${o.name()}"
+                                    th:text="${o}"
+                                    th:selected="${o.name() == filtrosActuales.origen}">
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -112,82 +131,51 @@
         </form>
     </div>
 </main>
+
 <div th:replace="~{layout/base :: footer}"></div>
+
 <script>
-    const paisSelect = document.getElementById("pais");
-    const provinciaSelect = document.getElementById("provincia");
-    const localidadSelect = document.getElementById("localidad");
-
-    // Función para buscar países por texto
-    async function buscarPais(texto) {
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?country=${encodeURIComponent(texto)}&format=json&limit=50`);
-        const data = await res.json();
-        return data;
-    }
-
-    // Función para buscar provincias de un país
-    async function buscarProvincias(pais) {
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?country=${encodeURIComponent(pais)}&format=json&limit=50&polygon_geojson=0`);
-        const data = await res.json();
-        // Filtrar resultados que tengan un "state"
-        const estados = [...new Set(data.map(d => d.state).filter(Boolean))];
-        return estados;
-    }
-
-    // Función para buscar ciudades dentro de un país y provincia
-    async function buscarCiudades(pais, provincia) {
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?country=${encodeURIComponent(pais)}&state=${encodeURIComponent(provincia)}&format=json&limit=100`);
-        const data = await res.json();
-        // Filtrar nombres únicos de ciudades
-        const ciudades = [...new Set(data.map(d => d.display_name.split(',')[0]))];
-        return ciudades;
-    }
-
-    // Event listener para seleccionar país
-    paisSelect.addEventListener("change", async () => {
-        const pais = paisSelect.value;
-        provinciaSelect.innerHTML = "<option value=''>Seleccione una provincia</option>";
-        localidadSelect.innerHTML = "<option value=''>Seleccione una ciudad</option>";
-        provinciaSelect.disabled = true;
-        localidadSelect.disabled = true;
-
-        if (!pais) return;
-
-        const provincias = await buscarProvincias(pais);
-        provincias.forEach(prov => {
-            const opt = document.createElement("option");
-            opt.value = prov;
-            opt.textContent = prov;
-            provinciaSelect.appendChild(opt);
-        });
-        provinciaSelect.disabled = false;
+    // Mostrar campo de categoría personalizada
+    const categoriaSelect = document.getElementById('categoria');
+    const customDiv = document.getElementById('customCategoriaDiv');
+    categoriaSelect.addEventListener('change', () => {
+        if(categoriaSelect.value === 'Otra') customDiv.classList.remove('hidden');
+        else customDiv.classList.add('hidden');
     });
 
-    // Event listener para seleccionar provincia
-    provinciaSelect.addEventListener("change", async () => {
-        const pais = paisSelect.value;
-        const provincia = provinciaSelect.value;
-        localidadSelect.innerHTML = "<option value=''>Seleccione una ciudad</option>";
-        localidadSelect.disabled = true;
+    // Búsqueda y autocompletado de país, provincia y localidad (sin mapa)
+    const buscarBtn = document.getElementById("buscarUbicacion");
+    const inputBuscar = document.getElementById("searchDireccion");
 
-        if (!provincia) return;
+    buscarBtn.addEventListener("click", async () => {
+        const query = inputBuscar.value.trim();
+        if (!query) return alert("Por favor ingrese una dirección o ciudad para buscar.");
 
-        const ciudades = await buscarCiudades(pais, provincia);
-        ciudades.forEach(city => {
-            const opt = document.createElement("option");
-            opt.value = city;
-            opt.textContent = city;
-            localidadSelect.appendChild(opt);
-        });
-        localidadSelect.disabled = false;
-    });
+        try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+            const data = await res.json();
 
-    // Opcional: precargar algunos países para el select
-    ["Argentina","Uruguay","Brasil","Chile","México","España"].forEach(pais => {
-        const opt = document.createElement("option");
-        opt.value = pais;
-        opt.textContent = pais;
-        paisSelect.appendChild(opt);
+            if (data.length === 0) {
+                alert("No se encontró la ubicación especificada.");
+                return;
+            }
+
+            // Tomamos el primer resultado
+            const { lat, lon } = data[0];
+
+            // Reverse geocoding para completar campos
+            const reverseRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+            const reverseData = await reverseRes.json();
+            const address = reverseData.address || {};
+
+            document.getElementById('localidad').value = address.city || address.town || address.village || '';
+            document.getElementById('provincia').value = address.state || '';
+            document.getElementById('pais').value = address.country || '';
+
+        } catch (err) {
+            console.error("Error en la búsqueda:", err);
+            alert("Ocurrió un error al buscar la dirección.");
+        }
     });
 </script>
 

@@ -2,10 +2,10 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<div th:fragment="hechoCard(hecho, showOptions)"
+<div th:fragment="hechoCard(hecho, showOptions, showAdminActions, coleccionId)"
      class="p-4 bg-white rounded-lg shadow border border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col justify-between relative">
 
-    <a th:href="@{/hecho/{id}(id=${hecho.id})}" class="flex-grow block">
+    <a th:href="@{/ver-hecho/{id}(id=${hecho.id})}" class="flex-grow block">
         <h4 class="font-bold text-pastel-blue-900" th:text="${hecho.titulo}">Título del Hecho</h4>
         <p class="text-sm text-gray-600 mt-1" th:text="${hecho.descripcion}">Descripción del hecho...</p>
     </a>
@@ -48,6 +48,17 @@
                     </a>
                 </div>
             </div>
+        </div>
+
+        <div th:if="${showAdminActions}">
+            <form th:action="@{/admin/colecciones/{cid}/eliminar-hecho/{hid}(cid=${coleccionId}, hid=${hecho.id})}" method="post">
+                <button type="submit" onclick="return confirm('¿Quitar este hecho de la colección?');"
+                        class="p-1 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-100" title="Quitar Hecho de la Colección">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </button>
+            </form>
         </div>
 
     </div>
