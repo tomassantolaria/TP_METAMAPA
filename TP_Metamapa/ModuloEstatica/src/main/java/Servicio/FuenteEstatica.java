@@ -67,7 +67,7 @@ public class FuenteEstatica {
                 }
                 else {
                     List<HechoCSV> hechosModificados = hechosCSV.stream().filter(hecho -> {
-                        return (repositorio.noExisteHecho( archivo.getId(), hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getLatitud(), hecho.getLongitud(), hecho.getFechaAcontecimiento()) == 0);}).toList();// agregar fechaAcontesimiento
+                        return (repositorio.noExisteHecho( archivo.getId(), hecho.getTitulo(), hecho.getDescripcion(), hecho.getCategoria(), hecho.getLatitud(), hecho.getLongitud(), hecho.getFechaAcontecimiento().atStartOfDay()) == 0);}).toList();// agregar fechaAcontesimiento
                     guardarHechos(hechosModificados,archivo);
                 }
             }
@@ -122,7 +122,7 @@ public class FuenteEstatica {
         }
     }
     private Hecho convertToHecho(HechoCSV hechoCSV, Archivo archivo) {
-        return new Hecho(false, hechoCSV.getFechaAcontecimiento(), hechoCSV.getLongitud(), hechoCSV.getLatitud(), hechoCSV.getCategoria(), archivo, hechoCSV.getDescripcion(), hechoCSV.getTitulo());
+        return new Hecho(false, hechoCSV.getFechaAcontecimiento().atStartOfDay(), hechoCSV.getLongitud(), hechoCSV.getLatitud(), hechoCSV.getCategoria(), archivo, hechoCSV.getDescripcion(), hechoCSV.getTitulo());
     }
 }
 

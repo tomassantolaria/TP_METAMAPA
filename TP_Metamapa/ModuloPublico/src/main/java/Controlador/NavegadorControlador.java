@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime ;
 import java.util.List;
 
@@ -74,6 +76,24 @@ public class NavegadorControlador {
             @RequestParam(required = false) String localidad) {
 
         try {
+            if (titulo != null) {
+                titulo = URLDecoder.decode(titulo, StandardCharsets.UTF_8.toString());
+            }
+            if (origen != null) {
+                origen = URLDecoder.decode(origen, StandardCharsets.UTF_8.toString());
+            }
+            if (pais != null) {
+                pais = URLDecoder.decode(titulo, StandardCharsets.UTF_8.toString());
+            }
+            if (localidad != null) {
+                localidad = URLDecoder.decode(origen, StandardCharsets.UTF_8.toString());
+            }
+            if ( provincia != null) {
+                provincia = URLDecoder.decode(titulo, StandardCharsets.UTF_8.toString());
+            }
+            if (categoria != null) {
+                categoria = URLDecoder.decode(origen, StandardCharsets.UTF_8.toString());
+            }
             List<HechoDTO> hechos = navegadorServicio.filtrarHechos(null, categoria, contenidoMultimedia,
                     fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta,
                     origen, titulo, pais, provincia, localidad, null);
@@ -84,7 +104,7 @@ public class NavegadorControlador {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al filtrar hechos");
         }
     }
-
+    
 
     @GetMapping("/buscar/{texto}")
     public ResponseEntity<?> buscarPorTextoLibre(@PathVariable String texto){

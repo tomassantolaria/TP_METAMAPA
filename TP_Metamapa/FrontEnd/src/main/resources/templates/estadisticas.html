@@ -7,18 +7,28 @@
 
 <main class="container mx-auto px-4 py-8 flex-grow">
     <div class="space-y-8">
-        <h1 class="text-3xl font-bold text-pastel-blue-900">Estadísticas</h1>
+        <div class="flex justify-between items-center">
 
+            <h1 class="text-3xl font-bold text-pastel-blue-900">Estadísticas</h1>
+
+            <a th:href="@{/csv}"
+               class="bg-pastel-blue-700 text-white font-bold py-2 px-4 rounded shadow-md hover:bg-pastel-blue-800 transition-colors">
+                Exportar
+            </a>
+
+        </div>
         <th:block th:if="${estadisticas != null}">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 <div class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
                     <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3">Provincia con más Hechos por Colección</h3>
                     <form method="get" th:action="@{/estadisticas}" class="contents">
+                        <input type="hidden" name="categoriaSeleccionada" th:value="${categoriaSeleccionada}" />
+                        <input type="hidden" name="categoriaParaHoraPico" th:value="${categoriaParaHoraPico}" />
                         <div class="space-y-3">
                             <select name="coleccionSeleccionadaId" onchange="this.form.submit()" class="w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
                                 <option value="">Seleccione una colección</option>
-                                <option th:each="col : ${colecciones}"
+                                <option th:each= "col : ${colecciones}"
                                         th:value="${col.coleccionId}"
                                         th:text="${col.titulo}"
                                         th:selected="${col.coleccionId == coleccionSeleccionadaId}"></option>
@@ -41,6 +51,8 @@
                 <div class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
                     <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3">Provincia con más Hechos por Categoría</h3>
                     <form method="get" th:action="@{/estadisticas}" class="contents">
+                        <input type="hidden" name="coleccionSeleccionadaId" th:value="${coleccionSeleccionadaId}" />
+                        <input type="hidden" name="categoriaParaHoraPico" th:value="${categoriaParaHoraPico}" />
                         <div class="space-y-3">
                             <select name="categoriaSeleccionada" onchange="this.form.submit()" class="w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
                                 <option value="">Seleccione una categoría</option>
@@ -68,6 +80,8 @@
                 <div class="bg-white p-4 rounded-lg shadow-md border border-pastel-blue-200">
                     <h3 class="text-lg font-bold text-pastel-blue-800 border-b border-pastel-blue-200 pb-2 mb-3">Hora Pico por Categoría</h3>
                     <form method="get" th:action="@{/estadisticas}" class="contents">
+                        <input type="hidden" name="coleccionSeleccionadaId" th:value="${coleccionSeleccionadaId}" />
+                        <input type="hidden" name="categoriaSeleccionada" th:value="${categoriaSeleccionada}" />
                         <div class="space-y-3">
                             <select name="categoriaParaHoraPico" onchange="this.form.submit()" class="w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
                                 <option value="">Seleccione una categoría</option>
@@ -87,9 +101,6 @@
 
             </div>
         </th:block>
-        <div th:if="${estadisticas == null}">
-            <p class="text-center text-red-500">No se pudieron cargar las estadísticas.</p>
-        </div>
     </div>
 </main>
 

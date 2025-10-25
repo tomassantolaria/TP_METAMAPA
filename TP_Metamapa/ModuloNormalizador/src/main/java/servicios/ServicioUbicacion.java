@@ -13,9 +13,8 @@ public class ServicioUbicacion {
     @Autowired
     RestTemplate restTemplate;
 
-    //public ServicioUbicacion(RestTemplate restTemplate) {
-        //this.restTemplate = restTemplate;
-    //}
+    public ServicioUbicacion(RestTemplate restTemplate) {this.restTemplate = restTemplate;
+    }
 
     private static final String NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
 
@@ -32,8 +31,8 @@ public class ServicioUbicacion {
             Pais pais = new Pais(capitalizarCadaPalabra(address.path("country").asText()));
             Provincia provincia = new Provincia(capitalizarCadaPalabra(address.path("state").asText()), pais );
 
-            String ciudad = address.path("city").asText();
-            if (ciudad == null){
+            String ciudad = address.path("state_district").asText();
+            if (ciudad == null || ciudad.isBlank()){
                 ciudad = address.path("town").asText();
             }
             Localidad localidad = new Localidad(capitalizarCadaPalabra(ciudad), provincia);

@@ -6,10 +6,12 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ColeccionServicio {
@@ -44,15 +46,18 @@ public class ColeccionServicio {
 
 
 
-    public ColeccionDTO obtenerColeccion(Long id){
+    public Optional<ColeccionDTO> obtenerColeccion(Long id){
         UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + id);
-        ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
-                urlColeccion.toUriString(),
-                HttpMethod.GET,
-                null,
-                ColeccionDTO.class
-        );
-        return respuesta.getBody();
+            try {
+                ColeccionDTO coleccion = restTemplate.getForObject(urlColeccion.toString(), ColeccionDTO.class);
+                // Wrap the result in Optional.ofNullable to handle potential null from RestTemplate (though unlikely for 200 OK)
+                return Optional.ofNullable(coleccion);
+
+            } catch (HttpClientErrorException.NotFound e) {
+                System.out.println("Colección con ID " + id + " no encontrada. Status: " + e.getStatusCode());
+                return Optional.empty();
+
+            }
     }
 
     public void actualizarColeccion(Long id, String consenso){

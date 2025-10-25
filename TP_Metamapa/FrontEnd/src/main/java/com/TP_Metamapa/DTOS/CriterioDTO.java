@@ -10,6 +10,7 @@ import java.time.LocalDateTime ;
 
 @Getter
 @Setter
+
 public class CriterioDTO {
     public String titulo;
     public Boolean contenido_multimedia;

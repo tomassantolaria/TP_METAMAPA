@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.LocalDateTime ;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ImportadorFileServerLocal implements Importador{
                     titulo,
                     descripcion,
                     categoria,
-                    LocalDateTime.parse(campos[5].trim(), formatter),
+                    LocalDate.parse(campos[5].trim(), formatter),
                     lat,
                     lon
             );

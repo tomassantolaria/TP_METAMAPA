@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime ;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,10 +21,10 @@ public class HechoCSV {
     private String categoria;
     private String latitud;
     private String longitud;
-    private LocalDateTime fechaAcontecimiento;
+    private LocalDate fechaAcontecimiento;
 
 
-    protected HechoCSV(String unTitulo, String unaDescripcion, String unaCategoria, LocalDateTime unaFechaAcontecimiento,
+    protected HechoCSV(String unTitulo, String unaDescripcion, String unaCategoria, LocalDate unaFechaAcontecimiento,
                        String latitud, String longitud) {
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
@@ -33,7 +34,7 @@ public class HechoCSV {
         this.longitud = longitud;
     }
 
-    public static HechoCSV getInstance(String unTitulo, String unaDescripcion, String unaCategoria, LocalDateTime unaFechaAcontecimiento,
+    public static HechoCSV getInstance(String unTitulo, String unaDescripcion, String unaCategoria, LocalDate unaFechaAcontecimiento,
                                        String latitud, String longitud) {
 
         HechoCSV hechoConEseTitulo = hechosConTitulos.get(unTitulo);
@@ -47,7 +48,7 @@ public class HechoCSV {
     }
     //para crear se hace el getInstance(...)
 
-    public void sobreescribirse(String unTitulo, String unaDescripcion,  String unaCategoria, LocalDateTime unaFechaAcontecimiento,
+    public void sobreescribirse(String unTitulo, String unaDescripcion,  String unaCategoria, LocalDate unaFechaAcontecimiento,
                                 String latitud, String longitud) {
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;

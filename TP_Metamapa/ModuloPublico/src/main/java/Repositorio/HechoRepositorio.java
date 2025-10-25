@@ -15,7 +15,7 @@ import java.util.List;
 public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
 
     @Query("SELECT h FROM Hecho h " +
-            "WHERE (:categoria IS NULL OR h.categoria.nombre = :categoria) " +
+            "WHERE (:categoria IS NULL OR :categoria = '' OR h.categoria.nombre = :categoria) " +
             "AND (" +
             "    :contenidoMultimedia IS NULL" +
             "    OR (:contenidoMultimedia = TRUE AND h.contenido.contenidoMultimedia IS NOT NULL AND h.contenido.contenidoMultimedia <> '')" +
@@ -25,11 +25,11 @@ public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
             "AND (:fechaCargaHasta IS NULL OR h.fecha_carga<= :fechaCargaHasta) " +
             "AND (:fechaHechoDesde IS NULL OR h.fecha>= :fechaHechoDesde) " +
             "AND (:fechaHechoHasta IS NULL OR h.fecha <= :fechaHechoHasta) " +
-            "AND (:origenCarga IS NULL OR h.origen = :origenCarga) " +
+            "AND (:origenCarga IS NULL  OR :origenCarga = '' OR h.origen = :origenCarga) " +
             "AND (:titulo IS NULL OR h.titulo LIKE %:titulo%) " +
-            "AND (:pais IS NULL OR h.ubicacion.pais.pais = :pais) " +
-            "AND (:provincia IS NULL OR h.ubicacion.provincia.provincia = :provincia) " +
-            "AND (:localidad IS NULL OR h.ubicacion.localidad.localidad = :localidad)"+
+            "AND (:pais IS NULL OR :pais = '' OR h.ubicacion.pais.pais = :pais) " +
+            "AND (:provincia IS NULL OR :provincia = '' OR h.ubicacion.provincia.provincia = :provincia) " +
+            "AND (:localidad IS NULL OR :localidad = '' OR h.ubicacion.localidad.localidad = :localidad)"+
             "AND (h.visible = true)")
     List<Hecho> filtrarHechos(
             @Param("categoria") String categoria,

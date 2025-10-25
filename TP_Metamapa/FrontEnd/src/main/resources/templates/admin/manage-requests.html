@@ -2,29 +2,40 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="content">
-    <h2 class="text-2xl font-semibold text-gray-800">Gestionar Solicitudes de Eliminación</h2>
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Gestionar Solicitudes de Eliminación</h2>
 
     <div th:if="${solicitudes.isEmpty()}" class="mt-6 bg-white p-8 rounded-lg shadow-md text-center">
         <p class="text-gray-500">No hay solicitudes pendientes.</p>
     </div>
 
-    <div th:if="${!solicitudes.isEmpty()}" class="mt-6 space-y-4">
-        <div th:each="solicitud : ${solicitudes}" class="bg-white p-4 rounded-lg shadow-md border flex items-start justify-between gap-4">
-            <div>
-                <p class="text-sm text-gray-500">Solicitud para eliminar el hecho:</p>
-                <p class="font-bold text-pastel-blue-900" th:text="${solicitud.idHecho}">ID del Hecho</p>
-                <p class="text-sm text-gray-700 mt-2"><b>Motivo:</b> <span th:text="${solicitud.motivo}"></span></p>
-                <p class="text-sm text-gray-700 mt-2"><b>Fecha de Creación:</b> <span th:text="${solicitud.fechaCreacion.toLocalDate()}"></span></p>
+    <div th:if="${!solicitudes.isEmpty()}" class="mt-6 space-y-6"> <div th:each="solicitud : ${solicitudes}" class="bg-white p-4 rounded-lg shadow-md border border-gray-200 flex flex-col gap-4">
+
+        <div class="flex flex-col md:flex-row items-start gap-4">
+
+            <div class="flex-grow md:w-1/2"> <p class="text-sm font-medium text-gray-700">Motivo de la solicitud:</p>
+                <blockquote class="border-l-4 border-gray-200 pl-3 mt-1">
+                    <p class="text-gray-600 text-base" th:text="${solicitud.motivo}"></p>
+                </blockquote>
             </div>
+
+            <div class="w-full md:w-1/2 flex-shrink-0"> <p class="text-sm font-medium text-gray-700 mb-1">Hecho relacionado:</p>
+                <div th:replace="~{fragments/hechoCard :: hechoCard(hecho=${solicitud.hecho}, showOptions=false, showAdminActions=false, coleccionId=null)}"></div>
+            </div>
+
+        </div>
+
+        <div class="flex items-end justify-between border-t border-gray-200 pt-3">
             <div class="flex gap-2 flex-shrink-0">
-                <form th:action="@{/admin/aprobar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
-                    <button type="submit" class="px-3 py-1 bg-green-500 text-white text-sm rounded-md hover:bg-green-600">Aprobar</button>
+                <form th:action="@{/admin/aceptar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
+                    <button type="submit" class="px-3 py-1 bg-green-500 text-white text-xs sm:text-sm rounded-md hover:bg-green-600 font-semibold">Aprobar</button>
                 </form>
                 <form th:action="@{/admin/rechazar-solicitud/{id}(id=${solicitud.idSolicitud})}" method="post">
-                    <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600">Rechazar</button>
+                    <button type="submit" class="px-3 py-1 bg-red-500 text-white text-xs sm:text-sm rounded-md hover:bg-red-600 font-semibold">Rechazar</button>
                 </form>
             </div>
         </div>
+
+    </div>
     </div>
 </div>
 </body>

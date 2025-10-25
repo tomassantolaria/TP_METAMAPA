@@ -1,5 +1,6 @@
 package Servicio;
 
+import Modelos.DTOs.HechoDTO;
 import Modelos.DTOs.SolicitudDTOOutput;
 import Modelos.Entidades.Estado;
 import Modelos.Entidades.Hecho;
@@ -28,7 +29,8 @@ public class SolicitudServicio {
         return solicitudes.stream().map(this::pasarADTO).toList();
     }
     private SolicitudDTOOutput pasarADTO(Solicitud solicitud){
-        return new SolicitudDTOOutput(solicitud.getIdSolcitud().toString(), solicitud.getMotivo(), solicitud.getHecho().getId(), solicitud.getFecha_creacion());
+        HechoDTO hecho = this.transformarHechoDTO(solicitud.getHecho());
+        return new SolicitudDTOOutput(solicitud.getIdSolcitud().toString(), solicitud.getMotivo(), hecho , solicitud.getFecha_creacion());
     }
 
 
@@ -51,5 +53,32 @@ public class SolicitudServicio {
         }else{
             return Estado.valueOf(estadoString.toUpperCase());
         }
+    }
+
+    public HechoDTO transformarHechoDTO(Hecho hecho) {
+
+        HechoDTO dto = new HechoDTO(
+                hecho.getTitulo(),
+                hecho.getDescripcion(),
+                hecho.getContenido().getTexto(),
+                hecho.getContenido().getContenidoMultimedia(),
+                hecho.getCategoria().getNombre(),
+                hecho.getFecha(),
+                hecho.getUbicacion().getPais().getPais(),
+                hecho.getUbicacion().getProvincia().getProvincia(),
+                hecho.getUbicacion().getLocalidad().getLocalidad(),
+                null,
+                null,
+                null,
+                null,
+                hecho.getOrigen().name());
+
+        if(Boolean.FALSE.equals(hecho.getAnonimo())){
+            dto.setUsuario(hecho.getContribuyente().getUsuario());
+            dto.setApellido(hecho.getContribuyente().getApellido());
+            dto.setNombre(hecho.getContribuyente().getNombre());
+            dto.setFecha_nacimiento(hecho.getContribuyente().getFecha_nacimiento());
+        }
+        return dto;
     }
 }

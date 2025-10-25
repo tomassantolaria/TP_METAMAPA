@@ -5,7 +5,7 @@
 <div th:fragment="hechoCard(hecho, showOptions, showAdminActions, coleccionId)"
      class="p-4 bg-white rounded-lg shadow border border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col justify-between relative">
 
-    <a th:href="@{/ver-hecho/{id}(id=${hecho.id})}" class="flex-grow block">
+    <a th:href="@{/ver-hecho/{id}(id=${hecho.idHecho})}" class="flex-grow block">
         <h4 class="font-bold text-pastel-blue-900" th:text="${hecho.titulo}">Título del Hecho</h4>
         <p class="text-sm text-gray-600 mt-1" th:text="${hecho.descripcion}">Descripción del hecho...</p>
     </a>
@@ -19,12 +19,12 @@
 
         <div th:if="${showOptions}" class="relative inline-block text-left dropdown-container">
             <button
-                    th:id="|menu-button-${hecho.id}|"
+                    th:id="|menu-button-${hecho.idHecho}|"
                     type="button"
                     class="p-1 rounded-full text-gray-400 hover:text-gray-700 hover:bg-pastel-blue-50 focus:outline-none"
                     aria-expanded="false"
                     aria-haspopup="true"
-                    th:onclick="|toggleMenu('menu-${hecho.id}')|"
+                    th:onclick="|toggleMenu('menu-${hecho.idHecho}')|"
                     title="Opciones del hecho"
             >
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -33,14 +33,14 @@
             </button>
 
             <div
-                    th:id="|menu-${hecho.id}|"
+                    th:id="|menu-${hecho.idHecho}|"
                     class="origin-top-right absolute hidden right-0 mt-2 w-56 rounded-md shadow-md bg-white ring-1 ring-black ring-opacity-5 z-50 dropdown-menu-content"
                     role="menu"
                     aria-orientation="vertical"
                     tabindex="-1"
             >
                 <div class="py-1" role="none">
-                    <a th:href="@{/solicitarElimiacion/{id}(id=${hecho.id})}"
+                    <a th:href="@{/solicitarEliminacion/{id}(id=${hecho.idHecho})}"
                        class="text-gray-700 block px-4 py-2 text-sm hover:bg-pastel-blue-100 hover:text-red-600 transition-colors"
                        role="menuitem"
                        tabindex="-1">
@@ -51,7 +51,7 @@
         </div>
 
         <div th:if="${showAdminActions}">
-            <form th:action="@{/admin/colecciones/{cid}/eliminar-hecho/{hid}(cid=${coleccionId}, hid=${hecho.id})}" method="post">
+            <form th:action="@{/admin/colecciones/{cid}/eliminar-hecho/{hid}(cid=${coleccionId}, hid=${hecho.idHecho})}" method="post">
                 <button type="submit" onclick="return confirm('¿Quitar este hecho de la colección?');"
                         class="p-1 rounded-full text-gray-400 hover:text-red-600 hover:bg-red-100" title="Quitar Hecho de la Colección">
                     <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

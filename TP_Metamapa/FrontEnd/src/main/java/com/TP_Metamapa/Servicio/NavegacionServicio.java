@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,9 @@ public class NavegacionServicio {
     @Autowired
     private RestTemplate restTemplate;
 
-    private String apiBaseUrl = "http://localhost:8087/publico";
+    private static final String apiBaseUrl = "http://localhost:8087/publico";
+
+    private static final String HECHOS_PATH = "/hechos/{id}";
 
     public List<HechoDTO> buscarPorTextoLibre(String textoLibre) {
         String url = apiBaseUrl + "/buscar/" + textoLibre; // O la ruta que corresponda
@@ -45,6 +48,7 @@ public class NavegacionServicio {
         String url;
         UriComponentsBuilder builder;
 
+
        if(coleccionId == null){
 
            url = apiBaseUrl + "/hechos";
@@ -52,10 +56,10 @@ public class NavegacionServicio {
          builder = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParamIfPresent("categoria", Optional.ofNullable(categoria))
                 .queryParamIfPresent("contenidoMultimedia", Optional.ofNullable(contenidoMultimedia))
-                .queryParamIfPresent("fechaCargaDesde", Optional.of(fechaCargaDesde.atStartOfDay()))
-                .queryParamIfPresent("fechaCargaHasta", Optional.of(fechaCargaHasta.atTime(23, 59, 59)))
-                .queryParamIfPresent("fechaHechoDesde", Optional.of(fechaHechoDesde.atStartOfDay()))
-                .queryParamIfPresent("fechaHechoHasta", Optional.of(fechaHechoHasta.atTime(23, 59, 59)))
+                .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fechaCargaDesde).map(LocalDate::atStartOfDay))
+                .queryParamIfPresent("fechaCargaHasta", Optional.ofNullable(fechaCargaHasta).map(fecha -> fecha.atTime(23, 59, 59)))
+                .queryParamIfPresent("fechaHechoDesde", Optional.ofNullable(fechaHechoDesde).map(LocalDate::atStartOfDay))
+                .queryParamIfPresent("fechaHechoHasta",  Optional.ofNullable(fechaHechoHasta).map(fecha -> fecha.atTime(23, 59, 59)))
                 .queryParamIfPresent("origen", Optional.ofNullable(origen))
                 .queryParamIfPresent("titulo", Optional.ofNullable(titulo))
                 .queryParamIfPresent("pais", Optional.ofNullable(pais))
@@ -67,10 +71,10 @@ public class NavegacionServicio {
                builder = UriComponentsBuilder.fromHttpUrl(url)
                      .queryParamIfPresent("categoria", Optional.ofNullable(categoria))
                      .queryParamIfPresent("contenidoMultimedia", Optional.ofNullable(contenidoMultimedia))
-                     .queryParamIfPresent("fechaCargaDesde", Optional.of(fechaCargaDesde.atStartOfDay()))
-                     .queryParamIfPresent("fechaCargaHasta", Optional.of(fechaCargaHasta.atTime(23, 59, 59)))
-                     .queryParamIfPresent("fechaHechoDesde", Optional.of(fechaHechoDesde.atStartOfDay()))
-                     .queryParamIfPresent("fechaHechoHasta", Optional.of(fechaHechoHasta.atTime(23, 59, 59)))
+                       .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fechaCargaDesde).map(LocalDate::atStartOfDay))
+                       .queryParamIfPresent("fechaCargaHasta", Optional.ofNullable(fechaCargaHasta).map(fecha -> fecha.atTime(23, 59, 59)))
+                       .queryParamIfPresent("fechaHechoDesde", Optional.ofNullable(fechaHechoDesde).map(LocalDate::atStartOfDay))
+                       .queryParamIfPresent("fechaHechoHasta",  Optional.ofNullable(fechaHechoHasta).map(fecha -> fecha.atTime(23, 59, 59)))
                      .queryParamIfPresent("origen", Optional.ofNullable(origen))
                      .queryParamIfPresent("titulo", Optional.ofNullable(titulo))
                      .queryParamIfPresent("pais", Optional.ofNullable(pais))
@@ -90,13 +94,17 @@ public class NavegacionServicio {
     }
 
     public HechoDTO obtenerHechoPorId(Long id) {
-        String url = apiBaseUrl + "/hechos/" + id; // O la ruta que corresponda
+        if (id == null || id <= 0) {
+            throw new IllegalArgumentException("ID inválido");
+        }
+        final String url = apiBaseUrl + HECHOS_PATH; // O la ruta que corresponda
 
         ResponseEntity<HechoDTO> respuesta = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                HechoDTO.class
+                HechoDTO.class,
+                id
         );
 
         return respuesta.getBody();

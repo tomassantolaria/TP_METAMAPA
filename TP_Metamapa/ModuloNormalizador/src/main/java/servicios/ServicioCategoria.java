@@ -6,6 +6,7 @@ import Modelos.Categoria;
 
 @Service
 public class ServicioCategoria {
+
     private final RepositorioCategoria repositorioCategoria;
 
     public ServicioCategoria(RepositorioCategoria repositorioCategoria) {

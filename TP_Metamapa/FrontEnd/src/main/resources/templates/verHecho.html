@@ -53,11 +53,13 @@
         </div>
 
         <div class="mt-8">
-            <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Contribuyente</h2>
-            <p th:if="${hecho.anonimo}" class="italic text-gray-600">Este hecho fue reportado de forma anónima.</p>
-            <p th:if="${!hecho.anonimo}" class="text-gray-700">
-                Reportado por: <strong th:text="${hecho.usuario}"></strong>
-            </p>
+            <div th:if="${hecho.origen_carga == FUENTE_DINAMICA}">
+                <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Contribuyente</h2>
+                <p th:if="${hecho.anonimo}" class="italic text-gray-600">Este hecho fue reportado de forma anónima.</p>
+                <p th:if="${!hecho.anonimo}" class="text-gray-700">
+                    Reportado por: <strong th:text="${hecho.usuario}"></strong>
+                </p>
+            </div>
         </div>
 
         <div th:if="${hecho.latitud != null and hecho.longitud != null}" class="mt-10">

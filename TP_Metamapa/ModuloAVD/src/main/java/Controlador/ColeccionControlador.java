@@ -37,11 +37,11 @@ public class ColeccionControlador {
     }
 
     @GetMapping ("/coleccion/{id}")
-    public ResponseEntity<ColeccionDTOOutput> obtenerColeccion (@PathVariable Long id) {
+    public ResponseEntity<?> obtenerColeccion (@PathVariable Long id) {
         try{
             return ResponseEntity.status(200).body(coleccionServicio.obtenerColeccion(id));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(coleccionServicio.obtenerColeccion(id));
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 

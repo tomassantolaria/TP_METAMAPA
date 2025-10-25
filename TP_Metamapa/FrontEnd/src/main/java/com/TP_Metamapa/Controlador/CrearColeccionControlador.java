@@ -1,5 +1,12 @@
 package com.TP_Metamapa.Controlador;
 
+import com.TP_Metamapa.Modelos.Consenso;
+import com.TP_Metamapa.Modelos.OrigenCarga;
+import com.TP_Metamapa.Servicio.CategoriaServicio;
+import com.TP_Metamapa.Servicio.LocalidadServicio;
+import com.TP_Metamapa.Servicio.PaisServicio;
+import com.TP_Metamapa.Servicio.ProvinciaServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,37 +17,26 @@ import java.util.List;
 @Controller
 public class CrearColeccionControlador {
 
-    // GET → muestra el formulario
+    @Autowired
+    CategoriaServicio categoriaServicio;
+    @Autowired
+    PaisServicio paisServicio;
+    @Autowired
+    ProvinciaServicio provinciaServicio;
+    @Autowired
+    LocalidadServicio localidadServicio;
+
+
     @GetMapping("/admin/crear-coleccion")
     public String mostrarFormulario(Model model) {
 
-        // Simulación de datos que normalmente vendrían de un servicio
-        List<String> categorias = new ArrayList<>();
-        categorias.add("Inundaciones");
-        categorias.add("Incendios");
 
-        List<String> paises = new ArrayList<>();
-        paises.add("Argentina");
-        paises.add("Chile");
-        paises.add("Uruguay");
-
-        List<String> provincias = new ArrayList<>();
-        provincias.add("Buenos Aires");
-        provincias.add("Córdoba");
-        provincias.add("Mendoza");
-
-        List<String> localidades = new ArrayList<>();
-        localidades.add("Rosario");
-        localidades.add("La Plata");
-        localidades.add("Mar del Plata");
-
-        List<String> origenes = new ArrayList<>();
-        origenes.add("Manual");
-        origenes.add("Automático");
-
-        List<String> criteriosConsenso = new ArrayList<>();
-        criteriosConsenso.add("MAYORIA SIMPLE");
-        criteriosConsenso.add("ABSOLUTA");
+        List<String> categorias = categoriaServicio.getCategoriasUnicas();
+        List<String> paises = paisServicio.getPaisesUnicos();
+        List<String> provincias = provinciaServicio.getProvinciasUnicas();
+        List<String> localidades = localidadServicio.getLocalidadesUnicas();
+        OrigenCarga[] origenes = OrigenCarga.values();
+        Consenso[] criteriosConsenso = Consenso.values();
 
         // Se agregan al modelo para que el HTML pueda mostrarlas con Thymeleaf si lo usás
         model.addAttribute("categorias", categorias);

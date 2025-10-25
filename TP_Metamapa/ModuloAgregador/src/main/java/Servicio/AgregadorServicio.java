@@ -48,11 +48,11 @@ public class AgregadorServicio {
     ContenidoRepositorio contenidoRepositorio;
 
     public void actualizarHechos() {
-        //Las URL tiene que tener este formato fromHttpUrl
+
         UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/dinamica/hechos"); // cambiar nombre url
-  //    UriComponentsBuilder urlDemo = UriComponentsBuilder.fromPath("http://localhost:8086/demo/hechos");
-        //UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/metamapa/hechos");
-        //UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8084/fuenteEstatica/hechos");
+        UriComponentsBuilder urlDemo = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/demo/hechos");
+        UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/metamapa/hechos");
+        UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8084/fuenteEstatica/hechos");
 
         ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
                 urlDinamica.toUriString(),
@@ -63,54 +63,54 @@ public class AgregadorServicio {
         );
 
 
- //       ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
- //               urlDemo.toUriString(),
- //               HttpMethod.GET,
- //               null,
- //               new ParameterizedTypeReference<>() {
- //               }
- //       );
+        ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
+               urlDemo.toUriString(),
+               HttpMethod.GET,
+               null,
+               new ParameterizedTypeReference<>() {
+               }
+       );
 
-//        ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
-//                urlMetamapa.toUriString(),
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<>() {
-//                }
-//        );
-//
-//        ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
-//                urlEstatica.toUriString(),
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<>() {
-//                }
-//        );
+       ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
+               urlMetamapa.toUriString(),
+               HttpMethod.GET,
+               null,
+               new ParameterizedTypeReference<>() {
+               }
+       );
+
+       ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
+               urlEstatica.toUriString(),
+               HttpMethod.GET,
+               null,
+               new ParameterizedTypeReference<>() {
+               }
+       );
         List<HechoDTOInput> hechosDTOTotales = new ArrayList<>();
-        // Cambiar el HECHOdtoOutput de las distintas fuentes
 
-/*
+
+
         if (!respuestaDemo.getBody().isEmpty()) {
             List<HechoDTOInput> hechosDemo = this.setearOrigenCarga(respuestaDemo.getBody(), OrigenCarga.FUENTE_PROXY);
             hechosDTOTotales.addAll(hechosDemo) ;
         }
-*/
+
         if (!respuestaDinamica.getBody().isEmpty()) {
             List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
             hechosDTOTotales.addAll(hechosDinamica);
         }
 
-//
-//        if (!respuestaEstatica.getBody().isEmpty()) {
-//            List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
-//            hechosDTOTotales.addAll(hechosEstatica) ;
-//        }
-//
-//        if (!respuestaMetamapa.getBody().isEmpty()) {
-//            List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
-//            hechosDTOTotales.addAll(hechosMetamapa) ;
-//        }
-        // CONSUMIR API DE GOOGLE PARA OBTENER UBICACION MEDIANTE LA LATITUD Y LONGITUD O QUE LO HAGA CADA FUENTE
+
+       if (!respuestaEstatica.getBody().isEmpty()) {
+           List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
+           hechosDTOTotales.addAll(hechosEstatica) ;
+       }
+
+       if (!respuestaMetamapa.getBody().isEmpty()) {
+           List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
+           hechosDTOTotales.addAll(hechosMetamapa) ;
+       }
+
 
         UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/categorias");
         UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/ubicaciones");

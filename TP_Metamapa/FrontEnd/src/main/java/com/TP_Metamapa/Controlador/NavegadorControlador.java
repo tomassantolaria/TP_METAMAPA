@@ -23,18 +23,20 @@ import static java.util.Map.entry;
 @Controller
 public class NavegadorControlador {
 
-    // @Autowired
-    // HechoServicio hechoServicio; // Lo usarás para llamar al backend real
-    // @Autowired
-    // ColeccionServicio coleccionServicio;
-    // @Autowired
-//     CategoriaServicio categoriaServicio;
-//    @Autowired
-//    LocalidadServicio localidadServicio;
-//    @Autowired
-//    ProvinciaServicio provinciaServicio;
-//    @Autowired
-//    PaisServicio paisServicio;
+    @Autowired
+    HechoServicio hechoServicio;
+    @Autowired
+    ColeccionServicio coleccionServicio;
+    @Autowired
+    CategoriaServicio categoriaServicio;
+    @Autowired
+    LocalidadServicio localidadServicio;
+    @Autowired
+    ProvinciaServicio provinciaServicio;
+    @Autowired
+    PaisServicio paisServicio;
+    @Autowired
+    NavegacionServicio navegacionServicio;
 
     @GetMapping("/navegar")
     public String navegar(
@@ -55,46 +57,38 @@ public class NavegadorControlador {
             @RequestParam(required = false) String accion,
             Model model) {
 
-        List<HechoDTO> hechosFiltrados = new ArrayList<>(); // O usa datos de prueba
+        List<HechoDTO> hechosFiltrados = new ArrayList<>();
 
         if ("buscarTexto".equals(accion) && textoLibre != null && !textoLibre.isBlank()) {
-            // Si el usuario presionó "Buscar" y hay texto, llamamos al endpoint de búsqueda libre
-            System.out.println("LOGICA: Llamando al endpoint de BÚSQUEDA POR TEXTO LIBRE con: " + textoLibre);
-            // hechosFiltrados = HechoServicio.buscarPorTextoLibre(textoLibre); // <-- Llamada a tu segundo endpoint
-
-
+            hechosFiltrados = navegacionServicio.buscarPorTextoLibre(textoLibre);
         } else {
-            // Si presionó "Aplicar Filtros" o cargó la página por primera vez, llamamos al endpoint de filtros avanzados
-            System.out.println("LOGICA: Llamando al endpoint de FILTROS AVANZADOS");
-            // hechosFiltrados = HechoServicio.buscarConFiltros(categoria, contenidoMultimedia, fechaCargaDesde,fechaCargaHasta,
-            //        //                                                              fechaHechoDesde, fechaHechoHasta, origen, titulo,
-            //        //                                                              pais, provincia, localidad, coleccionId, navegacionCurada);
-
+             hechosFiltrados = navegacionServicio.buscarConFiltros(categoria, contenidoMultimedia, fechaCargaDesde,fechaCargaHasta,
+                     fechaHechoDesde, fechaHechoHasta, origen, titulo,pais, provincia, localidad, coleccionId, navegacionCurada);
         }
 
-        // List<String> listaCategorias = categoriaServicio.getCategoriasUnicas();
-        // List<String> listaPaises = paisServicio.getPaisesUnicos();
-        // List<String> listaProvincias = provinciaServicio.getProvinciasUnicas();
-        // List<String> listaLocalidades = localidadServicio.getLocalidadesUnicas();
-        // List<ColeccionDTO> colecciones = coleccionServicio.getColecciones();
-
-        List<String> listaCategorias = List.of("Cultura", "Historia", "Incendio Forestal");
-        List<String> listaPaises = List.of("Argentina", "Uruguay", "Chile");
-        List<String> listaProvincias = List.of("Buenos Aires", "Córdoba", "Santa Fe");
-        List<String> listaLocalidades = List.of("Lomas de Zamora", "La Plata", "Rosario");
-        HechoDTO hecho1 = new HechoDTO(1L, 101L, "Incendio en bosque", "Un gran incendio forestal afectó la zona sur.", "El incendio comenzó en horas de la tarde y se extendió rápidamente.", "imagen_incendio.jpg", "Desastre natural", LocalDateTime.of(2023, 5, 20, 16, 30), LocalDateTime.now(), "Bariloche", "Río Negro", "Argentina", -41.1335, -71.3103, "usuario123", "Juan", "Pérez", LocalDateTime.of(1990, 3, 15, 0, 0), false, true, "App móvil");
-        HechoDTO hecho2 = new HechoDTO(2L, 102L, "Marcha por los derechos laborales", "Manifestación pacífica en el centro.", "Cientos de personas se reunieron para reclamar mejoras salariales.", "video_marcha.mp4", "Protesta social", LocalDateTime.of(2024, 9, 1, 10, 0), LocalDateTime.now(), "Córdoba", "Córdoba", "Argentina", -31.4201, -64.1888, "usuario456", "María", "González", LocalDateTime.of(1985, 8, 22, 0, 0), true, true, "Sitio web");
-        HechoDTO hecho3 = new HechoDTO(3L, 103L, "Lanzamiento de satélite nacional", "Evento histórico en el ámbito tecnológico.", "Argentina lanzó su nuevo satélite de comunicaciones desde Cabo Cañaveral.", "foto_satélite.jpg", "Tecnología", LocalDateTime.of(2025, 4, 10, 14, 0), LocalDateTime.now(), "Cabo Cañaveral", "Florida", "Estados Unidos", 28.3922, -80.6077, "usuario789", "Lucía", "Martínez", LocalDateTime.of(1992, 12, 5, 0, 0), false, false, "Carga institucional");
-
-        hechosFiltrados.add(hecho1);
-        hechosFiltrados.add(hecho2);
-        hechosFiltrados.add(hecho3);
+        List<String> listaCategorias = categoriaServicio.getCategoriasUnicas();
+        List<String> listaPaises = paisServicio.getPaisesUnicos();
+        List<String> listaProvincias = provinciaServicio.getProvinciasUnicas();
+        List<String> listaLocalidades = localidadServicio.getLocalidadesUnicas();
+        List<ColeccionDTO> colecciones = coleccionServicio.getColecciones();
+        OrigenCarga[] origenesDeCarga = OrigenCarga.values();
+//        List<String> listaCategorias = List.of("Cultura", "Historia", "Incendio Forestal");
+//        List<String> listaPaises = List.of("Argentina", "Uruguay", "Chile");
+//        List<String> listaProvincias = List.of("Buenos Aires", "Córdoba", "Santa Fe");
+//        List<String> listaLocalidades = List.of("Lomas de Zamora", "La Plata", "Rosario");
+//        HechoDTO hecho1 = new HechoDTO(1L, 101L, "Incendio en bosque", "Un gran incendio forestal afectó la zona sur.", "El incendio comenzó en horas de la tarde y se extendió rápidamente.", "imagen_incendio.jpg", "Desastre natural", LocalDateTime.of(2023, 5, 20, 16, 30), LocalDateTime.now(), "Bariloche", "Río Negro", "Argentina", -41.1335, -71.3103, "usuario123", "Juan", "Pérez", LocalDateTime.of(1990, 3, 15, 0, 0), false, true, "App móvil");
+//        HechoDTO hecho2 = new HechoDTO(2L, 102L, "Marcha por los derechos laborales", "Manifestación pacífica en el centro.", "Cientos de personas se reunieron para reclamar mejoras salariales.", "video_marcha.mp4", "Protesta social", LocalDateTime.of(2024, 9, 1, 10, 0), LocalDateTime.now(), "Córdoba", "Córdoba", "Argentina", -31.4201, -64.1888, "usuario456", "María", "González", LocalDateTime.of(1985, 8, 22, 0, 0), true, true, "Sitio web");
+//        HechoDTO hecho3 = new HechoDTO(3L, 103L, "Lanzamiento de satélite nacional", "Evento histórico en el ámbito tecnológico.", "Argentina lanzó su nuevo satélite de comunicaciones desde Cabo Cañaveral.", "foto_satélite.jpg", "Tecnología", LocalDateTime.of(2025, 4, 10, 14, 0), LocalDateTime.now(), "Cabo Cañaveral", "Florida", "Estados Unidos", 28.3922, -80.6077, "usuario789", "Lucía", "Martínez", LocalDateTime.of(1992, 12, 5, 0, 0), false, false, "Carga institucional");
+//
+//        hechosFiltrados.add(hecho1);
+//        hechosFiltrados.add(hecho2);
+//        hechosFiltrados.add(hecho3);
 
         // Lista fija desde nuestro Enum
-        OrigenCarga[] origenesDeCarga = OrigenCarga.values();
-        List<ColeccionDTO> colecciones = new ArrayList<>();
-        ColeccionDTO coleccionDTO = new ColeccionDTO(1L, "Colección de Prueba", "Descripción de prueba",null, null, null, null);
-        colecciones.add(coleccionDTO);
+
+//        List<ColeccionDTO> colecciones = new ArrayList<>();
+//        ColeccionDTO coleccionDTO = new ColeccionDTO(1L, "Colección de Prueba", "Descripción de prueba",null, null, null, null);
+//        colecciones.add(coleccionDTO);
 
 
         model.addAttribute("hechos", hechosFiltrados);

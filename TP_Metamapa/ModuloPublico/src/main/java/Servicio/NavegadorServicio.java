@@ -39,7 +39,7 @@ public class NavegadorServicio {
 
         OrigenCarga origenCargaNuevo = crearOrigen(origenCarga);
 
-        if(idColeccion == null){
+        if(idColeccion == null || idColeccion.toString().isEmpty()){
             hechos = hechoRepositorio.filtrarHechos(categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCargaNuevo, titulo, pais, provincia, localidad);
 
         }else{
@@ -134,7 +134,7 @@ public class NavegadorServicio {
     }
 
     public OrigenCarga crearOrigen(String origen){
-        if (origen == null) {
+        if (origen == null || origen.isEmpty()) {
             return null;
         }
         return OrigenCarga.valueOf(origen);

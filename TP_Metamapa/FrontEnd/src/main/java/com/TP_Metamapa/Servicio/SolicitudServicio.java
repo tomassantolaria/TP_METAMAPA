@@ -33,7 +33,7 @@ public class SolicitudServicio {
     }
 
     public String crearSolicitud(SolicitudDTOInput solicitudDTO){
-        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes");
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8087/solicitudes");
         HttpEntity<SolicitudDTOInput> requestEntity = new HttpEntity<>(solicitudDTO);
         try {
             ResponseEntity<String> response = restTemplate.exchange(

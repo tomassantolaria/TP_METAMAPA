@@ -8,6 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
+
 public class ColeccionDTO {
     private  Long coleccionId;
     private  String titulo;

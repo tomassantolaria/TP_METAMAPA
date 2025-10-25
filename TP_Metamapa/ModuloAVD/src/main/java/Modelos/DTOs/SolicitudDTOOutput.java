@@ -11,13 +11,13 @@ import java.time.LocalDateTime ;
 public class SolicitudDTOOutput {
     private String idSolicitud;
     private String motivo;
-    private Long idHecho;
+    private HechoDTO hecho;
     private LocalDateTime fechaCreacion;
 
-    public SolicitudDTOOutput(String idSolicitud, String motivo, Long idHecho, LocalDateTime fechaCreacion){
+    public SolicitudDTOOutput(String idSolicitud, String motivo, HechoDTO hecho, LocalDateTime fechaCreacion){
         this.idSolicitud = idSolicitud;
         this.motivo = motivo;
-        this.idHecho = idHecho;
+        this.hecho = hecho;
         this.fechaCreacion = fechaCreacion;
     }
 }
