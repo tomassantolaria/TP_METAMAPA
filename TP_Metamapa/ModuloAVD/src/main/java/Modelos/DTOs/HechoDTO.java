@@ -9,6 +9,8 @@ import java.time.LocalDateTime ;
 @Setter
 
 public class HechoDTO {
+    public Long idHecho;
+    public Long idFuente;
     public String titulo;
     public String descripcion;
     public String contenido;
@@ -24,7 +26,9 @@ public class HechoDTO {
     public LocalDateTime fecha_nacimiento;
     public String origen_carga;
 
-    public HechoDTO(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, String pais,String provincia, String localidad,  String usuario, String nombre, String apellido, LocalDateTime fecha_nacimiento, String origen_carga) {
+    public HechoDTO(Long idHecho, Long idFuente,String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, String pais,String provincia, String localidad,  String usuario, String nombre, String apellido, LocalDateTime fecha_nacimiento, String origen_carga) {
+        this.idHecho = idHecho;
+        this.idFuente = idFuente;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contenido = contenido;

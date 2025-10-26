@@ -1,5 +1,6 @@
 package com.TP_Metamapa.Servicio;
 
+import com.TP_Metamapa.DTOS.EstadoDTO;
 import com.TP_Metamapa.DTOS.SolicitudDTO;
 import com.TP_Metamapa.DTOS.SolicitudDTOInput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,14 @@ public class SolicitudServicio {
 
     public void rechazarSolicitud(Long idSolicitud){
         UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes/pendientes/" + idSolicitud);
-        HttpEntity<String> requestEntity = new HttpEntity<>("RECHAZADA");
+        /*HttpEntity<String> requestEntity = new HttpEntity<>("RECHAZADA");
+        ResponseEntity<String> respuesta = restTemplate.exchange(
+                urlSolicitudes.toUriString(),
+                HttpMethod.PUT,
+                requestEntity,
+                String.class
+        );*/
+        HttpEntity<EstadoDTO> requestEntity = new HttpEntity<>(new EstadoDTO("RECHAZADA"));
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 urlSolicitudes.toUriString(),
                 HttpMethod.PUT,
@@ -68,9 +76,16 @@ public class SolicitudServicio {
     }
 
     public void aceptarSolicitud(Long idSolicitud){
-        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes/pendientes" + idSolicitud);
-        HttpEntity<String> requestEntity = new HttpEntity<>("ACEPTADA");
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes/pendientes/" + idSolicitud);
+       /* HttpEntity<String> requestEntity = new HttpEntity<>("ACEPTADA");
         ResponseEntity<String> respuesta = restTemplate.exchange(
+                urlSolicitudes.toUriString(),
+                HttpMethod.PUT,
+                requestEntity,
+                String.class
+        );*/
+        HttpEntity<EstadoDTO> requestEntity = new HttpEntity<>(new EstadoDTO("ACEPTADA"));
+        restTemplate.exchange(
                 urlSolicitudes.toUriString(),
                 HttpMethod.PUT,
                 requestEntity,

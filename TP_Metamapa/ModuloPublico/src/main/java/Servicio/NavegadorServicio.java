@@ -4,6 +4,10 @@ package Servicio;
 import Modelos.ColeccionDTO;
 import Modelos.CriterioDTO;
 import Modelos.Entidades.*;
+import Modelos.Entidades.Consenso.Consenso;
+import Modelos.Entidades.Consenso.ConsensoAbsoluta;
+import Modelos.Entidades.Consenso.ConsensoMayoriaSimple;
+import Modelos.Entidades.Consenso.ConsensoMultiplesMenciones;
 import Modelos.Entidades.Excepciones.ColeccionNotFoundException;
 import Modelos.Entidades.Excepciones.HechosNoEncontradosException;
 import Modelos.HechoDTO;
@@ -302,9 +306,7 @@ public class NavegadorServicio {
             hechosDTO.add(hechoDTO);
         }
 
-        String consenso = Optional.ofNullable(coleccion.getConsenso())
-                .map(c -> c.toString())
-                .orElse(null);
+        String consenso = this.convertirConsenso(coleccion.getConsenso());
 
         List<HechoDTO> hechosConsensuadosDTO = new ArrayList<>();
         for (Hecho hecho: coleccion.getHechosConsensuados() ) {
@@ -320,5 +322,23 @@ public class NavegadorServicio {
             throw new HechosNoEncontradosException("Hecho no encontrado con id: " + id);
         }
         return transformarAHechoDTO(hecho);
+    }
+
+    public String convertirConsenso(Consenso atributo) {
+        if (atributo == null) {
+            return null;
+        }
+        if (atributo instanceof ConsensoAbsoluta) {
+            return "ABSOLUTA";
+        }
+        if (atributo instanceof ConsensoMultiplesMenciones) {
+            return "MULTIPLES_MENCIONES";
+        }
+        if (atributo instanceof ConsensoMayoriaSimple) {
+            return "MAYORIA_SIMPLE";
+        }
+        throw new IllegalArgumentException(
+                "Tipo de Consenso no soportado: " + atributo.getClass().getName()
+        );
     }
 }

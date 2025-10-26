@@ -40,7 +40,7 @@ public class HechoServicio {
     }
 
     public void eliminarHechoDeColeccion(Long idColeccion, Long idHecho){
-        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + idColeccion + "/hecho" + idHecho);
+        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + idColeccion + "/hecho/" + idHecho);
 
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 url.toUriString(),

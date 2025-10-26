@@ -6,38 +6,50 @@
 <body class="bg-gray-50">
 <div th:replace="~{layout/base :: header}"></div>
 
-<main class="container mx-auto px-4 py-8">
-    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border border-blue-200">
-        <h1 class="text-3xl font-bold text-blue-900 mb-6">Crear Colección</h1>
+<main class="container mx-auto px-4 py-8 flex-grow">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border border-pastel-blue-200">
+        <h1 class="text-3xl font-bold text-pastel-blue-900 mb-6">Crear Colección</h1>
 
-        <form class="space-y-4" action="#" method="POST">
+        <div th:if="${successMessage}"
+             class="p-4 mb-6 text-sm text-green-700 bg-green-100 rounded-lg shadow"
+             role="alert">
+            <span class="font-medium">¡Éxito!</span>
+            <span th:text="${successMessage}"></span>
+        </div>
 
-            <!-- Título -->
+        <div th:if="${errorMessage}"
+             class="p-4 mb-6 text-sm text-red-700 bg-red-100 rounded-lg shadow"
+             role="alert">
+            <span class="font-medium">¡Error!</span>
+            <span th:text="${errorMessage}"></span>
+        </div>
+
+        <form class="space-y-4" th:action="@{/admin/crear-coleccion}" th:object="${coleccionForm}" method="POST">
+
+
             <div>
                 <label for="titulo" class="block text-sm font-medium text-gray-700">Título</label>
-                <input type="text" id="titulo" name="titulo" required
+                <input type="text" id="titulo" th:field="*{titulo}" required
                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
             </div>
 
-            <!-- Descripción -->
             <div>
                 <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción</label>
-                <textarea id="descripcion" name="descripcion" rows="3" required
+                <textarea id="descripcion" th:field="*{descripcion}" rows="3" required
                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
             </div>
 
-            <!-- Criterio de Consenso -->
             <div>
                 <label for="criterioConsenso" class="block text-sm font-medium text-gray-700">Criterio de Consenso</label>
-                <select id="criterioConsenso" name="criterioConsenso"
+                <select id="criterioConsenso" th:field="*{consenso}"
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                    <option value="">Ninguna</option>
                     <option value="MAYORIA_SIMPLE">Mayoría simple</option>
                     <option value="ABSOLUTA">Absoluta</option>
-                    <option value="MULTIPLES_MENCIONES">Múltiples menciones</option>
+                    <option value="MULTIPLES_MENCIONES">Multiples Menciones</option>
                 </select>
             </div>
 
-            <!-- Criterios de Pertenencia -->
             <fieldset class="border-t border-gray-200 pt-5">
                 <legend class="text-base font-medium text-gray-900 mb-2">Criterio de Pertenencia</legend>
                 <p class="text-sm text-gray-500 mb-3">
@@ -45,73 +57,93 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                     <div>
-                        <label for="titulo-criterio" class="block text-sm font-medium text-gray-700">Título contiene</label>
-                        <input type="text" id="titulo-criterio" name="titulo-criterio"
+                        <label for="criterioTitulo" class="block text-sm font-medium text-gray-700">Título contiene</label>
+                        <input type="text" id="criterioTitulo" th:field="*{criterio.titulo}"
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
-                            <select name="categoria" id="categoria" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
-                                <option value="" disabled selected>Selecciona una categoría</option>
-                                <option th:each="cat : ${categorias}"
-                                        th:value="${cat}"
-                                        th:text="${cat}"></option>
-                            </select>
-                        </div>
-
-                        <div id="customCategoriaDiv" class="hidden">
-                            <label for="customCategoria" class="block text-sm font-medium text-gray-700">Nueva Categoría</label>
-                            <input type="text" name="customCategoria" id="customCategoria"
-                                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
-                        </div>
+                    <div>
+                        <label for="criterioCategoria" class="block text-sm font-medium text-gray-700">Categoría es</label>
+                        <select id="criterioCategoria" th:field="*{criterio.categoria}" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                            <option value="">Cualquiera</option>
+                            <option th:each="cat : ${categorias}"
+                                    th:value="${cat}"
+                                    th:text="${cat}"></option>
+                        </select>
                     </div>
 
-                    <!-- Buscador de ubicación -->
                     <div class="md:col-span-2">
                         <label for="searchDireccion" class="block text-sm font-medium text-gray-700">Buscar dirección</label>
                         <div class="flex gap-2">
-                            <input type="text" id="searchDireccion" placeholder="Ejemplo: Rosario, Santa Fe, Argentina"
+                            <input type="text" id="searchDireccion" placeholder="Ej: Rosario, Santa Fe, Argentina"
                                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"/>
-                            <button type="button" id="buscarUbicacion"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                                Buscar
-                            </button>
+                            <button type="button" id="buscarUbicacion" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Buscar</button>
                         </div>
                         <p class="text-xs text-gray-500 mt-1">Ingrese una dirección o ciudad para autocompletar país, provincia y localidad.</p>
                     </div>
 
                     <div>
-                        <label for="pais" class="block text-sm font-medium text-gray-700">País</label>
-                        <input type="text" id="pais" name="pais"
+                        <label for="criterioPais" class="block text-sm font-medium text-gray-700">País</label>
+                        <input type="text" id="criterioPais" th:field="*{criterio.pais}"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                    </div>
+                    <div>
+                        <label for="criterioProvincia" class="block text-sm font-medium text-gray-700">Provincia</label>
+                        <input type="text" id="criterioProvincia" th:field="*{criterio.provincia}"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
+                    </div>
+                    <div>
+                        <label for="criterioLocalidad" class="block text-sm font-medium text-gray-700">Localidad</label>
+                        <input type="text" id="criterioLocalidad" th:field="*{criterio.localidad}"
                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
                     </div>
 
                     <div>
-                        <label for="provincia" class="block text-sm font-medium text-gray-700">Provincia</label>
-                        <input type="text" id="provincia" name="provincia"
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
-                    </div>
-
-                    <div>
-                        <label for="localidad" class="block text-sm font-medium text-gray-700">Localidad</label>
-                        <input type="text" id="localidad" name="localidad"
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md" />
-                    </div>
-
-                    <div>
-                        <label for="origen" class="block text-sm font-medium text-gray-700">Origen Carga</label>
-                        <select name="origen" id="origen"
-                                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
-                            <option value="">Todos</option>
-                            <option th:each="o : ${origenesDeCarga}"
+                        <label for="criterioOrigen" class="block text-sm font-medium text-gray-700">Origen Carga</label>
+                        <select id="criterioOrigen" th:field="*{criterio.origen_carga}" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                            <option value="">Cualquiera</option>
+                            <option th:each="o : ${origenes}"
                                     th:value="${o.name()}"
-                                    th:text="${o}"
-                                    th:selected="${o.name() == filtrosActuales.origen}">
-                            </option>
+                                    th:text="${o}"></option>
                         </select>
+                    </div>
+
+                    <div>
+                        <label for="criterioMultimedia" class="block text-sm font-medium text-gray-700">Tiene Multimedia</label>
+                        <select id="criterioMultimedia" th:field="*{criterio.contenido_multimedia}" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                            <option value="">Indistinto</option> <option value="true">Sí</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">Fecha de Carga (Rango)</label>
+                        <div class="grid grid-cols-2 gap-4 mt-1">
+                            <div>
+                                <label for="criterioFechaCargaDesde" class="block text-xs text-gray-500">Desde</label>
+                                <input type="datetime-local" id="criterioFechaCargaDesde" th:field="*{criterio.fecha_carga_desde}" class="block w-full px-3 py-2 border rounded-md text-sm"/>
+                            </div>
+                            <div>
+                                <label for="criterioFechaCargaHasta" class="block text-xs text-gray-500">Hasta</label>
+                                <input type="datetime-local" id="criterioFechaCargaHasta" th:field="*{criterio.fecha_carga_hasta}" class="block w-full px-3 py-2 border rounded-md text-sm"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">Fecha de Acontecimiento (Rango)</label>
+                        <div class="grid grid-cols-2 gap-4 mt-1">
+                            <div>
+                                <label for="criterioFechaAconDesde" class="block text-xs text-gray-500">Desde</label>
+                                <input type="datetime-local" id="criterioFechaAconDesde" th:field="*{criterio.fecha_acontecimiento_desde}" class="block w-full px-3 py-2 border rounded-md text-sm"/>
+                            </div>
+                            <div>
+                                <label for="criterioFechaAconHasta" class="block text-xs text-gray-500">Hasta</label>
+                                <input type="datetime-local" id="criterioFechaAconHasta" th:field="*{criterio.fecha_acontecimiento_hasta}" class="block w-full px-3 py-2 border rounded-md text-sm"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </fieldset>

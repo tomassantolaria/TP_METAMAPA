@@ -45,8 +45,8 @@
             </div>
 
             <!-- Formulario de edición -->
-            <form th:action="@{/admin/colecciones/{id}/consenso(id=${coleccion.coleccionId})}"
-                  th:object="${coleccion}"
+            <form th:action="@{/admin/editar-coleccion/{id}/consenso(id=${coleccion.coleccionId})}"
+                  th:object="${consensoDTO}"
                   method="post">
 
                 <div class="space-y-6">
@@ -60,7 +60,7 @@
                         </p>
                         <select
                                 id="criterioConsenso"
-                                th:field="*{consenso}"
+                                th:field="*{estrategia}"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         >
                             <option value="MAYORIA_SIMPLE">Mayoria simple</option>

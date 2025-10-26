@@ -68,12 +68,12 @@
                 </div>
             </div>
             <div class="mt-8">
-                <h2 class="text-2xl font-semibold text-pastel-blue-800 mb-4">Hechos en esta Colección (<span th:text="${hechos.size()}">0</span>)</h2>
+                <h2 class="text-2xl font-semibold text-pastel-blue-800 mb-4">Hechos en esta Colección (<span th:text="${coleccion.hechos.size()}">0</span>)</h2>
                 <div class="space-y-4">
-                    <div th:if="${hechos.isEmpty()}" class="text-center text-gray-500 py-8">
+                    <div th:if="${coleccion.hechos.isEmpty()}" class="text-center text-gray-500 py-8">
                         <p>No hay hechos que coincidan con los criterios de esta colección.</p>
                     </div>
-                    <div th:if="${!hechos.isEmpty()}" th:each="hecho : ${hechos}">
+                    <div th:if="${!coleccion.hechos.isEmpty()}" th:each="hecho : ${coleccion.hechos}">
                         <div th:replace="~{fragments/hechoCard :: hechoCard(hecho=${hecho}, showOptions=false, showAdminActions = true, coleccionId=${coleccion.coleccionId})}"></div>
                     </div>
                 </div>

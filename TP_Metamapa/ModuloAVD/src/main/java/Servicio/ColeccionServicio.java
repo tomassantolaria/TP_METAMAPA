@@ -52,6 +52,7 @@ public class ColeccionServicio {
 
     public void crearColeccion(ColeccionDTO coleccionDTO) {
         Categoria categoria =  this.crearCategoria(coleccionDTO.getCriterio().getCategoria());
+        String titulo = this.crearTitulo(coleccionDTO.getCriterio().getTitulo());
         Boolean multimedia = coleccionDTO.getCriterio().getContenido_multimedia();
         LocalDateTime  fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
         LocalDateTime  fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
@@ -61,22 +62,28 @@ public class ColeccionServicio {
         Ubicacion ubicacion = this.crearUbicacion(null, null, localidad, provincia, pais);
         LocalDateTime  fecha_acontecimiento_desde = coleccionDTO.getCriterio().getFecha_acontecimiento_desde();
         LocalDateTime  fecha_acontecimiento_hasta = coleccionDTO.getCriterio().getFecha_acontecimiento_hasta();
+        System.out.printf("Este es el origen de carga: " + coleccionDTO.getCriterio().getOrigen_carga());
         OrigenCarga origen = this.crearOrigen(coleccionDTO.getCriterio().getOrigen_carga());
-        CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(coleccionDTO.getCriterio().getTitulo(),multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
-        criterioPertenenciaRepositorio.save(criterio_pertenencia);
         Consenso consenso = this.obtenerEstrategiaPorNombre(coleccionDTO.getConsenso());
+        CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(titulo,multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
+        criterioPertenenciaRepositorio.save(criterio_pertenencia);
         Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),consenso,criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
-        System.out.printf("El id es: %d" ,coleccion.getId());
         this.avisarAgregador(coleccion.getId());
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
 
     }
 
+    public String crearTitulo(String titulo) {
+        if (titulo == null || titulo.isEmpty()) {
+            return null;
+        }
+        return titulo;
+    }
 
     public Categoria crearCategoria(String nombre) {
-        if (nombre == null){
+        if (nombre == null || nombre.isEmpty()){
             return null;
         }
         Categoria categoria = categoriaRepositorio.findByNombre(nombre);
@@ -88,7 +95,7 @@ public class ColeccionServicio {
     }
 
     public Pais crearPais(String nombre) {
-        if (nombre == null) {
+        if (nombre == null || nombre.isEmpty()) {
             return null;
         }
         Pais pais = paisRepositorio.findByPais(nombre);
@@ -100,7 +107,7 @@ public class ColeccionServicio {
     }
 
     public Provincia crearProvincia(String nombre, Pais pais) {
-        if (nombre == null) {
+        if (nombre == null || nombre.isEmpty() ) {
             return null;
         }
         Provincia provincia = provinciaRepositorio.findByProvinciaAndPais(nombre, pais);
@@ -112,7 +119,7 @@ public class ColeccionServicio {
     }
 
     public Localidad crearLocalidad(String nombre, Provincia provincia) {
-        if (nombre == null) {
+        if (nombre == null || nombre.isEmpty()) {
             return null;
         }
         Localidad localidad = localidadRepositorio.findByLocalidadAndProvincia(nombre, provincia);
@@ -124,7 +131,7 @@ public class ColeccionServicio {
     }
 
     public Ubicacion crearUbicacion(Double latitud, Double longitud, Localidad localidad, Provincia provincia, Pais pais) {
-        if (pais == null) {
+        if (pais == null && provincia == null && localidad == null) {
             return null;
         }
         Ubicacion ubicacion = ubicacionRepositorio.findByLocalidadAndProvinciaAndPais(localidad, provincia, pais);
@@ -136,7 +143,7 @@ public class ColeccionServicio {
     }
 
     public OrigenCarga crearOrigen(String origen){
-        if (origen == null) {
+        if (origen == null || origen.isEmpty()) {
             return null;
         }
         return OrigenCarga.valueOf(origen);
@@ -187,7 +194,7 @@ public class ColeccionServicio {
         coleccionRepositorio.save(coleccion);
     }
     private Consenso transformarAConsenso(String nombre) {
-            if (nombre == null || nombre.equals("SIN_CONSENSO")) {
+            if (nombre == null || nombre.isEmpty()) {
             return null;
         }
         switch (nombre) {
@@ -266,6 +273,8 @@ public class ColeccionServicio {
     public HechoDTO transformarHechoDTO(Hecho hecho) {
 
         HechoDTO dto = new HechoDTO(
+                hecho.getId(),
+                hecho.getIdFuente(),
                 hecho.getTitulo(),
                 hecho.getDescripcion(),
                 hecho.getContenido().getTexto(),
@@ -298,18 +307,34 @@ public class ColeccionServicio {
             hechosDTO.add(hechoDTO);
         }
 
-        String consenso = Optional.ofNullable(coleccion.getConsenso())
-                .map(c -> c.toString())
-                .orElse(null);
+        String consenso = this.convertirConsenso(coleccion.getConsenso());
 
         List<HechoDTO> hechosConsensuadosDTO = new ArrayList<>();
         for (Hecho hecho: coleccion.getHechosConsensuados() ) {
             HechoDTO hechoDTO = this.transformarHechoDTO(hecho);
             hechosConsensuadosDTO.add(hechoDTO);
         }
-        return new ColeccionDTOOutput(coleccion.getTitulo(), coleccion.getDescripcion(), criterio, hechosDTO, consenso,hechosConsensuadosDTO );
+        return new ColeccionDTOOutput(coleccion.getId(), coleccion.getTitulo(), coleccion.getDescripcion(), criterio, hechosDTO, consenso,hechosConsensuadosDTO );
     }
     //TODO :REVISAR QUE EL ELIMINAR FUENTE DEBERIA HACERLO PRO LA COMBINACION DE ID Y DE FUENTE
+
+    public String convertirConsenso(Consenso atributo) {
+        if (atributo == null) {
+            return null;
+        }
+        if (atributo instanceof ConsensoAbsoluta) {
+            return "ABSOLUTA";
+        }
+        if (atributo instanceof ConsensoMultiplesMenciones) {
+            return "MULTIPLES_MENCIONES";
+        }
+        if (atributo instanceof ConsensoMayoriaSimple) {
+            return "MAYORIA_SIMPLE";
+        }
+        throw new IllegalArgumentException(
+                "Tipo de Consenso no soportado: " + atributo.getClass().getName()
+        );
+    }
 
 
 }

@@ -83,16 +83,16 @@ public class NavegadorControlador {
                 origen = URLDecoder.decode(origen, StandardCharsets.UTF_8.toString());
             }
             if (pais != null) {
-                pais = URLDecoder.decode(titulo, StandardCharsets.UTF_8.toString());
+                pais = URLDecoder.decode(pais, StandardCharsets.UTF_8.toString());
             }
             if (localidad != null) {
-                localidad = URLDecoder.decode(origen, StandardCharsets.UTF_8.toString());
+                localidad = URLDecoder.decode(localidad, StandardCharsets.UTF_8.toString());
             }
             if ( provincia != null) {
-                provincia = URLDecoder.decode(titulo, StandardCharsets.UTF_8.toString());
+                provincia = URLDecoder.decode(provincia, StandardCharsets.UTF_8.toString());
             }
             if (categoria != null) {
-                categoria = URLDecoder.decode(origen, StandardCharsets.UTF_8.toString());
+                categoria = URLDecoder.decode(categoria, StandardCharsets.UTF_8.toString());
             }
             List<HechoDTO> hechos = navegadorServicio.filtrarHechos(null, categoria, contenidoMultimedia,
                     fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta,

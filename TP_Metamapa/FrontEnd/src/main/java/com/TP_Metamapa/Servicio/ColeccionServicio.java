@@ -1,8 +1,11 @@
 package com.TP_Metamapa.Servicio;
 
 import com.TP_Metamapa.DTOS.ColeccionDTO;
+import com.TP_Metamapa.DTOS.ColeccionDTOInput;
+import com.TP_Metamapa.DTOS.SolicitudDTOInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -49,9 +52,15 @@ public class ColeccionServicio {
     public Optional<ColeccionDTO> obtenerColeccion(Long id){
         UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + id);
             try {
-                ColeccionDTO coleccion = restTemplate.getForObject(urlColeccion.toString(), ColeccionDTO.class);
-                // Wrap the result in Optional.ofNullable to handle potential null from RestTemplate (though unlikely for 200 OK)
-                return Optional.ofNullable(coleccion);
+                //ColeccionDTO coleccion = restTemplate.getForObject(urlColeccion.toString(), ColeccionDTO.class);
+                //return Optional.ofNullable(coleccion);
+                ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
+                        urlColeccion.toUriString(),
+                        HttpMethod.GET,
+                        null,
+                        ColeccionDTO.class
+                );
+                return Optional.ofNullable(respuesta.getBody());
 
             } catch (HttpClientErrorException.NotFound e) {
                 System.out.println("Colección con ID " + id + " no encontrada. Status: " + e.getStatusCode());
@@ -64,9 +73,22 @@ public class ColeccionServicio {
         UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + id + "/Consenso/" + consenso);
         ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
                 urlColeccion.toUriString(),
-                HttpMethod.POST,
+                HttpMethod.PUT,
                 null,
                 ColeccionDTO.class
         );
+    }
+
+    public void crear(ColeccionDTOInput coleccionData){
+        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion");
+        HttpEntity<ColeccionDTOInput> requestEntity = new HttpEntity<>(coleccionData);
+
+        ResponseEntity<String> respuesta = restTemplate.exchange(
+                urlColeccion.toUriString(),
+                HttpMethod.POST,
+                requestEntity,
+                String.class
+        );
+
     }
 }

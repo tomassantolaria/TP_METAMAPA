@@ -20,6 +20,7 @@ public class ColeccionControlador {
     public ResponseEntity<String> crearColeccion(@RequestBody ColeccionDTO coleccionDTO) {
         try {
             coleccionServicio.crearColeccion(coleccionDTO);
+
             return ResponseEntity.status(200).body("Coleccion creada exitosamente");
         } catch (Exception e){
             return ResponseEntity.status(500).body("Error al crear la coleccion" + e.getMessage());

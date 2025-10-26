@@ -58,6 +58,8 @@ public class SolicitudServicio {
     public HechoDTO transformarHechoDTO(Hecho hecho) {
 
         HechoDTO dto = new HechoDTO(
+                hecho.getId(),
+                hecho.getIdFuente(),
                 hecho.getTitulo(),
                 hecho.getDescripcion(),
                 hecho.getContenido().getTexto(),

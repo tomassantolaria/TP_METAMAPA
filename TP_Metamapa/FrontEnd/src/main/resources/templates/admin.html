@@ -9,6 +9,20 @@
     <div class="space-y-6">
         <h1 class="text-3xl font-bold text-pastel-blue-900">Panel de Administración</h1>
 
+        <div th:if="${successMessage}"
+             class="p-4 mb-6 text-sm text-green-700 bg-green-100 rounded-lg shadow"
+             role="alert">
+            <span class="font-medium">¡Éxito!</span>
+            <span th:text="${successMessage}"></span>
+        </div>
+
+        <div th:if="${errorMessage}"
+             class="p-4 mb-6 text-sm text-red-700 bg-red-100 rounded-lg shadow"
+             role="alert">
+            <span class="font-medium">¡Error!</span>
+            <span th:text="${errorMessage}"></span>
+        </div>
+
         <nav class="flex space-x-4 border-b">
             <a th:href="@{/admin(tab='collections')}"
                class="py-2 px-4 text-sm font-medium"
