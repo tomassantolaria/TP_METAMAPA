@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  * Controlador para manejar las vistas de Solicitudes en el Módulo Público.
@@ -30,11 +31,17 @@ public class CreacionSolicitudControlador {
 
     @GetMapping("/solicitarEliminacion/{id}")
     public String mostrarFormularioSolicitud(@PathVariable("id") Long idHecho, Model model) {
-        HechoDTO hechoDTO = navegadorServicio.obtenerHechoPorId(idHecho);
-        model.addAttribute("hecho", hechoDTO);
-        model.addAttribute("solicitudDTO", new SolicitudDTOInput("", idHecho));
+        Optional<HechoDTO> hechoOpt = navegadorServicio.obtenerHechoPorId(idHecho);
+        if(hechoOpt.isPresent()) {
+            model.addAttribute("hecho", hechoOpt.get());
+            model.addAttribute("solicitudDTO", new SolicitudDTOInput("", idHecho));
 
-        return "crearSolicitud";
+            return "crearSolicitud";
+        }else{
+            model.addAttribute("errorMessage", "El hecho con ID " + idHecho + " no fue encontrado.");
+            // Devolvemos el nombre de tu vista 404
+            return "error/404";
+        }
     }
 
     @PostMapping("/crearSolicitud")

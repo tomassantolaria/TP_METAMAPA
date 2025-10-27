@@ -175,29 +175,29 @@ public class AdminControlador {
     @GetMapping("/admin/ver-coleccion/{id}")
     public String verColeccion(@PathVariable("id") Long id, Model model) {
 
+        Optional<ColeccionDTO> coleccionOpt = coleccionServicio.obtenerColeccion(id);
 
-          Optional<ColeccionDTO> coleccionOpt = coleccionServicio.obtenerColeccion(id);
-
-        if (coleccionOpt.isEmpty() ) {
-            model.addAttribute("errorMessage", "La colección con ID " + id + " no fue encontrada.");
-            return "error/404";
+        if (coleccionOpt.isPresent() ) {
+            model.addAttribute("coleccion", coleccionOpt.get());
+            return "verColeccion";
         }
 
-        model.addAttribute("coleccion", coleccionOpt.get());
-        return "verColeccion";
+        model.addAttribute("errorMessage", "La colección con ID " + id + " no fue encontrada.");
+        return "error/404";
     }
 
     @GetMapping("/admin/editar-coleccion/{id}")
     public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
         Optional<ColeccionDTO> coleccion = coleccionServicio.obtenerColeccion(id);
         ConsensoDTO consensoDTO = new ConsensoDTO();
-        if (coleccion.isEmpty() ) {
-            model.addAttribute("errorMessage", "La colección con ID " + id + " no fue encontrada.");
-            return "error/404";
+        if (coleccion.isPresent() ) {
+            model.addAttribute("consensoDTO", consensoDTO);
+            model.addAttribute("coleccion", coleccion.get());
+            return "editarColeccion";
+        }else{
+        model.addAttribute("errorMessage", "La colección con ID " + id + " no fue encontrada.");
+        return "error/404";
         }
-        model.addAttribute("consensoDTO", consensoDTO);
-        model.addAttribute("coleccion", coleccion.get());
-        return "editarColeccion";
     }
 
     @PostMapping("/admin/editar-coleccion/{id}/consenso")

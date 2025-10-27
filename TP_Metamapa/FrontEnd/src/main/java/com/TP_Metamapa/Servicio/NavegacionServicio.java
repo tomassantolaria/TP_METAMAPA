@@ -6,6 +6,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -93,20 +94,26 @@ public class NavegacionServicio {
         return respuesta.getBody();
     }
 
-    public HechoDTO obtenerHechoPorId(Long id) {
-        if (id == null || id <= 0) {
-            throw new IllegalArgumentException("ID inválido");
+    public Optional<HechoDTO> obtenerHechoPorId(Long id) {
+        try{
+            if (id == null || id <= 0) {
+                throw new IllegalArgumentException("ID inválido");
+            }
+            final String url = apiBaseUrl + HECHOS_PATH; // O la ruta que corresponda
+
+            ResponseEntity<HechoDTO> respuesta = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    null,
+                    HechoDTO.class,
+                    id
+            );
+
+        return Optional.ofNullable(respuesta.getBody());
+
+        }catch (HttpClientErrorException.NotFound e) {
+            System.out.println("Hecho con ID " + id + " no encontrado en el backend.");
+            return Optional.empty();
         }
-        final String url = apiBaseUrl + HECHOS_PATH; // O la ruta que corresponda
-
-        ResponseEntity<HechoDTO> respuesta = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                null,
-                HechoDTO.class,
-                id
-        );
-
-        return respuesta.getBody();
     }
 }

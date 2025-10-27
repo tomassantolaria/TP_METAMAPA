@@ -180,7 +180,7 @@ public class NavegadorServicio {
         }).toList();
 
         if (filtrados.isEmpty()) {
-            throw new HechosNoEncontradosException("No se encontraron hechos que coincidan con el texto: " + texto);
+            return new ArrayList<>();
         }
 
     return transformarADTOLista(filtrados);

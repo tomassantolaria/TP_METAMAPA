@@ -52,8 +52,7 @@ public class ColeccionServicio {
     public Optional<ColeccionDTO> obtenerColeccion(Long id){
         UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + id);
             try {
-                //ColeccionDTO coleccion = restTemplate.getForObject(urlColeccion.toString(), ColeccionDTO.class);
-                //return Optional.ofNullable(coleccion);
+
                 ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
                         urlColeccion.toUriString(),
                         HttpMethod.GET,

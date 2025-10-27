@@ -18,17 +18,17 @@
 
                 <div>
                     <label for="coleccionSelect" class="block text-sm font-medium text-gray-700">Colección</label>
-                    <select name="coleccionId" id="coleccionSelect" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                    <select name="coleccionId" id="coleccionSelect" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pastel-blue-500 sm:text-sm">
                         <option value="">Ninguna</option>
                         <option th:each="col : ${colecciones}"
                                 th:value="${col.coleccionId}"
                                 th:text="${col.titulo}"
-                                th:selected="${col.coleccionId.toString() == filtrosActuales.coleccionId}">
+                                th:selected="${col.coleccionId.toString() == filtrosActuales.coleccionId.toString()}">
                         </option>
                     </select>
                 </div>
 
-                <div id="navegacionCuradaContainer" th:classappend="${(filtrosActuales.coleccionId == null || filtrosActuales.coleccionId.isEmpty()) ? 'hidden' : ''}" class="transition-all">
+                <div id="navegacionCuradaContainer" th:classappend="${(filtrosActuales.coleccionId == null) ? 'hidden' : ''}" class="transition-all">
                     <label for="navegacionCurada" class="block text-sm font-medium text-gray-700">Modo de Navegación</label>
                     <select name="navegacionCurada" id="navegacionCurada" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
                         <option value="false" th:selected="${!filtrosActuales.navegacionCurada}">Irrestricta</option>
@@ -38,7 +38,7 @@
 
                 <div>
                     <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
-                    <select name="categoria" id="categoria" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                    <select name="categoria" id="categoria" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pastel-blue-500 sm:text-sm">
                         <option value="">Todas</option>
                         <option th:each="cat : ${categorias}"
                                 th:value="${cat}"
@@ -50,7 +50,7 @@
 
                 <div>
                     <label for="contenidoMultimedia" class="block text-sm font-medium text-gray-700">Contenido Multimedia</label>
-                    <select name="contenidoMultimedia" id="contenidoMultimedia" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                    <select name="contenidoMultimedia" id="contenidoMultimedia" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pastel-blue-500 sm:text-sm">
                         <option value="" th:selected="${filtrosActuales.contenidoMultimedia == null}">Sin Filtro</option>
                         <option value="true" th:selected="${filtrosActuales.contenidoMultimedia == true}">Sí</option>
                         <option value="false" th:selected="${filtrosActuales.contenidoMultimedia == false}">No</option>
@@ -76,7 +76,7 @@
 
                 <div>
                     <label for="origen" class="block text-sm font-medium text-gray-700">Origen Carga</label>
-                    <select name="origen" id="origen" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 rounded-md">
+                    <select name="origen" id="origen" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pastel-blue-500 sm:text-sm">
                         <option value="">Todos</option>
                         <option th:each="o : ${origenesDeCarga}"
                                 th:value="${o.name()}"
@@ -170,9 +170,7 @@
 
         const map = L.map('mapa').setView([-38.41, -63.61], 4);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
 
         hechosData.forEach(hecho => {
             if (hecho.latitud && hecho.longitud) {

@@ -62,18 +62,14 @@ public class CrearHechoControlador {
     @GetMapping("ver-hecho/{id}")
     public String verHecho(@PathVariable Long id, Model model) {
         // habría que hacer en lugar del service, una llamada al back
-        HechoDTO hechoOpt = navegacionServicio.obtenerHechoPorId(id);
-//        Optional<HechoDTO> hechoOpt = Optional.of(
-//                new HechoDTO(1L, 101L, "Incendio en bosque", "Un gran incendio forestal afectó la zona sur.", "El incendio comenzó en horas de la tarde y se extendió rápidamente.", "imagen_incendio.jpg", "Desastre natural", LocalDateTime.of(2023, 5, 20, 16, 30), LocalDateTime.now(), "Bariloche", "Río Negro", "Argentina", -41.1335, -71.3103, "usuario123", "Juan", "Pérez", LocalDateTime.of(1990, 3, 15, 0, 0), false, true, "App móvil")
-//        );
-
-        if ( hechoOpt == null ) {
-            model.addAttribute("errorMessage", "El Hecho con ID " + id + " no fue encontrada.");
+        Optional<HechoDTO> hechoOpt = navegacionServicio.obtenerHechoPorId(id);
+        if ( hechoOpt.isPresent()){
+            model.addAttribute("hecho", hechoOpt.get());
+            return "verHecho";
+        }else{
+            model.addAttribute("errorMessage", "El hecho con ID " + id + " no fue encontrado.");
+            // Devolvemos el nombre de tu vista 404
             return "error/404";
         }
-
-
-        model.addAttribute("hecho", hechoOpt);
-        return "verHecho";
     }
 }
