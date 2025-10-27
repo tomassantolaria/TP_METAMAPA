@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime ;
@@ -42,6 +43,26 @@ public class NavegadorControlador {
                                                @RequestParam(required = false) Boolean navegacionCurada) {
 
         try {
+
+            if (titulo != null) {
+                titulo = URLDecoder.decode(titulo, StandardCharsets.UTF_8.toString());
+            }
+            if (origen != null) {
+                origen = URLDecoder.decode(origen, StandardCharsets.UTF_8.toString());
+            }
+            if (pais != null) {
+                pais = URLDecoder.decode(pais, StandardCharsets.UTF_8.toString());
+            }
+            if (localidad != null) {
+                localidad = URLDecoder.decode(localidad, StandardCharsets.UTF_8.toString());
+            }
+            if ( provincia != null) {
+                provincia = URLDecoder.decode(provincia, StandardCharsets.UTF_8.toString());
+            }
+            if (categoria != null) {
+                categoria = URLDecoder.decode(categoria, StandardCharsets.UTF_8.toString());
+            }
+
             List<HechoDTO> hechos = navegadorServicio.filtrarHechos(id, categoria, contenidoMultimedia,
                     fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta,
                     origen, titulo, pais, provincia, localidad, navegacionCurada);
@@ -49,6 +70,8 @@ public class NavegadorControlador {
             return ResponseEntity.ok(hechos);
         } catch (ColeccionNotFoundException e) {
             return ResponseEntity.status(404).body(e.getMessage());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
     @GetMapping("hechos/{id}")
