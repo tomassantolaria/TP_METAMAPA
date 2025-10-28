@@ -5,8 +5,7 @@ import com.TP_Metamapa.DTOS.FuentesDTO;
 import com.TP_Metamapa.Modelos.TipoFuente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,10 +19,10 @@ public class FuenteProxyServicio {
     RestTemplate restTemplate;
 
     public List<FuentesDTO> obtenerTodas(){
-        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/fuentes");
+        UriComponentsBuilder urlProxy = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/fuentes");
 
         ResponseEntity<List<FuentesDTO>> respuesta = restTemplate.exchange(
-                urlColeccion.toUriString(),
+                urlProxy.toUriString(),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<FuentesDTO>>() {}
@@ -35,7 +34,14 @@ public class FuenteProxyServicio {
     public void crear(String url, TipoFuente tipo){
         FuentesDTO fuente = new FuentesDTO(url, tipo);
 
-        restTemplate.postForEntity("http://localhost:8086/fuentes", fuente, FuentesDTO.class);
+        UriComponentsBuilder urlProxy = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/fuentes");
+        HttpEntity<FuentesDTO> requestEntity = new HttpEntity<>(fuente);
+        ResponseEntity<String> respuesta = restTemplate.exchange(
+                urlProxy.toUriString(),
+                HttpMethod.POST,
+                requestEntity,
+                new ParameterizedTypeReference<String>() {}
+        );
 
     }
 }

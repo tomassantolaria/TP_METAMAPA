@@ -10,7 +10,6 @@ import java.time.LocalDateTime ;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "Fuente")
@@ -24,4 +23,10 @@ public class Fuente {
     @Enumerated(EnumType.STRING)
     @Column()
     private TipoFuente tipoFuente;
+
+    public Fuente(String url, LocalDateTime fechaUltimaConsulta, TipoFuente tipoFuente){
+        this.url = url;
+        this.fechaUltimaConsulta = fechaUltimaConsulta;
+        this.tipoFuente = tipoFuente;
+    }
 }

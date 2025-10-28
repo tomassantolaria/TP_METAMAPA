@@ -12,26 +12,26 @@ public class CriterioDTO {
     public String titulo;
     public Boolean contenido_multimedia;
     public String categoria;
-    public LocalDateTime  fecha_carga_desde;
-    public LocalDateTime  fecha_carga_hasta;
+    public LocalDateTime  fechaCargaDesde;
+    public LocalDateTime  fechaCargaHasta;
     public String localidad;
     public String provincia;
     public String pais;
-    public LocalDateTime  fecha_acontecimiento_desde;
-    public LocalDateTime  fecha_acontecimiento_hasta;
+    public LocalDateTime  fechaAcontecimientoDesde;
+    public LocalDateTime  fechaAcontecimientoHasta;
     public String origen_carga;
 
-    public CriterioDTO(String titulo, Boolean contenido_multimedia, String categoria, LocalDateTime  fecha_carga_desde, LocalDateTime  fecha_carga_hasta, String localidad, String provincia, String pais, LocalDateTime  fecha_acontecimiento_desde, LocalDateTime  fecha_acontecimiento_hasta, String origen_carga) {
+    public CriterioDTO(String titulo, Boolean contenido_multimedia, String categoria, LocalDateTime  fechaCargaDesde, LocalDateTime  fechaCargaHasta, String localidad, String provincia, String pais, LocalDateTime  fechaAcontecimientoDesde, LocalDateTime  fechaAcontecimientoHasta, String origen_carga) {
         this.titulo = titulo;
         this.contenido_multimedia = contenido_multimedia;
         this.categoria = categoria;
-        this.fecha_carga_desde = fecha_carga_desde;
-        this.fecha_carga_hasta = fecha_carga_hasta;
+        this.fechaCargaDesde = fechaCargaDesde;
+        this.fechaCargaHasta = fechaCargaHasta;
         this.localidad = localidad;
         this.provincia = provincia;
         this.pais = pais;
-        this.fecha_acontecimiento_desde = fecha_acontecimiento_desde;
-        this.fecha_acontecimiento_hasta = fecha_acontecimiento_hasta;
+        this.fechaAcontecimientoDesde = fechaAcontecimientoDesde;
+        this.fechaAcontecimientoHasta = fechaAcontecimientoHasta;
         this.origen_carga = origen_carga;
     }
 

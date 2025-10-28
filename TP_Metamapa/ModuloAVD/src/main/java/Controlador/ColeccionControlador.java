@@ -3,6 +3,7 @@ package Controlador;
 import Modelos.DTOs.ColeccionDTO;
 import Modelos.DTOs.ColeccionDTOOutput;
 import Modelos.DTOs.FuenteDTO;
+import Modelos.Exceptions.CriterioDuplicadoException;
 import Servicio.ColeccionServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,10 @@ public class ColeccionControlador {
     public ResponseEntity<String> crearColeccion(@RequestBody ColeccionDTO coleccionDTO) {
         try {
             coleccionServicio.crearColeccion(coleccionDTO);
-
             return ResponseEntity.status(200).body("Coleccion creada exitosamente");
-        } catch (Exception e){
+        }catch(CriterioDuplicadoException e){
+            return ResponseEntity.status(409).body(e.getMessage());
+        } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al crear la coleccion" + e.getMessage());
         }
     }

@@ -10,6 +10,7 @@ import Modelos.Conversores.ConsensoConversor;
 import Modelos.Entidades.Consenso.ConsensoAbsoluta;
 import Modelos.Entidades.Consenso.ConsensoMayoriaSimple;
 import Modelos.Entidades.Consenso.ConsensoMultiplesMenciones;
+import Modelos.Exceptions.CriterioDuplicadoException;
 import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -54,18 +55,18 @@ public class ColeccionServicio {
         Categoria categoria =  this.crearCategoria(coleccionDTO.getCriterio().getCategoria());
         String titulo = this.crearTitulo(coleccionDTO.getCriterio().getTitulo());
         Boolean multimedia = coleccionDTO.getCriterio().getContenido_multimedia();
-        LocalDateTime  fecha_carga_desde = coleccionDTO.getCriterio().getFecha_carga_desde();
-        LocalDateTime  fecha_carga_hasta = coleccionDTO.getCriterio().getFecha_carga_hasta();
+        LocalDateTime  fechaCargaDesde = coleccionDTO.getCriterio().getFechaCargaDesde();
+        LocalDateTime  fechaCargaHasta = coleccionDTO.getCriterio().getFechaCargaHasta();
         Pais pais = this.crearPais(coleccionDTO.getCriterio().getPais());
         Provincia provincia = this.crearProvincia(coleccionDTO.getCriterio().getProvincia(), pais);
         Localidad localidad = this.crearLocalidad(coleccionDTO.getCriterio().getLocalidad(), provincia);
         Ubicacion ubicacion = this.crearUbicacion(null, null, localidad, provincia, pais);
-        LocalDateTime  fecha_acontecimiento_desde = coleccionDTO.getCriterio().getFecha_acontecimiento_desde();
-        LocalDateTime  fecha_acontecimiento_hasta = coleccionDTO.getCriterio().getFecha_acontecimiento_hasta();
-        System.out.printf("Este es el origen de carga: " + coleccionDTO.getCriterio().getOrigen_carga());
+        LocalDateTime  fechaAcontecimientoDesde = coleccionDTO.getCriterio().getFechaAcontecimientoDesde();
+        LocalDateTime  fechaAcontecimientoHasta = coleccionDTO.getCriterio().getFechaAcontecimientoHasta();
         OrigenCarga origen = this.crearOrigen(coleccionDTO.getCriterio().getOrigen_carga());
         Consenso consenso = this.obtenerEstrategiaPorNombre(coleccionDTO.getConsenso());
-        CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(titulo,multimedia, categoria, fecha_carga_desde, fecha_carga_hasta, ubicacion, fecha_acontecimiento_desde, fecha_acontecimiento_hasta, origen);
+        this.validarCriterio(titulo,multimedia, categoria, fechaCargaDesde, fechaCargaHasta, ubicacion, fechaAcontecimientoDesde, fechaAcontecimientoHasta, origen);
+        CriteriosDePertenencia criterio_pertenencia = new CriteriosDePertenencia(titulo,multimedia, categoria, fechaCargaDesde, fechaCargaHasta, ubicacion, fechaAcontecimientoDesde, fechaAcontecimientoHasta, origen);
         criterioPertenenciaRepositorio.save(criterio_pertenencia);
         Coleccion coleccion = new Coleccion(coleccionDTO.getTitulo(), coleccionDTO.getDescripcion(),consenso,criterio_pertenencia);
         coleccionRepositorio.save(coleccion);
@@ -73,6 +74,13 @@ public class ColeccionServicio {
       // avisarle al agregador que hay una nueva coleccion y que le agregue los hechos que correspondan
 
 
+    }
+
+    public void validarCriterio(String titulo, Boolean multimedia, Categoria categoria, LocalDateTime fechaCargaDesde, LocalDateTime fechaCargaHasta, Ubicacion ubicacion, LocalDateTime fechaAcontecimientoDesde, LocalDateTime fechaAcontecimientoHasta, OrigenCarga origen){
+        CriteriosDePertenencia criterio = criterioPertenenciaRepositorio.findByTituloAndMultimediaAndCategoriaAndFechaCargaDesdeAndFechaCargaHastaAndUbicacionAndFechaAcontecimientoDesdeAndFechaAcontecimientoHastaAndOrigen(titulo, multimedia, categoria, fechaCargaDesde, fechaCargaHasta, ubicacion,fechaAcontecimientoDesde, fechaAcontecimientoHasta, origen);
+        if(criterio != null){
+            throw new CriterioDuplicadoException("Ya existe una colección con este criterio de pertenencia");
+        }
     }
 
     public String crearTitulo(String titulo) {
@@ -165,6 +173,7 @@ public class ColeccionServicio {
 
     public void eliminarColeccion(Long id) {
         coleccionRepositorio.deleteById(id);
+        criterioPertenenciaRepositorio.deleteById(id);
     }
 
     public void eliminarHecho(Long id) {
@@ -248,8 +257,8 @@ public class ColeccionServicio {
                 Optional.ofNullable(criteriosDePertenencia.getCategoria())
                         .map(c->c.getNombre())
                         .orElse(null),
-                criteriosDePertenencia.getFecha_carga_desde(),
-                criteriosDePertenencia.getFecha_carga_hasta(),
+                criteriosDePertenencia.getFechaCargaDesde(),
+                criteriosDePertenencia.getFechaCargaHasta(),
                 Optional.ofNullable(criteriosDePertenencia.getUbicacion())
                     .map(u -> u.getLocalidad())
                     .map(l -> l.getLocalidad())
@@ -262,8 +271,8 @@ public class ColeccionServicio {
                         .map(u -> u.getPais())
                         .map(p -> p.getPais())
                         .orElse(null),
-                criteriosDePertenencia.getFecha_acontecimiento_desde(),
-                criteriosDePertenencia.getFecha_acontecimiento_hasta(),
+                criteriosDePertenencia.getFechaAcontecimientoDesde(),
+                criteriosDePertenencia.getFechaAcontecimientoHasta(),
                 Optional.ofNullable(criteriosDePertenencia.getOrigen())
                         .map(o->o.name())
                         .orElse(null)

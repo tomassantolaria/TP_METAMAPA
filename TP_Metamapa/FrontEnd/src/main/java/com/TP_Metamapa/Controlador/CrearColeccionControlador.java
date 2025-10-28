@@ -3,6 +3,7 @@ package com.TP_Metamapa.Controlador;
 import com.TP_Metamapa.DTOS.ColeccionDTOInput;
 import com.TP_Metamapa.DTOS.CriterioDTO;
 import com.TP_Metamapa.Modelos.Consenso;
+import com.TP_Metamapa.Modelos.CriterioDuplicadoException;
 import com.TP_Metamapa.Modelos.OrigenCarga;
 import com.TP_Metamapa.Servicio.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,7 @@ public class CrearColeccionControlador {
     @PostMapping("/admin/crear-coleccion")
     public String procesarCrearColeccion(
             @ModelAttribute("coleccionForm") ColeccionDTOInput coleccionData,
+            Model model,
             RedirectAttributes redirectAttributes
     ) {
         try {
@@ -66,7 +68,11 @@ public class CrearColeccionControlador {
 
             redirectAttributes.addFlashAttribute("successMessage", "¡Colección creada con éxito!");
             return "redirect:/admin?tab=collections";
-        } catch (Exception e) {
+        }  catch (CriterioDuplicadoException e){
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/admin/crear-coleccion";
+        }
+        catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error al crear la colección: " + e.getMessage());
             return "redirect:/admin/crear-coleccion";
         }

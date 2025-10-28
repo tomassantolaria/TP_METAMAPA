@@ -58,11 +58,11 @@
                         <li th:if="${coleccion.criterio.contenido_multimedia != null}">
                             <strong>Tiene Multimedia:</strong> <span th:text="${coleccion.criterio.contenido_multimedia ? 'Sí' : 'No'}"></span>
                         </li>
-                        <li th:if="${coleccion.criterio.fecha_acontecimiento_desde != null}">
-                            <strong>Fecha de Acontecimiento desde:</strong> <span th:text="${#temporals.format(coleccion.criterio.fecha_acontecimiento_desde, 'dd/MM/yyyy')}"></span>
+                        <li th:if="${coleccion.criterio.fechaAcontecimientoDesde != null}">
+                            <strong>Fecha de Acontecimiento desde:</strong> <span th:text="${#temporals.format(coleccion.criterio.fechaAcontecimientoDesde, 'dd/MM/yyyy')}"></span>
                         </li>
-                        <li th:if="${coleccion.criterio.fecha_acontecimiento_hasta != null}">
-                            <strong>Fecha de Acontecimiento hasta:</strong> <span th:text="${#temporals.format(coleccion.criterio.fecha_acontecimiento_hasta, 'dd/MM/yyyy')}"></span>
+                        <li th:if="${coleccion.criterio.fechaAcontecimientoHasta != null}">
+                            <strong>Fecha de Acontecimiento hasta:</strong> <span th:text="${#temporals.format(coleccion.criterio.fechaAcontecimientoHasta, 'dd/MM/yyyy')}"></span>
                         </li>
                     </ul>
                 </div>

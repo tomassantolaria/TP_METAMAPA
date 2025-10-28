@@ -11,6 +11,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
 import java.time.LocalDateTime ;
@@ -47,6 +48,7 @@ public class AgregadorServicio {
     @Autowired
     ContenidoRepositorio contenidoRepositorio;
 
+    @Transactional
     public void actualizarHechos() {
 
         UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/dinamica/hechos"); // cambiar nombre url
@@ -163,11 +165,11 @@ public class AgregadorServicio {
                 hechoDTO.setTitulo(tituloNormalizado);
             }
         }
-
-        List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
-        hechoRepositorio.saveAll(hechos);
-        this.actualizarColecciones();
-
+        //if (!hechosDTOTotales.isEmpty()) {
+            List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
+            hechoRepositorio.saveAll(hechos);
+            this.actualizarColecciones();
+        //}
     }
 
     public List<Hecho> transaformarAHecho(List<HechoDTOInput> hechosDTO) {
@@ -284,10 +286,10 @@ public class AgregadorServicio {
                         .map(c->c.getNombre())
                         .orElse(null),
                 coleccion.getCriterio_pertenencia().getMultimedia(),
-                coleccion.getCriterio_pertenencia().getFecha_carga_desde(),
-                coleccion.getCriterio_pertenencia().getFecha_carga_hasta(),
-                coleccion.getCriterio_pertenencia().getFecha_acontecimiento_desde(),
-                coleccion.getCriterio_pertenencia().getFecha_acontecimiento_hasta(),
+                coleccion.getCriterio_pertenencia().getFechaCargaDesde(),
+                coleccion.getCriterio_pertenencia().getFechaCargaHasta(),
+                coleccion.getCriterio_pertenencia().getFechaAcontecimientoDesde(),
+                coleccion.getCriterio_pertenencia().getFechaAcontecimientoHasta(),
                 coleccion.getCriterio_pertenencia().getOrigen(),
                 coleccion.getCriterio_pertenencia().getTitulo(),
                 Optional.ofNullable(coleccion.getCriterio_pertenencia().getUbicacion())
@@ -326,6 +328,7 @@ public class AgregadorServicio {
         return hechosDTO;
     }
 
+    @Transactional
     public void cargarColeccionConHechos(Long coleccionId) throws ColeccionNoEncontradaException {
 
         Coleccion coleccion = coleccionRepositorio.findById(coleccionId).orElseThrow(ColeccionNoEncontradaException::new);

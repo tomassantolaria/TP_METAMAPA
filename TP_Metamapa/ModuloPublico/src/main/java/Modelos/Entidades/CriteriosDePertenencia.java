@@ -22,28 +22,28 @@ public class CriteriosDePertenencia {
     @ManyToOne
     @JoinColumn()
     Categoria categoria;
-    LocalDateTime  fecha_carga_desde;
-    LocalDateTime  fecha_carga_hasta;
+    LocalDateTime  fechaCargaDesde;
+    LocalDateTime  fechaCargaHasta;
     @ManyToOne
     @JoinColumn()
     Ubicacion ubicacion;
 
-    LocalDateTime fecha_acontecimiento_desde;
-    LocalDateTime fecha_acontecimiento_hasta;
+    LocalDateTime fechaAcontecimientoDesde;
+    LocalDateTime fechaAcontecimientoHasta;
 
     @Enumerated(EnumType.STRING)
     @Column()
     OrigenCarga origen;
 
-    public CriteriosDePertenencia(String titulo, Boolean multimedia, Categoria categoria, LocalDateTime  fecha_carga_desde, LocalDateTime  fecha_carga_hasta, Ubicacion ubicacion, LocalDateTime fecha_acontecimiento_desde, LocalDateTime fecha_acontecimiento_hasta, OrigenCarga origen_carga) {
+    public CriteriosDePertenencia(String titulo, Boolean multimedia, Categoria categoria, LocalDateTime  fechaCargaDesde, LocalDateTime  fechaCargaHasta, Ubicacion ubicacion, LocalDateTime fechaAcontecimientoDesde, LocalDateTime fechaAcontecimientoHasta, OrigenCarga origen_carga) {
         this.titulo = titulo;
         this.multimedia = multimedia;
         this.categoria = categoria;
-        this.fecha_carga_desde = fecha_carga_desde;
-        this.fecha_carga_hasta = fecha_carga_hasta;
+        this.fechaCargaDesde = fechaCargaDesde;
+        this.fechaCargaHasta = fechaCargaHasta;
         this.ubicacion = ubicacion;
-        this.fecha_acontecimiento_desde = fecha_acontecimiento_desde;
-        this.fecha_acontecimiento_hasta = fecha_acontecimiento_hasta;
+        this.fechaAcontecimientoDesde = fechaAcontecimientoDesde;
+        this.fechaAcontecimientoHasta = fechaAcontecimientoHasta;
         this.origen = origen_carga;
     }
     public  CriteriosDePertenencia(){}

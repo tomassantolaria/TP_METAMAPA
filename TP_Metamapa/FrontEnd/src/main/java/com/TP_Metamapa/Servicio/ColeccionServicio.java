@@ -3,6 +3,7 @@ package com.TP_Metamapa.Servicio;
 import com.TP_Metamapa.DTOS.ColeccionDTO;
 import com.TP_Metamapa.DTOS.ColeccionDTOInput;
 import com.TP_Metamapa.DTOS.SolicitudDTOInput;
+import com.TP_Metamapa.Modelos.CriterioDuplicadoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -80,14 +81,18 @@ public class ColeccionServicio {
 
     public void crear(ColeccionDTOInput coleccionData){
         UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion");
-        HttpEntity<ColeccionDTOInput> requestEntity = new HttpEntity<>(coleccionData);
 
-        ResponseEntity<String> respuesta = restTemplate.exchange(
-                urlColeccion.toUriString(),
-                HttpMethod.POST,
-                requestEntity,
-                String.class
-        );
+        try {
+            HttpEntity<ColeccionDTOInput> requestEntity = new HttpEntity<>(coleccionData);
 
+            ResponseEntity<String> respuesta = restTemplate.exchange(
+                    urlColeccion.toUriString(),
+                    HttpMethod.POST,
+                    requestEntity,
+                    String.class);
+
+        }catch(HttpClientErrorException.Conflict e){
+            throw new CriterioDuplicadoException(e.getResponseBodyAsString());
+        }
     }
 }

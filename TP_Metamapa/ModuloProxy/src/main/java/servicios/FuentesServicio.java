@@ -26,9 +26,7 @@ public class FuentesServicio {
     }
 
     public void crearFuente(FuentesDTO fuenteDTO){
-        Fuente fuente = new Fuente();
-        fuente.setUrl(fuenteDTO.getUrl());
-        fuente.setTipoFuente(fuenteDTO.getTipoFuente());
+        Fuente fuente = new Fuente(fuenteDTO.getUrl(),null, fuenteDTO.getTipoFuente());
         fuenteRepositorio.save(fuente);
     }
 }

@@ -231,8 +231,8 @@ public class NavegadorServicio {
                 Optional.ofNullable(criteriosDePertenencia.getCategoria())
                         .map(c->c.getNombre())
                         .orElse(null),
-                criteriosDePertenencia.getFecha_carga_desde(),
-                criteriosDePertenencia.getFecha_carga_hasta(),
+                criteriosDePertenencia.getFechaCargaDesde(),
+                criteriosDePertenencia.getFechaCargaHasta(),
                 Optional.ofNullable(criteriosDePertenencia.getUbicacion())
                         .map(u -> u.getLocalidad())
                         .map(l -> l.getLocalidad())
@@ -245,8 +245,8 @@ public class NavegadorServicio {
                         .map(u -> u.getPais())
                         .map(p -> p.getPais())
                         .orElse(null),
-                criteriosDePertenencia.getFecha_acontecimiento_desde(),
-                criteriosDePertenencia.getFecha_acontecimiento_hasta(),
+                criteriosDePertenencia.getFechaAcontecimientoDesde(),
+                criteriosDePertenencia.getFechaAcontecimientoHasta(),
                 Optional.ofNullable(criteriosDePertenencia.getOrigen())
                         .map(o->o.name())
                         .orElse(null)

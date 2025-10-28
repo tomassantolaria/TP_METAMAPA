@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import servicios.FuentesServicio;
 
@@ -24,8 +25,9 @@ public class FuentesController {
     }
 
     @PostMapping("/fuentes")
-    public ResponseEntity<?> crearFuente(FuentesDTO fuente){
+    public ResponseEntity<?> crearFuente(@RequestBody FuentesDTO fuente){
         fuentesServicio.crearFuente(fuente);
+        System.out.println("Nueva fuente recibida: URL=" + fuente.getUrl() + ", Tipo=" + fuente.getTipoFuente());
         return ResponseEntity.ok().build();
     }
 }
