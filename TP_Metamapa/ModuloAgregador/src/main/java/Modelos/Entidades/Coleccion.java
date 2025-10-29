@@ -26,12 +26,12 @@ public class Coleccion {
     private CriteriosDePertenencia criterio_pertenencia;
     @ManyToMany()
     @JoinTable()
-    private List<Hecho> hechos;
+    private List<Hecho> hechos = new ArrayList<>();
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
     @ManyToMany()
     @JoinTable()
-    private List<Hecho> hechosConsensuados ;
+    private List<Hecho> hechosConsensuados = new ArrayList<>();
 
     public Coleccion(Long id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
         this.id = id;

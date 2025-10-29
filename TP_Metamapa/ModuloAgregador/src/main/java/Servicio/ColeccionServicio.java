@@ -46,15 +46,5 @@ public class ColeccionServicio {
        }
     }
 
-//    @Transactional(readOnly = true)
-//    public List<Hecho> actualizarHechosConsensuados(Coleccion coleccion) {
-//        if (coleccion.getConsenso() != null ) {
-//            Consenso consenso = coleccion.getConsenso();
-//            consenso.setRepositorio(hechoRepositorio); // PORQUE SE INSATNCIA CON REPO NULL
-//            Hibernate.initialize(coleccion.getHechos());
-//            return coleccion.getHechos().stream().filter(hecho -> consenso.tieneConsenso(hecho)).toList();
-//        }
-//            return coleccion.getHechos();
-//    }
 }
 

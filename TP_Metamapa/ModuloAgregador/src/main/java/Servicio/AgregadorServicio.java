@@ -305,11 +305,11 @@ public class AgregadorServicio {
                         .map(l -> l.getLocalidad())
                         .orElse(null)
         );
-
-        Set<Long> idsExistentes = coleccion.getHechos()
-                .stream()
-                .map(Hecho::getId)
-                .collect(Collectors.toSet());
+        if(coleccion.getHechos() != null){
+            Set<Long> idsExistentes = coleccion.getHechos()
+                    .stream()
+                    .map(Hecho::getId)
+                    .collect(Collectors.toSet());
 
         List<Hecho> nuevosHechos = hechosCumplenCriterio.stream()
                 .filter(h -> !idsExistentes.contains(h.getId())&&h.getVisible())
@@ -317,6 +317,10 @@ public class AgregadorServicio {
 
         coleccion.agregarHechos(nuevosHechos);
         coleccionRepositorio.save(coleccion);
+        }else{
+            coleccion.agregarHechos(hechosCumplenCriterio);
+            coleccionRepositorio.save(coleccion);
+        }
     }
 
 

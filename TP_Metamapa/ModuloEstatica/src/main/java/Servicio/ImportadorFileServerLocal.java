@@ -55,7 +55,9 @@ public class ImportadorFileServerLocal implements Importador{
 
 
 
-        if (s == null) return null;
+        if (s == null) {
+            return null;
+        }
         s = s.trim();
         // Quita comillas envolventes "..."
         if (s.length() >= 2 && s.startsWith("\"") && s.endsWith("\"")) {
