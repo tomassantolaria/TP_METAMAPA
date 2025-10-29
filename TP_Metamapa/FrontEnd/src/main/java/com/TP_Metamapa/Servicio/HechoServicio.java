@@ -45,14 +45,14 @@ public class HechoServicio {
                 null,
                 new ParameterizedTypeReference<List<HechoDTO>>() {}
         );
-        return obtenerCuatroMasRecientes(respuesta.getBody());
+        return obtenerOchoMasRecientes(respuesta.getBody());
 
     }
 
-    public static List<HechoDTO> obtenerCuatroMasRecientes(List<HechoDTO> hechos) {
+    public static List<HechoDTO> obtenerOchoMasRecientes(List<HechoDTO> hechos) {
         return hechos.stream()
                 .sorted(Comparator.comparing(HechoDTO:: getFechaCarga).reversed())
-                .limit(4)
+                .limit(8)
                 .collect(Collectors.toList());
     }
 
