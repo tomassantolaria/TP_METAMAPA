@@ -22,9 +22,14 @@ public class RegistroControlador {
     public ResponseEntity<String> registrarse(@RequestBody ContribuyenteDTO contribuyente){
         try{
             registroServicio.registrar(contribuyente);
+            // Lógica para guardar Contribuyente usando registroDTO.getKeycloakUserId()
+            // (Implica actualizar RegistroServicio y la Entidad Contribuyente para usar el KeycloakId como PK o campo clave)
+
             return ResponseEntity.status(200).body("Registro registrado exitosamente");
         } catch (Exception e){
             return ResponseEntity.status(500).body("Error al registrar contribuyente" + e.getMessage());
         }
     }
+
+
 }

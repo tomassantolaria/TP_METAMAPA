@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface ContribuyenteRepositorio extends JpaRepository<Contribuyente, Long>{
     Contribuyente findByUsuario(String usuario);
+    Contribuyente findByKeycloakId(String keycloakId);
 }

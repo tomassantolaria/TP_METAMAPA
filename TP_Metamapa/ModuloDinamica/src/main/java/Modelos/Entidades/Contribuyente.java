@@ -15,6 +15,9 @@ public class Contribuyente {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    public String keycloakId;
+
     public String usuario;
     public String nombre;
     public String apellido;
