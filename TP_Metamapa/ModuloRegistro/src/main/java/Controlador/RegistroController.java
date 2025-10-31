@@ -1,7 +1,7 @@
 package Controlador;
 
-import Modelos.RegistroRequestDTO;
-import Modelos.RegistroResponseDTO;
+import Modelos.DTOS.RegistroRequestDTO;
+import Modelos.DTOS.RegistroResponseDTO;
 import Servicios.KeyCloakUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

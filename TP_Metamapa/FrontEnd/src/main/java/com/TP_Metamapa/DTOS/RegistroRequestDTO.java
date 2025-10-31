@@ -1,7 +1,8 @@
-package Modelos.DTOS;
+package com.TP_Metamapa.DTOS;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalDate;
 
 @Getter
@@ -13,5 +14,5 @@ public class RegistroRequestDTO {
     public String nombre;
     public String apellido;
     public LocalDate fecha_nacimiento;
-    public String email; // Keycloak requiere un email
+    //public String email; // Keycloak requiere un email
 }

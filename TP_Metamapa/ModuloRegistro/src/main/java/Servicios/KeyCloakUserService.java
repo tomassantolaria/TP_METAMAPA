@@ -1,7 +1,7 @@
 package Servicios;
 
-import Modelos.RegistroRequestDTO;
-import Modelos.RegistroResponseDTO;
+import Modelos.DTOS.RegistroRequestDTO;
+import Modelos.DTOS.RegistroResponseDTO;
 import jakarta.ws.rs.core.Response;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.CredentialRepresentation;
@@ -25,12 +25,12 @@ public class KeyCloakUserService {
     private String realmName;
 
     // URL interna del Modulo Dinamica
-    private static final String DINAMICA_BASE_URL = "http://localhost:8081/dinamica";
+    //private static final String DINAMICA_BASE_URL = "http://localhost:8081/dinamica";
 
-    public KeyCloakUserService(Keycloak keycloakAdminClient, RestTemplate restTemplate) {
-        this.keycloakAdminClient = keycloakAdminClient;
-        this.restTemplate = restTemplate;
-    }
+    //public KeyCloakUserService(Keycloak keycloakAdminClient, RestTemplate restTemplate) {
+        //this.keycloakAdminClient = keycloakAdminClient;
+      //  this.restTemplate = restTemplate;
+    //}
 
     // Método para sincronizar la información local después del registro en Keycloak
 
@@ -50,8 +50,8 @@ public class KeyCloakUserService {
         user.setLastName(registroDTO.getApellido());
         //user.setEmail(registroDTO.getEmail());
         // Generar un email ficticio basado en el nombre de usuario
-        //String generatedEmail = registroDTO.getUsuario().toLowerCase() + "@metamapa.local";
-        //user.setEmail(generatedEmail);
+       String generatedEmail = registroDTO.getUsuario().toLowerCase() + "@metamapa.local";
+        user.setEmail(generatedEmail);
         // o si el DTO aún lo recibe, usar: user.setEmail(registroDTO.getEmail());
         user.setEnabled(true);
         user.setCredentials(Collections.singletonList(credential));
@@ -69,7 +69,7 @@ public class KeyCloakUserService {
                     registroDTO.setKeycloakUserId(keycloakUserId);
 
                     // 2. Llamada al endpoint interno de Dinamica (puerto 8081)
-                    String urlDinamica = "http://localhost:8081/dinamica/contribuyentes/registrarse";
+                    String urlDinamica = "http://localhost:8082/registrarse/";
 
                     restTemplate.postForEntity(urlDinamica, registroDTO, String.class);
 
@@ -94,6 +94,7 @@ public class KeyCloakUserService {
 
         } catch (Exception e) {
             System.err.println("Error comunicándose con Keycloak: " + e.getMessage());
+            e.printStackTrace();
             return new RegistroResponseDTO(null, "Error interno del servidor.", 500);
         }
     }

@@ -54,6 +54,7 @@ public class SecurityConfig {
                         // 1. Recursos Estáticos y Páginas Públicas (permitAll)
                         .requestMatchers(HttpMethod.GET, "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/", "/navegar", "/estadisticas", "/ver-hecho/{id}", "/csv").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/registrar").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/registrarse").permitAll()
                         // 2. Acciones de Administrador (hasRole('ADMINISTRADOR'))
