@@ -65,21 +65,21 @@ public class AgregadorServicio {
         );
 
 
-        ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
-               urlDemo.toUriString(),
-               HttpMethod.GET,
-               null,
-               new ParameterizedTypeReference<>() {
-               }
-       );
-
-       ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
-               urlMetamapa.toUriString(),
-               HttpMethod.GET,
-               null,
-               new ParameterizedTypeReference<>() {
-               }
-       );
+//        ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
+//               urlDemo.toUriString(),
+//               HttpMethod.GET,
+//               null,
+//               new ParameterizedTypeReference<>() {
+//               }
+//       );
+//
+//       ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
+//               urlMetamapa.toUriString(),
+//               HttpMethod.GET,
+//               null,
+//               new ParameterizedTypeReference<>() {
+//               }
+//       );
 
        ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
                urlEstatica.toUriString(),
@@ -92,10 +92,10 @@ public class AgregadorServicio {
 
 
 
-        if (!respuestaDemo.getBody().isEmpty()) {
-            List<HechoDTOInput> hechosDemo = this.setearOrigenCarga(respuestaDemo.getBody(), OrigenCarga.FUENTE_PROXY);
-            hechosDTOTotales.addAll(hechosDemo) ;
-        }
+//        if (!respuestaDemo.getBody().isEmpty()) {
+//            List<HechoDTOInput> hechosDemo = this.setearOrigenCarga(respuestaDemo.getBody(), OrigenCarga.FUENTE_PROXY);
+//            hechosDTOTotales.addAll(hechosDemo) ;
+//        }
 
         if (!respuestaDinamica.getBody().isEmpty()) {
             List<HechoDTOInput> hechosDinamica = this.setearOrigenCarga(respuestaDinamica.getBody(), OrigenCarga.FUENTE_DINAMICA);
@@ -108,10 +108,10 @@ public class AgregadorServicio {
            hechosDTOTotales.addAll(hechosEstatica) ;
        }
 
-       if (!respuestaMetamapa.getBody().isEmpty()) {
-           List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
-           hechosDTOTotales.addAll(hechosMetamapa) ;
-       }
+//       if (!respuestaMetamapa.getBody().isEmpty()) {
+//           List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
+//           hechosDTOTotales.addAll(hechosMetamapa) ;
+//       }
 
 
         UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/categorias");

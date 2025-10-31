@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
 @Configuration
 @EnableWebSecurity
@@ -47,6 +49,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/", "/navegar", "/estadisticas", "/ver-hecho/{id}", "/csv").permitAll()
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/registrarse").permitAll()
                         // 2. Acciones de Administrador (hasRole('ADMINISTRADOR'))
                         .requestMatchers("/admin/**").hasRole("ADMINISTRADOR") // Protege todo bajo /admin
                         // Si necesitas ser más específico para POSTs dentro de admin (opcional, ya cubierto por /admin/**):
@@ -61,15 +64,30 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 // Configuración de Login y Logout (permitAll implícito aquí)
-                .formLogin(form -> form
-                       // .loginPage("/login") // Opcional: Define tu propia página de login
-                        .permitAll()
+//                .formLogin(form -> form
+//                       // .loginPage("/login") // Opcional: Define tu propia página de login
+//                        .permitAll()
+//                )
+//                .logout(logout -> logout
+//                        .logoutSuccessUrl("/") // Opcional: A dónde ir después del logout
+//                        .permitAll() );
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 )
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/") // Opcional: A dónde ir después del logout
-                        .permitAll()
+                .sessionManagement(session -> session
+                        // Usar STATELESS ya que la autenticación es vía JWT (token)
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
 
+
         return http.build();
+    }
+
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        // Se asume la existencia de KeycloakRoleConverter.java para mapear los roles del realm
+        converter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
+        return converter;
     }
 }

@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/registro")
 public class RegistroController {
 
-    private final KeycloakUserService keycloakUserService;
+    @Autowired
+    KeyCloakUserService keycloakUserService;
 
-    public RegistroController(KeycloakUserService keycloakUserService) {
-        this.keycloakUserService = keycloakUserService;
-    }
 
-    @PostMapping("/registro/contribuyente")
+    @PostMapping("/contribuyente")
     public ResponseEntity<RegistroResponseDTO> registrarContribuyente(@RequestBody RegistroRequestDTO registroDTO) {
 
         // La validación de datos (ej. email único) debería hacerse aquí o en el servicio.
