@@ -17,7 +17,7 @@ import java.util.List;
 @Component("ImportadorFileServerLocal")
 @Service
 public class ImportadorFileServerLocal implements Importador{
-    final private File carpeta = new File("TP_Metamapa/ModuloEstatica/src/main/resources/datos/Fuentes_de_hechos");
+    final private File carpeta = new File("src/main/resources/datos/Fuentes_de_hechos");
     @Override
     public List<HechoCSV> getHechoFromFile(String ruta) throws Exception {
         System.out.println("EXTRAYENDO HECHOS DE" + ruta);
