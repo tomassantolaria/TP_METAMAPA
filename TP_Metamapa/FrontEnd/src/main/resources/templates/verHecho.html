@@ -53,7 +53,7 @@
         </div>
 
         <div class="mt-8">
-            <div th:if="${hecho.origen_carga.equals(origenDinamica)}">
+            <div th:if="${hecho.origen_carga.equals(origenDinamica.name())}">
                 <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Contribuyente</h2>
                 <p th:if="${hecho.anonimo}" class="italic text-gray-600">Este hecho fue reportado de forma anónima.</p>
                 <p th:if="${!hecho.anonimo}" class="text-gray-700">

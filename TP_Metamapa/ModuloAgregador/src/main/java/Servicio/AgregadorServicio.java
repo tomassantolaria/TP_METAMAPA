@@ -204,15 +204,14 @@ public class AgregadorServicio {
     }
 
     public  Contenido crearContenido( String texto, String contenidoMultimedia){
-        if(texto == null && contenidoMultimedia == null){
-            return null;
+
+        List<Contenido> contenido = contenidoRepositorio.findByTextoAndContenidoMultimedia(texto, contenidoMultimedia);
+        if(contenido == null || contenido.isEmpty()){
+            Contenido contenido2 = new Contenido(texto, contenidoMultimedia);
+            contenidoRepositorio.save(contenido2);
+            return contenido2;
         }
-        Contenido contenido = contenidoRepositorio.findByTextoAndContenidoMultimedia(texto, contenidoMultimedia);
-        if(contenido == null){
-            contenido = new Contenido(texto, contenidoMultimedia);
-            contenidoRepositorio.save(contenido);
-        }
-        return contenido;
+        return contenido.get(0);
     }
 
     public Contribuyente crearContribuyente(String usuario, String nombre, String apellido, LocalDateTime fechaNacimiento) {
