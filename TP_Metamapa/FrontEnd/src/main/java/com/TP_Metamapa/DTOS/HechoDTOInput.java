@@ -22,9 +22,6 @@ public class HechoDTOInput {
     private Double latitud;
     private Double longitud;
     private String usuario; // Username
-    private String nombre; // Nombre del usuario
-    private String apellido; // Apellido del usuario
-    private LocalDateTime fecha_nacimiento; // Fecha nacimiento del usuario
     private Boolean anonimo;
 
     // Puedes necesitar un constructor o dejar que Jackson/RestTemplate lo manejen

@@ -158,7 +158,7 @@ public class ColeccionServicio {
     }
 
     private void avisarAgregador (Long coleccionId) {
-        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/agregador/colecciones/" + coleccionId);
+        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromHttpUrl("http://localhost:8090/agregador/colecciones/" + coleccionId);
         ResponseEntity<String> respuestaAgregador =  restTemplate.exchange(
                 urlAgregador.toUriString(),
                 HttpMethod.POST,

@@ -17,7 +17,7 @@ public class Contribuyente {
 
     @Column(unique = true)
     public String keycloakId;
-
+    @Column(unique = true)
     public String usuario;
     public String nombre;
     public String apellido;
