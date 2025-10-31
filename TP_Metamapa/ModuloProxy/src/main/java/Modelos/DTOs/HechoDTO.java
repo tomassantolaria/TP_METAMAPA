@@ -1,57 +1,56 @@
+
 package Modelos.DTOs;
 
 
-import lombok.Data;
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 
 @Getter
 @Setter
-@Data
-//PATRON DTO
 public class HechoDTO {
-    public Long idHecho = null;
-    public Long idFuente = null; //VER COMO MANEJAR ESTO
-    public String titulo;
-    public String descripcion;
-    public String contenido;
-    public String contenido_multimedia;
-    public String categoria;
-    public LocalDate fechaAcontecimiento;
-    public LocalDate fechaCarga;
-    public String lugar;
-    public Double latitud;
-    public Double longitud;
-    public String usuario;
-    public String nombre;
-    public String apellido;
-    public LocalDate fecha_nacimiento;
-    public Boolean anonimo;
-    public Boolean visible;
-    public String origen_carga;
+    private Long idHecho = null;
+    private Long idFuente;
+    private String titulo;
+    private String descripcion;
+    private String contenido;
+    private String contenido_multimedia;
+    private String categoria;
+    private LocalDateTime fechaAcontecimiento;
+    private LocalDateTime  fechaCarga = null;
+    private String localidad;
+    private String provincia;
+    private String pais;
+    private Double latitud;
+    private Double longitud;
+    private String usuario = null;
+    private String nombre = null;
+    private String apellido = null;
+    private LocalDateTime fecha_nacimiento = null;
+    private Boolean anonimo = null;
+    private Boolean visible = null;
+    private String origen_carga = null;
 
     public HechoDTO(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria,
-                    LocalDate fechaAcontecimiento, LocalDate fechaCarga, String lugar, Double latitud, Double longitud,
-                    String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible,
-                    String origen_carga) {
+                    LocalDateTime fechaAcontecimiento, String localidad, String provincia, String pais,
+                    Double latitud, Double longitud) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contenido = contenido;
         this.contenido_multimedia = contenido_multimedia;
         this.categoria = categoria;
         this.fechaAcontecimiento = fechaAcontecimiento;
-        this.fechaCarga = fechaCarga;
-        this.lugar = lugar;
+        this.localidad = localidad;
+        this.provincia = provincia;
+        this.pais = pais;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.usuario = usuario;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fecha_nacimiento = fecha_nacimiento;
-        this.anonimo = anonimo;
-        this.visible = visible;
-        this.origen_carga = origen_carga;
+    }
+
+    public HechoDTO() {
+        // constructor vacío para usar con Jackson/serialización
     }
 }

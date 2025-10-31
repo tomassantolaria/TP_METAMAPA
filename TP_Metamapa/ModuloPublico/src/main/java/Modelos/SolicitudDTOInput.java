@@ -14,4 +14,6 @@ public class SolicitudDTOInput {
         this.motivo = motivo;
         this.idHecho = idHecho;
     }
+
+    public SolicitudDTOInput(){}
 }

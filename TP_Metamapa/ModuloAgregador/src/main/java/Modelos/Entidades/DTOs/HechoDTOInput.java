@@ -3,7 +3,8 @@ package Modelos.Entidades.DTOs;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 
 @Getter
 @Setter
@@ -16,22 +17,26 @@ public class HechoDTOInput {
     public String contenido;
     public String contenido_multimedia;
     public String categoria;
-    public LocalDate fechaAcontecimiento;
-    public LocalDate fechaCarga;
-    public String calle;
+    public LocalDateTime fechaAcontecimiento;
+    public LocalDateTime  fechaCarga;
     public String localidad;
     public String provincia;
+    public String pais ;
     public Double latitud;
     public Double longitud;
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDate fecha_nacimiento;
+    public LocalDateTime fecha_nacimiento;
     public Boolean anonimo;
     public Boolean visible;
     public String origen_carga;
 
-    public HechoDTOInput(Long idHecho, Long idFuente, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDate fechaAcontecimiento, LocalDate fechaCarga, String calle, String localidad, String provincia, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
+    public HechoDTOInput(){
+
+    }
+
+    public HechoDTOInput(Long idHecho, Long idFuente, String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, LocalDateTime  fechaCarga, String localidad, String provincia,String pais, Double latitud, Double longitud, String usuario, String nombre, String apellido, LocalDateTime fecha_nacimiento, Boolean anonimo, Boolean visible, String origen_carga) {
         this.idHecho = idHecho;
         this.idFuente = idFuente;
         this.titulo = titulo;
@@ -41,9 +46,9 @@ public class HechoDTOInput {
         this.categoria = categoria;
         this.fechaAcontecimiento = fechaAcontecimiento;
         this.fechaCarga = fechaCarga;
-        this.calle = calle;
         this.localidad = localidad;
         this.provincia = provincia;
+        this.pais = pais;
         this.latitud = latitud;
         this.longitud = longitud;
         this.usuario = usuario;

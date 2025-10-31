@@ -10,9 +10,15 @@ import lombok.Setter;
 public class Categoria{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idCategoria;
+    private Long idCategoria;
     private String nombre;
+
+    public Categoria(){
+
+    }
+
     public Categoria(String nombre) {
         this.nombre = nombre;
     }
+
 }

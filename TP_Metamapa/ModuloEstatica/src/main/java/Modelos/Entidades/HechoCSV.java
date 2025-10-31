@@ -3,7 +3,9 @@ package Modelos.Entidades;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import java.time.LocalDate;
+import java.time.LocalDateTime ;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,13 +19,13 @@ public class HechoCSV {
     private String descripcion;
     private Long fuente; // ID
     private String categoria;
-    private Double latitud;
-    private Double longitud;
+    private String latitud;
+    private String longitud;
     private LocalDate fechaAcontecimiento;
 
 
     protected HechoCSV(String unTitulo, String unaDescripcion, String unaCategoria, LocalDate unaFechaAcontecimiento,
-                       Double latitud, Double longitud) {
+                       String latitud, String longitud) {
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
         this.categoria = unaCategoria;
@@ -33,7 +35,7 @@ public class HechoCSV {
     }
 
     public static HechoCSV getInstance(String unTitulo, String unaDescripcion, String unaCategoria, LocalDate unaFechaAcontecimiento,
-                                       Double latitud, Double longitud) {
+                                       String latitud, String longitud) {
 
         HechoCSV hechoConEseTitulo = hechosConTitulos.get(unTitulo);
         if (hechoConEseTitulo == null) { // TODO: arreglar con bases de datos
@@ -47,7 +49,7 @@ public class HechoCSV {
     //para crear se hace el getInstance(...)
 
     public void sobreescribirse(String unTitulo, String unaDescripcion,  String unaCategoria, LocalDate unaFechaAcontecimiento,
-                                Double latitud, Double longitud) {
+                                String latitud, String longitud) {
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
         this.categoria = unaCategoria;

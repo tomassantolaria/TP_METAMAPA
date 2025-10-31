@@ -1,9 +1,9 @@
 package Controlador;
 
-import Modelos.DTOs.SolicitudDTO;
 import Modelos.DTOs.HechoDTO;
-import Servicios.impl.FuenteMetaMapaService;
-import org.springframework.http.ResponseEntity;
+
+import servicios.FuenteMetaMapaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,42 +12,44 @@ import java.util.List;
 @RequestMapping("/metamapa")
 public class MetaMapaControler {
 
-    private final FuenteMetaMapaService metaMapaServicio;
+    @Autowired
+    FuenteMetaMapaService metaMapaServicio;
 
-    public MetaMapaControler(FuenteMetaMapaService metaMapaServicio) {
-        this.metaMapaServicio = metaMapaServicio;
-    }
 
     @GetMapping("/hechos")
     public List<HechoDTO> obtenerHechos(
-            @RequestParam(required = false) String categoria,
+            /*@RequestParam(required = false) String categoria,
             @RequestParam (required = false) String ContenidoMultimedia,
             @RequestParam(required = false) String fecha_reporte_desde,
             @RequestParam(required = false) String fecha_reporte_hasta,
-            @RequestParam(required = false) String fecha_acontecimiento_desde,
-            @RequestParam(required = false) String fecha_acontecimiento_hasta,
+            @RequestParam(required = false) String fechaAcontecimientoDesde,
+            @RequestParam(required = false) String fechaAcontecimientoHasta,
             @RequestParam (required = false) String origen,
             @RequestParam(required = false) String titulo,
-            @RequestParam(required = false) String ubicacion) {
-        return metaMapaServicio.obtenerHechos(categoria, ContenidoMultimedia,
+            @RequestParam(required = false) String pais,
+            @RequestParam(required = false) String provincia,
+            @RequestParam(required = false) String localidad*/) {
+        return metaMapaServicio.obtenerHechos(/*categoria, ContenidoMultimedia,
                 fecha_reporte_desde,
                 fecha_reporte_hasta,
-                fecha_acontecimiento_desde,
-                fecha_acontecimiento_hasta,
+                fechaAcontecimientoDesde,
+                fechaAcontecimientoHasta,
                 origen,
                 titulo,
-                ubicacion);
+                pais,
+                provincia,
+                localidad*/);
     }
 
-    @GetMapping("/colecciones/{idColeccion}/hechos")
+    /*@GetMapping("/colecciones/{idColeccion}/hechos")
     public List<HechoDTO> obtenerHechosPorColeccion(
             @PathVariable String idColeccion,
             @RequestParam(required = false) String categoria,
             @RequestParam (required = false) String ContenidoMultimedia,
             @RequestParam(required = false) String fecha_reporte_desde,
             @RequestParam(required = false) String fecha_reporte_hasta,
-            @RequestParam(required = false) String fecha_acontecimiento_desde,
-            @RequestParam(required = false) String fecha_acontecimiento_hasta,
+            @RequestParam(required = false) String fechaAcontecimientoDesde,
+            @RequestParam(required = false) String fechaAcontecimientoHasta,
             @RequestParam (required = false) String origen,
             @RequestParam(required = false) String titulo,
             @RequestParam(required = false) String ubicacion) {
@@ -55,8 +57,8 @@ public class MetaMapaControler {
                 categoria, ContenidoMultimedia,
                 fecha_reporte_desde,
                 fecha_reporte_hasta,
-                fecha_acontecimiento_desde,
-                fecha_acontecimiento_hasta,
+                fechaAcontecimientoDesde,
+                fechaAcontecimientoHasta,
                 origen,
                 titulo,
                 ubicacion);
@@ -70,6 +72,6 @@ public class MetaMapaControler {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error al crear la solicitud: " + e.getMessage());
         }
-    }
+    }*/
 
 }

@@ -11,6 +11,6 @@ import java.util.UUID;
 public class SolicitudDTO
 {
     private String motivo;
-    private UUID idHecho;
+    private Long idHecho;
 
 }

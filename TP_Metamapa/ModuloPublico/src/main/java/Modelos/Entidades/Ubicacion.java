@@ -11,11 +11,7 @@ import lombok.Setter;
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idUbicacion;
-
-    @ManyToOne
-    @JoinColumn()
-    Calle calle;
+    private Long idUbicacion;
 
     @ManyToOne
     @JoinColumn()
@@ -25,13 +21,17 @@ public class Ubicacion {
     @JoinColumn()
     Provincia provincia;
 
+    @ManyToOne
+    @JoinColumn()
+    Pais pais;
+
     Double latitud;
     Double longitud;
 
-    public Ubicacion(Calle calle, Localidad localidad, Provincia provincia, Double latitud, Double longitud) {
-        this.calle = calle;
+    public Ubicacion(Localidad localidad, Provincia provincia, Pais pais, Double latitud, Double longitud) {
         this.localidad = localidad;
         this.provincia = provincia;
+        this.pais = pais;
         this.latitud = latitud;
         this.longitud = longitud;
     }

@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 
 
 @Getter
@@ -22,7 +22,7 @@ public class Hecho{
     private String titulo;
     private String descripcion;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn()
     private Contenido contenido;
 
@@ -30,31 +30,31 @@ public class Hecho{
     @JoinColumn()
     private Categoria categoria;
 
-    private LocalDate fecha;
+    private LocalDateTime fecha;
 
     @ManyToOne
     @JoinColumn()
     private Ubicacion ubicacion;
 
-    private LocalDate fecha_carga;
+    private LocalDateTime  fecha_carga;
 
     @Enumerated(EnumType.STRING)
     @Column()
-    private OrigenCarga origen_carga; //enum
+    private OrigenCarga origen; //enum
 
-    private boolean visible ;
+    private Boolean visible ;
 
     @ManyToOne
     @JoinColumn()
     private Contribuyente contribuyente;
 
-    private boolean anonimo;
+    private Boolean anonimo;
 
 
     public Hecho() {}
 
-    public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
+    public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
+                 Ubicacion unaUbicacion, LocalDateTime  unaFechaCarga, OrigenCarga unOrigen, Boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
         this.id = id;
         this.idFuente = idFuente;
         this.titulo = unTitulo;
@@ -64,7 +64,7 @@ public class Hecho{
         this.fecha = unaFechaOcurrencia;
         this.ubicacion = unaUbicacion;
         this.fecha_carga = unaFechaCarga;
-        this.origen_carga = unOrigen;
+        this.origen = unOrigen;
         this.visible = estaVisible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;

@@ -2,13 +2,13 @@ package Modelos.Entidades;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Hechos")
+@Table(name = "Hecho")
 public class Hecho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,24 +16,25 @@ public class Hecho {
     public Long idfuente;
     public String titulo;
     public String descripcion;
-    @OneToOne
-    @JoinColumn(name = "idContenido")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn()
     public Contenido contenido;
-    @ManyToOne
-    @JoinColumn(name = "idCategoria")
+    @ManyToOne()
+    @JoinColumn()
     public Categoria categoria;
-    public LocalDate fecha;
-    @ManyToOne
-    @JoinColumn(name = "idUbicacion")
+    public LocalDateTime fecha;
+    @ManyToOne()
+    @JoinColumn()
     public Ubicacion ubicacion;
-    @ManyToOne
-    @JoinColumn(name = "usuario")
+    @ManyToOne()
+    @JoinColumn()
     public Contribuyente contribuyente;
     public Boolean anonimo;
     public Boolean visible;
+    public Boolean publicado;
 
-    public Hecho(Long idHecho, Long idfuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, boolean visible) {
+    public Hecho(Long idHecho, Long idfuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
+                 Ubicacion unaUbicacion, Contribuyente contribuyente, Boolean anonimo, Boolean visible, Boolean publicado) {
         this.idHecho = idHecho;
         this.idfuente = idfuente;
         this.titulo = unTitulo;
@@ -45,6 +46,7 @@ public class Hecho {
         this.visible = visible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;
+        this.publicado = publicado;
     }
 
     public Hecho() {}

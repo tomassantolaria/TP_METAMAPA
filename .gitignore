@@ -34,3 +34,5 @@ target/
 # Archivos generados por Maven
 dependency-reduced-pom.xml
 buildNumber.properties
+
+/TP_Metamapa/FrontEnd/node_modules/

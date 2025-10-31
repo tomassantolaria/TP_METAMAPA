@@ -1,20 +1,19 @@
 package Scheduler;
 
 import Servicio.AgregadorServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class AgregadorScheduler {
 
-    private final AgregadorServicio agregadorService;
+    @Autowired
+    AgregadorServicio agregadorService;
 
-    public AgregadorScheduler(AgregadorServicio agregadorService) {
-        this.agregadorService = agregadorService;
-    }
-
-
-    @Scheduled(fixedRate = 3600000) // cada 1HS
+    @Transactional
+    @Scheduled(fixedRate = 36000000)
     public void actualizarHechos() {
         agregadorService.actualizarHechos();
     }

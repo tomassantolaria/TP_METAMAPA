@@ -3,7 +3,7 @@ package Modelos.Entidades;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 
 @Getter
@@ -15,7 +15,8 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSolcitud;
 
-    LocalDate fecha_creacion; //date
+    LocalDateTime fecha_creacion;//date
+    @Column(length = 500)
     String motivo;
 
     @ManyToOne
@@ -26,7 +27,7 @@ public class Solicitud {
     @Column()
     Estado estado;
 
-    public Solicitud(Long idSolicitud, LocalDate fecha_creacion, String motivo, Hecho hecho, Estado estado){
+    public Solicitud(Long idSolicitud, LocalDateTime fecha_creacion, String motivo, Hecho hecho, Estado estado){
         this.idSolcitud = idSolicitud;
         this.fecha_creacion = fecha_creacion;
         this.motivo = motivo;

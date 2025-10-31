@@ -15,11 +15,11 @@ public class Contenido {
     private Long id;
 
     private String texto;
-    private String contenido_multimedia;
+    private String contenidoMultimedia;
 
     public Contenido(String texto, String contenido_multimedia){
         this.texto = texto;
-        this.contenido_multimedia = contenido_multimedia;
+        this.contenidoMultimedia = contenido_multimedia;
     }
 
     public Contenido(){}

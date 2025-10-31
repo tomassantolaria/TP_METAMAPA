@@ -8,9 +8,10 @@ import lombok.Setter;
 @Setter
 //Esto porque cuando el administrador acepta o rechaza una solicitud al controller llegara un json que en su cuerpo tendra "ACEPTADA" o "RECHAZADA"
 public class EstadoDTO {
-    private Estado estado;
+    private String estado;
 
-    public EstadoDTO(Estado estado){
+    public EstadoDTO(String estado){
         this.estado = estado;
     }
+    public EstadoDTO(){}
 }

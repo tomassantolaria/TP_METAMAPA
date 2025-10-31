@@ -1,11 +1,11 @@
 package Repositorio;
 
 import Modelos.Categoria;
-import Modelos.Provincia;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-
+@Repository
 public class RepositorioCategoria {
     private List<Categoria> categorias;
 

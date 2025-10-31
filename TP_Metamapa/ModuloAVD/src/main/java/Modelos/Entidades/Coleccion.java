@@ -1,5 +1,6 @@
 package Modelos.Entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Modelos.Conversores.ConsensoConversor;
@@ -21,44 +22,33 @@ public class Coleccion {
     private Long id;
     private String titulo;
     private String descripcion;
-    @OneToOne
+
+    @OneToOne()
     @JoinColumn()
     private CriteriosDePertenencia criterio_pertenencia;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable()
-    private List<Hecho> hechos;
-    @ManyToOne
-    @JoinColumn()
+    private List<Hecho> hechos = new ArrayList<>();
+    @Column(nullable = true)
     @Convert(converter = ConsensoConversor.class)
     private Consenso consenso;
-    @ManyToMany
+    @ManyToMany()
     @JoinTable()
-    private List<Hecho> hechosConsensuados ;
+    private List<Hecho> hechosConsensuados = new ArrayList<>();
 
-    public Coleccion(Long id, String titulo, String descripcion, CriteriosDePertenencia criterio_pertenencia, List<Hecho> hechos) {
-        this.id = id;
+    public Coleccion(String titulo, String descripcion,Consenso consenso ,CriteriosDePertenencia criterio_pertenencia) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.criterio_pertenencia = criterio_pertenencia;
-        this.hechos = hechos;
-        this.consenso = null;
-        this.hechosConsensuados = hechos;
+        this.hechos = new ArrayList<>();
+        this.consenso = consenso;
+        this.hechosConsensuados = new ArrayList<>();
     }
 
-    public Coleccion() {}
-
-
-
-
-
-    public void eliminarHecho(Hecho unHecho) throws HechoNoPerteneceException {
-        if (hechos.contains(unHecho)) {
-            hechos.remove(unHecho);
-        } else {
-            throw new HechoNoPerteneceException();
-        }
+    public Coleccion() {
     }
+
 
     public void agregarHecho(Hecho unHecho) {
         if (! hechos.contains(unHecho)) {

@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
+import java.time.LocalDateTime ;
 
 
 @Getter
 @Setter
 @Entity
-@Table(name="Hechos")
+@Table(name="Hecho")
 public class Hecho{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class Hecho{
     public String titulo;
     public String descripcion;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn()
     public Contenido contenido;
 
@@ -28,28 +29,28 @@ public class Hecho{
     @JoinColumn()
     public Categoria categoria;
 
-    public LocalDate fecha;
+    public LocalDateTime fecha;
 
     @ManyToOne
     @JoinColumn()
     public Ubicacion ubicacion;
 
-    public LocalDate fecha_carga;
+    public LocalDateTime  fecha_carga;
 
     @Enumerated(EnumType.STRING)
     @Column()
-    public OrigenCarga origen_carga;
+    public OrigenCarga origen;
 
-    public boolean visible;
+    public Boolean visible;
 
     @ManyToOne
     @JoinColumn()
     private Contribuyente contribuyente;
 
-    public boolean anonimo ;
+    public Boolean anonimo ;
 
-    public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDate unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDate unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
+    public Hecho(Long id, Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
+                 Ubicacion unaUbicacion, LocalDateTime  unaFechaCarga, OrigenCarga unOrigen, Boolean estaVisible, Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
         this.id = id;
         this.idFuente = idFuente;
         this.titulo = unTitulo;
@@ -59,7 +60,7 @@ public class Hecho{
         this.fecha = unaFechaOcurrencia;
         this.ubicacion = unaUbicacion;
         this.fecha_carga = unaFechaCarga;
-        this.origen_carga = unOrigen;
+        this.origen = unOrigen;
         this.visible = estaVisible;
         this.contribuyente = contribuyente;
         this.anonimo = anonimo;

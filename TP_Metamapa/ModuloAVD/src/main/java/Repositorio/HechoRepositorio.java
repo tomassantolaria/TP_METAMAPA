@@ -1,4 +1,5 @@
 package Repositorio;
+import Modelos.Entidades.OrigenCarga;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import Modelos.Entidades.Hecho;
@@ -10,6 +11,6 @@ import java.util.List;
 public interface HechoRepositorio extends JpaRepository<Hecho, Long> {
 
 
-     List<Hecho> findByFuente(Long fuente);
+     List<Hecho> findByIdFuenteAndOrigen(Long fuente, OrigenCarga origen);
 
 }

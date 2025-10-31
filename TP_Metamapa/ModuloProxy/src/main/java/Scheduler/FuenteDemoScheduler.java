@@ -1,19 +1,17 @@
 package Scheduler;
 
 
-import Servicios.impl.FuenteDemoService;
+import servicios.FuenteDemoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class FuenteDemoScheduler {
-    private final FuenteDemoService fuenteDemoService;
 
-    public FuenteDemoScheduler(FuenteDemoService fuenteDemoService) {
-        this.fuenteDemoService = fuenteDemoService;
-    }
-
+    @Autowired
+    FuenteDemoService fuenteDemoService;
 
     @Scheduled(fixedRate = 3600000) // cada 1HS
     public void actualizarHechos() {
@@ -21,4 +19,4 @@ public class FuenteDemoScheduler {
     }
 
 }
-// Este scheduler se ejecutará cada 1 hora para actualizar los hechos
+// Esduler se ejecutará cada 1 hora para actualizar los hechos

@@ -4,23 +4,25 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime ;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "Contribuyente")
 public class Contribuyente {
-    @Id
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDate fecha_nacimiento;
-    @OneToMany
-    public List<Hecho> hechosPublicados;
+    public LocalDateTime fecha_nacimiento;
 
 
-    public Contribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
+
+    public Contribuyente(String usuario, String nombre, String apellido, LocalDateTime fechaNacimiento) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -29,14 +31,4 @@ public class Contribuyente {
 
     public Contribuyente() {}
 
-    @ManyToOne(optional = false)
-    private Hecho hechos;
-
-    public Hecho getHechos() {
-        return hechos;
-    }
-
-    public void setHechos(Hecho hechos) {
-        this.hechos = hechos;
-    }
 }
