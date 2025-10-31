@@ -24,7 +24,11 @@ public class HechoDTO {
         public Double latitud;
         public Double longitud;
         public String usuario;
+        private String nombre; // Nombre del usuario
+        private String apellido; // Apellido del usuario
+        private LocalDateTime fecha_nacimiento;
         public Boolean anonimo;
         public Boolean visible;
         public String origen_carga;
+
 }

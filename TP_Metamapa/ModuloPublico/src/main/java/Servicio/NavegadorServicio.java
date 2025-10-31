@@ -41,7 +41,25 @@ public class NavegadorServicio {
     public List<HechoDTO> filtrarHechos(Long idColeccion, String categoria, Boolean contenidoMultimedia, LocalDateTime  fechaCargaDesde, LocalDateTime  fechaCargaHasta, LocalDateTime fechaHechoDesde, LocalDateTime fechaHechoHasta, String origenCarga, String titulo, String pais, String provincia, String localidad, Boolean navegacionCurada){
         List <Hecho> hechos;
 
+
         OrigenCarga origenCargaNuevo = crearOrigen(origenCarga);
+
+        System.out.println("origenCargaNuevo: " + origenCargaNuevo);
+        System.out.println("fechaCargaDesde: " + fechaCargaDesde);
+        System.out.println("fechaCargaHasta: " + fechaCargaHasta);
+        System.out.println("fechaHechoDesde: " + fechaHechoDesde);
+        System.out.println("fechaHechoHasta: " + fechaHechoHasta);
+        System.out.println("titulo: " + titulo);
+        System.out.println("pais: " + pais);
+        System.out.println("provincia: " + provincia);
+        System.out.println("localidad: " + localidad);
+        System.out.println("categoria: " + categoria);
+        System.out.println("contenidoMultimedia: " + contenidoMultimedia);
+        System.out.println("navegacionCurada: " + navegacionCurada);
+        System.out.println("idColeccion: " + idColeccion);
+        System.out.println("CATEGORIA: " + categoria);
+
+        System.out.println("---------------------------------------");
 
         if(idColeccion == null || idColeccion.toString().isEmpty()){
             hechos = hechoRepositorio.filtrarHechos(categoria, contenidoMultimedia, fechaCargaDesde, fechaCargaHasta, fechaHechoDesde, fechaHechoHasta, origenCargaNuevo, titulo, pais, provincia, localidad);
@@ -58,7 +76,7 @@ public class NavegadorServicio {
 
              }
         }
-
+        System.out.println("hechos: " + hechos);
         return transformarADTOLista(hechos);
     }
 

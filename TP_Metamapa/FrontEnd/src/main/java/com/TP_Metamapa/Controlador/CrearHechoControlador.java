@@ -4,6 +4,7 @@ import com.TP_Metamapa.DTOS.ColeccionDTO;
 import com.TP_Metamapa.DTOS.HechoDTO;
 import com.TP_Metamapa.DTOS.HechoDTOInput;
 import com.TP_Metamapa.DTOS.HechoFormDTO;
+import com.TP_Metamapa.Modelos.OrigenCarga;
 import com.TP_Metamapa.Servicio.CategoriaServicio;
 import org.springframework.security.core.Authentication;
 import com.TP_Metamapa.Servicio.HechoServicio;
@@ -83,7 +84,10 @@ public class CrearHechoControlador {
         // habría que hacer en lugar del service, una llamada al back
         Optional<HechoDTO> hechoOpt = navegacionServicio.obtenerHechoPorId(id);
         if ( hechoOpt.isPresent()){
-            model.addAttribute("hecho", hechoOpt.get());
+            model.addAttribute("hecho", hechoOpt.get()
+            );
+            model.addAttribute("origenDinamica", OrigenCarga.FUENTE_DINAMICA
+            );
             return "verHecho";
         }else{
             model.addAttribute("errorMessage", "El hecho con ID " + id + " no fue encontrado.");
