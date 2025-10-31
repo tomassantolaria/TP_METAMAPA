@@ -50,39 +50,39 @@ public class NavegacionServicio {
         UriComponentsBuilder builder;
 
 
-       if(coleccionId == null){
+        if(coleccionId == null){
 
-           url = apiBaseUrl + "/hechos";
+            url = apiBaseUrl + "/hechos";
 
-         builder = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParamIfPresent("categoria", Optional.ofNullable(categoria))
-                .queryParamIfPresent("contenidoMultimedia", Optional.ofNullable(contenidoMultimedia))
-                .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fechaCargaDesde).map(LocalDate::atStartOfDay))
-                .queryParamIfPresent("fechaCargaHasta", Optional.ofNullable(fechaCargaHasta).map(fecha -> fecha.atTime(23, 59, 59)))
-                .queryParamIfPresent("fechaHechoDesde", Optional.ofNullable(fechaHechoDesde).map(LocalDate::atStartOfDay))
-                .queryParamIfPresent("fechaHechoHasta",  Optional.ofNullable(fechaHechoHasta).map(fecha -> fecha.atTime(23, 59, 59)))
-                .queryParamIfPresent("origen", Optional.ofNullable(origen))
-                .queryParamIfPresent("titulo", Optional.ofNullable(titulo))
-                .queryParamIfPresent("pais", Optional.ofNullable(pais))
-                .queryParamIfPresent("provincia", Optional.ofNullable(provincia))
-                .queryParamIfPresent("localidad", Optional.ofNullable(localidad));
+            builder = UriComponentsBuilder.fromHttpUrl(url)
+                    .queryParamIfPresent("categoria", Optional.ofNullable(categoria).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("contenidoMultimedia", Optional.ofNullable(contenidoMultimedia))
+                    .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fechaCargaDesde).map(LocalDate::atStartOfDay))
+                    .queryParamIfPresent("fechaCargaHasta", Optional.ofNullable(fechaCargaHasta).map(fecha -> fecha.atTime(23, 59, 59)))
+                    .queryParamIfPresent("fechaHechoDesde", Optional.ofNullable(fechaHechoDesde).map(LocalDate::atStartOfDay))
+                    .queryParamIfPresent("fechaHechoHasta",  Optional.ofNullable(fechaHechoHasta).map(fecha -> fecha.atTime(23, 59, 59)))
+                    .queryParamIfPresent("origen", Optional.ofNullable(origen).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("titulo", Optional.ofNullable(titulo).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("pais", Optional.ofNullable(pais).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("provincia", Optional.ofNullable(provincia).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("localidad", Optional.ofNullable(localidad).filter(s -> !s.isBlank()));
         }else {
-           url = apiBaseUrl + "/colecciones/" + coleccionId + "/hechos";
+            url = apiBaseUrl + "/colecciones/" + coleccionId + "/hechos";
 
-               builder = UriComponentsBuilder.fromHttpUrl(url)
-                     .queryParamIfPresent("categoria", Optional.ofNullable(categoria))
-                     .queryParamIfPresent("contenidoMultimedia", Optional.ofNullable(contenidoMultimedia))
-                       .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fechaCargaDesde).map(LocalDate::atStartOfDay))
-                       .queryParamIfPresent("fechaCargaHasta", Optional.ofNullable(fechaCargaHasta).map(fecha -> fecha.atTime(23, 59, 59)))
-                       .queryParamIfPresent("fechaHechoDesde", Optional.ofNullable(fechaHechoDesde).map(LocalDate::atStartOfDay))
-                       .queryParamIfPresent("fechaHechoHasta",  Optional.ofNullable(fechaHechoHasta).map(fecha -> fecha.atTime(23, 59, 59)))
-                     .queryParamIfPresent("origen", Optional.ofNullable(origen))
-                     .queryParamIfPresent("titulo", Optional.ofNullable(titulo))
-                     .queryParamIfPresent("pais", Optional.ofNullable(pais))
-                     .queryParamIfPresent("provincia", Optional.ofNullable(provincia))
-                     .queryParamIfPresent("localidad", Optional.ofNullable(localidad))
-                      .queryParamIfPresent("navegacionCurada", Optional.ofNullable(navegacionCurada));
-       }
+            builder = UriComponentsBuilder.fromHttpUrl(url)
+                    .queryParamIfPresent("categoria", Optional.ofNullable(categoria).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("contenidoMultimedia", Optional.ofNullable(contenidoMultimedia))
+                    .queryParamIfPresent("fechaCargaDesde", Optional.ofNullable(fechaCargaDesde).map(LocalDate::atStartOfDay))
+                    .queryParamIfPresent("fechaCargaHasta", Optional.ofNullable(fechaCargaHasta).map(fecha -> fecha.atTime(23, 59, 59)))
+                    .queryParamIfPresent("fechaHechoDesde", Optional.ofNullable(fechaHechoDesde).map(LocalDate::atStartOfDay))
+                    .queryParamIfPresent("fechaHechoHasta",  Optional.ofNullable(fechaHechoHasta).map(fecha -> fecha.atTime(23, 59, 59)))
+                    .queryParamIfPresent("origen", Optional.ofNullable(origen).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("titulo", Optional.ofNullable(titulo).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("pais", Optional.ofNullable(pais).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("provincia", Optional.ofNullable(provincia).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("localidad", Optional.ofNullable(localidad).filter(s -> !s.isBlank()))
+                    .queryParamIfPresent("navegacionCurada", Optional.ofNullable(navegacionCurada));
+        }
 
         ResponseEntity<List<HechoDTO>> respuesta = restTemplate.exchange(
                 builder.toUriString(),
@@ -97,7 +97,7 @@ public class NavegacionServicio {
     public Optional<HechoDTO> obtenerHechoPorId(Long id) {
         try{
             if (id == null || id <= 0) {
-                throw new IllegalArgumentException("ID inválido");
+                throw new IllegalArgumentException("ID invÃ¡lido");
             }
             final String url = apiBaseUrl + HECHOS_PATH; // O la ruta que corresponda
 
@@ -109,7 +109,7 @@ public class NavegacionServicio {
                     id
             );
 
-        return Optional.ofNullable(respuesta.getBody());
+            return Optional.ofNullable(respuesta.getBody());
 
         }catch (HttpClientErrorException.NotFound e) {
             System.out.println("Hecho con ID " + id + " no encontrado en el backend.");

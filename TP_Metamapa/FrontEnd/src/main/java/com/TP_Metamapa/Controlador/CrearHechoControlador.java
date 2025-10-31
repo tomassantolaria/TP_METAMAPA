@@ -54,7 +54,7 @@ public class CrearHechoControlador {
             imageUrl = hechoServicio.guardarMultimediaLocalmente(multimediaFile);
 
             // 2. Crear el DTO que se enviará al backend
-            HechoDTOInput hechoParaBackend = new HechoDTOInput(hechoFormData.getTitulo(), hechoFormData.getDescripcion(), hechoFormData.getContenidoAdicional(), imageUrl, hechoFormData.getCategoria(), hechoFormData.getFechaAcontecimiento(), hechoFormData.getLocalidad(), hechoFormData.getProvincia(), hechoFormData.getPais(), hechoFormData.getLatitud(), hechoFormData.getLongitud(), authentication.getName(), authentication.getName(), authentication.getName(), LocalDateTime.now(), hechoFormData.isAnonimo());
+            HechoDTOInput hechoParaBackend = new HechoDTOInput(hechoFormData.getTitulo(), hechoFormData.getDescripcion(), hechoFormData.getContenidoAdicional(), imageUrl, hechoFormData.getCategoria(), hechoFormData.getFechaAcontecimiento(), hechoFormData.getLocalidad(), hechoFormData.getProvincia(), hechoFormData.getPais(), hechoFormData.getLatitud(), hechoFormData.getLongitud(), "admin", hechoFormData.isAnonimo());
             //TODO: CREAR LOS CAMPOS AUTENTICATHION QUE SEAN USUARIO NOMBRE APELLIDO Y FECHA DE NACIMIENTO Y AGREGAR ACA
             if ("Otra".equals(hechoFormData.getCategoria()) && hechoFormData.getCustomCategoria() != null && !hechoFormData.getCustomCategoria().isEmpty()) {
                 hechoParaBackend.setCategoria(hechoFormData.getCustomCategoria());

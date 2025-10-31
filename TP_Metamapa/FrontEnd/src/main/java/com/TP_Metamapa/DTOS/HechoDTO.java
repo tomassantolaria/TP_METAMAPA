@@ -24,9 +24,6 @@ public class HechoDTO {
         public Double latitud;
         public Double longitud;
         public String usuario;
-        public String nombre;
-        public String apellido;
-        public LocalDateTime fecha_nacimiento;
         public Boolean anonimo;
         public Boolean visible;
         public String origen_carga;

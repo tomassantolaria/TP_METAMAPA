@@ -66,28 +66,28 @@ public class AgregadorServicio {
 
 
         ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
-               urlDemo.toUriString(),
-               HttpMethod.GET,
-               null,
-               new ParameterizedTypeReference<>() {
-               }
-       );
+                urlDemo.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+        );
 
-       ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
-               urlMetamapa.toUriString(),
-               HttpMethod.GET,
-               null,
-               new ParameterizedTypeReference<>() {
-               }
-       );
+        ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
+                urlMetamapa.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+        );
 
-       ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
-               urlEstatica.toUriString(),
-               HttpMethod.GET,
-               null,
-               new ParameterizedTypeReference<>() {
-               }
-       );
+        ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
+                urlEstatica.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                }
+        );
         List<HechoDTOInput> hechosDTOTotales = new ArrayList<>();
 
 
@@ -103,15 +103,15 @@ public class AgregadorServicio {
         }
 
 
-       if (!respuestaEstatica.getBody().isEmpty()) {
-           List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
-           hechosDTOTotales.addAll(hechosEstatica) ;
-       }
+        if (!respuestaEstatica.getBody().isEmpty()) {
+            List<HechoDTOInput> hechosEstatica = this.setearOrigenCarga(respuestaEstatica.getBody(), OrigenCarga.FUENTE_ESTATICA);
+            hechosDTOTotales.addAll(hechosEstatica) ;
+        }
 
-       if (!respuestaMetamapa.getBody().isEmpty()) {
-           List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
-           hechosDTOTotales.addAll(hechosMetamapa) ;
-       }
+        if (!respuestaMetamapa.getBody().isEmpty()) {
+            List<HechoDTOInput> hechosMetamapa = this.setearOrigenCarga(respuestaMetamapa.getBody(), OrigenCarga.FUENTE_PROXY);
+            hechosDTOTotales.addAll(hechosMetamapa) ;
+        }
 
 
         UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/categorias");
@@ -166,9 +166,9 @@ public class AgregadorServicio {
             }
         }
         //if (!hechosDTOTotales.isEmpty()) {
-            List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
-            hechoRepositorio.saveAll(hechos);
-            this.actualizarColecciones();
+        List<Hecho> hechos = this.transaformarAHecho(hechosDTOTotales);
+        hechoRepositorio.saveAll(hechos);
+        this.actualizarColecciones();
         //}
     }
 
@@ -204,6 +204,9 @@ public class AgregadorServicio {
     }
 
     public  Contenido crearContenido( String texto, String contenidoMultimedia){
+        if(texto == null && contenidoMultimedia == null){
+            return null;
+        }
         Contenido contenido = contenidoRepositorio.findByTextoAndContenidoMultimedia(texto, contenidoMultimedia);
         if(contenido == null){
             contenido = new Contenido(texto, contenidoMultimedia);
@@ -311,12 +314,12 @@ public class AgregadorServicio {
                     .map(Hecho::getId)
                     .collect(Collectors.toSet());
 
-        List<Hecho> nuevosHechos = hechosCumplenCriterio.stream()
-                .filter(h -> !idsExistentes.contains(h.getId())&&h.getVisible())
-                .toList();
+            List<Hecho> nuevosHechos = hechosCumplenCriterio.stream()
+                    .filter(h -> !idsExistentes.contains(h.getId())&&h.getVisible())
+                    .toList();
 
-        coleccion.agregarHechos(nuevosHechos);
-        coleccionRepositorio.save(coleccion);
+            coleccion.agregarHechos(nuevosHechos);
+            coleccionRepositorio.save(coleccion);
         }else{
             coleccion.agregarHechos(hechosCumplenCriterio);
             coleccionRepositorio.save(coleccion);
