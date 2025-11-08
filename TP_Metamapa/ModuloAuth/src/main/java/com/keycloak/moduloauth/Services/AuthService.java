@@ -44,21 +44,16 @@ public class AuthService {
                 .build();
     }
 
-    /**
-     * Metodo para listar todos los usuarios de Keycloak
-     * @return List<UserRepresentation>
-     */
+     // listar todos los usuarios de Keycloak
+
     public List<UserRepresentation> findAllUsers(){
         return keycloakProvider.getRealmResource()
                 .users()
                 .list();
     }
 
+    // buscar un usuario por su username
 
-    /**
-     * Metodo para buscar un usuario por su username
-     * @return List<UserRepresentation>
-     */
     public List<UserRepresentation> searchUserByUsername(String username) {
         System.out.println("Entro al service");
         return keycloakProvider.getRealmResource()
@@ -66,9 +61,8 @@ public class AuthService {
                 .searchByUsername(username, true);
     }
 
-    /**
-     *Login de usuario
-     * */
+     // Login de usuario
+
     public KeycloakToken loginUser(@NonNull LoginDTO loginDTO) {
         System.out.println("entre al service login");
 
@@ -91,15 +85,13 @@ public class AuthService {
         return keycloakToken;
     }
 
-    /**
-     * Metodo para crear un usuario en keycloak
-     * @return String
-     */
+    // Metodo para crear un usuario en keycloak - registrar
+
     public String createUser(@NonNull RegistroDTO userDTO) {
 
         int status = 0;
         UsersResource usersResource = keycloakProvider.getUserResource();
-        // todo: no olvidar lo de la fecha de nacimiento
+
         UserRepresentation userRepresentation = new UserRepresentation();
         userRepresentation.setFirstName(userDTO.getFirstName());
         userRepresentation.setLastName(userDTO.getLastName());
@@ -107,6 +99,8 @@ public class AuthService {
         userRepresentation.setUsername(userDTO.getUsername());
         userRepresentation.setEnabled(true);
         userRepresentation.setEmailVerified(true);
+
+        userRepresentation.singleAttribute("birthdate", userDTO.getBirthdate().toString());
 
         Response response = usersResource.create(userRepresentation);
 
@@ -142,11 +136,8 @@ public class AuthService {
         }
     }
 
+    // borrar usuario
 
-    /**
-     * Metodo para borrar un usuario en keycloak
-     * @return void
-     */
     public void deleteUser(String userId){
         keycloakProvider.getUserResource()
                 .get(userId)
@@ -154,10 +145,8 @@ public class AuthService {
     }
 
 
-    /**
-     * Metodo para actualizar un usuario en keycloak
-     * @return void
-     */
+    // actualizar usuario
+
     public void updateUser(String userId, @NonNull RegistroDTO userDTO){
 
         CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
@@ -173,6 +162,8 @@ public class AuthService {
         user.setEnabled(true);
         user.setEmailVerified(true);
         user.setCredentials(Collections.singletonList(credentialRepresentation));
+
+        user.singleAttribute("birthdate", userDTO.getBirthdate().toString());
 
         UserResource usersResource = keycloakProvider.getUserResource().get(userId);
         usersResource.update(user);

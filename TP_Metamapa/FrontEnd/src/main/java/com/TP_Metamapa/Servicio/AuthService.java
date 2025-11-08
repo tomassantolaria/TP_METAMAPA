@@ -2,14 +2,10 @@ package com.TP_Metamapa.Servicio;
 
 import com.TP_Metamapa.DTOS.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class AuthService {

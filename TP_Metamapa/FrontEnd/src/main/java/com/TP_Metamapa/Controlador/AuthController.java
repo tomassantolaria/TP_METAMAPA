@@ -1,6 +1,5 @@
 package com.TP_Metamapa.Controlador;
 
-import com.TP_Metamapa.DTOS.KeycloakTokenDTO;
 import com.TP_Metamapa.DTOS.LoginDTO;
 import com.TP_Metamapa.DTOS.RegisterDTO;
 import com.TP_Metamapa.Servicio.AuthService;
@@ -23,14 +22,6 @@ public class AuthController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String login(@ModelAttribute("credenciales") LoginDTO loginDTO, Model model) {
-        System.out.println("antes del service token");
-        KeycloakTokenDTO token = authService.login(loginDTO);
-        System.out.println(token);
-        return "redirect:/";
-    }
-
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("registerForm", new RegisterDTO());
@@ -38,7 +29,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("registerForm") RegisterDTO registerDTO, Model model) {
+    public String register(@ModelAttribute("registerForm") RegisterDTO registerDTO) {
         String response = authService.register(registerDTO);
         System.out.println("Respuesta del registro: " + response);
         return "redirect:/auth/login";

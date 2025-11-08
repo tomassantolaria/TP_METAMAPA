@@ -24,7 +24,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(http -> {
-                    http.requestMatchers("/auth/create","/auth/iniciar-sesion","/auth/hola").permitAll();
+                    http.requestMatchers("/auth/create","/auth/iniciar-sesion").permitAll();
                     http.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth -> {

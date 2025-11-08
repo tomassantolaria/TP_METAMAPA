@@ -5,7 +5,6 @@ import com.keycloak.moduloauth.DTOs.KeycloakToken;
 import com.keycloak.moduloauth.DTOs.RoleDTO;
 import com.keycloak.moduloauth.DTOs.RegistroDTO;
 import com.keycloak.moduloauth.Services.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,8 +18,11 @@ import java.util.List;
 @RequestMapping(value = "/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
 
 
     @GetMapping("/search")
@@ -61,6 +63,7 @@ public class AuthController {
         authService.deleteUser(userId);
         return ResponseEntity.noContent().build();
     }
+
     @GetMapping("/role")
     public ResponseEntity<RoleDTO> getRole(Authentication authentication){
         System.out.println(authentication.getPrincipal());

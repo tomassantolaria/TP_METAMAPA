@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class RoleDTO {
     private List<String> roles;
 }
