@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<html lang="es" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title th:text="${title} ?: 'MetaMapa'">MetaMapa</title>
@@ -45,10 +45,9 @@
                     </button>
                     <div id="profile-menu-dropdown" class="absolute hidden right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 z-10 dropdown-menu-content">
                         <div class="px-4 py-2 border-b">
-                            <p class="text-sm font-semibold text-gray-700" sec:authentication="principal.username"></p>
-                            <p class="text-xs text-gray-500" sec:authentication="principal.username"></p>
+                            <p class="text-sm font-semibold text-gray-700" sec:athentication="name"></p>
                         </div>
-                        <a sec:authorize="hasRole('ADMINISTRADOR')" th:href="@{/admin}" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Panel de Admin</a>
+                        <a sec:authorize="hasRole('admin_client_role')" th:href="@{/admin}" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Panel de Admin</a>
 
                         <form th:action="@{/logout}" method="post" class="w-full">
                             <button type="submit" class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Cerrar Sesión</button>
@@ -58,8 +57,13 @@
             </div>
 
             <div sec:authorize="isAnonymous()">
-                <a th:href="@{/login}" class="bg-pastel-blue-600 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-pastel-blue-700">
+                <a th:href="@{/auth/login}" class="bg-pastel-blue-600 text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-pastel-blue-700">
                     Iniciar Sesión
+                </a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/auth/register}" class="bg-white text-pastel-blue-600 px-3 py-1.5 rounded-md text-sm font-medium hover:bg-pastel-blue-700">
+                    Registrarse
                 </a>
             </div>
         </div>

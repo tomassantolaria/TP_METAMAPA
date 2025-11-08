@@ -6,14 +6,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @Value
 @RequiredArgsConstructor
 @Builder
 @Data
-public class UsuarioDTO implements Serializable {
+public class RegistroDTO implements Serializable {
 
     private String username;
     private String email;

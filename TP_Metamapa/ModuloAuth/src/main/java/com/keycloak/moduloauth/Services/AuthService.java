@@ -1,9 +1,8 @@
 package com.keycloak.moduloauth.Services;
 
-import com.keycloak.moduloauth.DTOs.GetTokenDTO;
 import com.keycloak.moduloauth.DTOs.LoginDTO;
 import com.keycloak.moduloauth.DTOs.KeycloakToken;
-import com.keycloak.moduloauth.DTOs.UsuarioDTO;
+import com.keycloak.moduloauth.DTOs.RegistroDTO;
 import com.keycloak.moduloauth.Utils.KeycloackProvider;
 import jakarta.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,7 +69,7 @@ public class AuthService {
     /**
      *Login de usuario
      * */
-    public String loginUser(@NonNull LoginDTO loginDTO) {
+    public KeycloakToken loginUser(@NonNull LoginDTO loginDTO) {
         System.out.println("entre al service login");
 
         KeycloakToken keycloakToken = webClient.post()
@@ -89,14 +88,14 @@ public class AuthService {
             throw new RuntimeException("Error al iniciar sesión");
         }
 
-        return keycloakToken.getAccess_token();
+        return keycloakToken;
     }
 
     /**
      * Metodo para crear un usuario en keycloak
      * @return String
      */
-    public String createUser(@NonNull UsuarioDTO userDTO) {
+    public String createUser(@NonNull RegistroDTO userDTO) {
 
         int status = 0;
         UsersResource usersResource = keycloakProvider.getUserResource();
@@ -159,7 +158,7 @@ public class AuthService {
      * Metodo para actualizar un usuario en keycloak
      * @return void
      */
-    public void updateUser(String userId, @NonNull UsuarioDTO userDTO){
+    public void updateUser(String userId, @NonNull RegistroDTO userDTO){
 
         CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
         credentialRepresentation.setTemporary(false);
