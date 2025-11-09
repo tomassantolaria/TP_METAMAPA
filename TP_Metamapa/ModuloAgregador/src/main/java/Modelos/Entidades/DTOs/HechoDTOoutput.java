@@ -2,7 +2,9 @@ package Modelos.Entidades.DTOs;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime ;
 import java.time.LocalDateTime ;
 
@@ -23,10 +25,11 @@ public class HechoDTOoutput {
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDateTime fecha_nacimiento;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    public LocalDate fecha_nacimiento;
     public String origen_carga;
 
-    public HechoDTOoutput(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, LocalDateTime  fechaCarga, String calle, String localidad, String provincia, String usuario, String nombre, String apellido, LocalDateTime fecha_nacimiento, String origen_carga) {
+    public HechoDTOoutput(String titulo, String descripcion, String contenido, String contenido_multimedia, String categoria, LocalDateTime fechaAcontecimiento, LocalDateTime  fechaCarga, String calle, String localidad, String provincia, String usuario, String nombre, String apellido, LocalDate fecha_nacimiento, String origen_carga) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.contenido = contenido;

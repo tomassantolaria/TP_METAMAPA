@@ -3,6 +3,9 @@ package com.TP_Metamapa.DTOS;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,8 +25,13 @@ public class HechoDTOInput {
     private Double latitud;
     private Double longitud;
     private String usuario;
+    private String nombre;
+    private String apellido;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate fechaNacimiento;
     private Boolean anonimo;
 
-    // Puedes necesitar un constructor o dejar que Jackson/RestTemplate lo manejen
-    public HechoDTOInput() {}
+    public HechoDTOInput() {
+
+    }
 }

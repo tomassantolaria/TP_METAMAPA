@@ -14,10 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime ;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -214,7 +215,7 @@ public class AgregadorServicio {
         return contenido.get(0);
     }
 
-    public Contribuyente crearContribuyente(String usuario, String nombre, String apellido, LocalDateTime fechaNacimiento) {
+    public Contribuyente crearContribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
         if(usuario == null){
             return null;
         }

@@ -15,6 +15,7 @@ import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime ;
 import java.time.LocalDateTime ;
 import java.util.ArrayList;
@@ -112,7 +113,7 @@ public class NavegadorServicio {
         String usuario = null;
         String nombre = null;
         String apellido = null;
-        LocalDateTime fechaNacimiento = null;
+        LocalDate fechaNacimiento = null;
 
         if (hecho.getContribuyente() != null) {
             usuario = hecho.getContribuyente().getUsuario();

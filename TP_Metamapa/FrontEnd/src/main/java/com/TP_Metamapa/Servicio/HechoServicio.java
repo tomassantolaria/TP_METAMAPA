@@ -19,8 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -100,6 +98,11 @@ public class HechoServicio {
     public void enviarHechoAlBackend(HechoDTOInput hechoParaBackend) {
         String url = "http://localhost:8082/dinamica/hechos"; // Endpoint POST del backend
 
+        System.out.println("=== ENVIANDO HECHO AL BACKEND ===");
+        System.out.println("URL: " + url);
+        System.out.println("Titulo: " + hechoParaBackend.getTitulo());
+        System.out.println("Usuario: " + hechoParaBackend.getUsuario());
+        System.out.println("Fecha Acontecimiento: " + hechoParaBackend.getFechaAcontecimiento());
 
         HttpEntity<HechoDTOInput> requestEntity = new HttpEntity<>(hechoParaBackend);
 
@@ -107,10 +110,9 @@ public class HechoServicio {
             ResponseEntity<String> respuesta = restTemplate.exchange(
                     url,
                     HttpMethod.POST,
-                    requestEntity, //TODO: CAMBIAR EN DINAMICA SACAR LO DE REGISTRAR CONTRIBUYENTE Y EL DTO DE HECHO A COMO ESTA ACA
+                    requestEntity,
                     new ParameterizedTypeReference<String>() {}
             );
-
 
         } catch (Exception e) {
             throw new RuntimeException("Error al conectar con el backend para crear hecho: " + e.getMessage(), e);
