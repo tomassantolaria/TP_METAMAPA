@@ -83,7 +83,10 @@ public class HechoServicio {
         if (originalFilename != null && originalFilename.contains(".")) {
             extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         }
-        String uniqueFilename = UUID.randomUUID().toString() + extension;
+
+        // Generar nombre tipo MetaMapa_timestamp
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String uniqueFilename = "MetaMapa_" + timestamp + extension;
 
         // Guardar el archivo
         Path filePath = uploadPath.resolve(uniqueFilename);

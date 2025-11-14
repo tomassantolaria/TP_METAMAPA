@@ -44,6 +44,9 @@
         <div th:if="${hecho.contenido}" class="mt-8">
             <h2 class="text-xl font-semibold text-pastel-blue-800 mb-2">Contenido Adicional</h2>
             <p class="text-gray-700 whitespace-pre-wrap" th:text="${hecho.contenido}"></p>
+            <div th:if="${hecho.contenido == null or hecho.contenido.isEmpty()}">
+                <p class="text-gray-500 italic">No hay contenido adicional.</p>
+            </div>
         </div>
 
         <div th:if="${hecho.contenido_multimedia}" class="mt-8">

@@ -98,12 +98,13 @@ public class AuthService {
                     HttpMethod.GET,
                     requestEntity,
                     List.class
+                    //new ParameterizedTypeReference<List<Map<String, Object>>>() {}
             );
 
             List<Map<String, Object>> users = respuesta.getBody();
+            System.out.println("USER-------" + users);
             if (users != null && !users.isEmpty()) {
                 Map<String, Object> userMap = users.get(0);
-
                 UserDataDTO userData = new UserDataDTO();
                 userData.setUsername((String) userMap.get("username"));
                 userData.setFirstName((String) userMap.get("firstName"));
@@ -116,6 +117,9 @@ public class AuthService {
             return null;
 
         } catch (Exception e) {
+            System.err.println("Tipo de excepción: " + e.getClass().getName());
+            System.err.println("Mensaje: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException("Error al obtener datos del usuario: " + e.getMessage(), e);
         }
     }

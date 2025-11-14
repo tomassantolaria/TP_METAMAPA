@@ -93,31 +93,45 @@ public class EstadisticasServicio{
             return ultimasEstadisticasRepositorio.getCache();
         }
 
-        public String exportarCSV() {
-            UltimasEstadisticasDTO dto = ultimasEstadisticasRepositorio.getCache();
-            if (dto == null) return "";
+    public String exportarCSV() {
+        UltimasEstadisticasDTO dto = ultimasEstadisticasRepositorio.getCache();
+        if (dto == null) return "";
 
-            StringBuilder csv = new StringBuilder();
-            csv.append("Provincia con más hechos por colección:\nIdColección,Provincia\n");
-            dto.getProvinciaConMasHechosPorColeccion().forEach((col, prov) -> {
-                csv.append(col).append(",").append(prov).append("\n");
-            });
-            csv.append("Categoría con más hechos: ").append(dto.getCategoriaConMasHechos()).append("\n");
+        StringBuilder csv = new StringBuilder();
 
-            csv.append("Provincia con más hechos por categoría:\nCategoria,Provincia\n");
-            dto.getProvinciaConMasHechosDeCategoria().forEach((cat, prov) -> {
-                csv.append(cat).append(",").append(prov).append("\n");
-            });
+        csv.append("# ===============================\n");
+        csv.append("# Provincia con más hechos por colección\n");
+        csv.append("# ===============================\n");
+        csv.append("IdColeccion,Provincia\n");
+        dto.getProvinciaConMasHechosPorColeccion().forEach((col, prov) -> {
+            csv.append(col).append(",").append(prov).append("\n");
+        });
+        csv.append("\n\n");
 
-            csv.append("Hora por categoría:\nCategoria,Hora\n");
-            dto.getHoraConMasHechosPorCategoria().forEach((cat, hora) -> {
-                csv.append(cat).append(",").append(hora).append("\n");
-            });
 
-            csv.append("Cantidad de solicitudes spam: ").append(dto.getCantidadSolicitudesSpam()).append("\n");
+        csv.append("# ===============================\n");
+        csv.append("# Categoría con más hechos\n");
+        csv.append("# ===============================\n");
+        csv.append("CategoriaMasHechos\n");
+        csv.append(dto.getCategoriaConMasHechos()).append("\n\n\n");
 
-            return csv.toString();
-        }
+        csv.append("# ===============================\n");
+        csv.append("# Provincia con más hechos por categoría\n");
+        csv.append("# ===============================\n");
+        csv.append("Categoria,Provincia\n");
+        dto.getProvinciaConMasHechosDeCategoria().forEach((cat, prov) -> {
+            csv.append(cat).append(",").append(prov).append("\n");
+        });
+        csv.append("\n\n");
+
+        csv.append("# ===============================\n");
+        csv.append("# Cantidad de solicitudes marcadas como SPAM\n");
+        csv.append("# ===============================\n");
+        csv.append("CantidadSpam\n");
+        csv.append(dto.getCantidadSolicitudesSpam()).append("\n");
+
+        return csv.toString();
+    }
 
 
 

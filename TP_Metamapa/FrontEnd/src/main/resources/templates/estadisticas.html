@@ -33,8 +33,25 @@
                                         th:text="${col.titulo}"
                                         th:selected="${col.coleccionId == coleccionSeleccionadaId}"></option>
                             </select>
-                            <div th:if="${provinciaPorColeccion != null}" class="text-center p-2">
-                                <p class="text-3xl font-bold text-pastel-blue-700" th:text="${provinciaPorColeccion}"></p>
+                            <div th:if="${provinciaPorColeccion != null}" class="mt-4 overflow-x-auto rounded-lg border border-pastel-blue-300">
+                                <table class="min-w-full divide-y divide-pastel-blue-300">
+                                    <thead class="bg-pastel-blue-100">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider">
+                                            Provincia
+                                        </th>
+                                        <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-pastel-blue-700 uppercase tracking-wider">
+                                            Condición
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-pastel-blue-50">
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-pastel-blue-900" th:text="${provinciaPorColeccion}"></td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-right font-medium text-pastel-blue-700">Más Hechos</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <p th:if="${provinciaPorColeccion == null and coleccionSeleccionadaId != null}" class="text-center text-sm text-gray-500 py-4">No hay datos para esta colección.</p>
                         </div>
@@ -61,8 +78,25 @@
                                         th:text="${cat}"
                                         th:selected="${cat == categoriaSeleccionada}"></option>
                             </select>
-                            <div th:if="${provinciaPorCategoria != null}" class="text-center p-2">
-                                <p class="text-3xl font-bold text-pastel-blue-700" th:text="${provinciaPorCategoria}"></p>
+                            <div th:if="${provinciaPorCategoria != null}" class="mt-4 overflow-x-auto rounded-lg border border-pastel-blue-300">
+                                <table class="min-w-full divide-y divide-pastel-blue-300">
+                                    <thead class="bg-pastel-blue-100">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider">
+                                            Provincia
+                                        </th>
+                                        <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-pastel-blue-700 uppercase tracking-wider">
+                                            Condición
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-pastel-blue-50">
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-pastel-blue-900" th:text="${provinciaPorCategoria}"></td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-right font-medium text-pastel-blue-700">Más Hechos</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <p th:if="${provinciaPorCategoria == null and categoriaSeleccionada != null}" class="text-center text-sm text-gray-500 py-4">No hay datos para esta categoría.</p>
                         </div>
@@ -90,9 +124,25 @@
                                         th:text="${cat}"
                                         th:selected="${cat == categoriaParaHoraPico}"></option>
                             </select>
-                            <div th:if="${horaPicoParaCategoria != null}" class="text-center p-2">
-                                <p class="text-3xl font-bold text-pastel-blue-700" th:text="|${#numbers.formatInteger(horaPicoParaCategoria, 2)}:00 hs|"></p>
-                                <p class="text-sm text-gray-500">(Hora Pico)</p>
+                            <div th:if="${horaPicoParaCategoria != null}" class="mt-4 overflow-x-auto rounded-lg border border-pastel-blue-300">
+                                <table class="min-w-full divide-y divide-pastel-blue-300">
+                                    <thead class="bg-pastel-blue-100">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-pastel-blue-700 uppercase tracking-wider">
+                                            Hora
+                                        </th>
+                                        <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-pastel-blue-700 uppercase tracking-wider">
+                                            Condición
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-pastel-blue-50">
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-pastel-blue-900" th:text="|${#numbers.formatInteger(horaPicoParaCategoria, 2)}:00 hs|"></td>
+                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-right font-medium text-pastel-blue-700">Hora Pico</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <p th:if="${horaPicoParaCategoria == null and categoriaParaHoraPico != null}" class="text-center text-sm text-gray-500 py-4">No hay datos para esta categoría.</p>
                         </div>

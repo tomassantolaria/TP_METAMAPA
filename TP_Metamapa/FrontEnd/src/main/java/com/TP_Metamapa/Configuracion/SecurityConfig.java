@@ -50,18 +50,18 @@ public class SecurityConfig {
                 // Configuración de Login y Logout (permitAll implícito aquí)
                 .formLogin(form -> form
                        .loginPage("/login") // Opcional: Define tu propia página de login
-                        .permitAll()
-                        .defaultSuccessUrl("/", true)
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll()
-                );
+                            .permitAll()
+                            .defaultSuccessUrl("/", true)
+                    )
+                    .logout(logout -> logout
+                            .logoutUrl("/logout")
+                            .logoutSuccessUrl("/")
+                            .invalidateHttpSession(true)
+                            .clearAuthentication(true)
+                            .deleteCookies("JSESSIONID")
+                            .permitAll()
+                    );
 
-        return http.build();
-    }
+            return http.build();
+        }
 }
