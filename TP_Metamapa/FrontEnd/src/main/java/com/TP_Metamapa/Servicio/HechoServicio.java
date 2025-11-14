@@ -122,5 +122,24 @@ public class HechoServicio {
         }
     }
 
+    public List<HechoDTO> obtenerHechoPendiente(String username){
+        UriComponentsBuilder urlHechos = UriComponentsBuilder
+                .fromHttpUrl("http://localhost:8082/dinamica/hechos/pendientes")
+                .queryParam("username", username);
 
+        try {
+            System.out.println("USERNAME: " + username);
+            System.out.println("URL: " + urlHechos.toUriString());
+
+            ResponseEntity<List<HechoDTO>> respuesta = restTemplate.exchange(
+                    urlHechos.toUriString(),
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<HechoDTO>>() {}
+            );
+            return respuesta.getBody();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al conectar con el backend para obtener hechos pendientes: " + e.getMessage(), e);
+        }
+    }
 }

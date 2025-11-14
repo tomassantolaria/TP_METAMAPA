@@ -123,6 +123,13 @@ public class HechoServicio {
         return transformarADTOLista(hechos);
     }
 
+    @Transactional
+    public List<HechoDTO> obtenerHechosPendientesDeUsuario(String usuario) {
+        Contribuyente user = contribuyenteRepositorio.findByUsuario(usuario);
+        List<Hecho> hechos = hechoRepositorio.findByIdfuenteAndPublicado(user.getId(), false);
+        return transformarADTOLista(hechos);
+    }
+
     public List<HechoDTO> transformarADTOLista(List<Hecho> hechos) {
         List<HechoDTO> hechosDTO = new ArrayList<>();
         for (Hecho hecho : hechos) {

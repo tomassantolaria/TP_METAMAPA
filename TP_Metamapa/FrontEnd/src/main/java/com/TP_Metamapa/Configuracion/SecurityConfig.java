@@ -31,25 +31,25 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // 1. Recursos Estáticos y Páginas Públicas (permitAll)
+                        // paginas publicas (permitAll)
                         .requestMatchers(HttpMethod.GET, "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/", "/navegar", "/estadisticas", "/ver-hecho/{id}", "/csv").permitAll()
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
 
-                        // 2. Acciones de Administrador (hasRole('ADMINISTRADOR'))
+                        // administrador -> admin_client_role
                         .requestMatchers("/admin/**").hasRole("admin_client_role") // Protege todo bajo /admin
 
 
-                        // 3. Acciones para Usuarios Autenticados (authenticated())
+                        // usuarios que iniciaron sesion
                         .requestMatchers(HttpMethod.GET, "/crear-hecho", "/solicitarEliminacion/{id}").authenticated()
                         .requestMatchers(HttpMethod.POST, "/crear-hecho", "/crearSolicitud").authenticated()
 
-                        // 4. Regla General: Cualquier otra petición no definida arriba requiere autenticación
+                        // cualquier otra petición no definida arriba requiere autenticacion
                         .anyRequest().authenticated()
                 )
-                // Configuración de Login y Logout (permitAll implícito aquí)
+                // config de Login y Logout
                 .formLogin(form -> form
-                       .loginPage("/login") // Opcional: Define tu propia página de login
+                       .loginPage("/login")
                             .permitAll()
                             .defaultSuccessUrl("/", true)
                     )

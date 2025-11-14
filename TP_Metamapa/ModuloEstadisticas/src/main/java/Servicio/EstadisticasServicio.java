@@ -125,6 +125,15 @@ public class EstadisticasServicio{
         csv.append("\n\n");
 
         csv.append("# ===============================\n");
+        csv.append("# Hora con más hechos por categoría\n");
+        csv.append("# ===============================\n");
+        csv.append("Categoria,Hora\n");
+        dto.getHoraConMasHechosPorCategoria().forEach((cat, prov) -> {
+            csv.append(cat).append(",").append(prov).append("\n");
+        });
+        csv.append("\n\n");
+
+        csv.append("# ===============================\n");
         csv.append("# Cantidad de solicitudes marcadas como SPAM\n");
         csv.append("# ===============================\n");
         csv.append("CantidadSpam\n");
@@ -132,9 +141,6 @@ public class EstadisticasServicio{
 
         return csv.toString();
     }
-
-
-
 
 
 }

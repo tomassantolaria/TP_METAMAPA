@@ -1008,6 +1008,10 @@ video {
   overflow: hidden;
 }
 
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
 .overflow-x-auto {
   overflow-x: auto;
 }
@@ -1233,13 +1237,13 @@ video {
 }
 
 .px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .px-6 {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
 
 .py-1 {

@@ -52,8 +52,9 @@ public class CustomAuthProvider implements AuthenticationProvider {
 
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpServletRequest request = attributes.getRequest();
-            log.info("guardando accessToken...");
+            log.info("guardando accessToken y el refresh...");
             request.getSession().setAttribute("accessToken", authResponse.getAccess_token());
+            request.getSession().setAttribute("refreshToken", authResponse.getRefresh_token());
 
             log.info("Buscando rol");
             RoleDTO roleDTO = authService.getRole(authResponse.getAccess_token());

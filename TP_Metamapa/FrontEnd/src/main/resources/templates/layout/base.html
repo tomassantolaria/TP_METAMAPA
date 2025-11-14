@@ -16,18 +16,27 @@
 
 <header th:fragment="header" class="bg-pastel-blue-100 shadow-md sticky top-0 z-[1000]">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-        <a th:href="@{/}" class="text-2xl font-bold text-pastel-blue-900 tracking-tight">
-            MetaMapa
-        </a>
+        <div class="flex items-center gap-2">
+            <img th:src="@{/images/logo.png}" alt="MetaMapa Logo" class="w-10 h-10">
+            <a th:href="@{/}" class="text-2xl font-bold text-pastel-blue-900 pt-3 tracking-tight">
+                MetaMapa
+            </a>
+        </div>
 
         <nav class="flex items-center gap-2 md:gap-4">
-            <a th:href="@{/}" class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
+            <a th:href="@{/}"
+               th:classappend="${activePage == 'inicio'} ? ' bg-pastel-blue-300 text-pastel-blue-900 font-semibold' : ''"
+               class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
                 <span>Inicio</span>
             </a>
-            <a th:href="@{/navegar}" class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
+            <a th:href="@{/navegar}"
+               th:classappend="${activePage == 'navegar'} ? ' bg-pastel-blue-300 text-pastel-blue-900 font-semibold' : ''"
+               class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
                 <span>Navegar</span>
             </a>
-            <a th:href="@{/estadisticas}" class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
+            <a th:href="@{/estadisticas}"
+               th:classappend="${activePage == 'estadisticas'} ? ' bg-pastel-blue-300 text-pastel-blue-900 font-semibold' : ''"
+               class="flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-pastel-blue-800 hover:bg-pastel-blue-200">
                 <span>Estadísticas</span>
             </a>
         </nav>
@@ -49,7 +58,11 @@
                         <div class="px-4 py-2 border-b">
                             <p class="text-sm font-semibold text-gray-700" sec:authentication="name"></p>
                         </div>
-<!--                        <a sec:authorize="hasRole('ADMINISTRADOR')" th:href="@{/admin}" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Panel de Admin</a>-->
+
+                        <a th:href="@{/hechos-pendientes}"
+                           class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">
+                            Ver hechos pendientes
+                        </a>
 
                         <form th:action="@{/logout}" method="post" class="w-full">
                             <button type="submit" class="w-full text-left flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-pastel-blue-100">Cerrar Sesión</button>
@@ -64,7 +77,7 @@
                 </a>
             </div>
             <div sec:authorize="isAnonymous()">
-                <a th:href="@{/auth/register}" class="bg-pastel-blue-600 text-white px-6 py-1.5 rounded-md text-sm font-medium hover:bg-pastel-blue-700">
+                <a th:href="@{/auth/register}" class="bg-white text-pastel-blue-600 px-3 py-1.5 rounded-md text-sm font-medium">
                     Registrarse
                 </a>
             </div>
@@ -72,10 +85,10 @@
     </div>
 </header>
 
-<main th:fragment="content" class="container mx-auto px-4 my-8">
+<main th:fragment="content" class="container mx-auto px-6 my-8">
 </main>
 
-<footer th:fragment="footer" class="bg-pastel-blue-200 mt-8 sticky bottom-0 z-[1000]">
+<footer th:fragment="footer" class="bg-pastel-blue-200 mt-8 bottom-0 z-[1000]">
     <div class="container mx-auto px-4 py-4 text-center text-pastel-blue-700">
         <p>&copy; 2025 MetaMapa. Todos los derechos reservados.</p>
     </div>

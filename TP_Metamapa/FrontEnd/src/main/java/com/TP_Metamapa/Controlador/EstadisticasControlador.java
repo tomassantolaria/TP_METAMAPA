@@ -79,6 +79,7 @@ public class EstadisticasControlador {
         model.addAttribute("horaPicoParaCategoria", horaPicoParaCategoria);
         model.addAttribute("categoriaParaHoraPico", categoriaParaHoraPico);
 
+        model.addAttribute("activePage", "estadisticas");
         return "estadisticas";
     }
 

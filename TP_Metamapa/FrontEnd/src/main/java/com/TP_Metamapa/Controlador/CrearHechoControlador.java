@@ -1,10 +1,8 @@
 package com.TP_Metamapa.Controlador;
 
-import com.TP_Metamapa.DTOS.HechoDTO;
-import com.TP_Metamapa.DTOS.HechoDTOInput;
-import com.TP_Metamapa.DTOS.HechoFormDTO;
-import com.TP_Metamapa.DTOS.UserDataDTO;
+import com.TP_Metamapa.DTOS.*;
 import com.TP_Metamapa.Modelos.OrigenCarga;
+import com.TP_Metamapa.Modelos.TokenExpiredException;
 import com.TP_Metamapa.Servicio.AuthService;
 import com.TP_Metamapa.Servicio.CategoriaServicio;
 import jakarta.servlet.http.HttpSession;
@@ -24,7 +22,6 @@ import java.util.Optional;
 @Controller
 public class CrearHechoControlador {
 
-    // GET → muestra el formulario
     final
     CategoriaServicio categoriaServicio;
     final
@@ -49,7 +46,6 @@ public class CrearHechoControlador {
         return "crearHecho";
     }
 
-    // POST → procesa el formulario
     @PostMapping("/crear-hecho")
     public String procesarCrearHecho(
             @ModelAttribute("hechoForm") HechoFormDTO hechoFormData, // Recibe datos del form
@@ -61,25 +57,62 @@ public class CrearHechoControlador {
     ) {
         String imageUrl;
         try {
-            // Validar que el usuario esté autenticado
+            // validar que el usuario este autenticado
             if (authentication == null || !authentication.isAuthenticated()) {
                 model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
                 return "redirect:/auth/login";
             }
 
-            // Extraer username desde el Authentication
+            // extraer username desde el Authentication
             String username = authentication.getName();
 
-            // Recuperar el access token de la sesión
+            // recuperar el access token de la sesion
             String accessToken = (String) session.getAttribute("accessToken");
+            String refreshToken = (String) session.getAttribute("refreshToken");
 
             if (accessToken == null) {
                 model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
                 return "redirect:/auth/login";
             }
 
-            // Obtener datos completos del usuario desde el módulo de auth
-            UserDataDTO userData = authService.getUserData(username, accessToken);
+            UserDataDTO userData = null;
+
+            // obtener datos cuando el token se expiro
+            try {
+                userData = authService.getUserData(username, accessToken);
+
+            } catch (TokenExpiredException e) {
+                System.out.println("Token expirado. Intentando refrescar...");
+
+                if (refreshToken == null) {
+                    System.err.println("No hay refresh token disponible");
+                    model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                    return "redirect:/auth/login";
+                }
+
+                try {
+                    // refrescar el token
+                    KeycloakTokenDTO newTokens = authService.refreshAccessToken(refreshToken);
+
+                    if (newTokens == null) {
+                        throw new RuntimeException("No se pudo refrescar el token");
+                    }
+
+                    // actualizar tokens sesion
+                    session.setAttribute("accessToken", newTokens.getAccess_token());
+                    session.setAttribute("refreshToken", newTokens.getRefresh_token());
+
+                    System.out.println("token refrescado exitosamente");
+
+                    // reintentar obtener datos del usuario con el nuevo token
+                    userData = authService.getUserData(username, newTokens.getAccess_token());
+
+                } catch (Exception refreshError) {
+                    System.err.println("Error al refrescar token: " + refreshError.getMessage());
+                    model.addAttribute("errorMessage", "Tu sesión ha expirado. Por favor, inicia sesión nuevamente.");
+                    return "redirect:/auth/login";
+                }
+            }
 
             if (userData == null) {
                 model.addAttribute("errorMessage", "No se pudo obtener la información del usuario.");
@@ -106,10 +139,8 @@ public class CrearHechoControlador {
                 return "crearHecho";
             }
 
-            // 1. Guardar la imagen localmente (si existe) y obtener su URL relativa
             imageUrl = hechoServicio.guardarMultimediaLocalmente(multimediaFile);
 
-            // 2. Crear el DTO que se enviará al backend
             HechoDTOInput hechoParaBackend = new HechoDTOInput();
             hechoParaBackend.setTitulo(hechoFormData.getTitulo());
             hechoParaBackend.setDescripcion(hechoFormData.getDescripcion());
@@ -161,8 +192,23 @@ public class CrearHechoControlador {
             return "verHecho";
         }else{
             model.addAttribute("errorMessage", "El hecho con ID " + id + " no fue encontrado.");
-            // Devolvemos el nombre de tu vista 404
             return "error/404";
         }
+    }
+
+    @GetMapping("/hechos-pendientes")
+    public String verHechosPendientes( Model model, Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            model.addAttribute("errorMessage", "Debes iniciar sesión para crear un hecho.");
+            return "redirect:/auth/login";
+        }
+
+        // extraer username desde el Authentication
+        String username = authentication.getName();
+        List<HechoDTO> hechosPendientes = hechoServicio.obtenerHechoPendiente(username);
+
+        model.addAttribute("hechosPendientes", hechosPendientes);
+
+        return "hechosPendientes";
     }
 }
