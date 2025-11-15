@@ -22,5 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
         // El 'file:' es importante para indicar que es una ruta del sistema de archivos
         registry.addResourceHandler(uploadUrl + "**")
                 .addResourceLocations("file:" + uploadDir + "/");
+
     }
 }
