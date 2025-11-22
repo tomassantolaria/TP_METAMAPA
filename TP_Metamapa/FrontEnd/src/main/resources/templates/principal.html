@@ -39,7 +39,7 @@
                             </a>
 
                             <div sec:authorize="isAuthenticated()" class="mt-4 pt-3 border-t border-gray-200 flex justify-end">
-                                <a th:href="@{/crearSolicitud(idHecho=${hecho.idHecho})}"
+                                <a th:href="@{/solicitarEliminacion/{id}(id=${hecho.idHecho})}"
                                    class="inline-flex items-center gap-1.5 text-xs font-medium text-red-600 hover:text-red-900 transition-colors">
                                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M8.22 1.754a.75.75 0 011.56 0l.313 1.096A4.5 4.5 0 0013.9 5.86l1.04-.436a.75.75 0 01.976.516l.82 3.282a.75.75 0 01-.516.976l-1.04.436a4.5 4.5 0 00-3.013 3.013l.436 1.04a.75.75 0 01-.516.976l-3.282.82a.75.75 0 01-.976-.516l-.436-1.04a4.5 4.5 0 00-3.013-3.013l-1.04-.436a.75.75 0 01-.516-.976l.82-3.282a.75.75 0 01.976-.516l1.04.436A4.5 4.5 0 008.22 2.85l.313-1.096zM10 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" clip-rule="evenodd" />

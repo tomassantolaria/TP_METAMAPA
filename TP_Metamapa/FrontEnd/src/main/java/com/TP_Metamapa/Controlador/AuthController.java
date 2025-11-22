@@ -17,8 +17,18 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "logout", required = false) String logout,
+                        Model model) {
         model.addAttribute("credenciales", new LoginDTO());
+
+        if (error != null) {
+            model.addAttribute("errorMessage", "Usuario o contraseña incorrectos. Por favor, inténtalo nuevamente.");
+        }
+
+        if (logout != null) {
+            model.addAttribute("successMessage", "Has cerrado sesión exitosamente.");
+        }
         return "login";
     }
 

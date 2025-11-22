@@ -49,9 +49,11 @@ public class SecurityConfig {
                 )
                 // config de Login y Logout
                 .formLogin(form -> form
-                       .loginPage("/login")
-                            .permitAll()
-                            .defaultSuccessUrl("/", true)
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/auth/login?error=true")
+                        .permitAll()
                     )
                     .logout(logout -> logout
                             .logoutUrl("/logout")

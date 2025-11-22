@@ -19,6 +19,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.Collections;
 import java.util.List;
@@ -65,24 +66,31 @@ public class AuthService {
 
     public KeycloakToken loginUser(@NonNull LoginDTO loginDTO) {
         System.out.println("entre al service login");
+        try {
+            KeycloakToken keycloakToken = webClient.post()
+                    .uri("/realms/" + "spring-boot-realm-pr" + "/protocol/openid-connect/token")
+                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .body(BodyInserters.fromFormData("client_id", client_id)
+                            .with("grant_type", "password")
+                            .with("username", loginDTO.getUsername())
+                            .with("password", loginDTO.getPassword())
+                            .with("client_secret", client_secret))
+                    .retrieve()
+                    .bodyToMono(KeycloakToken.class)
+                    .block();
 
-        KeycloakToken keycloakToken = webClient.post()
-                .uri("/realms/" + "spring-boot-realm-pr" + "/protocol/openid-connect/token")
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .body(BodyInserters.fromFormData("client_id", client_id)
-                        .with("grant_type", "password")
-                        .with("username", loginDTO.getUsername())
-                        .with("password", loginDTO.getPassword())
-                        .with("client_secret", client_secret))
-                .retrieve()
-                .bodyToMono(KeycloakToken.class)
-                .block();
+            if (keycloakToken == null || keycloakToken.getAccess_token() == null) {
+                throw new RuntimeException("Error al iniciar sesión");
+            }
 
-        if (keycloakToken == null || keycloakToken.getAccess_token() == null) {
-            throw new RuntimeException("Error al iniciar sesión");
+            return keycloakToken;
+        } catch (WebClientResponseException.Unauthorized e) {
+            System.out.println("Datos inicio sesion incorrectos para usuario: " + loginDTO.getUsername());
+            throw new RuntimeException("Usuario o contraseña incorrectos");
+        } catch (WebClientResponseException e) {
+            throw new RuntimeException("Error al conectar con el servidor de autenticación");
+
         }
-
-        return keycloakToken;
     }
 
     // Metodo para crear un usuario en keycloak - registrar
@@ -136,36 +144,4 @@ public class AuthService {
         }
     }
 
-    // borrar usuario
-
-    public void deleteUser(String userId){
-        keycloakProvider.getUserResource()
-                .get(userId)
-                .remove();
-    }
-
-
-    // actualizar usuario
-
-    public void updateUser(String userId, @NonNull RegistroDTO userDTO){
-
-        CredentialRepresentation credentialRepresentation = new CredentialRepresentation();
-        credentialRepresentation.setTemporary(false);
-        credentialRepresentation.setType(OAuth2Constants.PASSWORD);
-        credentialRepresentation.setValue(userDTO.getPassword());
-
-        UserRepresentation user = new UserRepresentation();
-        user.setUsername(userDTO.getUsername());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setEmail(userDTO.getEmail());
-        user.setEnabled(true);
-        user.setEmailVerified(true);
-        user.setCredentials(Collections.singletonList(credentialRepresentation));
-
-        user.singleAttribute("birthdate", userDTO.getBirthdate().toString());
-
-        UserResource usersResource = keycloakProvider.getUserResource().get(userId);
-        usersResource.update(user);
-    }
 }
