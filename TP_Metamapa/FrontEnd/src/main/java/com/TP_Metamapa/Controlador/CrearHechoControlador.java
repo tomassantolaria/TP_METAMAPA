@@ -55,6 +55,7 @@ public class CrearHechoControlador {
             RedirectAttributes redirectAttributes,
             Model model // Para volver a mostrar el form si hay error
     ) {
+        System.out.println("ENTRO A CRER HECHO POST");
         String imageUrl;
         try {
             // validar que el usuario este autenticado
@@ -164,10 +165,11 @@ public class CrearHechoControlador {
                 hechoParaBackend.setCategoria(hechoFormData.getCategoria());
             }
             System.out.println("hecho que va para el back: " + hechoParaBackend);
+            System.out.println("VA A IR AL SERVICE DE EL FRINT PARA CREAR HECO");
             hechoServicio.enviarHechoAlBackend(hechoParaBackend);
 
             redirectAttributes.addFlashAttribute("successMessage", "¡Hecho creado con éxito!");
-            return "redirect:/";
+            return "redirect:/hechos-pendientes";
 
         } catch (Exception e) {
             System.err.println("Error procesando creación de hecho: " + e.getMessage());

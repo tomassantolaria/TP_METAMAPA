@@ -99,6 +99,7 @@ public class HechoServicio {
     }
 
     public void enviarHechoAlBackend(HechoDTOInput hechoParaBackend) {
+        System.out.println("ENTRO A CRER HECHO SERVICE");
         String url = "http://localhost:8082/dinamica/hechos"; // Endpoint POST del backend
 
         System.out.println("=== ENVIANDO HECHO AL BACKEND ===");

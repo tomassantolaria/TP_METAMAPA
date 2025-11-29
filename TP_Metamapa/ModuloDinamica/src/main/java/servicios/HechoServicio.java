@@ -41,6 +41,7 @@ public class HechoServicio {
     }
 
     public void crearHecho(HechoDTOInput dto) {
+        System.out.println("HECHO DTO INPUT, entre a CREAR HECHOS: ");
         Categoria categoria = this.crearCategoria(dto.getCategoria());
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
         Pais pais = this.crearPais(dto.getPais());
@@ -53,6 +54,8 @@ public class HechoServicio {
 
         Hecho hecho = new Hecho(null,contribuyente.getId(), dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
                                 contribuyente, anonimo, true, false);
+
+        System.out.println("ANTES DE GURDAR EL HECHO -----------------------------------------------------------");
         hechoRepositorio.save(hecho);
     }
 
@@ -73,6 +76,7 @@ public class HechoServicio {
             contribuyente.setNombre(nombre);
             contribuyente.setApellido(apellido);
             contribuyente.setFecha_nacimiento(fechaNacimiento);
+            System.out.println("Antes de guardar el contribuyente: ");
             contribuyenteRepositorio.save(contribuyente);
         }
 
@@ -126,6 +130,10 @@ public class HechoServicio {
     @Transactional
     public List<HechoDTO> obtenerHechosPendientesDeUsuario(String usuario) {
         Contribuyente user = contribuyenteRepositorio.findByUsuario(usuario);
+        if (user == null) {
+            System.out.println("user" + usuario + "no tiene hechos registrados");
+            return new ArrayList<>();
+        }
         List<Hecho> hechos = hechoRepositorio.findByIdfuenteAndPublicado(user.getId(), false);
         return transformarADTOLista(hechos);
     }

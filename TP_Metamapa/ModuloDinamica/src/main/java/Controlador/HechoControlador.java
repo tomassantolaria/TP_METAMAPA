@@ -20,7 +20,9 @@ public class HechoControlador {
 
     @PostMapping("/hechos")
     public ResponseEntity<String> crearHecho(@RequestBody HechoDTOInput hechoDTO) {
+        System.out.println("ENTRO A EL CONTROLADOR DE CREAR HECHO");
         try {
+
             hechoServicio.crearHecho(hechoDTO);
             return ResponseEntity.ok("Hecho creado exitosamente.");
         }catch (Exception e){

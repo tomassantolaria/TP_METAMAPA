@@ -61,7 +61,7 @@
                        class="w-full px-3 py-2 border border-gray-300 rounded-md"/>
                 <button type="button" id="searchBtn" class="px-4 py-2 bg-pastel-blue-600 text-white rounded-md hover:bg-pastel-blue-700">Buscar</button>
             </div>
-            <div id="map"></div>
+            <div id="map" class="h-96 w-full"></div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
                 <div>
                     <label for="localidad" class="block text-sm font-medium text-gray-700">Localidad</label>
@@ -95,12 +95,12 @@
             <label for="anonimo" class="ml-2 block text-sm text-gray-900">Publicar como anónimo</label>
             <input type="hidden" name="_anonimo" value="on"/> </div>
 
-        <div class="flex justify-end items-center gap-4 pt-4">
-            <a th:href="@{/}" class="text-sm text-gray-600 hover:text-gray-900">Cancelar</a>
-            <a th:href="@{/hechos-pendientes}" type="submit" class="px-6 py-3 bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700">
-                Crear Hecho
-            </a>
-        </div>
+            <div class="flex justify-end items-center gap-4 pt-4">
+                <a th:href="@{/}" class="text-sm text-gray-600 hover:text-gray-900">Cancelar</a>
+                <button type="submit" class="px-6 py-3 bg-pastel-blue-600 text-white font-semibold rounded-md hover:bg-pastel-blue-700">
+                    Crear Hecho
+                </button>
+            </div>
     </form>
 </div>
 </main>
