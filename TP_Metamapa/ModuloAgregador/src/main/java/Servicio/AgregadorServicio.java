@@ -7,6 +7,7 @@ import Modelos.Entidades.DTOs.UbicacionDTOOutput;
 import Modelos.Exceptions.ColeccionNoEncontradaException;
 import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -48,14 +49,25 @@ public class AgregadorServicio {
     ContribuyenteRepositorio contribuyenteRepositorio;
     @Autowired
     ContenidoRepositorio contenidoRepositorio;
+    @Value("${url.proxy}")
+    private String urlProxy;
+    @Value("${url.normalizador}")
+    private String urlNormalizador;
+    @Value("${url.dinamica}")
+    private String urlDinamica;
+    @Value("${url.estatica}")
+    private String urlEstatica;
 
     @Transactional
     public void actualizarHechos() {
 
-        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/dinamica/hechos"); // cambiar nombre url
-        UriComponentsBuilder urlDemo = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/demo/hechos");
-        UriComponentsBuilder urlMetamapa = UriComponentsBuilder.fromHttpUrl("http://localhost:8086/metamapa/hechos");
+        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/dinamica/hechos"); // cambiar nombre u
         UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8084/fuenteEstatica/hechos");
+
+        String urlDemo = urlProxy + "/demo/hechos";
+        String urlMetamapa = urlProxy + "/metamapa/hechos";
+        String 
+       
 
         ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
                 urlDinamica.toUriString(),
@@ -67,7 +79,7 @@ public class AgregadorServicio {
 
 
         ResponseEntity<List<HechoDTOInput>> respuestaDemo = restTemplate.exchange(
-                urlDemo.toUriString(),
+                urlDemo,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
@@ -75,7 +87,7 @@ public class AgregadorServicio {
         );
 
         ResponseEntity<List<HechoDTOInput>> respuestaMetamapa = restTemplate.exchange(
-                urlMetamapa.toUriString(),
+                urlMetamapa,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {

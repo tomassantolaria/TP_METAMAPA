@@ -7,9 +7,7 @@ import com.keycloak.moduloauth.Utils.KeycloackProvider;
 import jakarta.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.resource.RealmResource;
-import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -21,7 +19,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import java.util.Collections;
+
 import java.util.List;
 
 @Service
@@ -34,14 +32,17 @@ public class AuthService {
 
     private final WebClient webClient;
 
+    private final String URL_SERVER;
+
     @Autowired
     public KeycloackProvider keycloakProvider;
 
-    public AuthService(@Value("${jwt.auth.converter.resource-id}") String client_id, @Value("${jwt.auth.converter.client-secret}")  String client_secret) {
+    public AuthService(@Value("${jwt.auth.converter.resource-id}") String client_id, @Value("${jwt.auth.converter.client-secret}")  String client_secret, @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}") String url_server) {
         this.client_id = client_id;
         this.client_secret = client_secret;
+        this.URL_SERVER = url_server;
         this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:9090")
+                .baseUrl(this.URL_SERVER)
                 .build();
     }
 

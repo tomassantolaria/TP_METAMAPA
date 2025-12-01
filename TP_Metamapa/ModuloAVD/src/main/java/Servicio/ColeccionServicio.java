@@ -13,6 +13,7 @@ import Modelos.Entidades.Consenso.ConsensoMultiplesMenciones;
 import Modelos.Exceptions.CriterioDuplicadoException;
 import Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,6 @@ public class ColeccionServicio {
     UbicacionRepositorio ubicacionRepositorio;
     @Autowired
     CriterioPertenenciaRepositorio criterioPertenenciaRepositorio;
-
 
     public void crearColeccion(ColeccionDTO coleccionDTO) {
         Categoria categoria =  this.crearCategoria(coleccionDTO.getCriterio().getCategoria());
