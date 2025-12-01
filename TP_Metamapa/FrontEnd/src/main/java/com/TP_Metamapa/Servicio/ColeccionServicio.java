@@ -5,6 +5,7 @@ import com.TP_Metamapa.DTOS.ColeccionDTOInput;
 import com.TP_Metamapa.DTOS.SolicitudDTOInput;
 import com.TP_Metamapa.Modelos.CriterioDuplicadoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -22,9 +23,13 @@ public class ColeccionServicio {
 
     @Autowired
     RestTemplate restTemplate;
+    @Value("${url.publico}")
+    private String urlPublico;
+    @Value("${url.avd}")
+    private String urlAvd;
 
     public List<ColeccionDTO> getColecciones(){
-        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8087/publico/colecciones");
+        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl( urlPublico + "/publico/colecciones");
 
         ResponseEntity<List<ColeccionDTO>> respuesta = restTemplate.exchange(
                 urlColeccion.toUriString(),
@@ -37,7 +42,7 @@ public class ColeccionServicio {
     }
 
     public void eliminarColeccion(Long idColeccion) {
-        UriComponentsBuilder urlEliminar = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + idColeccion);
+        UriComponentsBuilder urlEliminar = UriComponentsBuilder.fromHttpUrl(urlAvd + "/coleccion/" + idColeccion);
 
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 urlEliminar.toUriString(),
@@ -51,7 +56,7 @@ public class ColeccionServicio {
 
 
     public Optional<ColeccionDTO> obtenerColeccion(Long id){
-        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + id);
+        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl(urlAvd + "/coleccion/" + id);
             try {
 
                 ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
@@ -70,7 +75,7 @@ public class ColeccionServicio {
     }
 
     public void actualizarColeccion(Long id, String consenso){
-        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + id + "/Consenso/" + consenso);
+        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl(urlAvd + "/coleccion/" + id + "/Consenso/" + consenso);
         ResponseEntity<ColeccionDTO> respuesta = restTemplate.exchange(
                 urlColeccion.toUriString(),
                 HttpMethod.PUT,
@@ -80,7 +85,7 @@ public class ColeccionServicio {
     }
 
     public void crear(ColeccionDTOInput coleccionData){
-        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion");
+        UriComponentsBuilder urlColeccion = UriComponentsBuilder.fromHttpUrl(urlAvd + "/coleccion");
 
         try {
             HttpEntity<ColeccionDTOInput> requestEntity = new HttpEntity<>(coleccionData);

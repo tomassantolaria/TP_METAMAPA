@@ -2,6 +2,7 @@ package com.TP_Metamapa.Servicio;
 
 import com.TP_Metamapa.DTOS.HechoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,13 @@ public class NavegacionServicio {
 
     @Autowired
     private RestTemplate restTemplate;
-
-    private static final String apiBaseUrl = "http://localhost:8087/publico";
+    @Value("${url.publico}")
+    private  String apiBaseUrl;
 
     private static final String HECHOS_PATH = "/hechos/{id}";
 
     public List<HechoDTO> buscarPorTextoLibre(String textoLibre) {
-        String url = apiBaseUrl + "/buscar/" + textoLibre; // O la ruta que corresponda
+        String url = apiBaseUrl + "/publico/buscar/" + textoLibre; // O la ruta que corresponda
 
 
 
@@ -52,7 +53,7 @@ public class NavegacionServicio {
 
         if(coleccionId == null){
 
-            url = apiBaseUrl + "/hechos";
+            url = apiBaseUrl + "/publico/hechos";
 
             builder = UriComponentsBuilder.fromHttpUrl(url)
                     .queryParamIfPresent("categoria", Optional.ofNullable(categoria).filter(s -> !s.isBlank()))
@@ -67,7 +68,7 @@ public class NavegacionServicio {
                     .queryParamIfPresent("provincia", Optional.ofNullable(provincia).filter(s -> !s.isBlank()))
                     .queryParamIfPresent("localidad", Optional.ofNullable(localidad).filter(s -> !s.isBlank()));
         }else {
-            url = apiBaseUrl + "/colecciones/" + coleccionId + "/hechos";
+            url = apiBaseUrl + "/publico/colecciones/" + coleccionId + "/hechos";
 
             builder = UriComponentsBuilder.fromHttpUrl(url)
                     .queryParamIfPresent("categoria", Optional.ofNullable(categoria).filter(s -> !s.isBlank()))
@@ -99,7 +100,7 @@ public class NavegacionServicio {
             if (id == null || id <= 0) {
                 throw new IllegalArgumentException("ID invÃ¡lido");
             }
-            final String url = apiBaseUrl + HECHOS_PATH; // O la ruta que corresponda
+            final String url = apiBaseUrl +"/publico/" +HECHOS_PATH; // O la ruta que corresponda
 
             ResponseEntity<HechoDTO> respuesta = restTemplate.exchange(
                     url,

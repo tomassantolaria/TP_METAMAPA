@@ -54,23 +54,21 @@ public class AgregadorServicio {
     @Value("${url.normalizador}")
     private String urlNormalizador;
     @Value("${url.dinamica}")
-    private String urlDinamica;
+    private String urlBaseDinamica;
     @Value("${url.estatica}")
-    private String urlEstatica;
+    private String urlBaseEstatica;
 
     @Transactional
     public void actualizarHechos() {
 
-        UriComponentsBuilder urlDinamica = UriComponentsBuilder.fromHttpUrl("http://localhost:8082/dinamica/hechos"); // cambiar nombre u
-        UriComponentsBuilder urlEstatica = UriComponentsBuilder.fromHttpUrl("http://localhost:8084/fuenteEstatica/hechos");
-
         String urlDemo = urlProxy + "/demo/hechos";
         String urlMetamapa = urlProxy + "/metamapa/hechos";
-        String 
+        String urlDinamica = urlBaseDinamica + "/dinamica/hechos";
+        String urlEstatica = urlBaseEstatica + "/fuenteEstatica/hechos";
        
 
         ResponseEntity<List<HechoDTOInput>> respuestaDinamica = restTemplate.exchange(
-                urlDinamica.toUriString(),
+                urlDinamica,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<HechoDTOInput>>() {
@@ -95,7 +93,7 @@ public class AgregadorServicio {
         );
 
         ResponseEntity<List<HechoDTOInput>> respuestaEstatica = restTemplate.exchange(
-                urlEstatica.toUriString(),
+                urlEstatica,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {
@@ -127,16 +125,15 @@ public class AgregadorServicio {
         }
 
 
-        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/categorias");
-        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/ubicaciones");
-        UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl("http://localhost:8085/normalizacion/titulos");
+        UriComponentsBuilder urlCategoria = UriComponentsBuilder.fromHttpUrl( urlNormalizador + "/normalizacion/categorias");
+        UriComponentsBuilder urlUbicacion = UriComponentsBuilder.fromHttpUrl( urlNormalizador +"/normalizacion/ubicaciones");
+        UriComponentsBuilder urlTitulo = UriComponentsBuilder.fromHttpUrl( urlNormalizador +"/normalizacion/titulos");
 
         for (HechoDTOInput hechoDTO: hechosDTOTotales){
 
             //CATEEGORIAAAAAA
 
             String categoriaRequest = hechoDTO.getCategoria();
-            System.out.printf("Categoria desnormalizada: %s", categoriaRequest);
 
             ResponseEntity<String> categoriaResponse = restTemplate.exchange(
                     urlCategoria.toUriString(),
@@ -145,7 +142,7 @@ public class AgregadorServicio {
                     String.class
             );
             String categoriaNormalizada = categoriaResponse.getBody();
-            System.out.printf("Categoria Normalizada: %s", categoriaNormalizada ) ;
+
 
             if (categoriaNormalizada != null) {
                 hechoDTO.setCategoria(categoriaNormalizada); // solo guardamos el nombre

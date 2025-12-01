@@ -50,6 +50,10 @@ public class ColeccionServicio {
     UbicacionRepositorio ubicacionRepositorio;
     @Autowired
     CriterioPertenenciaRepositorio criterioPertenenciaRepositorio;
+    @Value("${url.agregador}")
+    private String urlBaseAgregador;
+
+    String urlAgregador = urlBaseAgregador + "/agregador/colecciones/";
 
     public void crearColeccion(ColeccionDTO coleccionDTO) {
         Categoria categoria =  this.crearCategoria(coleccionDTO.getCriterio().getCategoria());
@@ -158,7 +162,7 @@ public class ColeccionServicio {
     }
 
     private void avisarAgregador (Long coleccionId) {
-        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/agregador/colecciones/" + coleccionId);
+        UriComponentsBuilder urlAgregador = UriComponentsBuilder.fromHttpUrl(urlBaseAgregador + coleccionId);
         ResponseEntity<String> respuestaAgregador =  restTemplate.exchange(
                 urlAgregador.toUriString(),
                 HttpMethod.POST,

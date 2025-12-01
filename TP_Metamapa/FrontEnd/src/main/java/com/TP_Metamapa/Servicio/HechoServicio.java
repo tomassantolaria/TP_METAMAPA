@@ -34,8 +34,15 @@ public class HechoServicio {
     @Value("${file.upload-url}") // URL base para acceder a los archivos
     private String uploadUrl;
 
+    @Value("${url.publico}")
+    private String urlPublico;
+    @Value("${url.avd}")
+    private String urlAVD;
+    @Value("${url.dinamica}")
+    private String urlDinamica;
+
     public List<HechoDTO> hechosRecientes(){
-        UriComponentsBuilder urlHechos = UriComponentsBuilder.fromHttpUrl("http://localhost:8087/publico/hechos");
+        UriComponentsBuilder urlHechos = UriComponentsBuilder.fromHttpUrl(urlPublico + "/publico/hechos");
 
         ResponseEntity<List<HechoDTO>> respuesta = restTemplate.exchange(
                 urlHechos.toUriString(),
@@ -55,7 +62,7 @@ public class HechoServicio {
     }
 
     public void eliminarHechoDeColeccion(Long idColeccion, Long idHecho){
-        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + idColeccion + "/hecho/" + idHecho);
+        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl(urlAVD + "/coleccion/" + idColeccion + "/hecho/" + idHecho);
 
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 url.toUriString(),
@@ -99,14 +106,8 @@ public class HechoServicio {
     }
 
     public void enviarHechoAlBackend(HechoDTOInput hechoParaBackend) {
-        System.out.println("ENTRO A CRER HECHO SERVICE");
-        String url = "http://localhost:8082/dinamica/hechos"; // Endpoint POST del backend
 
-        System.out.println("=== ENVIANDO HECHO AL BACKEND ===");
-        System.out.println("URL: " + url);
-        System.out.println("Titulo: " + hechoParaBackend.getTitulo());
-        System.out.println("Usuario: " + hechoParaBackend.getUsuario());
-        System.out.println("Fecha Acontecimiento: " + hechoParaBackend.getFechaAcontecimiento());
+        String url = urlDinamica + "/dinamica/hechos";
 
         HttpEntity<HechoDTOInput> requestEntity = new HttpEntity<>(hechoParaBackend);
 
@@ -125,7 +126,7 @@ public class HechoServicio {
 
     public List<HechoDTO> obtenerHechoPendiente(String username){
         UriComponentsBuilder urlHechos = UriComponentsBuilder
-                .fromHttpUrl("http://localhost:8082/dinamica/hechos/pendientes")
+                .fromHttpUrl(urlDinamica + "/dinamica/hechos/pendientes")
                 .queryParam("username", username);
 
         try {
