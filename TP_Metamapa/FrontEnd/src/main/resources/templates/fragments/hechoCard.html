@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 <body>
 
 <div th:fragment="hechoCard(hecho, showOptions, showAdminActions, coleccionId)"
@@ -17,7 +17,7 @@
             <span th:text="${#temporals.format(hecho.fechaAcontecimiento, 'dd-MM-yyyy')}">Fecha</span>
         </span>
 
-        <div th:if="${showOptions}" class="relative inline-block text-left dropdown-container">
+        <div sec:authorize="!hasRole('admin_client_role')" th:if="${showOptions}" class="relative inline-block text-left dropdown-container">
             <button
                     th:id="|menu-button-${hecho.idHecho}|"
                     type="button"

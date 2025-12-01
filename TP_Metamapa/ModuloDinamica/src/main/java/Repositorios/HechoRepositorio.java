@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface HechoRepositorio extends JpaRepository<Hecho, Long>{
     List<Hecho> findByPublicadoFalse();
+    List<Hecho> findByIdfuenteAndPublicado(Long idfuente, Boolean publicado);
 }

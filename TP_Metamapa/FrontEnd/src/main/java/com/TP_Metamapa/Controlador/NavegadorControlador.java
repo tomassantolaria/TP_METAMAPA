@@ -116,6 +116,7 @@ public class NavegadorControlador {
                 entry("textoLibre", textoLibre != null ? textoLibre : "")
         ));
 
+        model.addAttribute("activePage", "navegar");
         return "navegar";
 
 

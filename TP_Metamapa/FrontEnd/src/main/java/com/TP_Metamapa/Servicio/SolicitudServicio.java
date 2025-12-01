@@ -4,6 +4,7 @@ import com.TP_Metamapa.DTOS.EstadoDTO;
 import com.TP_Metamapa.DTOS.SolicitudDTO;
 import com.TP_Metamapa.DTOS.SolicitudDTOInput;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,14 @@ public class SolicitudServicio {
     @Autowired
     RestTemplate restTemplate;
 
+    @Value("${url.avd}")
+    private String urlBaseAVD;
+
+    @Value("${url.publico}")
+    private String urlBasePublico;
 
     public List<SolicitudDTO> obtenerPendientes(){
-        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes/pendientes");
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD + "solicitudes/pendientes");
         ResponseEntity<List<SolicitudDTO>> respuesta = restTemplate.exchange(
                 urlSolicitudes.toUriString(),
                 HttpMethod.GET,
@@ -34,7 +40,7 @@ public class SolicitudServicio {
     }
 
     public String crearSolicitud(SolicitudDTOInput solicitudDTO){
-        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8087/solicitudes");
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBasePublico + "/solicitudes");
         HttpEntity<SolicitudDTOInput> requestEntity = new HttpEntity<>(solicitudDTO);
         try {
             ResponseEntity<String> response = restTemplate.exchange(
@@ -56,14 +62,8 @@ public class SolicitudServicio {
     }
 
     public void rechazarSolicitud(Long idSolicitud){
-        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes/pendientes/" + idSolicitud);
-        /*HttpEntity<String> requestEntity = new HttpEntity<>("RECHAZADA");
-        ResponseEntity<String> respuesta = restTemplate.exchange(
-                urlSolicitudes.toUriString(),
-                HttpMethod.PUT,
-                requestEntity,
-                String.class
-        );*/
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD + "/solicitudes/pendientes/" + idSolicitud);
+
         HttpEntity<EstadoDTO> requestEntity = new HttpEntity<>(new EstadoDTO("RECHAZADA"));
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 urlSolicitudes.toUriString(),
@@ -76,7 +76,7 @@ public class SolicitudServicio {
     }
 
     public void aceptarSolicitud(Long idSolicitud){
-        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/solicitudes/pendientes/" + idSolicitud);
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD +"/solicitudes/pendientes/" + idSolicitud);
        /* HttpEntity<String> requestEntity = new HttpEntity<>("ACEPTADA");
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 urlSolicitudes.toUriString(),

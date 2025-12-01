@@ -3,7 +3,9 @@ package com.TP_Metamapa.DTOS;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
@@ -26,7 +28,8 @@ public class HechoDTO {
         public String usuario;
         private String nombre; // Nombre del usuario
         private String apellido; // Apellido del usuario
-        private LocalDateTime fecha_nacimiento;
+        @DateTimeFormat(pattern = "dd/MM/yyyy")
+        private LocalDate fecha_nacimiento;
         public Boolean anonimo;
         public Boolean visible;
         public String origen_carga;

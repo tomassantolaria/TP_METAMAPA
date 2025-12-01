@@ -19,8 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -36,8 +34,15 @@ public class HechoServicio {
     @Value("${file.upload-url}") // URL base para acceder a los archivos
     private String uploadUrl;
 
+    @Value("${url.publico}")
+    private String urlPublico;
+    @Value("${url.avd}")
+    private String urlAVD;
+    @Value("${url.dinamica}")
+    private String urlDinamica;
+
     public List<HechoDTO> hechosRecientes(){
-        UriComponentsBuilder urlHechos = UriComponentsBuilder.fromHttpUrl("http://localhost:8087/publico/hechos");
+        UriComponentsBuilder urlHechos = UriComponentsBuilder.fromHttpUrl(urlPublico + "/publico/hechos");
 
         ResponseEntity<List<HechoDTO>> respuesta = restTemplate.exchange(
                 urlHechos.toUriString(),
@@ -57,7 +62,7 @@ public class HechoServicio {
     }
 
     public void eliminarHechoDeColeccion(Long idColeccion, Long idHecho){
-        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl("http://localhost:8081/coleccion/" + idColeccion + "/hecho/" + idHecho);
+        UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl(urlAVD + "/coleccion/" + idColeccion + "/hecho/" + idHecho);
 
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 url.toUriString(),
@@ -85,7 +90,10 @@ public class HechoServicio {
         if (originalFilename != null && originalFilename.contains(".")) {
             extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         }
-        String uniqueFilename = UUID.randomUUID().toString() + extension;
+
+        // Generar nombre tipo MetaMapa_timestamp
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String uniqueFilename = "MetaMapa_" + timestamp + extension;
 
         // Guardar el archivo
         Path filePath = uploadPath.resolve(uniqueFilename);
@@ -98,8 +106,8 @@ public class HechoServicio {
     }
 
     public void enviarHechoAlBackend(HechoDTOInput hechoParaBackend) {
-        String url = "http://localhost:8082/dinamica/hechos"; // Endpoint POST del backend
 
+        String url = urlDinamica + "/dinamica/hechos";
 
         HttpEntity<HechoDTOInput> requestEntity = new HttpEntity<>(hechoParaBackend);
 
@@ -107,15 +115,33 @@ public class HechoServicio {
             ResponseEntity<String> respuesta = restTemplate.exchange(
                     url,
                     HttpMethod.POST,
-                    requestEntity, //TODO: CAMBIAR EN DINAMICA SACAR LO DE REGISTRAR CONTRIBUYENTE Y EL DTO DE HECHO A COMO ESTA ACA
+                    requestEntity,
                     new ParameterizedTypeReference<String>() {}
             );
-
 
         } catch (Exception e) {
             throw new RuntimeException("Error al conectar con el backend para crear hecho: " + e.getMessage(), e);
         }
     }
 
+    public List<HechoDTO> obtenerHechoPendiente(String username){
+        UriComponentsBuilder urlHechos = UriComponentsBuilder
+                .fromHttpUrl(urlDinamica + "/dinamica/hechos/pendientes")
+                .queryParam("username", username);
 
+        try {
+            System.out.println("USERNAME: " + username);
+            System.out.println("URL: " + urlHechos.toUriString());
+
+            ResponseEntity<List<HechoDTO>> respuesta = restTemplate.exchange(
+                    urlHechos.toUriString(),
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<HechoDTO>>() {}
+            );
+            return respuesta.getBody();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al conectar con el backend para obtener hechos pendientes: " + e.getMessage(), e);
+        }
+    }
 }

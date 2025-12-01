@@ -3,6 +3,7 @@ package com.TP_Metamapa.Servicio;
 import com.TP_Metamapa.DTOS.SolicitudDTO;
 import com.TP_Metamapa.DTOS.UltimasEstadisticasDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,11 @@ public class EstadisticasServicio {
 
     @Autowired
     RestTemplate restTemplate;
+    @Value("${url.estadisticas}")
+    private String urlEstadistica;
 
     public UltimasEstadisticasDTO obtenerEstadisticas(){
-        UriComponentsBuilder urlEstadisticas = UriComponentsBuilder.fromHttpUrl("http://localhost:8083/estadisticas");
+        UriComponentsBuilder urlEstadisticas = UriComponentsBuilder.fromHttpUrl(urlEstadistica + "/estadisticas");
         ResponseEntity<UltimasEstadisticasDTO> respuesta = restTemplate.exchange(
                 urlEstadisticas.toUriString(),
                 HttpMethod.GET,
@@ -29,7 +32,7 @@ public class EstadisticasServicio {
     }
 
     public String exportarCSV(){
-        UriComponentsBuilder urlEstadisticas = UriComponentsBuilder.fromHttpUrl("http://localhost:8083/estadisticas/csv");
+        UriComponentsBuilder urlEstadisticas = UriComponentsBuilder.fromHttpUrl(urlEstadistica+"/estadisticas/csv");
         ResponseEntity<String> respuesta = restTemplate.exchange(
                 urlEstadisticas.toUriString(),
                 HttpMethod.GET,

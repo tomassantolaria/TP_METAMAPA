@@ -31,6 +31,8 @@ public class PrincipalControlador {
         // Suponiendo que tu clase Hecho tiene un constructor o setters
         // Reemplaza esto con los campos reales de tu DTO/Clase
         model.addAttribute("hechos", hechosDePrueba);
+
+        model.addAttribute("activePage", "inicio");
         return "principal";
     }
 

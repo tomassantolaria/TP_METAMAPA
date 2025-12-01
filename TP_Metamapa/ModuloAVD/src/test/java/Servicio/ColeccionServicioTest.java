@@ -138,7 +138,7 @@ class ColeccionServicioTest {
         contribuyente.setUsuario("usuario");
         contribuyente.setNombre("nombre");
         contribuyente.setApellido("apellido");
-        contribuyente.setFecha_nacimiento(LocalDateTime.now());
+        contribuyente.setFecha_nacimiento(LocalDateTime.now().toLocalDate());
         Pais pais = new Pais("Pais");
         Provincia provincia = new Provincia("provincia", pais);
         Localidad localidad = new Localidad("localidad", provincia);

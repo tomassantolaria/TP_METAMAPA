@@ -1,6 +1,7 @@
 package com.TP_Metamapa.Servicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,11 @@ public class ProvinciaServicio {
     @Autowired
     RestTemplate restTemplate;
 
+    @Value("${url.publico}")
+    private  String apiBaseUrl;
+
     public List<String> getProvinciasUnicas(){
-        UriComponentsBuilder urlprovincias = UriComponentsBuilder.fromHttpUrl("http://localhost:8087/publico/provincias");
+        UriComponentsBuilder urlprovincias = UriComponentsBuilder.fromHttpUrl(apiBaseUrl + "/publico/provincias");
 
         ResponseEntity<List<String>> respuesta = restTemplate.exchange(
                 urlprovincias.toUriString(),

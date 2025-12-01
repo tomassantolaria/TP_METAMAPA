@@ -26,7 +26,7 @@ class ServicioUbicacionTest {
                   "address": {
                     "country": "argentina",
                     "state": "buenos aires",
-                    "city": "la plata"
+                    "town": "la plata"
                   }
                 }
                 """;

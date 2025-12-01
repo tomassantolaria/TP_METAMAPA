@@ -5,8 +5,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime ;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -17,9 +18,10 @@ public class Contribuyente {
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDateTime fecha_nacimiento;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    public LocalDate fecha_nacimiento;
 
-    public Contribuyente(String usuario, String nombre, String apellido, LocalDateTime fecha_nacimiento) {
+    public Contribuyente(String usuario, String nombre, String apellido, LocalDate fecha_nacimiento) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.apellido = apellido;

@@ -5,8 +5,9 @@ import Modelos.HechoDTOInput;
 import Repositorios.*;
 import Modelos.Entidades.*;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime ;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,22 +15,33 @@ import java.util.List;
 @Service
 public class HechoServicio {
 
-    @Autowired
+    final
     HechoRepositorio hechoRepositorio;
-    @Autowired
+    final
     ContribuyenteRepositorio contribuyenteRepositorio;
-    @Autowired
+    final
     CategoriaRepositorio categoriaRepositorio;
-    @Autowired
+    final
     ProvinciaRepositorio provinciaRepositorio;
-    @Autowired
+    final
     PaisRepositorio paisRepositorio;
-    @Autowired
+    final
     LocalidadRepositorio localidadRepositorio;
-    @Autowired
+    final
     UbicacionRepositorio ubicacionRepositorio;
 
+    public HechoServicio(HechoRepositorio hechoRepositorio, ContribuyenteRepositorio contribuyenteRepositorio, CategoriaRepositorio categoriaRepositorio, ProvinciaRepositorio provinciaRepositorio, PaisRepositorio paisRepositorio, LocalidadRepositorio localidadRepositorio, UbicacionRepositorio ubicacionRepositorio) {
+        this.hechoRepositorio = hechoRepositorio;
+        this.contribuyenteRepositorio = contribuyenteRepositorio;
+        this.categoriaRepositorio = categoriaRepositorio;
+        this.provinciaRepositorio = provinciaRepositorio;
+        this.paisRepositorio = paisRepositorio;
+        this.localidadRepositorio = localidadRepositorio;
+        this.ubicacionRepositorio = ubicacionRepositorio;
+    }
+
     public void crearHecho(HechoDTOInput dto) {
+        System.out.println("HECHO DTO INPUT, entre a CREAR HECHOS: ");
         Categoria categoria = this.crearCategoria(dto.getCategoria());
         Contenido contenido = new Contenido(dto.getContenido(),dto.getContenido_multimedia());
         Pais pais = this.crearPais(dto.getPais());
@@ -37,11 +49,13 @@ public class HechoServicio {
         Localidad localidad = this.crearLocalidad(dto.getLocalidad(), provincia);
         Ubicacion ubicacion = this.crearUbicacion(dto.getLatitud(), dto.getLongitud(), localidad, provincia, pais);
         LocalDateTime fechaOcurrencia =  dto.getFechaAcontecimiento();
-        Contribuyente contribuyente = this.crearContribuyente(dto.getUsuario());
+        Contribuyente contribuyente = this.crearContribuyente(dto.getUsuario(), dto.getNombre(), dto.getApellido(), dto.getFechaNacimiento());
         boolean anonimo = dto.getAnonimo();
 
         Hecho hecho = new Hecho(null,contribuyente.getId(), dto.getTitulo(), dto.getDescripcion(), contenido, categoria, fechaOcurrencia, ubicacion,
                                 contribuyente, anonimo, true, false);
+
+        System.out.println("ANTES DE GURDAR EL HECHO -----------------------------------------------------------");
         hechoRepositorio.save(hecho);
     }
 
@@ -54,11 +68,18 @@ public class HechoServicio {
         return categoria;
     }
 
-    public Contribuyente crearContribuyente( String usuario){
+    public Contribuyente crearContribuyente( String usuario,String nombre, String apellido, LocalDate fechaNacimiento){
         Contribuyente contribuyente = contribuyenteRepositorio.findByUsuario(usuario);
-        if(contribuyente == null){
-            throw new RuntimeException("No existe el contribuyente con el usuario " + usuario + "debe registrarse antes de crear un hecho") ;
+        if (contribuyente == null) {
+            contribuyente = new Contribuyente();
+            contribuyente.setUsuario(usuario);
+            contribuyente.setNombre(nombre);
+            contribuyente.setApellido(apellido);
+            contribuyente.setFecha_nacimiento(fechaNacimiento);
+            System.out.println("Antes de guardar el contribuyente: ");
+            contribuyenteRepositorio.save(contribuyente);
         }
+
         return contribuyente;
     }
 
@@ -103,6 +124,17 @@ public class HechoServicio {
         List<Hecho> hechos = hechoRepositorio.findByPublicadoFalse();
         hechos.forEach(h -> h.setPublicado(true));
         hechoRepositorio.saveAll(hechos);
+        return transformarADTOLista(hechos);
+    }
+
+    @Transactional
+    public List<HechoDTO> obtenerHechosPendientesDeUsuario(String usuario) {
+        Contribuyente user = contribuyenteRepositorio.findByUsuario(usuario);
+        if (user == null) {
+            System.out.println("user" + usuario + "no tiene hechos registrados");
+            return new ArrayList<>();
+        }
+        List<Hecho> hechos = hechoRepositorio.findByIdfuenteAndPublicado(user.getId(), false);
         return transformarADTOLista(hechos);
     }
 

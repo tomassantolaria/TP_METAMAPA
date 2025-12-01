@@ -20,7 +20,9 @@ public class HechoControlador {
 
     @PostMapping("/hechos")
     public ResponseEntity<String> crearHecho(@RequestBody HechoDTOInput hechoDTO) {
+        System.out.println("ENTRO A EL CONTROLADOR DE CREAR HECHO");
         try {
+
             hechoServicio.crearHecho(hechoDTO);
             return ResponseEntity.ok("Hecho creado exitosamente.");
         }catch (Exception e){
@@ -31,5 +33,18 @@ public class HechoControlador {
     @GetMapping("/hechos")
     public List<HechoDTO> obtenerHechos() {
         return hechoServicio.obtenerHechos();
+    }
+
+    @GetMapping("/hechos/pendientes")
+    public ResponseEntity<List<HechoDTO>> obtenerHechosPendientesDeUsuario(@RequestParam String username) {
+        try {
+            System.out.println("Username recibido: " + username);
+            List<HechoDTO> hechosPendientes = hechoServicio.obtenerHechosPendientesDeUsuario(username);
+            return ResponseEntity.ok(hechosPendientes);
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

@@ -290,13 +290,22 @@ class EstadisticasServicioTest {
         String csv = estadisticasServicio.exportarCSV();
 
         assertNotNull(csv);
-        assertTrue(csv.contains("IdColección,Provincia"));
-        assertTrue(csv.contains("1,Buenos Aires"));
-        assertTrue(csv.contains("Categoría con más hechos: Robos"));
+
+        assertTrue(csv.contains("IdColeccion,Provincia"));
+        assertTrue(csv.contains("1,Buenos Aires\n"));
+
+        assertTrue(csv.contains("CategoriaMasHechos"));
+        assertTrue(csv.contains("Robos\n\n\n"));
+
         assertTrue(csv.contains("Categoria,Provincia"));
-        assertTrue(csv.contains("Robos,Cordoba"));
+        assertTrue(csv.contains("Robos,Cordoba\n"));
+
+        assertTrue(csv.contains("# Hora con más hechos por categoría"));
         assertTrue(csv.contains("Categoria,Hora"));
-        assertTrue(csv.contains("Robos,20"));
-        assertTrue(csv.contains("Cantidad de solicitudes spam: 5"));
+        assertTrue(csv.contains("Robos,20\n"));
+
+        assertTrue(csv.contains("# Cantidad de solicitudes marcadas como SPAM"));
+        assertTrue(csv.contains("CantidadSpam"));
+        assertTrue(csv.contains("5\n"));
     }
 }

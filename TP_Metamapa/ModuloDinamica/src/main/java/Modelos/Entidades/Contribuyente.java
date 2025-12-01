@@ -3,8 +3,9 @@ package Modelos.Entidades;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.*;
-import java.time.LocalDateTime ;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -18,11 +19,12 @@ public class Contribuyente {
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDateTime fecha_nacimiento;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    public LocalDate fecha_nacimiento;
 
 
 
-    public Contribuyente(String usuario, String nombre, String apellido, LocalDateTime fechaNacimiento) {
+    public Contribuyente(String usuario, String nombre, String apellido, LocalDate fechaNacimiento) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.apellido = apellido;

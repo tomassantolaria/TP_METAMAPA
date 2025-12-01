@@ -1,7 +1,9 @@
 package Modelos;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime ;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -10,5 +12,6 @@ public class ContribuyenteDTO {
     public String usuario;
     public String nombre;
     public String apellido;
-    public LocalDateTime fecha_nacimiento;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    public LocalDate fecha_nacimiento;
 }

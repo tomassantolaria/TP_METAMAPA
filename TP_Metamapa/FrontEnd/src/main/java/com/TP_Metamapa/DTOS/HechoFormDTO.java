@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class HechoFormDTO {
     private String titulo;
     private String descripcion;
-    private String contenidoAdicional; // Campo 'contenido' del form
+    private String contenidoAdicional;
     private String categoria;
     private LocalDateTime fechaAcontecimiento; // Recibe 'yyyy-MM-dd' del form
     private Double latitud;
@@ -18,8 +18,5 @@ public class HechoFormDTO {
     private String localidad;
     private boolean anonimo;
 
-    // Campos para la nueva categoría (si aplica)
     private String customCategoria;
-
-    // El archivo se manejará por separado en el controlador
 }
