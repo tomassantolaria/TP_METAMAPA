@@ -19,6 +19,8 @@ import Repositorio.ArchivoRepository;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
 @Getter
 @Setter
 @Service
@@ -40,6 +42,25 @@ public class FuenteEstatica {
         this.repositorio = repositorio;
         this.archivoRepository = archivoRepository;
     }
+
+    public void cargarCSV(MultipartFile file) throws Exception {
+
+        try {
+            if (file.isEmpty()) {
+                throw new Exception("No se envió ningun archivo");
+            }
+
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename == null || !originalFilename.endsWith(".csv")) {
+                throw new Exception("Solo se permiten archivos CSV");
+            }
+            importador.guardarCSV(originalFilename, file);
+
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+    }
+
 
 
     public void cargarHechos() throws  Exception {

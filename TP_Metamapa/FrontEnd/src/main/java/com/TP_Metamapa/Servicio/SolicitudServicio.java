@@ -29,7 +29,7 @@ public class SolicitudServicio {
     private String urlBasePublico;
 
     public List<SolicitudDTO> obtenerPendientes(){
-        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD + "solicitudes/pendientes");
+        UriComponentsBuilder urlSolicitudes = UriComponentsBuilder.fromHttpUrl(urlBaseAVD + "/solicitudes/pendientes");
         ResponseEntity<List<SolicitudDTO>> respuesta = restTemplate.exchange(
                 urlSolicitudes.toUriString(),
                 HttpMethod.GET,

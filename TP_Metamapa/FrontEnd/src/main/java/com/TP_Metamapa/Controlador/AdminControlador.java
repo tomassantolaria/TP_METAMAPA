@@ -3,10 +3,7 @@ package com.TP_Metamapa.Controlador;
 
 import com.TP_Metamapa.DTOS.*;
 import com.TP_Metamapa.Modelos.TipoFuente;
-import com.TP_Metamapa.Servicio.ColeccionServicio;
-import com.TP_Metamapa.Servicio.FuenteProxyServicio;
-import com.TP_Metamapa.Servicio.HechoServicio;
-import com.TP_Metamapa.Servicio.SolicitudServicio;
+import com.TP_Metamapa.Servicio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +27,8 @@ public class AdminControlador {
     FuenteProxyServicio fuenteProxyServicio;
     @Autowired
     HechoServicio hechoServicio;
+    @Autowired
+    EstaticaServicio estaticaServicio;
 
 
 
@@ -88,7 +87,7 @@ public class AdminControlador {
 
         try {
             // Aquí iría la lógica para leer y procesar el archivo
-            //estaticaServicio.procesarArchivoCsv(file); //TODO: HACER ESTO E IMPLEMENTARLO EN EL BACKEND
+            estaticaServicio.crear(file); //TODO: HACER ESTO E IMPLEMENTARLO EN EL BACKEND
             redirectAttributes.addFlashAttribute("successMessage", "¡Archivo '" + file.getOriginalFilename() + "' cargado exitosamente!");
 
         } catch (Exception e) {

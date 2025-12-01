@@ -27,10 +27,7 @@ public class KeycloackProvider {
         private String CLIENT_SECRET;
         
 
-
-
-
-    public  RealmResource getRealmResource() {
+        public  RealmResource getRealmResource() {
         Keycloak keycloak = KeycloakBuilder.builder()
                 .serverUrl(URL_SERVER)
                 .realm(REALM_MASTER)

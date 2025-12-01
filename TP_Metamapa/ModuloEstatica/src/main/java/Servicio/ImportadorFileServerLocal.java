@@ -3,21 +3,24 @@ package Servicio;
 import Modelos.Entidades.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.time.LocalDateTime ;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 @Component("ImportadorFileServerLocal")
 @Service
 public class ImportadorFileServerLocal implements Importador{
-    final private File carpeta = new File("src/main/resources/datos/Fuentes_de_hechos");
+    final private String carpetaRelativePath = "src/main/resources/datos/Fuentes_de_hechos/";
+    final private File carpeta = new File(carpetaRelativePath);
     @Override
     public List<HechoCSV> getHechoFromFile(String ruta) throws Exception {
         System.out.println("EXTRAYENDO HECHOS DE" + ruta);
@@ -53,8 +56,6 @@ public class ImportadorFileServerLocal implements Importador{
 
     private static String unquoteCsvField(String s) {
 
-
-
         if (s == null) {
             return null;
         }
@@ -84,5 +85,23 @@ public class ImportadorFileServerLocal implements Importador{
             }
             return paths;
     }
+    @Override
+    public void guardarCSV(String originalFilename, MultipartFile file) throws Exception {
+        try {
+            if (!carpeta.exists()) {
+                carpeta.mkdirs();
+            }
 
+            String filename = System.currentTimeMillis() + "-" + originalFilename;
+            Path filePath = Paths.get(carpetaRelativePath + filename);
+
+            // Guardar el archivo
+            Files.copy(file.getInputStream(), filePath,
+                    StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
 }
