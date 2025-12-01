@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+
 @RestController
 @RequestMapping("/fuenteEstatica")
 public class EstaticaController {
@@ -26,6 +28,16 @@ public class EstaticaController {
             return ResponseEntity.ok(hechos);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No hay hechos disponibles");
+        }
+    }
+
+    @PostMapping("/CSV")
+    public ResponseEntity<?> uploadCSV(@RequestParam("csv") MultipartFile file) {
+        try {
+            fuenteEstatica.cargarCSV(file);
+            return ResponseEntity.ok("Archivo guardado correctamente.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No pudo cargarse el archivo. Error: " + e.getMessage() + "");
         }
     }
 }
