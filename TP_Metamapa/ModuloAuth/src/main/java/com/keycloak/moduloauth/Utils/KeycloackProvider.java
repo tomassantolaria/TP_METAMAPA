@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class KeycloackProvider {
 
-        @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+        @Value("${url.keycloak}")
         private String URL_SERVER;
         @Value("${jwt.auth.converter.realm-name}")
         private String REALM_NAME;

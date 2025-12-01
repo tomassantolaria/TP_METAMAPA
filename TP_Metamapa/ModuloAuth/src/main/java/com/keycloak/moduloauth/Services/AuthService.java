@@ -37,7 +37,7 @@ public class AuthService {
     @Autowired
     public KeycloackProvider keycloakProvider;
 
-    public AuthService(@Value("${jwt.auth.converter.resource-id}") String client_id, @Value("${jwt.auth.converter.client-secret}")  String client_secret, @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}") String url_server) {
+    public AuthService(@Value("${jwt.auth.converter.resource-id}") String client_id, @Value("${jwt.auth.converter.client-secret}")  String client_secret, @Value("${url.keycloak}") String url_server) {
         this.client_id = client_id;
         this.client_secret = client_secret;
         this.URL_SERVER = url_server;

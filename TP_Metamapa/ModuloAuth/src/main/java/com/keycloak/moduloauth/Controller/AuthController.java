@@ -72,6 +72,7 @@ public class AuthController {
 
     @GetMapping("/role")
     public ResponseEntity<RoleDTO> getRole(Authentication authentication){
+        System.out.println("Entro al controller role");
         System.out.println(authentication.getPrincipal());
         List<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -79,6 +80,7 @@ public class AuthController {
                 .toList();
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setRoles(roles);
+        System.out.println("ROLESSS" + roleDTO.getRoles());
         return ResponseEntity.ok(roleDTO);
     }
 }

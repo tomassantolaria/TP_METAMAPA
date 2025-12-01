@@ -92,8 +92,9 @@ public class AuthService {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         System.out.println("Solicitando roles...");
         try {
+            System.out.println("ENTRE AL TRY");
             ResponseEntity<RoleDTO> respuesta = restTemplate.exchange(
-                    urlCompleta,
+                    "http://localhost:9092/auth/role",
                     HttpMethod.GET,
                     requestEntity,
                     RoleDTO.class
