@@ -89,7 +89,11 @@ public class AuthService {
             System.out.println("Datos inicio sesion incorrectos para usuario: " + loginDTO.getUsername());
             throw new RuntimeException("Usuario o contraseña incorrectos");
         } catch (WebClientResponseException e) {
-            throw new RuntimeException("Error al conectar con el servidor de autenticación");
+            String errorBody = e.getResponseBodyAsString();
+            System.err.println("❌ ERROR REAL DE KEYCLOAK: " + errorBody);
+
+            // Lo lanzamos para verlo en el Postman/Frontend
+            throw new RuntimeException("Keycloak Error: " + errorBody);
 
         }
     }

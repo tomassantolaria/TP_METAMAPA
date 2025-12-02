@@ -1,10 +1,12 @@
 package com.keycloak.moduloauth.DTOs;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
-@Value
-@RequiredArgsConstructor
+@Data // Usa Data en lugar de Value para tener getters/setters flexibles
+@AllArgsConstructor
+@NoArgsConstructor // Jackson necesita un constructor vacío a veces
 @Builder
-@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class KeycloakToken {
     String access_token;
     Integer expires_in;

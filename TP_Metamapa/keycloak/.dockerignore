@@ -1,0 +1,11 @@
+# root .dockerignore
+.git
+.gitignore
+target
+node_modules
+**/target
+**/node_modules
+.gradle
+.DS_Store
+.idea
+.vscode

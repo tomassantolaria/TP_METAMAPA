@@ -72,6 +72,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
 
         } catch (RuntimeException e) {
+            e.printStackTrace();
             if (e.getMessage().contains("Usuario o contraseña incorrectos") ||
                     e.getMessage().contains("401")) {
                 throw new BadCredentialsException("Usuario o contraseña incorrectos");

@@ -1,6 +1,7 @@
 package Servicio;
 
 import Modelos.Entidades.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,11 +17,24 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-@Component("ImportadorFileServerLocal")
+
 @Service
 public class ImportadorFileServerLocal implements Importador{
-    final private String carpetaRelativePath = "src/main/resources/datos/Fuentes_de_hechos/";
-    final private File carpeta = new File(carpetaRelativePath);
+
+    private String carpetaRelativePath;
+    private File carpeta;
+
+    // CONSTRUCTOR: Aquí inyectamos el valor y creamos el File al mismo tiempo
+    public ImportadorFileServerLocal(@Value("${path.archivos:/src/main/resources/datos/Fuentes_de_hechos/}") String path) {
+        this.carpetaRelativePath = path;
+        this.carpeta = new File(path);
+
+        // Opcional: Crear directorios si no existen al arrancar
+        if (!this.carpeta.exists()) {
+            this.carpeta.mkdirs();
+        }
+    }
+
     @Override
     public List<HechoCSV> getHechoFromFile(String ruta) throws Exception {
         System.out.println("EXTRAYENDO HECHOS DE" + ruta);

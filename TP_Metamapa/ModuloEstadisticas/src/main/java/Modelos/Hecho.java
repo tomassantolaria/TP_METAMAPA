@@ -45,9 +45,9 @@ public class Hecho{
 
     private boolean visible ;
 
-    //@ManyToOne()
-    //@JoinColumn()
-    //private Contribuyente contribuyente;
+    @ManyToOne()
+    @JoinColumn()
+    private Contribuyente contribuyente;
 
     private boolean anonimo;
 
@@ -55,7 +55,7 @@ public class Hecho{
     public Hecho() {}
 
     public Hecho(Long idFuente, String unTitulo, String unaDescripcion, Contenido unContenido, Categoria unaCategoria, LocalDateTime unaFechaOcurrencia,
-                 Ubicacion unaUbicacion, LocalDateTime  unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible, Boolean anonimo){ //Lista etiquetas
+                 Ubicacion unaUbicacion, LocalDateTime  unaFechaCarga, OrigenCarga unOrigen, boolean estaVisible,Contribuyente contribuyente, Boolean anonimo){ //Lista etiquetas
         this.id = null;
         this.idFuente = idFuente;
         this.titulo = unTitulo;
@@ -67,7 +67,7 @@ public class Hecho{
         this.fecha_carga = unaFechaCarga;
         this.origen = unOrigen;
         this.visible = estaVisible;
-        //this.contribuyente = contribuyente;
+        this.contribuyente = contribuyente;
         this.anonimo = anonimo;
         //this.etiquetas = etiquetas;
     }

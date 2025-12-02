@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -27,10 +28,13 @@ class ImportadorFileServerLocalTest {
     // JUnit creará una carpeta temporal para nosotros antes de cada test
     @TempDir
     File tempFolder;
+    @Value("${path.archivos:/src/main/resources/datos/Fuentes_de_hechos/}")
+    private String path;
 
     @BeforeEach
     void setUp() {
-        importador = new ImportadorFileServerLocal();
+
+        importador = new ImportadorFileServerLocal(path);
     }
 
     @AfterEach

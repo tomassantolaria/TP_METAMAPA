@@ -93,8 +93,9 @@ public class AuthService {
         System.out.println("Solicitando roles...");
         try {
             System.out.println("ENTRE AL TRY");
+            String urlRole = baseUrl.concat("/auth/role");
             ResponseEntity<RoleDTO> respuesta = restTemplate.exchange(
-                    "http://localhost:9092/auth/role",
+                    urlRole,
                     HttpMethod.GET,
                     requestEntity,
                     RoleDTO.class

@@ -1,1 +1,292 @@
-prueba
+version: "3.8"
+
+services:
+
+  # -----------------------
+  # BASES DE DATOS (MySQL)
+  # -----------------------
+  db_dinamica:
+    image: mysql:8.0
+    container_name: db_dinamica
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dinamica
+    volumes:
+      - db_dinamica_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db_estatica:
+    image: mysql:8.0
+    container_name: db_estatica
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: estatica
+    volumes:
+      - db_estatica_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db_proxy:
+    image: mysql:8.0
+    container_name: db_proxy
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: proxy
+    volumes:
+      - db_proxy_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db_comun:
+    image: mysql:8.0
+    container_name: db_comun
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: comun
+    volumes:
+      - db_comun_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- NUEVA BASE DE DATOS PARA KEYCLOAK ---
+  # Esto guarda los usuarios registrados y configuraciones
+  db_keycloak:
+    image: mysql:8.0
+    container_name: db_keycloak
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_keycloak_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # -----------------------
+  # KEYCLOAK (Conectado a MySQL)
+  # -----------------------
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0  # Volvemos a la última versión
+    container_name: keycloak
+    # IMPORTANTE: Quitamos "--import-realm". Arrancará vacío pero SANO.
+    command: ["start-dev"]
+    depends_on:
+      db_keycloak:
+        condition: service_healthy
+    # Quitamos el volumen de importación porque ya no lo usaremos
+    # volumes:
+    #   - ./keycloak/import:/opt/keycloak/data/import
+    ports:
+      - "9090:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: mysql
+      KC_DB_URL: jdbc:mysql://db_keycloak/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY_HEADERS: "xforwarded"
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e 'GET /health/ready HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3;grep 'HTTP/1.1 200 OK' <&3"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  # -----------------------
+  # MICROSERVICIOS
+  # -----------------------
+
+  moduloagregador:
+    container_name: moduloagregador
+    build:
+      context: .
+      dockerfile: ModuloAgregador/Dockerfile
+    depends_on:
+      - db_comun
+      - modulodinamica
+      - moduloproxy
+      - moduloestatica
+      - modulonormalizador
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
+      DB_USER: root
+      DB_PASS: root
+    ports:
+      - "8080:8080"
+
+  moduloavd:
+    container_name: moduloavd
+    build:
+      context: .
+      dockerfile: ModuloAVD/Dockerfile
+    depends_on:
+      - db_comun
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
+      DB_USER: root
+      DB_PASS: root
+    ports:
+      - "8081:8081"
+
+  modulodinamica:
+    container_name: modulodinamica
+    build:
+      context: .
+      dockerfile: ModuloDinamica/Dockerfile
+    depends_on:
+      - db_dinamica
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_dinamica:3306/dinamica
+      DB_USER: root
+      DB_PASS: root
+    ports:
+      - "8082:8082"
+
+  moduloestadisticas:
+    container_name: moduloestadisticas
+    build:
+      context: .
+      dockerfile: ModuloEstadisticas/Dockerfile
+    depends_on:
+      - db_comun
+      - moduloagregador
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
+      DB_USER: root
+      DB_PASS: root
+    ports:
+      - "8083:8083"
+
+  moduloestatica:
+    container_name: moduloestatica
+    build:
+      context: .
+      dockerfile: ModuloEstatica/Dockerfile
+    depends_on:
+      - db_estatica
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_estatica:3306/estatica
+      DB_USER: root
+      DB_PASS: root
+      PATH_ARCHIVOS: "/app/data/"
+    volumes:
+      - ./archivos_data:/app/data
+    ports:
+      - "8084:8084"
+
+  modulonormalizador:
+    container_name: modulonormalizador
+    build:
+      context: .
+      dockerfile: ModuloNormalizador/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "8085:8085"
+
+  moduloproxy:
+    container_name: moduloproxy
+    build:
+      context: .
+      dockerfile: ModuloProxy/Dockerfile
+    depends_on:
+       - db_proxy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_proxy:3306/proxy
+      DB_USER: root
+      DB_PASS: root
+    ports:
+      - "8086:8086"
+
+  modulopublico:
+    container_name: modulopublico
+    build:
+      context: .
+      dockerfile: ModuloPublico/Dockerfile
+    depends_on:
+      - db_comun
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
+      DB_USER: root
+      DB_PASS: root
+    ports:
+      - "8087:8087"
+
+  moduloauth:
+    container_name: moduloauth
+    build:
+      context: .
+      dockerfile: ModuloAuth/Dockerfile
+    depends_on:
+      - keycloak
+    ports:
+      - "9092:9092"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_URL: http://keycloak:8080
+      REALM_NAME: spring-boot-realm-pr
+      RESOURSE_ID: spring-client-api-rest
+      CLIENT_SECRET: "KmTe0SPQhvBRUz556J0MCjmq1vvlOxfx"
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080/realms/spring-boot-realm-pr
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: FrontEnd/Dockerfile
+    depends_on:
+      - moduloauth
+      - moduloavd
+      - moduloestadisticas
+      - moduloestatica
+      - moduloproxy
+      - modulopublico
+      - modulodinamica
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      KEYCLOAK_PUBLIC_URL: http://localhost:9090
+      KEYCLOAK_URL: http://keycloak:8080
+      AUTH_URL: http://moduloauth:9092
+    ports:
+      - "8088:8088"
+
+# No olvides agregar el volumen nuevo al final
+volumes:
+  db_dinamica_data:
+  db_estatica_data:
+  db_proxy_data:
+  db_comun_data:
+  db_keycloak_data:

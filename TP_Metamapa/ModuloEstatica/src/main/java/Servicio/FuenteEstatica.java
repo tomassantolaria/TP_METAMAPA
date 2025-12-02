@@ -12,6 +12,7 @@ import Modelos.Entidades.HechoCSV;
 import Repositorio.HechosRepositorio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.Date;
@@ -27,21 +28,14 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class FuenteEstatica {
 
-    @Autowired
-    HechosRepositorio repositorio;
-    @Autowired
-    ArchivoRepository archivoRepository;
+    private final HechosRepositorio repositorio;
+    private final ArchivoRepository archivoRepository;
+
+    private final Importador importador;
+
     private Date ultimaFechaCarga = new Date();
-    private static FuenteEstatica instance;
-    private Importador importador = new ImportadorFileServerLocal();
 
 
-    public FuenteEstatica(ArchivoRepository archivoRepository,
-                          HechosRepositorio repositorio) {
-        this.importador = importador;
-        this.repositorio = repositorio;
-        this.archivoRepository = archivoRepository;
-    }
 
     public void cargarCSV(MultipartFile file) throws Exception {
 
