@@ -1,0 +1,51 @@
+type Query {
+    listarHechos(filtro: HechoFilterInput): [HechoDTO]
+    listarColecciones: [ColeccionDTO]
+}
+
+input HechoFilterInput {
+    idColeccion: ID
+    contenidoMultimedia: Boolean
+    titulo: String
+    fechaCargaDesde: String
+    fechaCargaHasta: String
+    fechaAcontecimientoDesde: String
+    fechaAcontecimientoHasta: String
+    categoria: String
+    pais: String
+    provincia: String
+    localidad: String
+    navegacionCurada: Boolean
+}
+
+type HechoDTO {
+    idHecho: ID
+    idFuente: ID
+    titulo: String
+    descripcion: String
+    contenido: String
+    contenido_multimedia: String
+    categoria: String
+    fechaAcontecimiento: String
+    fechaCarga: String
+    localidad: String
+    provincia: String
+    pais: String
+    latitud: Float
+    longitud: Float
+    usuario: String
+    nombre: String
+    apellido: String
+    fecha_nacimiento: String
+    anonimo: Boolean
+    visible: Boolean
+    origen_carga: String
+}
+
+type ColeccionDTO {
+    id: ID
+    nombre: String
+    descripcion: String
+    hechos: [HechoDTO]
+    consenso: String
+}
