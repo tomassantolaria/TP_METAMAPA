@@ -20,6 +20,7 @@ services:
       timeout: 5s
       retries: 5
 
+
   db_estatica:
     image: mysql:8.0
     container_name: db_estatica
@@ -88,22 +89,32 @@ services:
   # KEYCLOAK (Conectado a MySQL)
   # -----------------------
   keycloak:
-    image: quay.io/keycloak/keycloak:26.0  # Volvemos a la última versión
+    image: quay.io/keycloak/keycloak:26.4.5  # Volvemos a la última versión
     container_name: keycloak
+    # CORRECCIÓN 1: Aumentar a 4GB para el proceso de build/optimizacion
+#    mem_limit: 4g no funciona por eso se saca
     # IMPORTANTE: Quitamos "--import-realm". Arrancará vacío pero SANO.
-    command: ["start-dev"]
+    command: ["start-dev", "--import-realm"]
     depends_on:
       db_keycloak:
         condition: service_healthy
     # Quitamos el volumen de importación porque ya no lo usaremos
-    # volumes:
-    #   - ./keycloak/import:/opt/keycloak/data/import
+    volumes:
+       - ./keycloak/import:/opt/keycloak/data/import
     ports:
       - "9090:8080"
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB: mysql
+      #agregadors para maneajar el uso de ram
+      KC_DB_POOL_INITIAL_SIZE: 1
+      KC_DB_POOL_MIN_SIZE: 1
+      KC_DB_POOL_MAX_SIZE: 5
+      KC_DB_POOL_ACQUISITION_TIMEOUT: 60
+      JAVA_MAX_MEM: 1024m
+
+      QUARKUS_DATASOURCE_JDBC_ACQUISITION_TIMEOUT: 60s
       KC_DB_URL: jdbc:mysql://db_keycloak/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: password
@@ -111,11 +122,13 @@ services:
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "true"
       KC_PROXY_HEADERS: "xforwarded"
+      JAVA_OPTS: "-Xmx2500m" #agregador por el uso de RAM
+
     healthcheck:
       test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e 'GET /health/ready HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3;grep 'HTTP/1.1 200 OK' <&3"]
       interval: 10s
-      timeout: 5s
-      retries: 20
+      timeout: 10s
+      retries: 30
 
   # -----------------------
   # MICROSERVICIOS
@@ -127,11 +140,16 @@ services:
       context: .
       dockerfile: ModuloAgregador/Dockerfile
     depends_on:
-      - db_comun
-      - modulodinamica
-      - moduloproxy
-      - moduloestatica
-      - modulonormalizador
+      db_comun:
+        condition: service_healthy
+      modulodinamica:
+        condition: service_started
+      moduloproxy:
+          condition: service_started
+      moduloestatica:
+        condition: service_started
+      modulonormalizador:
+        condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
@@ -146,7 +164,8 @@ services:
       context: .
       dockerfile: ModuloAVD/Dockerfile
     depends_on:
-      - db_comun
+      db_comun:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
@@ -161,7 +180,8 @@ services:
       context: .
       dockerfile: ModuloDinamica/Dockerfile
     depends_on:
-      - db_dinamica
+      db_dinamica:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://db_dinamica:3306/dinamica
@@ -176,8 +196,10 @@ services:
       context: .
       dockerfile: ModuloEstadisticas/Dockerfile
     depends_on:
-      - db_comun
-      - moduloagregador
+      db_comun:
+        condition: service_healthy # <-- CAMBIO CLAVE
+      moduloagregador:
+        condition: service_completed_successfully
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
@@ -192,7 +214,8 @@ services:
       context: .
       dockerfile: ModuloEstatica/Dockerfile
     depends_on:
-      - db_estatica
+      db_estatica:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://db_estatica:3306/estatica
@@ -220,7 +243,8 @@ services:
       context: .
       dockerfile: ModuloProxy/Dockerfile
     depends_on:
-       - db_proxy
+       db_proxy:
+         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://db_proxy:3306/proxy
@@ -235,7 +259,8 @@ services:
       context: .
       dockerfile: ModuloPublico/Dockerfile
     depends_on:
-      - db_comun
+      db_comun:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
@@ -258,7 +283,7 @@ services:
       SERVER_URL: http://keycloak:8080
       REALM_NAME: spring-boot-realm-pr
       RESOURSE_ID: spring-client-api-rest
-      CLIENT_SECRET: "KmTe0SPQhvBRUz556J0MCjmq1vvlOxfx"
+      CLIENT_SECRET: "3p9WTtN9xXEk8ybIFtUOewRfqbNhceaD"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
 
@@ -268,13 +293,20 @@ services:
       context: .
       dockerfile: FrontEnd/Dockerfile
     depends_on:
-      - moduloauth
-      - moduloavd
-      - moduloestadisticas
-      - moduloestatica
-      - moduloproxy
-      - modulopublico
-      - modulodinamica
+      moduloauth:
+        condition: service_started
+      moduloavd:
+        condition: service_started
+      moduloestadisticas:
+        condition: service_started
+      moduloestatica:
+        condition: service_started
+      moduloproxy:
+        condition: service_started
+      modulopublico:
+        condition: service_started
+      modulodinamica:
+        condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: prod
       KEYCLOAK_PUBLIC_URL: http://localhost:9090
