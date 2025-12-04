@@ -66,8 +66,32 @@ public class AuthController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody RegistroDTO userDTO) throws URISyntaxException {
-        String response = authService.createUser(userDTO);
-        return ResponseEntity.created(new URI("/keycloak/user/create")).body(response);
+        try{
+            String response = authService.createUser(userDTO);
+
+            if(response.contains("User created successfully")) {
+                Map<String, String> successResponse = new HashMap<>();
+                successResponse.put("message", response);
+                return ResponseEntity.status(HttpStatus.CREATED).body(successResponse);
+                //return ResponseEntity.created(new URI("/keycloak/user/create")).body(response);
+            } else if (response.contains("User exist already")) {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", "user_exists");
+                errorResponse.put("message", response);
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+            } else {
+                Map<String, String> errorResponse = new HashMap<>();
+                errorResponse.put("error", "creation_failed");
+                errorResponse.put("message", response);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+            }
+        } catch (Exception e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "server_error");
+            errorResponse.put("message", "Error al crear el usuario: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+
     }
 
     @GetMapping("/role")

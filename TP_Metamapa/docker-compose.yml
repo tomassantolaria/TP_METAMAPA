@@ -11,14 +11,16 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_DATABASE: dinamica
     volumes:
       - db_dinamica_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      start_period: 60s
 
 
   db_estatica:
@@ -27,14 +29,16 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_DATABASE: estatica
     volumes:
       - db_estatica_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      start_period: 60s
 
   db_proxy:
     image: mysql:8.0
@@ -42,14 +46,16 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_DATABASE: proxy
     volumes:
       - db_proxy_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      start_period: 60s
 
   db_comun:
     image: mysql:8.0
@@ -57,14 +63,16 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
       MYSQL_DATABASE: comun
     volumes:
       - db_comun_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      start_period: 60s
 
   # --- NUEVA BASE DE DATOS PARA KEYCLOAK ---
   # Esto guarda los usuarios registrados y configuraciones
@@ -80,10 +88,10 @@ services:
     volumes:
       - db_keycloak_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      start_period: 60s
 
   # -----------------------
   # KEYCLOAK (Conectado a MySQL)
@@ -143,20 +151,27 @@ services:
       db_comun:
         condition: service_healthy
       modulodinamica:
-        condition: service_started
+        condition: service_healthy
       moduloproxy:
-          condition: service_started
+          condition: service_healthy
       moduloestatica:
-        condition: service_started
+        condition: service_healthy
       modulonormalizador:
-        condition: service_started
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
+      DB_URL: jdbc:mysql://db_comun:3306/comun
       DB_USER: root
-      DB_PASS: root
+      DB_PASSWORD: root
     ports:
       - "8080:8080"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8080/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   moduloavd:
     container_name: moduloavd
@@ -168,11 +183,18 @@ services:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
+      DB_URL: jdbc:mysql://db_comun:3306/comun
       DB_USER: root
-      DB_PASS: root
+      DB_PASSWORD : root
     ports:
       - "8081:8081"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8081/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   modulodinamica:
     container_name: modulodinamica
@@ -184,11 +206,18 @@ services:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_dinamica:3306/dinamica
+      DB_URL: jdbc:mysql://db_dinamica:3306/dinamica
       DB_USER: root
-      DB_PASS: root
+      DB_PASSWORD : root
     ports:
       - "8082:8082"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8082/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   moduloestadisticas:
     container_name: moduloestadisticas
@@ -197,16 +226,23 @@ services:
       dockerfile: ModuloEstadisticas/Dockerfile
     depends_on:
       db_comun:
-        condition: service_healthy # <-- CAMBIO CLAVE
+        condition: service_healthy
       moduloagregador:
-        condition: service_completed_successfully
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
+      DB_URL: jdbc:mysql://db_comun:3306/comun
       DB_USER: root
-      DB_PASS: root
+      DB_PASSWORD : root
     ports:
       - "8083:8083"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8083/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   moduloestatica:
     container_name: moduloestatica
@@ -218,14 +254,21 @@ services:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_estatica:3306/estatica
+      DB_URL: jdbc:mysql://db_estatica:3306/estatica
       DB_USER: root
-      DB_PASS: root
+      DB_PASSWORD : root
       PATH_ARCHIVOS: "/app/data/"
     volumes:
       - ./archivos_data:/app/data
     ports:
       - "8084:8084"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8084/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   modulonormalizador:
     container_name: modulonormalizador
@@ -236,6 +279,13 @@ services:
       SPRING_PROFILES_ACTIVE: prod
     ports:
       - "8085:8085"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8085/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   moduloproxy:
     container_name: moduloproxy
@@ -247,11 +297,18 @@ services:
          condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_proxy:3306/proxy
+      DB_URL: jdbc:mysql://db_proxy:3306/proxy
       DB_USER: root
-      DB_PASS: root
+      DB_PASSWORD : root
     ports:
       - "8086:8086"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8086/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   modulopublico:
     container_name: modulopublico
@@ -263,11 +320,18 @@ services:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_comun:3306/comun
+      DB_URL: jdbc:mysql://db_comun:3306/comun
       DB_USER: root
-      DB_PASS: root
+      DB_PASSWORD : root
     ports:
       - "8087:8087"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8087/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   moduloauth:
     container_name: moduloauth
@@ -283,9 +347,16 @@ services:
       SERVER_URL: http://keycloak:8080
       REALM_NAME: spring-boot-realm-pr
       RESOURSE_ID: spring-client-api-rest
-      CLIENT_SECRET: "3p9WTtN9xXEk8ybIFtUOewRfqbNhceaD"
+      CLIENT_SECRET: "BTfHGUQhmqLE3NDFQmcCeXhRtoLiKIyE"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:9092/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   frontend:
     container_name: frontend
@@ -294,19 +365,19 @@ services:
       dockerfile: FrontEnd/Dockerfile
     depends_on:
       moduloauth:
-        condition: service_started
+        condition: service_healthy
       moduloavd:
-        condition: service_started
+        condition: service_healthy
       moduloestadisticas:
-        condition: service_started
+        condition: service_healthy
       moduloestatica:
-        condition: service_started
+        condition: service_healthy
       moduloproxy:
-        condition: service_started
+        condition: service_healthy
       modulopublico:
-        condition: service_started
+        condition: service_healthy
       modulodinamica:
-        condition: service_started
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
       KEYCLOAK_PUBLIC_URL: http://localhost:9090
@@ -314,11 +385,64 @@ services:
       AUTH_URL: http://moduloauth:9092
     ports:
       - "8088:8088"
+    restart: on-failure
+    healthcheck:
+      test: "curl --fail --silent http://localhost:8088/actuator/health || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
-# No olvides agregar el volumen nuevo al final
+  # -----------------------
+  # OBSERVABILIDAD
+  # -----------------------
+
+  # 1. Zipkin: Recolecta trazas distribuidas
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+       - "9411:9411"
+    environment:
+       - JAVA_OPTS=-Xmx256m # Limitamos RAM
+    networks:
+          - default
+
+  # 2. Prometheus: Recolecta métricas cada X segundos
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - modulonormalizador
+    networks:
+      - default
+
+      # 3. Grafana: Panel visual para ver todo
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+          - default
+
+
 volumes:
   db_dinamica_data:
   db_estatica_data:
   db_proxy_data:
   db_comun_data:
   db_keycloak_data:
+  grafana_data:

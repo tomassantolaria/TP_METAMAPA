@@ -16,7 +16,7 @@
 <script>
     const root = ReactDOM.createRoot(document.getElementById('graphiql'));
     const fetcher = GraphiQL.createFetcher({
-        url: 'http://localhost:8087/graphql', // Tu endpoint local
+        url: 'http://localhost:8087/graphql',
     });
     root.render(React.createElement(GraphiQL, { fetcher: fetcher }));
 </script>

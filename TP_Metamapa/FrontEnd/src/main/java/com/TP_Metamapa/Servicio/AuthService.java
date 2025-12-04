@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -109,12 +110,23 @@ public class AuthService {
     }
 
     public String register(RegisterDTO registerDTO) {
-        return webClient.post()
-                .uri("/auth/create")
-                .bodyValue(registerDTO)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        try {
+            Map<String, String> response = webClient.post()
+                    .uri("/auth/create")
+                    .bodyValue(registerDTO)
+                    .retrieve()
+                    .bodyToMono(Map.class)
+                    .block();
+
+            if (response != null && response.containsKey("message")) {
+                return response.get("message");
+            }
+            return "Usuario creado exitosamente";
+        } catch (WebClientResponseException.Conflict e) {
+            return "Usuario ya existente";
+        } catch (Exception e) {
+            return "Error creando al usuario";
+        }
     }
 
     public UserDataDTO getUserData(String username, String accessToken) {

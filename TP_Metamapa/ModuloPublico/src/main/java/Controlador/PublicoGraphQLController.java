@@ -19,13 +19,11 @@ public class PublicoGraphQLController {
 
     @QueryMapping
     public List<HechoDTO> listarHechos(@Argument HechoFilterInput filtro) {
-        // Si no mandan filtro, inicializamos uno vacío para evitar NullPointerException
+
         if (filtro == null) {
             filtro = new HechoFilterInput();
         }
 
-        // Llamamos a tu método existente 'filtrarHechos' pasando los campos del input
-        // El orden es CRÍTICO, debe coincidir con la firma de tu método en NavegadorServicio
         return navegadorServicio.filtrarHechos(
                 filtro.getIdColeccion(),
                 filtro.getCategoria(),

@@ -27,6 +27,9 @@ RUN mvn clean package -pl FrontEnd -am -DskipTests
 
 # ---------- STAGE 2: Runtime ----------
 FROM eclipse-temurin:17-jre
+
+RUN apt-get update && apt-get install -y curl
+
 WORKDIR /app
 
 # Copiamos el JAR generado
