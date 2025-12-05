@@ -5,108 +5,34 @@ services:
   # -----------------------
   # BASES DE DATOS (MySQL)
   # -----------------------
-  db_dinamica:
+  db_general:
     image: mysql:8.0
-    container_name: db_dinamica
+    container_name: db_general
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_DATABASE: dinamica
     volumes:
-      - db_dinamica_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
       interval: 10s
       timeout: 5s
-      start_period: 60s
-
-
-  db_estatica:
-    image: mysql:8.0
-    container_name: db_estatica
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_DATABASE: estatica
-    volumes:
-      - db_estatica_data:/var/lib/mysql
-    healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
-      interval: 10s
-      timeout: 5s
-      start_period: 60s
-
-  db_proxy:
-    image: mysql:8.0
-    container_name: db_proxy
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_DATABASE: proxy
-    volumes:
-      - db_proxy_data:/var/lib/mysql
-    healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
-      interval: 10s
-      timeout: 5s
-      start_period: 60s
-
-  db_comun:
-    image: mysql:8.0
-    container_name: db_comun
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_DATABASE: comun
-    volumes:
-      - db_comun_data:/var/lib/mysql
-    healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
-      interval: 10s
-      timeout: 5s
-      start_period: 60s
-
-  # --- NUEVA BASE DE DATOS PARA KEYCLOAK ---
-  # Esto guarda los usuarios registrados y configuraciones
-  db_keycloak:
-    image: mysql:8.0
-    container_name: db_keycloak
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_DATABASE: keycloak
-      MYSQL_USER: keycloak
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - db_keycloak_data:/var/lib/mysql
-    healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot" ]
-      interval: 10s
-      timeout: 5s
-      start_period: 60s
+      retries: 5
+      start_period: 40s
+    networks:
+      - default
 
   # -----------------------
   # KEYCLOAK (Conectado a MySQL)
   # -----------------------
   keycloak:
-    image: quay.io/keycloak/keycloak:26.4.5  # Volvemos a la última versión
+    image: quay.io/keycloak/keycloak:26.4.5
     container_name: keycloak
-    # CORRECCIÓN 1: Aumentar a 4GB para el proceso de build/optimizacion
-#    mem_limit: 4g no funciona por eso se saca
-    # IMPORTANTE: Quitamos "--import-realm". Arrancará vacío pero SANO.
     command: ["start-dev", "--import-realm"]
     depends_on:
-      db_keycloak:
+      db_general:
         condition: service_healthy
-    # Quitamos el volumen de importación porque ya no lo usaremos
     volumes:
        - ./keycloak/import:/opt/keycloak/data/import
     ports:
@@ -115,7 +41,6 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB: mysql
-      #agregadors para maneajar el uso de ram
       KC_DB_POOL_INITIAL_SIZE: 1
       KC_DB_POOL_MIN_SIZE: 1
       KC_DB_POOL_MAX_SIZE: 5
@@ -123,14 +48,15 @@ services:
       JAVA_MAX_MEM: 1024m
 
       QUARKUS_DATASOURCE_JDBC_ACQUISITION_TIMEOUT: 60s
-      KC_DB_URL: jdbc:mysql://db_keycloak/keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: password
+      KC_DB_URL: jdbc:mysql://db_general/keycloak
+      KC_DB_USERNAME: root
+      KC_DB_PASSWORD: root
+      KC_DB_ROOT_PASSWORD: root
       KC_HOSTNAME: localhost
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "true"
       KC_PROXY_HEADERS: "xforwarded"
-      JAVA_OPTS: "-Xmx2500m" #agregador por el uso de RAM
+      JAVA_OPTS: "-Xms256m -Xmx512m"
 
     healthcheck:
       test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e 'GET /health/ready HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3;grep 'HTTP/1.1 200 OK' <&3"]
@@ -148,7 +74,7 @@ services:
       context: .
       dockerfile: ModuloAgregador/Dockerfile
     depends_on:
-      db_comun:
+      db_general:
         condition: service_healthy
       modulodinamica:
         condition: service_healthy
@@ -158,9 +84,11 @@ services:
         condition: service_healthy
       modulonormalizador:
         condition: service_healthy
+      modulopublico:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:mysql://db_comun:3306/comun
+      DB_URL: jdbc:mysql://db_general:3306/comun
       DB_USER: root
       DB_PASSWORD: root
     ports:
@@ -179,11 +107,13 @@ services:
       context: .
       dockerfile: ModuloAVD/Dockerfile
     depends_on:
-      db_comun:
+      db_general:
+        condition: service_healthy
+      modulopublico:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:mysql://db_comun:3306/comun
+      DB_URL: jdbc:mysql://db_general:3306/comun
       DB_USER: root
       DB_PASSWORD : root
     ports:
@@ -202,11 +132,11 @@ services:
       context: .
       dockerfile: ModuloDinamica/Dockerfile
     depends_on:
-      db_dinamica:
+      db_general:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:mysql://db_dinamica:3306/dinamica
+      DB_URL: jdbc:mysql://db_general:3306/dinamica
       DB_USER: root
       DB_PASSWORD : root
     ports:
@@ -225,13 +155,13 @@ services:
       context: .
       dockerfile: ModuloEstadisticas/Dockerfile
     depends_on:
-      db_comun:
+      db_general:
         condition: service_healthy
       moduloagregador:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:mysql://db_comun:3306/comun
+      DB_URL: jdbc:mysql://db_general:3306/comun
       DB_USER: root
       DB_PASSWORD : root
     ports:
@@ -250,11 +180,11 @@ services:
       context: .
       dockerfile: ModuloEstatica/Dockerfile
     depends_on:
-      db_estatica:
+      db_general:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:mysql://db_estatica:3306/estatica
+      DB_URL: jdbc:mysql://db_general:3306/estatica
       DB_USER: root
       DB_PASSWORD : root
       PATH_ARCHIVOS: "/app/data/"
@@ -293,11 +223,11 @@ services:
       context: .
       dockerfile: ModuloProxy/Dockerfile
     depends_on:
-       db_proxy:
+       db_general:
          condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:mysql://db_proxy:3306/proxy
+      DB_URL: jdbc:mysql://db_general:3306/proxy
       DB_USER: root
       DB_PASSWORD : root
     ports:
@@ -316,11 +246,11 @@ services:
       context: .
       dockerfile: ModuloPublico/Dockerfile
     depends_on:
-      db_comun:
+      db_general:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:mysql://db_comun:3306/comun
+      DB_URL: jdbc:mysql://db_general:3306/comun
       DB_USER: root
       DB_PASSWORD : root
     ports:
@@ -347,7 +277,7 @@ services:
       SERVER_URL: http://keycloak:8080
       REALM_NAME: spring-boot-realm-pr
       RESOURSE_ID: spring-client-api-rest
-      CLIENT_SECRET: "BTfHGUQhmqLE3NDFQmcCeXhRtoLiKIyE"
+      CLIENT_SECRET: "R2rT5b3LHXFxbSOfRefRf6yyiFbxEBQD"
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8080/realms/spring-boot-realm-pr
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/spring-boot-realm-pr/protocol/openid-connect/certs
     restart: on-failure
@@ -433,16 +363,37 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
+      - loki
     volumes:
       - grafana_data:/var/lib/grafana
     networks:
           - default
-
-
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    networks:
+      - default
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    user: root
+    volumes:
+      # Montar el socket de Docker y el directorio de logs para el descubrimiento
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - default
+    depends_on:
+      - loki
 volumes:
-  db_dinamica_data:
-  db_estatica_data:
-  db_proxy_data:
-  db_comun_data:
-  db_keycloak_data:
+  db_data:
   grafana_data:
+  loki_data:
