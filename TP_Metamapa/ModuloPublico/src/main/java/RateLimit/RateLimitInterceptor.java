@@ -1,49 +1,37 @@
 package RateLimit;
 
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.ConsumptionProbe;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class RateLimitInterceptor implements HandlerInterceptor {
 
-    private final Map<String, RateLimiter> limiters = new ConcurrentHashMap<>();
-
-    private final int maxRequests;
-    private final int windowSeconds;
-
-    public RateLimitInterceptor() {
-        this.maxRequests = 10;
-        this.windowSeconds = 60;
-    }
+    @Autowired
+    private RateLimitService rateLimiterService;
 
     @Override
-    public boolean preHandle(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Object handler
-    ) throws Exception {
-        String key = resolveKey(request);
-        RateLimiter limiter = limiters.computeIfAbsent(
-                key,
-                k -> new RateLimiter(maxRequests, windowSeconds)
-        );
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String ipAddress = request.getRemoteAddr();
+        Bucket tokenBucket = rateLimiterService.resolveBucket(ipAddress);
 
+        ConsumptionProbe probe = tokenBucket.tryConsumeAndReturnRemaining(1);
 
-        if (!limiter.tryAcquire()) {
-            response.setStatus(429);
-            response.getWriter().write("Rate limit exceeded");
-            return false;
+        if (probe.isConsumed()) {
+            // Si hay tokens, agregamos un header informativo de cuántos le quedan
+            response.addHeader("X-Rate-Limit-Remaining", String.valueOf(probe.getRemainingTokens()));
+            return true; // Continua la ejecución hacia el Controlador
+        } else {
+            // Si no hay tokens, devolvemos HTTP 429 Too Many Requests
+            long waitForRefill = probe.getNanosToWaitForRefill() / 1_000_000_000;
+            response.addHeader("X-Rate-Limit-Retry-After-Seconds", String.valueOf(waitForRefill));
+            response.sendError(HttpStatus.TOO_MANY_REQUESTS.value(), "Has excedido el limite de solicitudes. Intenta de nuevo en " + waitForRefill + " segundos.");
+            return false; // Bloquea la petición
         }
-
-        return true;
-    }
-    private String resolveKey(HttpServletRequest request) {
-        // Por defecto: limitar por IP
-        return request.getRemoteAddr();
     }
 }

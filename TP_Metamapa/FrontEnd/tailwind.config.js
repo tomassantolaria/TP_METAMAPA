@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  // 1. AGREGAMOS ESTA LÍNEA AQUÍ:
+  darkMode: 'class',
+
   content: [
     './src/main/resources/**/*.html',
   ],
@@ -24,4 +27,3 @@ module.exports = {
   },
   plugins: [],
 }
-
