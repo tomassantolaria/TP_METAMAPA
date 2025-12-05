@@ -1,4 +1,4 @@
-package com.keycloak.moduloauth.RateLimit;
+package RateLimit;
 
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.ConsumptionProbe;

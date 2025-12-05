@@ -74,7 +74,7 @@ public class AuthController {
                 successResponse.put("message", response);
                 return ResponseEntity.status(HttpStatus.CREATED).body(successResponse);
                 //return ResponseEntity.created(new URI("/keycloak/user/create")).body(response);
-            } else if (response.contains("User exist already")) {
+            } else if (response.contains("already exists") || response.contains("exist already")) {
                 Map<String, String> errorResponse = new HashMap<>();
                 errorResponse.put("error", "user_exists");
                 errorResponse.put("message", response);

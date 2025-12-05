@@ -46,9 +46,13 @@ public class AuthController {
             if (response.contains("User created successfully") || response.contains("Usuario creado exitosamente")) {
                 return "redirect:/auth/login?registered=true";
                 //return "redirect:/auth/login";
-            } else if (response.contains("User exist already") || response.contains("Usuario ya existente")) {
+             } else if (response.contains("Email already exists")) {
                 model.addAttribute("registerForm", registerDTO);
-                model.addAttribute("errorMessage", "El usuario o email ya existe. Por favor, usa otro.");
+                model.addAttribute("errorMessage", "El email ya está registrado. Por favor, usa otro.");
+                return "register";
+            } else if (response.contains("Username already exists")) {
+                model.addAttribute("registerForm", registerDTO);
+                model.addAttribute("errorMessage", "El usuario ya existe. Por favor, usa otro.");
                 return "register";
 
             } else {

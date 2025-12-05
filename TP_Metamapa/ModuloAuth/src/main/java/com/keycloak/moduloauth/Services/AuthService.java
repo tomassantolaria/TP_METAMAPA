@@ -141,7 +141,15 @@ public class AuthService {
             return "User created successfully!!";
 
         } else if (status == 409) {
-            return "User exist already!";
+            String errorMessage = response.readEntity(String.class);
+
+            if (errorMessage.contains("email") || errorMessage.contains("Email")) {
+                return "Email already exists!";
+            } else if (errorMessage.contains("username") || errorMessage.contains("User name")) {
+                return "Username already exists!";
+            } else {
+                return "User exist already!";
+            }
         } else {
             log.error("Error creating user, please contact with the administrator.");
             return "Error creating user, please contact with the administrator.";

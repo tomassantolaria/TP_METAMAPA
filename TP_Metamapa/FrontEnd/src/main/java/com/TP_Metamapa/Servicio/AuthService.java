@@ -123,7 +123,28 @@ public class AuthService {
             }
             return "Usuario creado exitosamente";
         } catch (WebClientResponseException.Conflict e) {
-            return "Usuario ya existente";
+            System.err.println("Error HTTP: " + e.getStatusCode());
+            System.err.println("Respuesta del servidor: " + e.getResponseBodyAsString());
+
+            if (e.getStatusCode().value() == 409) {
+                try {
+                    String responseBody = e.getResponseBodyAsString();
+                    System.out.println("Respuesta de conflicto: " + responseBody);
+
+                    if (responseBody.contains("Email already exists")) {
+                        return "Email already exists!";
+                    } else if (responseBody.contains("Username already exists")) {
+                        return "Username already exists!";
+                    } else {
+                        return "Usuario ya existente";
+                    }
+                } catch (Exception ex) {
+                    return "Usuario ya existente";
+                }
+            }
+
+            // Para otros errores HTTP
+            return "Error creando al usuario";
         } catch (Exception e) {
             return "Error creando al usuario";
         }

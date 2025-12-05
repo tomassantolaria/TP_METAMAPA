@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = {"Configuracion", "Scheduler","Controlador", "servicios", "Repositorios", "Modelos"})
+@SpringBootApplication(scanBasePackages = {"Configuracion", "Scheduler","Controlador", "servicios", "Repositorios", "Modelos", "RateLimit"})
 @EnableJpaRepositories(basePackages = "Repositorios")
 @EntityScan(basePackages = "Modelos")
 public class Proxy {

@@ -1,19 +1,16 @@
 package com.keycloak.moduloauth.DTOs;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Value
-@RequiredArgsConstructor
+
 @Builder
 @Data
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegistroDTO implements Serializable {
     String username;
     String email;
