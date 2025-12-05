@@ -156,7 +156,7 @@ public class NavegadorServicio {
 
     public List<HechoDTO> buscarPorTextoLibre(String texto){
 
-        //es para recibir todo el texto y separarlo en una lista de palabras para ir recorriendola 
+
         String[] palabras = texto.toLowerCase().split("\\s+");
 
         List<Hecho> hechos = hechoRepositorio.buscarTodosVisibles();

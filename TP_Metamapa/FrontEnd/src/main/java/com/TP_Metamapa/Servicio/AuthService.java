@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -109,12 +110,44 @@ public class AuthService {
     }
 
     public String register(RegisterDTO registerDTO) {
-        return webClient.post()
-                .uri("/auth/create")
-                .bodyValue(registerDTO)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        try {
+            Map<String, String> response = webClient.post()
+                    .uri("/auth/create")
+                    .bodyValue(registerDTO)
+                    .retrieve()
+                    .bodyToMono(Map.class)
+                    .block();
+
+            if (response != null && response.containsKey("message")) {
+                return response.get("message");
+            }
+            return "Usuario creado exitosamente";
+        } catch (WebClientResponseException.Conflict e) {
+            System.err.println("Error HTTP: " + e.getStatusCode());
+            System.err.println("Respuesta del servidor: " + e.getResponseBodyAsString());
+
+            if (e.getStatusCode().value() == 409) {
+                try {
+                    String responseBody = e.getResponseBodyAsString();
+                    System.out.println("Respuesta de conflicto: " + responseBody);
+
+                    if (responseBody.contains("Email already exists")) {
+                        return "Email already exists!";
+                    } else if (responseBody.contains("Username already exists")) {
+                        return "Username already exists!";
+                    } else {
+                        return "Usuario ya existente";
+                    }
+                } catch (Exception ex) {
+                    return "Usuario ya existente";
+                }
+            }
+
+            // Para otros errores HTTP
+            return "Error creando al usuario";
+        } catch (Exception e) {
+            return "Error creando al usuario";
+        }
     }
 
     public UserDataDTO getUserData(String username, String accessToken) {

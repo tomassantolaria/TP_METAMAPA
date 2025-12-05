@@ -90,7 +90,7 @@ public class AuthService {
             throw new RuntimeException("Usuario o contraseña incorrectos");
         } catch (WebClientResponseException e) {
             String errorBody = e.getResponseBodyAsString();
-            System.err.println("❌ ERROR REAL DE KEYCLOAK: " + errorBody);
+            System.err.println("ERROR REAL DE KEYCLOAK: " + errorBody);
 
             // Lo lanzamos para verlo en el Postman/Frontend
             throw new RuntimeException("Keycloak Error: " + errorBody);
@@ -141,8 +141,15 @@ public class AuthService {
             return "User created successfully!!";
 
         } else if (status == 409) {
-            log.error("User exist already!");
-            return "User exist already!";
+            String errorMessage = response.readEntity(String.class);
+
+            if (errorMessage.contains("email") || errorMessage.contains("Email")) {
+                return "Email already exists!";
+            } else if (errorMessage.contains("username") || errorMessage.contains("User name")) {
+                return "Username already exists!";
+            } else {
+                return "User exist already!";
+            }
         } else {
             log.error("Error creating user, please contact with the administrator.");
             return "Error creating user, please contact with the administrator.";

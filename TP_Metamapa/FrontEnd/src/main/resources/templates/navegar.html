@@ -263,9 +263,20 @@
 
         hechosData.forEach(hecho => {
             if (hecho.latitud && hecho.longitud) {
+                const popupContent = `
+            <div class="popup-content">
+                <b>${hecho.titulo}</b>
+                <br>
+                <a
+                    th:href="@{/ver-hecho/{id}(id=${hecho.idHecho})}"
+                    class="btn btn-sm btn-primary mt-2">
+                    Ver más
+                </a>    
+            </div>
+        `;
                 L.marker([hecho.latitud, hecho.longitud])
                     .addTo(window.map)
-                    .bindPopup(`<b>${hecho.titulo}</b>`);
+                    .bindPopup(popupContent);
             }
         });
 

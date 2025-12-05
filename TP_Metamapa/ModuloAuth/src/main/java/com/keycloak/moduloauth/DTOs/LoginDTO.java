@@ -1,12 +1,10 @@
 package com.keycloak.moduloauth.DTOs;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import lombok.*;
 
-@Value
-@RequiredArgsConstructor
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 public class LoginDTO {

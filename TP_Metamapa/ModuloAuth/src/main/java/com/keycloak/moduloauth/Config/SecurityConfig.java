@@ -24,6 +24,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(http -> {
+                    http.requestMatchers("/actuator/**", "/actuator/prometheus").permitAll();
                     http.requestMatchers("/auth/create","/auth/iniciar-sesion").permitAll();
                     http.anyRequest().authenticated();
                 })
