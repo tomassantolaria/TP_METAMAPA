@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // 1. AGREGAMOS ESTA LÍNEA AQUÍ:
+  // ESTA LÍNEA ES CRÍTICA PARA QUE FUNCIONE EL CAMBIO DE COLOR:
   darkMode: 'class',
 
   content: [

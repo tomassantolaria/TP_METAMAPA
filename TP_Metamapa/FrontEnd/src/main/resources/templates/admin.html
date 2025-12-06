@@ -1,72 +1,73 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/base :: head (title='Panel de Admin - Metamapa')}"></head>
-<body class="bg-pastel-blue-50 flex flex-col min-h-screen">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Panel de Admin - Metamapa</title>
+</head>
+<body>
 
-<div th:replace="~{layout/base :: header}"></div>
+<div layout:fragment="content">
+    <main class="container mx-auto px-6 py-8 flex-grow">
+        <div class="space-y-6">
+            <h1 class="text-3xl font-bold text-pastel-blue-900 dark:text-white">Panel de Administración</h1>
 
-<main class="container mx-auto px-6 py-8 flex-grow">
-    <div class="space-y-6">
-        <h1 class="text-3xl font-bold text-pastel-blue-900">Panel de Administración</h1>
+            <div th:if="${successMessage}"
+                 class="p-4 mb-6 text-sm text-green-700 bg-green-100 rounded-lg shadow dark:bg-green-900 dark:text-green-200"
+                 role="alert">
+                <span class="font-medium">¡Éxito!</span>
+                <span th:text="${successMessage}"></span>
+            </div>
 
-        <div th:if="${successMessage}"
-             class="p-4 mb-6 text-sm text-green-700 bg-green-100 rounded-lg shadow"
-             role="alert">
-            <span class="font-medium">¡Éxito!</span>
-            <span th:text="${successMessage}"></span>
-        </div>
+            <div th:if="${errorMessage}"
+                 class="p-4 mb-6 text-sm text-red-700 bg-red-100 rounded-lg shadow dark:bg-red-900 dark:text-red-200"
+                 role="alert">
+                <span class="font-medium">¡Error!</span>
+                <span th:text="${errorMessage}"></span>
+            </div>
 
-        <div th:if="${errorMessage}"
-             class="p-4 mb-6 text-sm text-red-700 bg-red-100 rounded-lg shadow"
-             role="alert">
-            <span class="font-medium">¡Error!</span>
-            <span th:text="${errorMessage}"></span>
-        </div>
+            <nav class="flex space-x-4 border-b dark:border-gray-700">
+                <a th:href="@{/admin(tab='collections')}"
+                   class="py-2 px-4 text-sm font-medium"
+                   th:classappend="${activeTab == 'collections'} ? 'border-b-2 border-pastel-blue-600 text-pastel-blue-700 dark:text-pastel-blue-300 dark:border-pastel-blue-400' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'">
+                    Gestionar Colecciones
+                </a>
+                <a th:href="@{/admin(tab='requests')}"
+                   class="py-2 px-4 text-sm font-medium"
+                   th:classappend="${activeTab == 'requests'} ? 'border-b-2 border-pastel-blue-600 text-pastel-blue-700 dark:text-pastel-blue-300 dark:border-pastel-blue-400' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'">
+                    Gestionar Solicitudes
+                </a>
+                <a th:href="@{/admin(tab='static')}"
+                   class="py-2 px-4 text-sm font-medium"
+                   th:classappend="${activeTab == 'static'} ? 'border-b-2 border-pastel-blue-600 text-pastel-blue-700 dark:text-pastel-blue-300 dark:border-pastel-blue-400' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'">
+                    Cargar CSV (Estática)
+                </a>
+                <a th:href="@{/admin(tab='proxy')}"
+                   class="py-2 px-4 text-sm font-medium"
+                   th:classappend="${activeTab == 'proxy'} ? 'border-b-2 border-pastel-blue-600 text-pastel-blue-700 dark:text-pastel-blue-300 dark:border-pastel-blue-400' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'">
+                    Fuentes Proxy
+                </a>
+            </nav>
 
-        <nav class="flex space-x-4 border-b">
-            <a th:href="@{/admin(tab='collections')}"
-               class="py-2 px-4 text-sm font-medium"
-               th:classappend="${activeTab == 'collections'} ? 'border-b-2 border-pastel-blue-600 text-pastel-blue-700' : 'text-gray-500 hover:text-gray-700'">
-                Gestionar Colecciones
-            </a>
-            <a th:href="@{/admin(tab='requests')}"
-               class="py-2 px-4 text-sm font-medium"
-               th:classappend="${activeTab == 'requests'} ? 'border-b-2 border-pastel-blue-600 text-pastel-blue-700' : 'text-gray-500 hover:text-gray-700'">
-                Gestionar Solicitudes
-            </a>
-            <a th:href="@{/admin(tab='static')}"
-               class="py-2 px-4 text-sm font-medium"
-               th:classappend="${activeTab == 'static'} ? 'border-b-2 border-pastel-blue-600 text-pastel-blue-700' : 'text-gray-500 hover:text-gray-700'">
-                Cargar CSV (Estática)
-            </a>
-            <a th:href="@{/admin(tab='proxy')}"
-               class="py-2 px-4 text-sm font-medium"
-               th:classappend="${activeTab == 'proxy'} ? 'border-b-2 border-pastel-blue-600 text-pastel-blue-700' : 'text-gray-500 hover:text-gray-700'">
-                Fuentes Proxy
-            </a>
-        </nav>
-
-        <div class="mt-6">
-            <div th:switch="${activeTab}">
-                <div th:case="'collections'">
-                    <div th:replace="~{admin/manage-collections :: content}"></div>
-                </div>
-                <div th:case="'requests'">
-                    <div th:replace="~{admin/manage-requests :: content}"></div>
-                </div>
-                <div th:case="'static'">
-                    <div th:replace="~{admin/manage-static-source :: content}"></div>
-                </div>
-                <div th:case="'proxy'">
-                    <div th:replace="~{admin/manage-proxy-source :: content}"></div>
+            <div class="mt-6">
+                <div th:switch="${activeTab}">
+                    <div th:case="'collections'">
+                        <div th:replace="~{admin/manage-collections :: content}"></div>
+                    </div>
+                    <div th:case="'requests'">
+                        <div th:replace="~{admin/manage-requests :: content}"></div>
+                    </div>
+                    <div th:case="'static'">
+                        <div th:replace="~{admin/manage-static-source :: content}"></div>
+                    </div>
+                    <div th:case="'proxy'">
+                        <div th:replace="~{admin/manage-proxy-source :: content}"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+</div>
 
-<div th:replace="~{layout/base :: footer}"></div>
-
-<div th:replace="~{layout/base :: scripts}"></div>
 </body>
 </html>
